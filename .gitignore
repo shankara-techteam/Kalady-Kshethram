@@ -1,0 +1,14 @@
+# Large screenshots and design files – not needed in deployment
+screen.png
+Life_screen.png
+kashi_commentaries.png
+
+# Legacy source file (index.html is the live version)
+code.html
+
+# Design docs
+DESIGN.md
+life_design.md
+
+# macOS system files
+.DS_Store
