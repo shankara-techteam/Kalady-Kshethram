@@ -4,7 +4,9 @@
 <title>Kalady Kshethram | Sri Adi Shankara Janmabhoomi</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<!-- Lenis smooth scroll -->
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -412,9 +414,9 @@
            SMOOTH SCROLLING & ADVANCED ANIMATIONS
         ============================================ */
 
-        /* Native smooth scroll */
+        /* Native smooth scroll — Lenis handles this; kept as fallback */
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: auto; /* Lenis overrides this */
         }
 
         /* Hero Title Shimmer / Gradient Text */
@@ -1919,8 +1921,8 @@
         });
     </script>
 
-    <!-- Ambient Audio: Om Chanting 639 Hz — 3 Hours (archive.org, free) -->
-    <audio id="ambient-audio" loop muted autoplay preload="none" style="display:none">
+    <!-- Ambient Audio: Om Chanting 639 Hz (archive.org, free) -->
+    <audio id="ambient-audio" loop muted preload="metadata" style="display:none">
       <source src="https://archive.org/download/om-chanting/y2mate.com%20-%20Om%20Chanting%20%20639%20Hz%20%203%20Hours.mp3" type="audio/mpeg">
     </audio>
 
@@ -2013,32 +2015,71 @@
       }
       spawnParticles();
 
-      /* ---------- 5. Ambient Audio Toggle with pulse ring ---------- */
-      window.toggleAmbientAudio = function() {
-        const audio = document.getElementById('ambient-audio');
-        const iconOn = document.getElementById('audio-icon-on');
-        const iconOff = document.getElementById('audio-icon-off');
-        const btn = document.getElementById('ambient-toggle');
-        if (!audio) return;
-        if (audio.muted) {
-          audio.muted = false;
-          audio.play().catch(() => {});
-          if (iconOn) iconOn.style.display = 'block';
-          if (iconOff) iconOff.style.display = 'none';
-          if (btn) btn.classList.add('playing');
+      /* ---------- 5. Ambient Audio Toggle with pulse ring & localStorage sync ---------- */
+      const audioEl = document.getElementById('ambient-audio');
+      const iconOn = document.getElementById('audio-icon-on');
+      const iconOff = document.getElementById('audio-icon-off');
+      const toggleBtn = document.getElementById('ambient-toggle');
+      let audioLoaded = false;
+
+      function setAudioPlayingState(playing) {
+        if (!audioEl) return;
+        if (!audioLoaded) {
+          audioEl.load();
+          audioLoaded = true;
+        }
+        if (playing) {
+          audioEl.muted = false;
+          audioEl.play().then(() => {
+            localStorage.setItem('ambient-audio-playing', 'true');
+            if (iconOn) iconOn.style.display = 'block';
+            if (iconOff) iconOff.style.display = 'none';
+            if (toggleBtn) toggleBtn.classList.add('playing');
+          }).catch(err => {
+            console.warn('Playback blocked by browser settings. Will retry on next interaction.', err);
+          });
         } else {
-          audio.muted = true;
+          audioEl.muted = true;
+          audioEl.pause();
+          localStorage.setItem('ambient-audio-playing', 'false');
           if (iconOn) iconOn.style.display = 'none';
           if (iconOff) iconOff.style.display = 'block';
-          if (btn) btn.classList.remove('playing');
+          if (toggleBtn) toggleBtn.classList.remove('playing');
         }
+      }
+
+      window.toggleAmbientAudio = function() {
+        if (!audioEl) return;
+        const shouldPlay = audioEl.paused || audioEl.muted;
+        setAudioPlayingState(shouldPlay);
       };
 
+      // Autoplay or restore state on page load
+      const savedState = localStorage.getItem('ambient-audio-playing');
+      if (savedState === 'true') {
+        // Try playing immediately
+        setAudioPlayingState(true);
+        
+        // Setup backup triggers on user interaction
+        const startOnGesture = () => {
+          if (audioEl && (audioEl.paused || audioEl.muted)) {
+            setAudioPlayingState(true);
+          }
+          window.removeEventListener('click', startOnGesture);
+          window.removeEventListener('touchstart', startOnGesture);
+          window.removeEventListener('keydown', startOnGesture);
+        };
+        window.addEventListener('click', startOnGesture);
+        window.addEventListener('touchstart', startOnGesture);
+        window.addEventListener('keydown', startOnGesture);
+      }
+
       /* ---------- 6. Nav: shadow + shrink + scrolled class ---------- */
+      /* ---------- 6. Nav: shadow + scrolled class ---------- */
       const header = document.querySelector('header');
-      function updateHeader() {
+      function updateHeader(scrollY) {
         if (!header) return;
-        if (window.scrollY > 40) {
+        if (scrollY > 40) {
           header.style.boxShadow = '0 4px 24px rgba(87,0,0,0.10)';
           header.classList.add('scrolled');
         } else {
@@ -2046,21 +2087,80 @@
           header.classList.remove('scrolled');
         }
       }
-      window.addEventListener('scroll', updateHeader, { passive: true });
 
-      /* ---------- 7. Smooth anchor scroll for all #links ---------- */
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          const targetId = this.getAttribute('href').slice(1);
-          const target = document.getElementById(targetId);
-          if (target) {
-            e.preventDefault();
-            const headerH = header ? header.offsetHeight : 80;
-            const top = target.getBoundingClientRect().top + window.scrollY - headerH - 16;
-            window.scrollTo({ top, behavior: 'smooth' });
-          }
+      /* ---------- 7. LENIS Buttery Smooth Scroll ---------- */
+      let lenis;
+      if (typeof Lenis !== 'undefined') {
+        lenis = new Lenis({
+          duration: 1.4,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo out
+          direction: 'vertical',
+          gestureDirection: 'vertical',
+          smooth: true,
+          smoothTouch: false,
+          touchMultiplier: 2,
+          infinite: false,
         });
-      });
+
+        // Expose globally for anchor scrolls
+        window.__lenis = lenis;
+
+        // Drive RAF loop
+        function lenisRaf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(lenisRaf);
+        }
+        requestAnimationFrame(lenisRaf);
+
+        // Hook into Lenis scroll for progress bar, parallax, nav
+        lenis.on('scroll', ({ scroll, limit }) => {
+          // Progress bar
+          if (progressBar) {
+            progressBar.style.width = (limit > 0 ? (scroll / limit) * 100 : 0) + '%';
+          }
+          // Parallax
+          if (heroImg && heroSection && window.innerWidth >= 768) {
+            if (scroll <= heroSection.offsetHeight) {
+              heroImg.style.transform = 'translateY(' + (scroll * 0.35) + 'px)';
+            }
+          }
+          // Nav header
+          updateHeader(scroll);
+        });
+
+        // Smooth anchor scroll via Lenis
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href').slice(1);
+            const target = document.getElementById(targetId);
+            if (target) {
+              e.preventDefault();
+              const headerH = header ? header.offsetHeight : 80;
+              lenis.scrollTo(target, { offset: -(headerH + 16), duration: 1.6 });
+            }
+          });
+        });
+
+      } else {
+        // Fallback if Lenis fails to load
+        window.addEventListener('scroll', () => {
+          updateProgress();
+          updateParallax();
+          updateHeader(window.scrollY);
+        }, { passive: true });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href').slice(1);
+            const target = document.getElementById(targetId);
+            if (target) {
+              e.preventDefault();
+              const headerH = header ? header.offsetHeight : 80;
+              window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - headerH - 16, behavior: 'smooth' });
+            }
+          });
+        });
+      }
 
       /* ---------- 8. 3D Tilt on shrine cards ---------- */
       document.querySelectorAll('.shrine-card').forEach(card => {
@@ -2092,6 +2192,7 @@
 
     })();
     </script>
+
 
 
     <!-- Chatbot Floating Toggle Button -->
