@@ -451,86 +451,77 @@
             transform-origin: center;
         }
 
-        /* Mystical Dark Theme Core */
-        .mystical-dark-theme {
-            background-color: #0d0707;
-            background-image: radial-gradient(circle at 50% 30%, #1d0f0f 0%, #0d0707 70%), url("https://www.transparenttextures.com/patterns/black-paper.png");
-            color: #e2dcd5;
+        /* Original Parchment Theme Overrides */
+        .parchment-texture {
+            background-color: #fbfbe2;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            color: #1b1d0e;
         }
-        .mystical-dark-theme header {
-            background-color: rgba(13, 7, 7, 0.82) !important;
-            border-color: rgba(194, 178, 128, 0.18) !important;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4) !important;
+
+        /* Horizontal Scroll Timeline Layout styles */
+        #timeline-horizontal-wrapper {
+            position: relative;
+            width: 100%;
         }
-        .mystical-dark-theme .nav-link {
-            color: #bfa39e !important;
+        #timeline-track {
+            display: flex;
+            flex-direction: row;
+            width: 500vw;
+            height: 100%;
+            will-change: transform;
         }
-        .mystical-dark-theme .nav-link:hover,
-        .mystical-dark-theme .nav-link.active {
-            color: #e9c400 !important;
+        .timeline-slide {
+            width: 100vw;
+            height: 100vh;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            z-index: 10;
         }
-        .mystical-dark-theme .nav-link::after {
-            background-color: #e9c400 !important;
+        .timeline-slide .hover-card-trigger {
+            will-change: transform, opacity;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .mystical-dark-theme .text-primary {
-            color: #e9c400 !important; /* Glow gold headings */
-            text-shadow: 0 2px 10px rgba(233, 196, 0, 0.12);
-        }
-        .mystical-dark-theme .text-on-surface-variant {
-            color: #cbbab6 !important; /* Warm ivory paragraph text */
-        }
-        .mystical-dark-theme .text-secondary {
-            color: #ff9f1c !important; /* Saffron/orange markers */
-        }
-        .mystical-dark-theme .bg-surface-container-low {
-            background-color: rgba(26, 17, 17, 0.85) !important;
-            border-color: rgba(194, 178, 128, 0.3) !important;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
-            backdrop-filter: blur(10px);
-        }
-        .mystical-dark-theme .timeline-node {
-            background-color: #1a1111 !important;
-            border-color: #e9c400 !important;
-            box-shadow: 0 0 16px rgba(233, 196, 0, 0.3) !important;
-        }
-        .mystical-dark-theme .bg-surface-container-high {
-            background-color: #080404 !important;
-            border-color: rgba(194, 178, 128, 0.2) !important;
-        }
-        .mystical-dark-theme .stat-card {
-            background-color: rgba(22, 14, 14, 0.8) !important;
-            border-color: rgba(194, 178, 128, 0.2) !important;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
-        }
-        .mystical-dark-theme .stat-card h4 {
-            color: #e9c400 !important;
-        }
-        
-        /* Interactive Card Slide-in on reveal */
-        .timeline-container .space-y-32 > div {
-            perspective: 1200px;
-        }
-        .timeline-container .space-y-32 > div .w-full.md\:w-1\/2 {
-            opacity: 0;
+        .slide-text {
             will-change: opacity, transform;
+            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        /* Left column slides in from left */
-        .timeline-container .space-y-32 > div .w-full.md\:w-1\/2:first-child {
-            transform: translate3d(-40px, 0, 0);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .timeline-container .space-y-32 > div.active .w-full.md\:w-1\/2:first-child {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-        }
-        /* Right column slides in from right */
-        .timeline-container .space-y-32 > div .w-full.md\:w-1\/2:last-child {
-            transform: translate3d(40px, 0, 0);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .timeline-container .space-y-32 > div.active .w-full.md\:w-1\/2:last-child {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
+        /* Mobile horizontal scroll overrides */
+        @media (max-width: 767px) {
+            #timeline-horizontal-wrapper {
+                height: auto !important;
+            }
+            #timeline-horizontal-wrapper > .sticky {
+                position: relative !important;
+                height: auto !important;
+                overflow: visible !important;
+                background: transparent !important;
+            }
+            #timeline-track {
+                width: 100% !important;
+                flex-direction: column !important;
+                height: auto !important;
+                transform: none !important;
+            }
+            .timeline-slide {
+                width: 100% !important;
+                height: auto !important;
+                padding: 40px 16px !important;
+            }
+            .timeline-slide > div {
+                flex-direction: column !important;
+                gap: 24px !important;
+            }
+            .slide-text {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .timeline-slide .hover-card-trigger {
+                opacity: 1 !important;
+                transform: none !important;
+            }
         }
     </style>
 </head>
@@ -604,162 +595,164 @@
         </p>
 <div class="mt-12 h-0.5 w-64 bg-gradient-to-r from-transparent via-sandalwood to-transparent mx-auto reveal-item reveal-delay-400"></div>
 </section>
-<!-- Chronological Timeline -->
-<section class="timeline-container relative max-w-container-max mx-auto px-8">
-<!-- Curved Journey Path SVG -->
-<svg class="absolute inset-0 w-full h-full pointer-events-none hidden md:block z-0" id="timeline-svg" style="min-height: 100%;">
-  <defs>
-    <filter id="gold-glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="4" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-    </filter>
-  </defs>
-  <path id="timeline-bg-path" fill="none" stroke="#C2B280" stroke-width="2.5" stroke-dasharray="6,6" opacity="0.18" />
-  <path id="timeline-progress-path" fill="none" stroke="#e9c400" stroke-width="3.5" stroke-linecap="round" filter="url(#gold-glow)" />
-</svg>
-<div class="space-y-32"><!-- Entry 1: Birth in Kalady -->
-<div class="relative flex flex-col md:flex-row items-center gap-gutter group reveal-item reveal-delay-100">
-<div class="w-full md:w-1/2 md:pr-16 md:text-right order-2 md:order-1">
-<span class="font-label-md text-secondary tracking-[0.2em] uppercase mb-3 block">c. 788 CE • Kerala</span>
-<h2 class="font-headline-lg text-4xl text-primary mb-6">The Advent at Kalady</h2>
-<p class="font-body-lg text-lg text-on-surface-variant leading-relaxed">
-                        Born to the pious Namboothiri couple, Shivaguru and Aryamba, in the village of Kalady on the banks of the Purna. His birth was the fulfillment of a divine promise by Lord Shiva to revitalize the Sanatana Dharma.
-                    </p>
-</div>
-<!-- Timeline Node -->
-<div class="timeline-node absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-surface border-2 border-sandalwood rounded-full z-10 hidden md:flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:border-primary group-hover:shadow-[0_0_12px_rgba(87,0,0,0.2)] transition-all duration-300">
-  <div class="w-4 h-4 bg-primary rounded-full flex items-center justify-center group-hover:bg-secondary transition-colors duration-300">
-    <div class="w-1.5 h-1.5 bg-tertiary rounded-full"></div>
+
+<!-- Horizontal Scroll Timeline Container -->
+<section class="timeline-container relative w-full" id="timeline-horizontal-wrapper" style="height: 500vh;">
+  <div class="sticky top-0 h-screen w-full overflow-hidden bg-[#fbfbe2]">
+    <!-- Horizontal connecting progress lines behind the cards -->
+    <div class="absolute left-12 right-12 top-1/2 -translate-y-1/2 h-0.5 bg-dashed border-t border-sandalwood/35 z-0 pointer-events-none hidden md:block opacity-40"></div>
+    <div class="absolute left-12 top-1/2 -translate-y-1/2 h-[2px] bg-primary z-0 pointer-events-none hidden md:block transition-all duration-75" id="horizontal-progress-line" style="width: 0%; box-shadow: 0 0 10px rgba(87,0,0,0.5);"></div>
+
+    <!-- Horizontal Track -->
+    <div class="flex h-full w-[500vw] will-change-transform" id="timeline-track">
+      
+      <!-- Slide 1: Advent at Kalady -->
+      <div class="w-screen h-full flex flex-shrink-0 items-center justify-center px-4 md:px-20 lg:px-32 relative select-none timeline-slide">
+        <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 bg-surface-container-low/90 border border-sandalwood/35 p-6 md:p-10 rounded-2xl relative shadow-md backdrop-blur-md">
+          <div class="corner-trim corner-tl"></div>
+          <div class="corner-trim corner-tr"></div>
+          <div class="corner-trim corner-bl"></div>
+          <div class="corner-trim corner-br"></div>
+          
+          <!-- Text Column -->
+          <div class="w-full md:w-1/2 slide-text space-y-4 text-left">
+            <span class="font-label-md text-secondary tracking-[0.2em] uppercase block">c. 788 CE • Kerala</span>
+            <h2 class="font-headline-lg text-3xl md:text-4xl text-primary font-bold">The Advent at Kalady</h2>
+            <p class="font-body-lg text-base md:text-lg text-on-surface-variant leading-relaxed">
+              Born to the pious Namboothiri couple, Shivaguru and Aryamba, in the village of Kalady on the banks of the Purna. His birth was the fulfillment of a divine promise by Lord Shiva to revitalize the Sanatana Dharma.
+            </p>
+          </div>
+          
+          <!-- Image Column -->
+          <div class="w-full md:w-1/2 flex items-center justify-center">
+            <div class="w-full max-w-md hover-card-trigger shadow-sm">
+              <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
+                <img class="w-full h-full object-cover oil-painting-effect" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPSrhBPBBptxiUqW8Jouqf2yvxBYovt58K1iOMOgE520dSaceJNJOyCAczFps12mlikMZ7uAWRu-WFkdBE3ZKHGECReTND37uY27olgERN4edD1UQwE74crgide6Ua8-rHinuPF4i2sdDMnsRxyaOgBiROdzZnZKd-rXGRp_g9VG_tfU1XrZco_n1Fc3oXSLdY4ycEq0Tl84GNDnnPl7hdLlyIfKF5B8-mnqz-oIHNYuR4JBieAxyohg" alt="Kalady birthplace">
+                <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: Renunciation -->
+      <div class="w-screen h-full flex flex-shrink-0 items-center justify-center px-4 md:px-20 lg:px-32 relative select-none timeline-slide">
+        <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 bg-surface-container-low/90 border border-sandalwood/35 p-6 md:p-10 rounded-2xl relative shadow-md backdrop-blur-md">
+          <div class="corner-trim corner-tl"></div>
+          <div class="corner-trim corner-tr"></div>
+          <div class="corner-trim corner-bl"></div>
+          <div class="corner-trim corner-br"></div>
+          
+          <!-- Text Column -->
+          <div class="w-full md:w-1/2 slide-text space-y-4 text-left">
+            <span class="font-label-md text-secondary tracking-[0.2em] uppercase block">The Sannyasa Permission</span>
+            <h2 class="font-headline-lg text-3xl md:text-4xl text-primary font-bold">Embracing the Path of Truth</h2>
+            <p class="font-body-lg text-base md:text-lg text-on-surface-variant leading-relaxed">
+              While bathing in the Purna river, a crocodile seized the young Shankara's leg. In that critical moment, he sought and obtained his mother Aryamba's permission to enter Sannyasa (renunciation), as "rebirth" through monastic vows would spare his life from the jaws of death.
+            </p>
+          </div>
+          
+          <!-- Image Column -->
+          <div class="w-full md:w-1/2 flex items-center justify-center">
+            <div class="w-full max-w-md hover-card-trigger shadow-sm">
+              <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
+                <img class="w-full h-full object-cover oil-painting-effect" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIvif0e6tL60YJaI5L9Z558pamDnCVjtxwZAN0muqalnQ40ZsT43Ng9Sl26KwBB5LqvUuu9HX4QskmioBKGCzWvaJRvXy_V3Uh17Fw-aKDFum6nYvVQmlq-PqNMgpOdBXR4Q72XMzGNee8oHQZmW-Ri4ufwkH24YOLV27YeKuviY7icfY1aJjlpuURcI-ugI8L2iiJXs0Dd6QR7XuiCMdgBS54gOQSGs2xSSFYfbF1JAsrNVlrpAtCow" alt="Crocodile miracle">
+                <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: Meeting the Guru -->
+      <div class="w-screen h-full flex flex-shrink-0 items-center justify-center px-4 md:px-20 lg:px-32 relative select-none timeline-slide">
+        <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 bg-surface-container-low/90 border border-sandalwood/35 p-6 md:p-10 rounded-2xl relative shadow-md backdrop-blur-md">
+          <div class="corner-trim corner-tl"></div>
+          <div class="corner-trim corner-tr"></div>
+          <div class="corner-trim corner-bl"></div>
+          <div class="corner-trim corner-br"></div>
+          
+          <!-- Text Column -->
+          <div class="w-full md:w-1/2 slide-text space-y-4 text-left">
+            <span class="font-label-md text-secondary tracking-[0.2em] uppercase block">Narmada River Banks</span>
+            <h2 class="font-headline-lg text-3xl md:text-4xl text-primary font-bold">The Guru's Recognition</h2>
+            <p class="font-body-lg text-base md:text-lg text-on-surface-variant leading-relaxed">
+              Journeying to the banks of the Narmada, he found the cave of Sage Govinda Bhagavatpada. When asked "Who are you?", Shankara replied with the 'Dashashloki', proving his realized state. The Sage recognized him as an avatar of Shiva and initiated him.
+            </p>
+          </div>
+          
+          <!-- Image Column -->
+          <div class="w-full md:w-1/2 flex items-center justify-center">
+            <div class="w-full max-w-md hover-card-trigger shadow-sm">
+              <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
+                <img class="w-full h-full object-cover oil-painting-effect" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9bmFf1t9G38mvnMt7j_LjGriD3b-KtaG7ryxuQgQN1kXoZcisZl2NSad4OrftEK9kG380HmBi-GcWbPe8gTV_mRVCW34E0-Ptc6caqxTpWnhrfPXYhh-wpv303h2g5hCDNeFg8OYkfMPJIWwcrqgqR69mSGSvWx5g6_gwaTLMGplLrboJMRCAm5AU95zrETIhb1DoX-1uN42rni1WasrmENbyeepeA6J9qVRITe9cDWeNUDPYpjmB2Q" alt="Govinda cave">
+                <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4: Kashi & Commentaries -->
+      <div class="w-screen h-full flex flex-shrink-0 items-center justify-center px-4 md:px-20 lg:px-32 relative select-none timeline-slide">
+        <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 bg-surface-container-low/90 border border-sandalwood/35 p-6 md:p-10 rounded-2xl relative shadow-md backdrop-blur-md">
+          <div class="corner-trim corner-tl"></div>
+          <div class="corner-trim corner-tr"></div>
+          <div class="corner-trim corner-bl"></div>
+          <div class="corner-trim corner-br"></div>
+          
+          <!-- Text Column -->
+          <div class="w-full md:w-1/2 slide-text space-y-4 text-left">
+            <span class="font-label-md text-secondary tracking-[0.2em] uppercase block">Varanasi (Kashi)</span>
+            <h2 class="font-headline-lg text-3xl md:text-4xl text-primary font-bold">The Prasthana Traya Bhashyas</h2>
+            <p class="font-body-lg text-base md:text-lg text-on-surface-variant leading-relaxed">
+              In the holy city of Kashi, Shankara wrote his profound commentaries (Bhashyas) on the Upanishads, the Brahma Sutras, and the Bhagavad Gita. It was here that he defeated many scholars in debate, establishing Advaita as the crown jewel of Vedic thought.
+            </p>
+          </div>
+          
+          <!-- Image Column -->
+          <div class="w-full md:w-1/2 flex items-center justify-center">
+            <div class="w-full max-w-md hover-card-trigger shadow-sm">
+              <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
+                <img class="w-full h-full object-cover oil-painting-effect" loading="lazy" decoding="async" src="kashi_commentaries.png" alt="Sanskrit commentaries">
+                <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5: The Amnaya Peethams -->
+      <div class="w-screen h-full flex flex-shrink-0 items-center justify-center px-4 md:px-20 lg:px-32 relative select-none timeline-slide">
+        <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 bg-surface-container-low/90 border border-sandalwood/35 p-6 md:p-10 rounded-2xl relative shadow-md backdrop-blur-md">
+          <div class="corner-trim corner-tl"></div>
+          <div class="corner-trim corner-tr"></div>
+          <div class="corner-trim corner-bl"></div>
+          <div class="corner-trim corner-br"></div>
+          
+          <!-- Text Column -->
+          <div class="w-full md:w-1/2 slide-text space-y-4 text-left">
+            <span class="font-label-md text-secondary tracking-[0.2em] uppercase block">Dharma Rakshana</span>
+            <h2 class="font-headline-lg text-3xl md:text-4xl text-primary font-bold">Establishing the Amnaya Peethams</h2>
+            <p class="font-body-lg text-base md:text-lg text-on-surface-variant leading-relaxed">
+              To ensure the continuity of the tradition, the Jagadguru established four Peethams at the cardinal points of India: Sringeri (South), Dwarka (West), Puri (East), and Jyotirmath (North), each entrusted with one of the four Vedas.
+            </p>
+          </div>
+          
+          <!-- Image Column -->
+          <div class="w-full md:w-1/2 flex items-center justify-center">
+            <div class="w-full max-w-md hover-card-trigger shadow-sm">
+              <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
+                <img class="w-full h-full object-cover oil-painting-effect" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZata2AcdBx-Ro-omWbcmTj5HIUfUspx2l4XG5SBcY9cvAl0Jm60r4USHoVYg8lVCoez-dbhzAFTgobMU5Sy7h_p5GPDAypZsQ44sPw1lE-NGPpB1W9BLDm3EWFMOPPpj6mhhjKW40XXyHEqJieFx2AThle-WrgI3whHH1bDtu4vnQv63B_nSu5UfCRVFSzxnu1CqzKKjNNGzErwbSPAwV9oR82eOQNgugngTOrvMe0zf98GKO5bDXzQ" alt="Four Peethams map">
+                <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
-</div>
-<div class="w-full md:w-1/2 md:pl-16 order-1 md:order-2">
-<div class="relative p-3 border-2 border-sandalwood bg-surface-container-low rounded-xl hover-card-trigger shadow-sm hover:shadow-[0_8px_20px_-6px_rgba(143,78,0,0.12)]">
-  <div class="corner-trim corner-tl"></div>
-  <div class="corner-trim corner-tr"></div>
-  <div class="corner-trim corner-bl"></div>
-  <div class="corner-trim corner-br"></div>
-<div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
-<img class="w-full h-full object-cover oil-painting-effect transition-transform duration-1000 group-hover:scale-105" data-alt="An oil painting style illustration of Kalady village at dawn. Traditional Kerala architecture with sloping roofs near a misty river. Warm golden light filtering through palm fronds." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPSrhBPBBptxiUqW8Jouqf2yvxBYovt58K1iOMOgE520dSaceJNJOyCAczFps12mlikMZ7uAWRu-WFkdBE3ZKHGECReTND37uY27olgERN4edD1UQwE74crgide6Ua8-rHinuPF4i2sdDMnsRxyaOgBiROdzZnZKd-rXGRp_g9VG_tfU1XrZco_n1Fc3oXSLdY4ycEq0Tl84GNDnnPl7hdLlyIfKF5B8-mnqz-oIHNYuR4JBieAxyohg">
-<div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
-</div>
-</div>
-</div>
-</div>
-<!-- Entry 2: Renunciation -->
-<div class="relative flex flex-col md:flex-row items-center gap-gutter group reveal-item reveal-delay-200">
-<div class="w-full md:w-1/2 md:pr-16 order-1">
-<div class="relative p-3 border-2 border-sandalwood bg-surface-container-low rounded-xl hover-card-trigger shadow-sm hover:shadow-[0_8px_20px_-6px_rgba(143,78,0,0.12)]">
-  <div class="corner-trim corner-tl"></div>
-  <div class="corner-trim corner-tr"></div>
-  <div class="corner-trim corner-bl"></div>
-  <div class="corner-trim corner-br"></div>
-<div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
-<img class="w-full h-full object-cover oil-painting-effect transition-transform duration-1000 group-hover:scale-105" loading="lazy" decoding="async" data-alt="Traditional oil painting showing young Shankara in the Purna river, a crocodile holding his leg. His mother Aryamba watches from the bank with hands raised in prayer. Misty river atmosphere with warm earthen tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIvif0e6tL60YJaI5L9Z558pamDnCVjtxwZAN0muqalnQ40ZsT43Ng9Sl26KwBB5LqvUuu9HX4QskmioBKGCzWvaJRvXy_V3Uh17Fw-aKDFum6nYvVQmlq-PqNMgpOdBXR4Q72XMzGNee8oHQZmW-Ri4ufwkH24YOLV27YeKuviY7icfY1aJjlpuURcI-ugI8L2iiJXs0Dd6QR7XuiCMdgBS54gOQSGs2xSSFYfbF1JAsrNVlrpAtCow">
-<div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
-</div>
-</div>
-</div>
-<!-- Timeline Node -->
-<div class="timeline-node absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-surface border-2 border-sandalwood rounded-full z-10 hidden md:flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:border-primary group-hover:shadow-[0_0_12px_rgba(87,0,0,0.2)] transition-all duration-300">
-  <div class="w-4 h-4 bg-primary rounded-full flex items-center justify-center group-hover:bg-secondary transition-colors duration-300">
-    <div class="w-1.5 h-1.5 bg-tertiary rounded-full"></div>
-  </div>
-</div>
-<div class="w-full md:w-1/2 md:pl-16 order-2">
-<span class="font-label-md text-secondary tracking-[0.2em] uppercase mb-3 block">The Sannyasa Permission</span>
-<h2 class="font-headline-lg text-4xl text-primary mb-6">Embracing the Path of Truth</h2>
-<p class="font-body-lg text-lg text-on-surface-variant leading-relaxed">
-                        While bathing in the Purna river, a crocodile seized the young Shankara's leg. In that critical moment, he sought and obtained his mother Aryamba's permission to enter Sannyasa (renunciation), as "rebirth" through monastic vows would spare his life from the jaws of death.
-                    </p>
-</div>
-</div>
-<!-- Entry 3: Meeting the Guru -->
-<div class="relative flex flex-col md:flex-row items-center gap-gutter group reveal-item reveal-delay-300">
-<div class="w-full md:w-1/2 md:pr-16 md:text-right order-2 md:order-1">
-<span class="font-label-md text-secondary tracking-[0.2em] uppercase mb-3 block">Narmada River Banks</span>
-<h2 class="font-headline-lg text-4xl text-primary mb-6">The Guru's Recognition</h2>
-<p class="font-body-lg text-lg text-on-surface-variant leading-relaxed">
-                        Journeying to the banks of the Narmada, he found the cave of Sage Govinda Bhagavatpada. When asked "Who are you?", Shankara replied with the 'Dashashloki', proving his realized state. The Sage recognized him as an avatar of Shiva and initiated him.
-                    </p>
-</div>
-<!-- Timeline Node -->
-<div class="timeline-node absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-surface border-2 border-sandalwood rounded-full z-10 hidden md:flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:border-primary group-hover:shadow-[0_0_12px_rgba(87,0,0,0.2)] transition-all duration-300">
-  <div class="w-4 h-4 bg-primary rounded-full flex items-center justify-center group-hover:bg-secondary transition-colors duration-300">
-    <div class="w-1.5 h-1.5 bg-tertiary rounded-full"></div>
-  </div>
-</div>
-<div class="w-full md:w-1/2 md:pl-16 order-1 md:order-2">
-<div class="relative p-3 border-2 border-sandalwood bg-surface-container-low rounded-xl hover-card-trigger shadow-sm hover:shadow-[0_8px_20px_-6px_rgba(143,78,0,0.12)]">
-  <div class="corner-trim corner-tl"></div>
-  <div class="corner-trim corner-tr"></div>
-  <div class="corner-trim corner-bl"></div>
-  <div class="corner-trim corner-br"></div>
-<div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
-<img class="w-full h-full object-cover oil-painting-effect transition-transform duration-1000 group-hover:scale-105" loading="lazy" decoding="async" data-alt="Traditional oil painting of a cave entrance by the Narmada river. A young monk in saffron bows before a majestic old sage. Atmospheric lighting with deep shadows and golden highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9bmFf1t9G38mvnMt7j_LjGriD3b-KtaG7ryxuQgQN1kXoZcisZl2NSad4OrftEK9kG380HmBi-GcWbPe8gTV_mRVCW34E0-Ptc6caqxTpWnhrfPXYhh-wpv303h2g5hCDNeFg8OYkfMPJIWwcrqgqR69mSGSvWx5g6_gwaTLMGplLrboJMRCAm5AU95zrETIhb1DoX-1uN42rni1WasrmENbyeepeA6J9qVRITe9cDWeNUDPYpjmB2Q">
-<div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
-</div>
-</div>
-</div>
-</div>
-<!-- Entry 4: Kashi & Commentaries -->
-<div class="relative flex flex-col md:flex-row items-center gap-gutter group reveal-item reveal-delay-400">
-<div class="w-full md:w-1/2 md:pr-16 order-1">
-<div class="relative p-3 border-2 border-sandalwood bg-surface-container-low rounded-xl hover-card-trigger shadow-sm hover:shadow-[0_8px_20px_-6px_rgba(143,78,0,0.12)]">
-  <div class="corner-trim corner-tl"></div>
-  <div class="corner-trim corner-tr"></div>
-  <div class="corner-trim corner-bl"></div>
-  <div class="corner-trim corner-br"></div>
-<div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
-<img class="w-full h-full object-cover oil-painting-effect transition-transform duration-1000 group-hover:scale-105" loading="lazy" decoding="async" data-alt="Traditional oil painting showing ancient Sanskrit manuscripts and an oil lamp at Varanasi ghats at dusk." src="kashi_commentaries.png">
-<div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
-</div>
-</div>
-</div>
-<!-- Timeline Node -->
-<div class="timeline-node absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-surface border-2 border-sandalwood rounded-full z-10 hidden md:flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:border-primary group-hover:shadow-[0_0_12px_rgba(87,0,0,0.2)] transition-all duration-300">
-  <div class="w-4 h-4 bg-primary rounded-full flex items-center justify-center group-hover:bg-secondary transition-colors duration-300">
-    <div class="w-1.5 h-1.5 bg-tertiary rounded-full"></div>
-  </div>
-</div>
-<div class="w-full md:w-1/2 md:pl-16 order-2">
-<span class="font-label-md text-secondary tracking-[0.2em] uppercase mb-3 block">Varanasi (Kashi)</span>
-<h2 class="font-headline-lg text-4xl text-primary mb-6">The Prasthana Traya Bhashyas</h2>
-<p class="font-body-lg text-lg text-on-surface-variant leading-relaxed">
-                        In the holy city of Kashi, Shankara wrote his profound commentaries (Bhashyas) on the Upanishads, the Brahma Sutras, and the Bhagavad Gita. It was here that he defeated many scholars in debate, establishing Advaita as the crown jewel of Vedic thought.
-                    </p>
-</div>
-</div>
-<!-- Entry 5: The Four Peethams -->
-<div class="relative flex flex-col md:flex-row items-center gap-gutter group reveal-item reveal-delay-500">
-<div class="w-full md:w-1/2 md:pr-16 md:text-right order-2 md:order-1">
-<span class="font-label-md text-secondary tracking-[0.2em] uppercase mb-3 block">Dharma Rakshana</span>
-<h2 class="font-headline-lg text-4xl text-primary mb-6">Establishing the Amnaya Peethams</h2>
-<p class="font-body-lg text-lg text-on-surface-variant leading-relaxed">
-                        To ensure the continuity of the tradition, the Jagadguru established four Peethams at the cardinal points of India: Sringeri (South), Dwarka (West), Puri (East), and Jyotirmath (North), each entrusted with one of the four Vedas.
-                    </p>
-</div>
-<!-- Timeline Node -->
-<div class="timeline-node absolute left-1/2 transform -translate-x-1/2 w-10 h-10 bg-surface border-2 border-sandalwood rounded-full z-10 hidden md:flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:border-primary group-hover:shadow-[0_0_12px_rgba(87,0,0,0.2)] transition-all duration-300">
-  <div class="w-4 h-4 bg-primary rounded-full flex items-center justify-center group-hover:bg-secondary transition-colors duration-300">
-    <div class="w-1.5 h-1.5 bg-tertiary rounded-full"></div>
-  </div>
-</div>
-<div class="w-full md:w-1/2 md:pl-16 order-1 md:order-2">
-<div class="relative p-3 border-2 border-sandalwood bg-surface-container-low rounded-xl hover-card-trigger shadow-sm hover:shadow-[0_8px_20px_-6px_rgba(143,78,0,0.12)]">
-  <div class="corner-trim corner-tl"></div>
-  <div class="corner-trim corner-tr"></div>
-  <div class="corner-trim corner-bl"></div>
-  <div class="corner-trim corner-br"></div>
-<div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
-<img class="w-full h-full object-cover oil-painting-effect transition-transform duration-1000 group-hover:scale-105" loading="lazy" decoding="async" data-alt="An antique map illustration of India with four glowing temple structures at the cardinal directions. Rich maroon and gold color scheme with Sanskrit calligraphy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZata2AcdBx-Ro-omWbcmTj5HIUfUspx2l4XG5SBcY9cvAl0Jm60r4USHoVYg8lVCoez-dbhzAFTgobMU5Sy7h_p5GPDAypZsQ44sPw1lE-NGPpB1W9BLDm3EWFMOPPpj6mhhjKW40XXyHEqJieFx2AThle-WrgI3whHH1bDtu4vnQv63B_nSu5UfCRVFSzxnu1CqzKKjNNGzErwbSPAwV9oR82eOQNgugngTOrvMe0zf98GKO5bDXzQ">
-<div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 </section>
 <!-- Interactive Quote Section -->
 <section class="mt-48 max-w-4xl mx-auto px-8 reveal-item">
@@ -1159,73 +1152,54 @@
 
       const header = document.querySelector('header');
 
-      /* Curved Timeline Logic */
-      function drawCurvedTimeline() {
-        const svg = document.getElementById('timeline-svg');
-        const bgPath = document.getElementById('timeline-bg-path');
-        const progressPath = document.getElementById('timeline-progress-path');
-        if (!svg || !bgPath || !progressPath) return;
+      /* Horizontal Scroll Timeline Logic */
+      function updateHorizontalTimeline() {
+        const wrapper = document.getElementById('timeline-horizontal-wrapper');
+        const track = document.getElementById('timeline-track');
+        const progressLine = document.getElementById('horizontal-progress-line');
+        if (!wrapper || !track) return;
 
-        const container = document.querySelector('.timeline-container');
-        const nodes = document.querySelectorAll('.timeline-node');
-        if (!container || nodes.length < 2) return;
-
-        const containerRect = container.getBoundingClientRect();
-        
-        let pathD = "";
-        let points = [];
-
-        nodes.forEach((node) => {
-          const rect = node.getBoundingClientRect();
-          const x = rect.left - containerRect.left + rect.width / 2;
-          const y = rect.top - containerRect.top + rect.height / 2;
-          points.push({ x, y });
-        });
-
-        pathD = `M ${points[0].x} ${points[0].y}`;
-        const swing = window.innerWidth >= 1024 ? 90 : 50; 
-
-        for (let i = 0; i < points.length - 1; i++) {
-          const p0 = points[i];
-          const p1 = points[i + 1];
-          const dy = p1.y - p0.y;
-          const direction = (i % 2 === 0) ? -1 : 1;
-
-          const cp1x = p0.x + direction * swing;
-          const cp1y = p0.y + dy * 0.25;
-          const cp2x = p0.x + direction * swing;
-          const cp2y = p1.y - dy * 0.25;
-
-          pathD += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p1.x} ${p1.y}`;
+        if (window.innerWidth < 768) {
+          track.style.transform = 'none';
+          if (progressLine) progressLine.style.width = '0%';
+          return;
         }
 
-        bgPath.setAttribute('d', pathD);
-        progressPath.setAttribute('d', pathD);
-
-        updateTimelineProgress();
-      }
-
-      function updateTimelineProgress() {
-        const progressPath = document.getElementById('timeline-progress-path');
-        if (!progressPath) return;
-        const totalLength = progressPath.getTotalLength();
-        progressPath.style.strokeDasharray = totalLength;
-
-        const container = document.querySelector('.timeline-container');
-        if (!container) return;
-
-        const rect = container.getBoundingClientRect();
+        const rect = wrapper.getBoundingClientRect();
         const startY = rect.top + window.scrollY;
-        const endY = rect.bottom + window.scrollY - window.innerHeight / 2;
-        const currentY = window.scrollY + window.innerHeight / 2;
+        const totalScrollable = rect.height - window.innerHeight;
+        let scrolled = window.scrollY - startY;
 
-        const totalScrollable = endY - startY;
-        const scrolled = currentY - startY;
+        let pct = scrolled / totalScrollable;
+        pct = Math.min(1, Math.max(0, pct)); 
 
-        let pct = totalScrollable > 0 ? scrolled / totalScrollable : 0;
-        pct = Math.min(1, Math.max(0, pct));
+        const translateX = pct * 80; // Slide horizontal track by 80% total (for 5 slides)
+        track.style.transform = `translate3d(-${translateX}vw, 0, 0)`;
 
-        progressPath.style.strokeDashoffset = totalLength * (1 - pct);
+        if (progressLine) {
+          progressLine.style.width = `${pct * 95}%`;
+        }
+
+        // Horizontal Parallax of slides elements
+        const slides = document.querySelectorAll('.timeline-slide');
+        slides.forEach((slide, idx) => {
+          const slideProgress = pct * 4 - idx; // range from -idx to 4-idx
+          const textBox = slide.querySelector('.slide-text');
+          const cardBox = slide.querySelector('.hover-card-trigger');
+
+          if (cardBox) {
+            const shift = slideProgress * 140; 
+            const scale = 1 - Math.min(0.2, Math.abs(slideProgress) * 0.1);
+            cardBox.style.transform = `translate3d(${shift}px, 0, 0) scale(${scale})`;
+            cardBox.style.opacity = Math.max(0, 1 - Math.abs(slideProgress) * 1.6);
+          }
+
+          if (textBox) {
+            const shift = -slideProgress * 70;
+            textBox.style.transform = `translate3d(${shift}px, 0, 0)`;
+            textBox.style.opacity = Math.max(0, 1 - Math.abs(slideProgress) * 1.6);
+          }
+        });
       }
 
       function scrollParallaxBg() {
@@ -1243,61 +1217,14 @@
         });
       }
 
-      function applyZigZagParallax() {
-        if (window.innerWidth < 768) {
-          document.querySelectorAll('.timeline-container .space-y-32 > div').forEach(row => {
-            const textBox = row.querySelector('.w-full.md\\:w-1\\/2:not(.relative)');
-            const cardBox = row.querySelector('.hover-card-trigger');
-            const node = row.querySelector('.timeline-node');
-            if (textBox) textBox.style.transform = '';
-            if (cardBox) cardBox.style.transform = '';
-            if (node) node.style.transform = '';
-          });
-          return;
-        }
-
-        const rows = document.querySelectorAll('.timeline-container .space-y-32 > div');
-        rows.forEach((row, index) => {
-          const rect = row.getBoundingClientRect();
-          const rowCenter = rect.top + rect.height / 2;
-          const viewportCenter = window.innerHeight / 2;
-          const distanceFromCenter = rowCenter - viewportCenter;
-
-          const maxSway = 50; 
-          const factor = Math.sin(distanceFromCenter * 0.0015);
-          const swayX = factor * maxSway;
-          const rotateY = factor * 4;
-
-          const textBox = row.querySelector('.w-full.md\\:w-1\\/2:not(.relative)');
-          const cardBox = row.querySelector('.hover-card-trigger');
-          const node = row.querySelector('.timeline-node');
-
-          if (node) {
-            node.style.transform = `translate3d(calc(-50% + ${swayX * 0.15}px), 0, 0)`;
-          }
-
-          if (textBox) {
-            const direction = (index % 2 === 0) ? 1 : -1;
-            textBox.style.transform = `translate3d(${swayX * 0.4 * direction}px, 0, 0)`;
-          }
-
-          if (cardBox) {
-            const direction = (index % 2 === 0) ? -1 : 1;
-            cardBox.style.transform = `translate3d(${swayX * 0.7 * direction}px, 0, 0) rotateY(${rotateY * direction}deg)`;
-          }
-        });
-      }
-
       // Initial run & listeners
       setTimeout(() => {
-        drawCurvedTimeline();
+        updateHorizontalTimeline();
         scrollParallaxBg();
-        applyZigZagParallax();
       }, 100);
 
       window.addEventListener('resize', () => {
-        drawCurvedTimeline();
-        applyZigZagParallax();
+        updateHorizontalTimeline();
       });
 
       if (typeof Lenis !== 'undefined') {
@@ -1318,9 +1245,8 @@
             if (scroll > 40) { header.style.boxShadow = '0 4px 24px rgba(87,0,0,.10)'; header.classList.add('scrolled'); }
             else { header.style.boxShadow = 'none'; header.classList.remove('scrolled'); }
           }
-          updateTimelineProgress();
+          updateHorizontalTimeline();
           scrollParallaxBg();
-          applyZigZagParallax();
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
@@ -1338,9 +1264,8 @@
             if (window.scrollY > 40) { header.style.boxShadow = '0 4px 24px rgba(87,0,0,0.10)'; header.classList.add('scrolled'); }
             else { header.style.boxShadow = 'none'; header.classList.remove('scrolled'); }
           }
-          updateTimelineProgress();
+          updateHorizontalTimeline();
           scrollParallaxBg();
-          applyZigZagParallax();
         }, { passive: true });
         document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
           const t = document.getElementById(this.getAttribute('href').slice(1));
