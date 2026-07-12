@@ -1017,12 +1017,7 @@
       }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
       document.querySelectorAll('.reveal-item, .reveal-left, .reveal-right, .reveal-scale').forEach(el => io.observe(el));
 
-      /* Nav shadow + scrolled class */
       const header = document.querySelector('header');
-      window.addEventListener('scroll', () => {
-        if (!header) return;
-        if (window.scrollY > 40) {
-          header.style.boxShadow = '0 4px 24px rgba(87,0,0,0.10)';
 
       if (typeof Lenis !== 'undefined') {
         const lenis = new Lenis({
