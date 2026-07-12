@@ -450,10 +450,92 @@
             will-change: transform;
             transform-origin: center;
         }
+
+        /* Mystical Dark Theme Core */
+        .mystical-dark-theme {
+            background-color: #0d0707;
+            background-image: radial-gradient(circle at 50% 30%, #1d0f0f 0%, #0d0707 70%), url("https://www.transparenttextures.com/patterns/black-paper.png");
+            color: #e2dcd5;
+        }
+        .mystical-dark-theme header {
+            background-color: rgba(13, 7, 7, 0.82) !important;
+            border-color: rgba(194, 178, 128, 0.18) !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4) !important;
+        }
+        .mystical-dark-theme .nav-link {
+            color: #bfa39e !important;
+        }
+        .mystical-dark-theme .nav-link:hover,
+        .mystical-dark-theme .nav-link.active {
+            color: #e9c400 !important;
+        }
+        .mystical-dark-theme .nav-link::after {
+            background-color: #e9c400 !important;
+        }
+        .mystical-dark-theme .text-primary {
+            color: #e9c400 !important; /* Glow gold headings */
+            text-shadow: 0 2px 10px rgba(233, 196, 0, 0.12);
+        }
+        .mystical-dark-theme .text-on-surface-variant {
+            color: #cbbab6 !important; /* Warm ivory paragraph text */
+        }
+        .mystical-dark-theme .text-secondary {
+            color: #ff9f1c !important; /* Saffron/orange markers */
+        }
+        .mystical-dark-theme .bg-surface-container-low {
+            background-color: rgba(26, 17, 17, 0.85) !important;
+            border-color: rgba(194, 178, 128, 0.3) !important;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(10px);
+        }
+        .mystical-dark-theme .timeline-node {
+            background-color: #1a1111 !important;
+            border-color: #e9c400 !important;
+            box-shadow: 0 0 16px rgba(233, 196, 0, 0.3) !important;
+        }
+        .mystical-dark-theme .bg-surface-container-high {
+            background-color: #080404 !important;
+            border-color: rgba(194, 178, 128, 0.2) !important;
+        }
+        .mystical-dark-theme .stat-card {
+            background-color: rgba(22, 14, 14, 0.8) !important;
+            border-color: rgba(194, 178, 128, 0.2) !important;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
+        }
+        .mystical-dark-theme .stat-card h4 {
+            color: #e9c400 !important;
+        }
+        
+        /* Interactive Card Slide-in on reveal */
+        .timeline-container .space-y-32 > div {
+            perspective: 1200px;
+        }
+        .timeline-container .space-y-32 > div .w-full.md\:w-1\/2 {
+            opacity: 0;
+            will-change: opacity, transform;
+        }
+        /* Left column slides in from left */
+        .timeline-container .space-y-32 > div .w-full.md\:w-1\/2:first-child {
+            transform: translate3d(-40px, 0, 0);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .timeline-container .space-y-32 > div.active .w-full.md\:w-1\/2:first-child {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+        /* Right column slides in from right */
+        .timeline-container .space-y-32 > div .w-full.md\:w-1\/2:last-child {
+            transform: translate3d(40px, 0, 0);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .timeline-container .space-y-32 > div.active .w-full.md\:w-1\/2:last-child {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
     </style>
 </head>
-<body class="parchment-texture text-on-surface">
-<div id="scroll-progress"></div>
+<body class="mystical-dark-theme text-[#e5e5e0] antialiased">
+<div id="scroll-progress" style="background-color: #e9c400;"></div>
 <script>
     document.body.classList.add('page-loaded');
 </script>
@@ -461,16 +543,16 @@
   <!-- Immersive Floating Background Layers -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" id="immersive-bg">
     <!-- Wavy Water/Smoke Gradient Blobs -->
-    <div class="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-sandalwood/10 to-primary/5 blur-[120px] -top-20 -left-40 animate-blob-slow"></div>
-    <div class="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-tertiary/5 via-sandalwood/5 to-transparent blur-[160px] top-[40vh] -right-80 animate-blob-slower"></div>
-    <div class="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-tr from-primary/5 via-transparent to-sandalwood/10 blur-[140px] bottom-[10vh] -left-60 animate-blob-slow"></div>
+    <div class="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-[#570000]/20 to-[#C2B280]/10 blur-[120px] -top-20 -left-40 animate-blob-slow"></div>
+    <div class="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-[#705d00]/12 via-[#C2B280]/8 to-transparent blur-[160px] top-[40vh] -right-80 animate-blob-slower"></div>
+    <div class="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-tr from-[#570000]/15 via-transparent to-[#C2B280]/10 blur-[140px] bottom-[10vh] -left-60 animate-blob-slow"></div>
     
     <!-- Floating Faint Sanskrit Calligraphy at Parallax Depth -->
-    <div class="absolute text-[16vw] font-serif font-bold text-primary/[0.015] select-none tracking-widest top-[20vh] right-[10%] rotate-12 parallax-bg-text" data-depth="0.12">अद्वैत</div>
-    <div class="absolute text-[18vw] font-serif font-bold text-secondary/[0.012] select-none tracking-widest top-[90vh] left-[5%] -rotate-6 parallax-bg-text" data-depth="0.08">ज्ञानम्</div>
-    <div class="absolute text-[15vw] font-serif font-bold text-primary/[0.015] select-none tracking-widest top-[180vh] right-[5%] rotate-6 parallax-bg-text" data-depth="0.15">मौनम्</div>
-    <div class="absolute text-[17vw] font-serif font-bold text-secondary/[0.012] select-none tracking-widest top-[260vh] left-[8%] rotate-12 parallax-bg-text" data-depth="0.1">मुक्तिः</div>
-    <div class="absolute text-[16vw] font-serif font-bold text-primary/[0.015] select-none tracking-widest top-[340vh] right-[12%] -rotate-12 parallax-bg-text" data-depth="0.07">शान्तिः</div>
+    <div class="absolute text-[16vw] font-serif font-bold text-[#e9c400]/[0.035] select-none tracking-widest top-[20vh] right-[10%] rotate-12 parallax-bg-text" data-depth="0.12">अद्वैत</div>
+    <div class="absolute text-[18vw] font-serif font-bold text-[#FF6B35]/[0.03] select-none tracking-widest top-[90vh] left-[5%] -rotate-6 parallax-bg-text" data-depth="0.08">ज्ञानम्</div>
+    <div class="absolute text-[15vw] font-serif font-bold text-[#e9c400]/[0.035] select-none tracking-widest top-[180vh] right-[5%] rotate-6 parallax-bg-text" data-depth="0.15">मौनम्</div>
+    <div class="absolute text-[17vw] font-serif font-bold text-[#FF6B35]/[0.03] select-none tracking-widest top-[260vh] left-[8%] rotate-12 parallax-bg-text" data-depth="0.1">मुक्तिः</div>
+    <div class="absolute text-[16vw] font-serif font-bold text-[#e9c400]/[0.035] select-none tracking-widest top-[340vh] right-[12%] -rotate-12 parallax-bg-text" data-depth="0.07">शान्तिः</div>
   </div>
 
 <!-- Top Navigation Shell -->
@@ -526,8 +608,14 @@
 <section class="timeline-container relative max-w-container-max mx-auto px-8">
 <!-- Curved Journey Path SVG -->
 <svg class="absolute inset-0 w-full h-full pointer-events-none hidden md:block z-0" id="timeline-svg" style="min-height: 100%;">
-  <path id="timeline-bg-path" fill="none" stroke="#C2B280" stroke-width="2.5" stroke-dasharray="6,6" opacity="0.65" />
-  <path id="timeline-progress-path" fill="none" stroke="#8f4e00" stroke-width="3" stroke-linecap="round" />
+  <defs>
+    <filter id="gold-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <path id="timeline-bg-path" fill="none" stroke="#C2B280" stroke-width="2.5" stroke-dasharray="6,6" opacity="0.18" />
+  <path id="timeline-progress-path" fill="none" stroke="#e9c400" stroke-width="3.5" stroke-linecap="round" filter="url(#gold-glow)" />
 </svg>
 <div class="space-y-32"><!-- Entry 1: Birth in Kalady -->
 <div class="relative flex flex-col md:flex-row items-center gap-gutter group reveal-item reveal-delay-100">
