@@ -79,14 +79,16 @@
                     "section-gap-md": "80px"
             },
             "fontFamily": {
-                    "headline-lg": ["EB Garamond"],
-                    "display-lg": ["EB Garamond"],
-                    "display-lg-mobile": ["EB Garamond"],
-                    "headline-md": ["EB Garamond"],
-                    "body-md": ["Source Serif 4"],
-                    "label-md": ["Inter", "sans-serif"],
-                    "caption": ["Source Serif 4"],
-                    "body-lg": ["Source Serif 4"]
+                    "serif": ["'Source Serif 4'", "Georgia", "serif"],
+                    "sans": ["'Inter'", "sans-serif"],
+                    "headline-lg": ["'EB Garamond'", "serif"],
+                    "display-lg": ["'EB Garamond'", "serif"],
+                    "display-lg-mobile": ["'EB Garamond'", "serif"],
+                    "headline-md": ["'EB Garamond'", "serif"],
+                    "body-md": ["'Source Serif 4'", "serif"],
+                    "label-md": ["'Inter'", "sans-serif"],
+                    "caption": ["'Source Serif 4'", "serif"],
+                    "body-lg": ["'Source Serif 4'", "serif"]
             },
             "fontSize": {
                     "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "500", "letterSpacing": "0.01em"}],
@@ -103,6 +105,14 @@
       }
     </script>
 <style>
+        /* Base typography rules to ensure inputs and other non-inheriting elements match */
+        html, body {
+            font-family: 'Source Serif 4', ui-serif, Georgia, Cambria, serif;
+        }
+        input, select, textarea, button {
+            font-family: inherit;
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
@@ -250,9 +260,353 @@
             transform: translateY(-8px) !important;
             transition: opacity 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
         }
+
+        /* ========= IMMERSIVE ADDITIONS ========= */
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #570000, #C2B280, #705d00);
+            z-index: 9999;
+            transition: width 0.08s linear;
+            border-radius: 0 2px 2px 0;
+            box-shadow: 0 0 8px rgba(87,0,0,0.35);
+        }
+
+        /* Parallax Hero Image */
+        #hero-parallax-img {
+            transform: translateY(0);
+            transition: transform 0.05s linear;
+            will-change: transform;
+            height: 115%;
+            top: -7.5%;
+            position: absolute;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        /* Floating Incense Particle System */
+        .particle-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            bottom: -10px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: rise-particle linear infinite;
+        }
+        @keyframes rise-particle {
+            0%   { opacity: 0;    transform: translateY(0) translateX(0) scale(1); }
+            15%  { opacity: 0.55; }
+            85%  { opacity: 0.2; }
+            100% { opacity: 0;    transform: translateY(-90vh) translateX(var(--drift)) scale(0.3); }
+        }
+
+        /* Ambient Audio Toggle Button */
+        #ambient-toggle {
+            position: fixed;
+            bottom: 88px;
+            right: 6px;
+            width: 40px;
+            height: 40px;
+            background: rgba(251,251,226,0.88);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(194,178,128,0.55);
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 60;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 12px rgba(87,0,0,0.12);
+        }
+        #ambient-toggle:hover {
+            transform: scale(1.08);
+            box-shadow: 0 4px 18px rgba(87,0,0,0.2);
+        }
+        #ambient-toggle svg {
+            width: 18px;
+            height: 18px;
+            color: #570000;
+            transition: opacity 0.3s;
+        }
+
+        /* Smooth cursor glow on sacred elements */
+        .shrine-card-img {
+            transition: transform 1s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease;
+        }
+        .group:hover .shrine-card-img {
+            transform: scale(1.06);
+            filter: brightness(1.05) saturate(1.1);
+        }
+
+        /* Enhanced reveal — slightly longer stagger */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.1s cubic-bezier(0.16,1,0.3,1), transform 1.1s cubic-bezier(0.16,1,0.3,1);
+            will-change: opacity, transform;
+        }
+        .reveal-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-32px);
+            transition: opacity 1.1s cubic-bezier(0.16,1,0.3,1), transform 1.1s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(32px);
+            transition: opacity 1.1s cubic-bezier(0.16,1,0.3,1), transform 1.1s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Hero Om Symbol pulse */
+        @keyframes om-pulse {
+            0%, 100% { opacity: 0.07; transform: scale(1); }
+            50%       { opacity: 0.14; transform: scale(1.04); }
+        }
+        .om-hero {
+            position: absolute;
+            bottom: 10%;
+            right: 6%;
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(6rem, 15vw, 14rem);
+            color: #ffffff;
+            pointer-events: none;
+            user-select: none;
+            animation: om-pulse 6s ease-in-out infinite;
+            z-index: 2;
+            line-height: 1;
+        }
+
+        /* Scroll-cue chevron */
+        @keyframes bounce-down {
+            0%, 100% { transform: translateY(0); opacity: 0.7; }
+            50%       { transform: translateY(8px); opacity: 1; }
+        }
+        .scroll-cue {
+            animation: bounce-down 2s ease-in-out infinite;
+        }
+
+        /* ============================================
+           SMOOTH SCROLLING & ADVANCED ANIMATIONS
+        ============================================ */
+
+        /* Native smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Title Shimmer / Gradient Text */
+        @keyframes text-shimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        .hero-title-shimmer {
+            background: linear-gradient(
+                90deg,
+                #ffffff 0%,
+                #ffe16d 30%,
+                #ffffff 50%,
+                #ffb4a8 70%,
+                #ffffff 100%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: text-shimmer 5s linear infinite;
+        }
+
+        /* Gradient text for section headings */
+        .gradient-heading {
+            background: linear-gradient(135deg, #570000 0%, #8f4e00 50%, #705d00 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Reveal with scale + fade */
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.93) translateY(16px);
+            transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Staggered card hover — lift + glow */
+        .shrine-card {
+            transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s ease, border-color 0.35s ease;
+            cursor: default;
+        }
+        .shrine-card:hover {
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 20px 48px -10px rgba(87,0,0,0.16), 0 4px 12px rgba(194,178,128,0.15);
+            border-color: rgba(87,0,0,0.22) !important;
+        }
+
+        /* Button ripple effect */
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-ripple::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(255,225,109,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .btn-ripple:hover::after {
+            opacity: 1;
+        }
+        .btn-ripple:active::after {
+            opacity: 0;
+            transition: opacity 0.1s;
+        }
+
+        /* Section ornamental divider */
+        .sacred-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .sacred-divider::before,
+        .sacred-divider::after {
+            content: '';
+            flex: 1;
+            max-width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #C2B280);
+        }
+        .sacred-divider::after {
+            background: linear-gradient(90deg, #C2B280, transparent);
+        }
+
+        /* Image shimmer placeholder */
+        @keyframes shimmer {
+            0%   { background-position: -100% 0; }
+            100% { background-position: 100% 0; }
+        }
+        img.lazy-shimmer:not([src]) {
+            background: linear-gradient(90deg, #e8e8d0 25%, #f5f5dc 50%, #e8e8d0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        /* Float-in from left/right for Kanakadhara section */
+        .reveal-left, .reveal-right {
+            transition: opacity 1.1s cubic-bezier(0.16,1,0.3,1), transform 1.1s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        /* Glowing sankrit verse text */
+        .sanskrit-glow {
+            text-shadow: 0 0 20px rgba(87,0,0,0.12), 0 2px 8px rgba(194,178,128,0.2);
+            transition: text-shadow 0.4s ease;
+        }
+        .sanskrit-glow:hover {
+            text-shadow: 0 0 30px rgba(87,0,0,0.22), 0 2px 12px rgba(194,178,128,0.35);
+        }
+
+        /* Counter number animation */
+        .counter-val {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        /* Pulse ring on audio toggle when playing */
+        @keyframes pulse-ring {
+            0%   { transform: scale(1);   opacity: 0.7; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+        #ambient-toggle.playing::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            border: 2px solid rgba(87,0,0,0.4);
+            animation: pulse-ring 1.5s ease-out infinite;
+        }
+        #ambient-toggle {
+            position: relative;
+        }
+
+        /* Spinning lotus loader (page entry) */
+        @keyframes spin-sacred {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        /* Smooth tab indicator transition */
+        #tab-indicator-2 {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Nav shrink on scroll */
+        header.scrolled {
+            backdrop-filter: blur(16px);
+        }
+
+        /* Quote fade slide */
+        @keyframes quote-fade {
+            from { opacity: 0; transform: translateX(-12px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        .quote-animate {
+            animation: quote-fade 0.8s cubic-bezier(0.16,1,0.3,1) both;
+        }
+
+        /* Sticky stat bar on Life page */
+        .stat-card {
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px -8px rgba(87,0,0,0.14);
+        }
+
+        /* Tilt effect for shrine cards (JS-driven) */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0) rotateY(0);
+            transition: transform 0.2s ease;
+        }
+
+        /* Decorative mandala background on contemplation section */
+        .mandala-bg {
+            background-image: radial-gradient(circle at 50% 50%, rgba(194,178,128,0.06) 0%, transparent 70%);
+        }
     </style>
 </head>
 <body class="parchment-texture text-on-surface">
+<!-- Scroll Progress Bar -->
+<div id="scroll-progress"></div>
 <script>
     document.body.classList.add('page-loaded');
 </script>
@@ -270,9 +624,9 @@
   <span>Sri Adi Shankara Janmabhoomi</span>
 </a>
 <div class="hidden md:flex space-x-4 lg:space-x-6 items-center flex-shrink-0">
-<a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="/#home" id="nav-home">Sacred Birthplace</a>
-<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#pilgrimage" id="nav-pilgrimage">Pilgrimage Guide</a>
-<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#pathashala" id="nav-pathashala">Veda Pathashala</a>
+<a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="index.html#home" id="nav-home">Sacred Birthplace</a>
+<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pilgrimage" id="nav-pilgrimage">Pilgrimage Guide</a>
+<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pathashala" id="nav-pathashala">Veda Pathashala</a>
 <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="significance.html" id="nav-significance">Significance</a>
 <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="life.html" id="nav-life">Spiritual Journey</a>
 </div>
@@ -283,27 +637,42 @@
 </header>
 <main>
 <!-- Hero Section -->
-<section id="home" class="relative h-[85vh] w-full overflow-hidden flex justify-center transition-all duration-1000 opacity-100">
-<div class="absolute inset-0 z-0">
-<img alt="The Purna River at dawn in Kalady" class="w-full h-full object-cover animate-fade-in" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX_-eDHUixeMi8zxeBAJkd-QC_ng98S65XbQlM84CxqNCXxgGqPQA5ISQekYVU2vy2hBOudOZE-EcuTrp4bkTVxZVOJMR-7UTj19VO0gjhuM-23J7Yy2j7NOhP-rKnrTBXgEZX1_yMSFmuW07kSGJgqfDhnbqq_IsphctIeO6fXfsLeVs1U1qoM7_9dOGod5J1Z7tzC5eTjIwyINFuPLOiHqARqbHMBhrWe5mywmaqIOObAMxhmAW5RyVkHWCZK4yxeNblZ5OvlI_Crdk">
-<div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/45 to-primary/45 mix-blend-multiply z-0"></div>
-</div>
-<div class="relative z-10 text-center px-gutter max-w-4xl mt-auto mb-20 flex flex-col items-center">
-<span class="block font-label-md text-label-md text-tertiary-fixed uppercase tracking-[0.25em] mb-4 drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] font-bold reveal-item reveal-delay-100">
-    • Sri Adi Shankara Janmabhoomi Kshethram •
-</span>
-<h1 class="font-display-lg text-display-lg md:text-5xl lg:text-6xl text-white mb-6 drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] tracking-tight font-bold reveal-item reveal-delay-300">
-    Kalady: The Sacred Advent
-</h1>
-<p class="font-body-lg text-body-lg text-white mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] font-semibold reveal-item reveal-delay-500">
-    The birthplace of Jagadguru Sri Adi Shankaracharya, where the revival of Advaita began on the banks of the eternal Purna.
-</p>
-<div class="double-border reveal-item reveal-delay-700 hover:scale-[1.02] hover:shadow-[0_8px_20px_rgba(255,107,53,0.15)] transition-all duration-300">
-    <a href="#shrine-grid" class="block px-10 py-4 bg-primary text-tertiary-fixed border border-tertiary-fixed/30 hover:bg-primary-container hover:text-white transition-all duration-300 rounded-lg font-label-md text-label-md uppercase tracking-[0.2em] text-center">
-        Explore the Kshethram
-    </a>
-</div>
-</div>
+<section id="home" class="relative h-[85vh] w-full overflow-hidden flex justify-center items-end transition-all duration-1000 opacity-100">
+  <!-- Parallax Background Image -->
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <img id="hero-parallax-img" alt="The Purna River at dawn in Kalady" class="animate-fade-in" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX_-eDHUixeMi8zxeBAJkd-QC_ng98S65XbQlM84CxqNCXxgGqPQA5ISQekYVU2vy2hBOudOZE-EcuTrp4bkTVxZVOJMR-7UTj19VO0gjhuM-23J7Yy2j7NOhP-rKnrTBXgEZX1_yMSFmuW07kSGJgqfDhnbqq_IsphctIeO6fXfsLeVs1U1qoM7_9dOGod5J1Z7tzC5eTjIwyINFuPLOiHqARqbHMBhrWe5mywmaqIOObAMxhmAW5RyVkHWCZK4yxeNblZ5OvlI_Crdk">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/45 to-primary/50 mix-blend-multiply z-0"></div>
+  </div>
+
+  <!-- Floating Incense Particles -->
+  <div class="particle-container" id="hero-particles"></div>
+
+  <!-- Ambient Om Symbol -->
+  <span class="om-hero" aria-hidden="true">ॐ</span>
+
+  <!-- Hero Content -->
+  <div class="relative z-10 text-center px-gutter max-w-4xl mb-16 flex flex-col items-center">
+    <span class="block font-label-md text-label-md text-tertiary-fixed uppercase tracking-[0.25em] mb-4 drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] font-bold reveal-item reveal-delay-100">
+        • Sri Adi Shankara Janmabhoomi Kshethram •
+    </span>
+    <h1 class="hero-title-shimmer font-display-lg text-display-lg md:text-5xl lg:text-6xl mb-6 drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] tracking-tight font-bold reveal-item reveal-delay-300">
+        Kalady: The Sacred Advent
+    </h1>
+    <p class="font-body-lg text-body-lg text-white mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] font-semibold reveal-item reveal-delay-500">
+        The birthplace of Jagadguru Sri Adi Shankaracharya, where the revival of Advaita began on the banks of the eternal Purna.
+    </p>
+    <div class="double-border reveal-item reveal-delay-700 hover:scale-[1.02] hover:shadow-[0_8px_20px_rgba(255,107,53,0.15)] transition-all duration-300">
+        <a href="#shrine-grid" class="btn-ripple block px-10 py-4 bg-primary text-tertiary-fixed border border-tertiary-fixed/30 hover:bg-primary-container hover:text-white transition-all duration-300 rounded-lg font-label-md text-label-md uppercase tracking-[0.2em] text-center">
+            Explore the Kshethram
+        </a>
+    </div>
+    <!-- Scroll cue -->
+    <div class="scroll-cue mt-10 opacity-70" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+  </div>
 </section>
 <!-- Introduction Section -->
 <section class="py-section-gap-lg px-gutter max-w-container-max mx-auto text-center transition-all duration-1000 opacity-100">
@@ -871,23 +1240,27 @@
         // Smooth scroll implementation & active highlight management
         document.querySelectorAll('a').forEach(anchor => {
             const href = anchor.getAttribute('href');
-            if (href && (href.startsWith('#') || href.includes('/#'))) {
-                anchor.addEventListener('click', function (e) {
-                    const targetId = href.substring(href.indexOf('#'));
+            if (href && href.includes('#')) {
+                const parts = href.split('#');
+                const path = parts[0];
+                const targetId = '#' + parts[1];
+                const isLocal = path === '' || path === 'index.html' || path === '/index.html' || path === '/' || path.endsWith(window.location.pathname);
+                if (isLocal) {
                     const target = document.querySelector(targetId);
-                    if(target) {
-                        e.preventDefault();
-                        customSmoothScroll(target, 1600);
-                        const navId = 'nav-' + targetId.substring(1);
-                        const clickedNav = document.getElementById(navId);
-                        if (clickedNav) {
-                            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-                            clickedNav.classList.add('active');
-                        }
-                        // Update URL hash without jumping
-                        history.pushState(null, null, targetId);
+                    if (target) {
+                        anchor.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            customSmoothScroll(target, 1600);
+                            const navId = 'nav-' + targetId.substring(1);
+                            const clickedNav = document.getElementById(navId);
+                            if (clickedNav) {
+                                document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+                                clickedNav.classList.add('active');
+                            }
+                            history.pushState(null, null, targetId);
+                        });
                     }
-                });
+                }
             }
         });
 
@@ -1545,6 +1918,181 @@
           }, 800);
         });
     </script>
+
+    <!-- Ambient Audio: Om Chanting 639 Hz — 3 Hours (archive.org, free) -->
+    <audio id="ambient-audio" loop muted autoplay preload="none" style="display:none">
+      <source src="https://archive.org/download/om-chanting/y2mate.com%20-%20Om%20Chanting%20%20639%20Hz%20%203%20Hours.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Ambient Audio Toggle -->
+    <button id="ambient-toggle" title="Toggle Ambient Audio" aria-label="Toggle ambient sacred music" onclick="toggleAmbientAudio()">
+      <svg id="audio-icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      </svg>
+      <svg id="audio-icon-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <line x1="23" y1="9" x2="17" y2="15"></line>
+        <line x1="17" y1="9" x2="23" y2="15"></line>
+      </svg>
+    </button>
+
+    <!-- ===== IMMERSIVE JAVASCRIPT ===== -->
+    <script>
+    (function() {
+
+      /* ---------- 1. Scroll Progress Bar ---------- */
+      const progressBar = document.getElementById('scroll-progress');
+      function updateProgress() {
+        if (!progressBar) return;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = pct + '%';
+      }
+      window.addEventListener('scroll', updateProgress, { passive: true });
+
+      /* ---------- 2. Parallax Hero ---------- */
+      const heroImg = document.getElementById('hero-parallax-img');
+      const heroSection = document.getElementById('home');
+      function updateParallax() {
+        if (!heroImg || !heroSection) return;
+        if (window.innerWidth < 768) return;
+        const scrollY = window.scrollY || window.pageYOffset;
+        const heroH = heroSection.offsetHeight;
+        if (scrollY > heroH) return;
+        heroImg.style.transform = 'translateY(' + (scrollY * 0.35) + 'px)';
+      }
+      window.addEventListener('scroll', updateParallax, { passive: true });
+      window.addEventListener('resize', updateParallax);
+
+      /* ---------- 3. IntersectionObserver Reveal (item + scale) ---------- */
+      const ioCallback = (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      };
+      const ioOpts = { threshold: 0.12, rootMargin: '0px 0px -40px 0px' };
+      const revealIO = new IntersectionObserver(ioCallback, ioOpts);
+      document.querySelectorAll('.reveal-item, .reveal-left, .reveal-right, .reveal-scale')
+        .forEach(el => revealIO.observe(el));
+
+      /* ---------- 4. Floating Incense Particles ---------- */
+      function spawnParticles() {
+        const container = document.getElementById('hero-particles');
+        if (!container) return;
+        const colors = [
+          'rgba(255,225,109,0.5)',
+          'rgba(194,178,128,0.4)',
+          'rgba(255,107,53,0.3)',
+          'rgba(255,255,255,0.3)',
+        ];
+        for (let i = 0; i < 22; i++) {
+          const p = document.createElement('div');
+          p.className = 'particle';
+          const size = Math.random() * 5 + 2;
+          const left = Math.random() * 100;
+          const duration = Math.random() * 18 + 12;
+          const delay = Math.random() * 14;
+          const drift = (Math.random() - 0.5) * 120;
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          p.style.cssText = `
+            width:${size}px; height:${size}px;
+            left:${left}%;
+            background:${color};
+            --drift:${drift}px;
+            animation-duration:${duration}s;
+            animation-delay:${delay}s;
+            filter: blur(${Math.random() * 1.5}px);
+          `;
+          container.appendChild(p);
+        }
+      }
+      spawnParticles();
+
+      /* ---------- 5. Ambient Audio Toggle with pulse ring ---------- */
+      window.toggleAmbientAudio = function() {
+        const audio = document.getElementById('ambient-audio');
+        const iconOn = document.getElementById('audio-icon-on');
+        const iconOff = document.getElementById('audio-icon-off');
+        const btn = document.getElementById('ambient-toggle');
+        if (!audio) return;
+        if (audio.muted) {
+          audio.muted = false;
+          audio.play().catch(() => {});
+          if (iconOn) iconOn.style.display = 'block';
+          if (iconOff) iconOff.style.display = 'none';
+          if (btn) btn.classList.add('playing');
+        } else {
+          audio.muted = true;
+          if (iconOn) iconOn.style.display = 'none';
+          if (iconOff) iconOff.style.display = 'block';
+          if (btn) btn.classList.remove('playing');
+        }
+      };
+
+      /* ---------- 6. Nav: shadow + shrink + scrolled class ---------- */
+      const header = document.querySelector('header');
+      function updateHeader() {
+        if (!header) return;
+        if (window.scrollY > 40) {
+          header.style.boxShadow = '0 4px 24px rgba(87,0,0,0.10)';
+          header.classList.add('scrolled');
+        } else {
+          header.style.boxShadow = 'none';
+          header.classList.remove('scrolled');
+        }
+      }
+      window.addEventListener('scroll', updateHeader, { passive: true });
+
+      /* ---------- 7. Smooth anchor scroll for all #links ---------- */
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href').slice(1);
+          const target = document.getElementById(targetId);
+          if (target) {
+            e.preventDefault();
+            const headerH = header ? header.offsetHeight : 80;
+            const top = target.getBoundingClientRect().top + window.scrollY - headerH - 16;
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        });
+      });
+
+      /* ---------- 8. 3D Tilt on shrine cards ---------- */
+      document.querySelectorAll('.shrine-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dx = (e.clientX - cx) / (rect.width / 2);
+          const dy = (e.clientY - cy) / (rect.height / 2);
+          card.style.transform = `perspective(900px) rotateY(${dx * 4}deg) rotateX(${-dy * 3}deg) translateY(-8px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+        });
+      });
+
+      /* ---------- 9. Page link transitions (fade-out then navigate) ---------- */
+      document.querySelectorAll('a[href]').forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('tel')) return;
+        link.addEventListener('click', function(e) {
+          const isExternal = !href.startsWith('/') && !href.startsWith('index') && !href.startsWith('life') && !href.startsWith('significance') && !href.includes('.html');
+          if (isExternal) return;
+          e.preventDefault();
+          document.body.classList.add('page-exit');
+          setTimeout(() => { window.location.href = href; }, 380);
+        });
+      });
+
+    })();
+    </script>
+
 
     <!-- Chatbot Floating Toggle Button -->
     <button onclick="toggleChatbot()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed rounded-full shadow-[0_4px_16px_rgba(87,0,0,0.25)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300 z-50 select-none">
