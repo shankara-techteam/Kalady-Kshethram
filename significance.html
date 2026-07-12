@@ -71,8 +71,8 @@
   .nav-link:hover::after{transform:scaleX(1);transform-origin:left}
   .nav-link.active::after{transform:scaleX(1);transform-origin:left;background-color:#570000}
   #page-wrapper{opacity:0;transform:translateY(8px);will-change:opacity,transform}
-  .page-loaded #page-wrapper{opacity:1!important;transform:translateY(0)!important;transition:opacity .5s cubic-bezier(.2,.8,.2,1),transform .5s cubic-bezier(.2,.8,.2,1)!important}
-  .page-exit #page-wrapper{opacity:0!important;transform:translateY(-8px)!important;transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1)!important}
+  .page-loaded #page-wrapper{opacity:1!important;transform:translateY(0)!important;transition:opacity .35s cubic-bezier(.2,.8,.2,1),transform .35s cubic-bezier(.2,.8,.2,1)!important}
+  .page-exit #page-wrapper{opacity:0!important;transform:translateY(-8px)!important;transition:opacity .2s cubic-bezier(.2,.8,.2,1),transform .2s cubic-bezier(.2,.8,.2,1)!important}
   .river-band{position:relative;overflow:hidden;background:linear-gradient(180deg,#fbfbe2 0%,#dde8e4 40%,#c8ddd7 60%,#fbfbe2 100%)}
   .river-wave{position:absolute;height:4px;border-radius:9999px;background:linear-gradient(90deg,transparent,rgba(100,160,150,.5),rgba(100,160,150,.8),rgba(100,160,150,.5),transparent);animation:riverFlow 5s infinite ease-in-out}
   .journey-node{border-left:2px solid #C2B280}
@@ -741,7 +741,7 @@
         if (isLocal) {
           e.preventDefault();
           document.body.classList.add('page-exit');
-          setTimeout(() => { window.location.href = href; }, 380);
+          setTimeout(() => { window.location.href = href; }, 150);
         }
       } catch (err) {
         console.warn(err);

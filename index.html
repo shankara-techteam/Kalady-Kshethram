@@ -260,12 +260,12 @@
         .page-loaded #page-wrapper {
             opacity: 1 !important;
             transform: translateY(0) !important;
-            transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+            transition: opacity 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
         }
         .page-exit #page-wrapper {
             opacity: 0 !important;
             transform: translateY(-8px) !important;
-            transition: opacity 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+            transition: opacity 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
         }
 
         /* ========= IMMERSIVE ADDITIONS ========= */
@@ -2124,7 +2124,7 @@
             if (isLocal) {
               e.preventDefault();
               document.body.classList.add('page-exit');
-              setTimeout(() => { window.location.href = href; }, 380);
+              setTimeout(() => { window.location.href = href; }, 150);
             }
           } catch (err) {
             console.warn(err);
