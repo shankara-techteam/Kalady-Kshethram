@@ -451,11 +451,11 @@
             transform-origin: center;
         }
 
-        /* Modern Editorial Layout styling */
+        /* Modern Editorial Layout styling with matching theme colors */
         .parchment-texture {
-            background-color: #fbfaf5;
-            background-image: linear-gradient(to bottom, #fbfaf5, #f5f4ef);
-            color: #292524;
+            background-color: #fbfbe2;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            color: #1b1d0e;
         }
 
         .timeline-container {
@@ -468,6 +468,27 @@
             background-color: #8f4e00 !important;
             transform: translate(-50%, -50%) scale(1.25) !important;
             box-shadow: 0 0 20px rgba(143, 78, 0, 0.4) !important;
+        }
+
+        /* Flowing Wave Animations */
+        @keyframes wave-sway {
+            0%, 100% { transform: translateY(0) scaleY(1); }
+            50% { transform: translateY(-15px) scaleY(1.05); }
+        }
+        @keyframes wave-flow {
+            to { stroke-dashoffset: -2000; }
+        }
+        .animate-wave-1 {
+            stroke-dasharray: 800;
+            animation: wave-sway 18s infinite ease-in-out, wave-flow 45s infinite linear;
+        }
+        .animate-wave-2 {
+            stroke-dasharray: 1000;
+            animation: wave-sway 25s infinite ease-in-out, wave-flow 60s infinite linear;
+        }
+        .animate-wave-3 {
+            stroke-dasharray: 600;
+            animation: wave-sway 30s infinite ease-in-out, wave-flow 80s infinite linear;
         }
         
         /* Modern Entrance reveals */
@@ -496,6 +517,13 @@
     <div class="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-tertiary/6 via-sandalwood/6 to-transparent blur-[160px] top-[40vh] -right-80 animate-blob-slower"></div>
     <div class="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-tr from-primary/6 via-transparent to-sandalwood/12 blur-[140px] bottom-[10vh] -left-60 animate-blob-slow"></div>
     
+    <!-- Flowing Wave Paths -->
+    <svg class="absolute w-full h-full opacity-[0.06] z-10" viewBox="0 0 1440 800" preserveAspectRatio="none">
+      <path d="M0,150 C150,220 350,80 500,150 C650,220 850,80 1000,150 C1150,220 1350,80 1440,150" fill="none" stroke="#8f4e00" stroke-width="2" class="animate-wave-1"></path>
+      <path d="M0,250 C200,120 400,320 600,250 C800,180 1000,380 1200,250 C1300,190 1380,310 1440,250" fill="none" stroke="#570000" stroke-width="1.5" class="animate-wave-2"></path>
+      <path d="M0,350 C100,420 250,280 400,350 C550,420 700,280 850,350 C1000,420 1150,280 1300,350" fill="none" stroke="#C2B280" stroke-width="1" class="animate-wave-3"></path>
+    </svg>
+
     <!-- Floating Faint Sanskrit Calligraphy at Parallax Depth -->
     <div class="absolute text-[16vw] font-serif font-bold text-primary/[0.025] select-none tracking-widest top-[20vh] right-[10%] rotate-12 parallax-bg-text" data-depth="0.12">अद्वैत</div>
     <div class="absolute text-[18vw] font-serif font-bold text-secondary/[0.02] select-none tracking-widest top-[90vh] left-[5%] -rotate-6 parallax-bg-text" data-depth="0.08">ज्ञानम्</div>
