@@ -1066,7 +1066,7 @@
   </div>
 
   <!-- Content 3 -->
-  <div id="tab-content-3" class="space-y-6">
+  <div id="tab-content-3" class="hidden space-y-6">
     <h3 class="font-headline-md text-headline-md text-primary border-b border-sandalwood/20 pb-3">Travel Directions & Historical Geography</h3>
     <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
       Kalady is nestled in a highly accessible region of Central Kerala. The Purna River (Periyar) flows directly adjacent to the temple premises, providing a serene environment for meditation and bathing.
@@ -1215,62 +1215,6 @@
 </div>
 
 <script>
-        // Custom Cubic Eased Smooth Scroll (Beautiful, Slow & Majestic)
-        function customSmoothScroll(target, duration = 1600) {
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-            const startPosition = window.pageYOffset;
-            const distance = targetPosition - startPosition;
-            let startTime = null;
-
-            function animation(currentTime) {
-                if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
-                window.scrollTo(0, run);
-                if (timeElapsed < duration) {
-                    requestAnimationFrame(animation);
-                } else {
-                    window.scrollTo(0, targetPosition);
-                }
-            }
-
-            function easeInOutCubic(t, b, c, d) {
-                t /= d / 2;
-                if (t < 1) return c / 2 * t * t * t + b;
-                t -= 2;
-                return c / 2 * (t * t * t + 2) + b;
-            }
-
-            requestAnimationFrame(animation);
-        }
-
-        // Smooth scroll implementation & active highlight management
-        document.querySelectorAll('a').forEach(anchor => {
-            const href = anchor.getAttribute('href');
-            if (href && href.includes('#')) {
-                const parts = href.split('#');
-                const path = parts[0];
-                const targetId = '#' + parts[1];
-                const isLocal = path === '' || path === 'index.html' || path === '/index.html' || path === '/' || path.endsWith(window.location.pathname);
-                if (isLocal) {
-                    const target = document.querySelector(targetId);
-                    if (target) {
-                        anchor.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            customSmoothScroll(target, 1600);
-                            const navId = 'nav-' + targetId.substring(1);
-                            const clickedNav = document.getElementById(navId);
-                            if (clickedNav) {
-                                document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-                                clickedNav.classList.add('active');
-                            }
-                            history.pushState(null, null, targetId);
-                        });
-                    }
-                }
-            }
-        });
-
         // Update active nav links on scroll
         const scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1287,19 +1231,6 @@
 
         document.querySelectorAll('section[id]').forEach(sec => scrollObserver.observe(sec));
 
-        // Scroll Reveal Intersection Observer for items
-        const revealItems = document.querySelectorAll('.reveal-item');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.02, rootMargin: '0px 0px -40px 0px' });
-        
-        revealItems.forEach(item => revealObserver.observe(item));
-
         // Trigger animations and page transition on load
         document.addEventListener('DOMContentLoaded', () => {
           document.body.classList.add('page-loaded');
@@ -1309,26 +1240,6 @@
               item.classList.add('active');
             }, 150);
           });
-        });
-
-        // Page exit transition for cross-page navigation
-        document.querySelectorAll('a').forEach(link => {
-            const href = link.getAttribute('href');
-            if (href && !href.startsWith('#') && !link.target && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('javascript:')) {
-                link.addEventListener('click', function(e) {
-                    const parser = document.createElement('a');
-                    parser.href = href;
-                    
-                    if (parser.pathname !== window.location.pathname) {
-                        e.preventDefault();
-                        document.body.classList.remove('page-loaded');
-                        document.body.classList.add('page-exit');
-                        setTimeout(() => {
-                            window.location.href = href;
-                        }, 450);
-                    }
-                });
-            }
         });
 
         // Pilgrimage Tab Switching Logic
