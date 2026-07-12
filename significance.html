@@ -3,6 +3,11 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Significance of Kalady | Sri Adi Shankara Janmabhoomi Kshethram</title>
 <meta name="description" content="Why does Kalady matter? Seven dimensions of significance — birthplace, sacred landscape, Aryamba, the departure, Advaita philosophy, rediscovery, and the living tradition.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://cdn.tailwindcss.com?plugins=forms,container-queries" as="script">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js" as="script">
+<link rel="preload" href="https://lh3.googleusercontent.com/aida-public/AB6AXuCX_-eDHUixeMi8zxeBAJkd-QC_ng98S65XbQlM84CxqNCXxgGqPQA5ISQekYVU2vy2hBOudOZE-EcuTrp4bkTVxZVOJMR-7UTj19VO0gjhuM-23J7Yy2j7NOhP-rKnrTBXgEZX1_yMSFmuW07kSGJgqfDhnbqq_IsphctIeO6fXfsLeVs1U1qoM7_9dOGod5J1Z7tzC5eTjIwyINFuPLOiHqARqbHMBhrWe5mywmaqIOObAMxhmAW5RyVkHWCZK4yxeNblZ5OvlI_Crdk" as="image">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -219,7 +224,7 @@
     </div>
     <div class="reveal-item reveal-delay-400">
       <div class="double-border w-full max-w-md mx-auto">
-        <img src="kalady_birthplace.png" alt="Kalady Birthplace" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.01] transition-transform duration-300">
+        <img src="kalady_birthplace.png" alt="Kalady Birthplace" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.01] transition-transform duration-300" loading="lazy" decoding="async">
       </div>
     </div>
   </div>
@@ -272,7 +277,7 @@
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
     <div class="reveal-item flex flex-col items-center justify-center gap-4">
       <div class="double-border w-full max-w-md mx-auto">
-        <img src="aryamba_mother.png" alt="Aryamba Mother" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.01] transition-transform duration-300">
+        <img src="aryamba_mother.png" alt="Aryamba Mother" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.01] transition-transform duration-300" loading="lazy" decoding="async">
       </div>
       <p class="font-headline-md text-2xl text-primary font-bold tracking-[.3em] uppercase mt-2">Aryamba</p>
       <p class="font-body-md text-sm text-on-surface-variant italic max-w-xs leading-relaxed text-center">The mother remembered in the story of the Acharya.</p>
@@ -637,7 +642,8 @@
       duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smooth: true,
-      smoothTouch: false,
+      smoothTouch: true,
+      touchMultiplier: 1.5,
     });
     window.__lenis = lenis;
 
