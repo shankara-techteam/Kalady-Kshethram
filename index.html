@@ -624,11 +624,11 @@
   <span>Sri Adi Shankara Janmabhoomi</span>
 </a>
 <div class="hidden md:flex space-x-4 lg:space-x-6 items-center flex-shrink-0">
-<a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="index.html#home" id="nav-home">Sacred Birthplace</a>
-<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pilgrimage" id="nav-pilgrimage">Pilgrimage Guide</a>
-<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pathashala" id="nav-pathashala">Veda Pathashala</a>
-<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="significance.html" id="nav-significance">Significance</a>
-<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="life.html" id="nav-life">Spiritual Journey</a>
+<a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="/#home" id="nav-home">Sacred Birthplace</a>
+<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#pilgrimage" id="nav-pilgrimage">Pilgrimage Guide</a>
+<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#pathashala" id="nav-pathashala">Veda Pathashala</a>
+<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/significance" id="nav-significance">Significance</a>
+<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/life" id="nav-life">Spiritual Journey</a>
 </div>
 <button onclick="openDonateModal()" class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-4 lg:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 rounded-lg whitespace-nowrap flex-shrink-0">
                 Donate
@@ -2082,7 +2082,7 @@
         const href = link.getAttribute('href');
         if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('tel')) return;
         link.addEventListener('click', function(e) {
-          const isExternal = !href.startsWith('/') && !href.startsWith('index') && !href.startsWith('life') && !href.startsWith('significance') && !href.includes('.html');
+          const isExternal = !href.startsWith('/') && !href.startsWith('index') && !href.startsWith('life') && !href.startsWith('significance');
           if (isExternal) return;
           e.preventDefault();
           document.body.classList.add('page-exit');

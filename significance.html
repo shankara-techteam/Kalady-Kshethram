@@ -113,11 +113,11 @@
     <span>Sri Adi Shankara Janmabhoomi</span>
   </a>
   <div class="hidden md:flex space-x-4 lg:space-x-6 items-center flex-shrink-0">
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#home">Sacred Birthplace</a>
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pilgrimage">Pilgrimage Guide</a>
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pathashala">Veda Pathashala</a>
-    <a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="significance.html">Significance</a>
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="life.html">Spiritual Journey</a>
+    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#home">Sacred Birthplace</a>
+    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#pilgrimage">Pilgrimage Guide</a>
+    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#pathashala">Veda Pathashala</a>
+    <a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="/significance">Significance</a>
+    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/life">Spiritual Journey</a>
   </div>
   <button onclick="openDonateModal()" class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-4 lg:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 rounded-lg whitespace-nowrap flex-shrink-0">Donate</button>
 </nav>
@@ -274,7 +274,7 @@
         <blockquote class="sacred-quote">
           <p class="font-body-lg text-primary text-lg italic">"Kalady is the first point on that journey."</p>
         </blockquote>
-        <a href="life.html" class="inline-flex items-center gap-2 font-label-md text-label-md text-primary hover:text-primary-container transition-colors border-b border-sandalwood/40 hover:border-primary pb-1">
+        <a href="/life" class="inline-flex items-center gap-2 font-label-md text-label-md text-primary hover:text-primary-container transition-colors border-b border-sandalwood/40 hover:border-primary pb-1">
           Explore His Life <span class="material-symbols-outlined text-base">arrow_forward</span>
         </a>
       </div>
@@ -341,7 +341,7 @@
       <blockquote class="sacred-quote">
         <p class="font-body-lg text-primary text-lg italic leading-relaxed">"The significance of Kalady is not only that a philosopher was born here. It is that an inquiry which continues to shape seekers across centuries began its journey here."</p>
       </blockquote>
-      <a href="index.html#contemplation" class="inline-flex items-center gap-2 font-label-md text-label-md text-primary hover:text-primary-container transition-colors border-b border-sandalwood/40 hover:border-primary pb-1">
+      <a href="/#contemplation" class="inline-flex items-center gap-2 font-label-md text-label-md text-primary hover:text-primary-container transition-colors border-b border-sandalwood/40 hover:border-primary pb-1">
         Enter the Inquiry <span class="material-symbols-outlined text-base">arrow_forward</span>
       </a>
     </div>
@@ -491,9 +491,9 @@
     <h2 class="font-display-lg text-primary tracking-tight mb-10" style="font-size:clamp(2rem,5vw,3.5rem)">The journey began here.</h2>
     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
       <div class="double-border">
-        <a href="index.html" class="block px-8 py-3.5 bg-primary text-tertiary-fixed border border-tertiary-fixed/30 hover:bg-primary-container transition-all duration-300 rounded-lg font-label-md text-label-md uppercase tracking-[.2em] text-center">Visit the Kshethram</a>
+        <a href="/" class="block px-8 py-3.5 bg-primary text-tertiary-fixed border border-tertiary-fixed/30 hover:bg-primary-container transition-all duration-300 rounded-lg font-label-md text-label-md uppercase tracking-[.2em] text-center">Visit the Kshethram</a>
       </div>
-      <a href="life.html" class="inline-flex items-center gap-2 font-label-md text-label-md text-primary hover:text-primary-container border-b border-sandalwood/40 hover:border-primary pb-1 transition-all">
+      <a href="/life" class="inline-flex items-center gap-2 font-label-md text-label-md text-primary hover:text-primary-container border-b border-sandalwood/40 hover:border-primary pb-1 transition-all">
         Explore the Spiritual Journey <span class="material-symbols-outlined text-base">arrow_forward</span>
       </a>
     </div>
@@ -588,7 +588,7 @@
   document.querySelectorAll('a[href]').forEach(link=>{
     const href=link.getAttribute('href');
     if(!href||href.startsWith('#')||href.startsWith('mailto')||href.startsWith('tel'))return;
-    if(href.includes('.html')||href.startsWith('/'))link.addEventListener('click',function(e){
+    if(href.startsWith('/')||href.startsWith('index')||href.startsWith('life')||href.startsWith('significance'))link.addEventListener('click',function(e){
       e.preventDefault();document.body.classList.add('page-exit');setTimeout(()=>{window.location.href=href;},380);
     });
   });
