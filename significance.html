@@ -103,23 +103,19 @@
 
   /* Ambient Audio Toggle Button */
   #ambient-toggle {
-      position: fixed;
-      bottom: 88px;
-      right: 6px;
+      position: relative;
       width: 40px;
       height: 40px;
       background: rgba(251,251,226,0.88);
-      backdrop-filter: blur(10px);
       border: 1px solid rgba(194,178,128,0.55);
       border-radius: 9999px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 60;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 2px 12px rgba(87,0,0,0.12);
-      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      box-shadow: 0 2px 8px rgba(87,0,0,0.08);
+      flex-shrink: 0;
   }
   #ambient-toggle:hover {
       transform: scale(1.08);
@@ -169,7 +165,20 @@
     <a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="/significance">Significance</a>
     <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/life">Spiritual Journey</a>
   </div>
-  <button onclick="openDonateModal()" class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-4 lg:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 rounded-lg whitespace-nowrap flex-shrink-0">Donate</button>
+  <div class="flex items-center gap-3 flex-shrink-0">
+    <button id="ambient-toggle" title="Toggle Ambient Audio" aria-label="Toggle ambient sacred music" onclick="toggleAmbientAudio()">
+      <svg id="audio-icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      </svg>
+      <svg id="audio-icon-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <line x1="23" y1="9" x2="17" y2="15"></line>
+        <line x1="17" y1="9" x2="23" y2="15"></line>
+      </svg>
+    </button>
+    <button onclick="openDonateModal()" class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-4 lg:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 rounded-lg whitespace-nowrap">Donate</button>
+  </div>
 </nav>
 </header>
 
@@ -828,16 +837,5 @@
   <source src="https://archive.org/download/om-chanting/y2mate.com%20-%20Om%20Chanting%20%20639%20Hz%20%203%20Hours.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Ambient Audio Toggle -->
-<button id="ambient-toggle" title="Toggle Ambient Audio" aria-label="Toggle ambient sacred music" onclick="toggleAmbientAudio()">
-  <svg id="audio-icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-  </svg>
-  <svg id="audio-icon-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-    <line x1="23" y1="9" x2="17" y2="15"></line>
-    <line x1="17" y1="9" x2="23" y2="15"></line>
-  </svg>
-</button>
+
 </body></html>
