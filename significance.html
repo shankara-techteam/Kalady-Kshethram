@@ -713,15 +713,56 @@
   /* Page fade-out transitions */
   document.querySelectorAll('a[href]').forEach(link => {
     const href = link.getAttribute('href');
-    if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('tel')) return;
-    if (href.startsWith('/') || href.startsWith('index') || href.startsWith('life') || href.startsWith('significance')) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.body.classList.add('page-exit');
-        setTimeout(() => { window.location.href = href; }, 380);
-      });
-    }
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+    
+    link.addEventListener('click', function(e) {
+      try {
+        const targetUrl = new URL(href, window.location.href);
+        // If navigating to the same page but a different hash
+        if (targetUrl.pathname === window.location.pathname) {
+          if (targetUrl.hash) {
+            e.preventDefault();
+            const targetEl = document.getElementById(targetUrl.hash.slice(1));
+            if (targetEl) {
+              const headerH = header ? header.offsetHeight : 80;
+              if (typeof lenis !== 'undefined') {
+                lenis.scrollTo(targetEl, { offset: -(headerH + 16), duration: 1.6 });
+              } else {
+                window.scrollTo({ top: targetEl.getBoundingClientRect().top + window.scrollY - headerH - 16, behavior: 'smooth' });
+              }
+              history.pushState(null, null, targetUrl.hash);
+            }
+          }
+          return;
+        }
+        
+        // If different local page
+        const isLocal = href.startsWith('/') || href.startsWith('index') || href.startsWith('life') || href.startsWith('significance');
+        if (isLocal) {
+          e.preventDefault();
+          document.body.classList.add('page-exit');
+          setTimeout(() => { window.location.href = href; }, 380);
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    });
   });
+
+  // Scroll to hash on load if present
+  if (window.location.hash) {
+    setTimeout(() => {
+      const targetEl = document.getElementById(window.location.hash.slice(1));
+      if (targetEl) {
+        const headerH = header ? header.offsetHeight : 80;
+        if (typeof lenis !== 'undefined') {
+          lenis.scrollTo(targetEl, { offset: -(headerH + 16), immediate: true });
+        } else {
+          window.scrollTo({ top: targetEl.getBoundingClientRect().top + window.scrollY - headerH - 16 });
+        }
+      }
+    }, 500);
+  }
 
   /* ---------- 5. Ambient Audio Toggle with pulse ring & localStorage sync ---------- */
   const audioEl = document.getElementById('ambient-audio');
