@@ -458,75 +458,34 @@
             color: #1b1d0e;
         }
 
-        /* Horizontal Scroll Timeline Layout styles */
-        #timeline-horizontal-wrapper {
+        /* Vertical Journey Timeline Layout */
+        .timeline-container {
             position: relative;
-            width: 100%;
         }
-        #timeline-track {
-            display: flex;
-            flex-direction: row;
-            width: 500vw;
-            height: 100%;
-            will-change: transform;
+        .timeline-node {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .timeline-slide {
-            width: 100vw;
-            height: 100vh;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-            z-index: 10;
+        .timeline-item:hover .timeline-node {
+            background-color: #8f4e00 !important;
+            transform: scale(1.2);
+            box-shadow: 0 0 16px rgba(143, 78, 0, 0.5) !important;
         }
-        .timeline-slide .hover-card-trigger {
-            will-change: transform, opacity;
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .slide-text {
+        
+        /* Slide Reveal Animations (Robust CSS only) */
+        .reveal-item {
+            opacity: 0;
+            transform: translate3d(0, 45px, 0);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
-            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        /* Mobile horizontal scroll overrides */
-        @media (max-width: 767px) {
-            #timeline-horizontal-wrapper {
-                height: auto !important;
-            }
-            #timeline-horizontal-wrapper > .sticky {
-                position: relative !important;
-                height: auto !important;
-                overflow: visible !important;
-                background: transparent !important;
-            }
-            #timeline-track {
-                width: 100% !important;
-                flex-direction: column !important;
-                height: auto !important;
-                transform: none !important;
-            }
-            .timeline-slide {
-                width: 100% !important;
-                height: auto !important;
-                padding: 40px 16px !important;
-            }
-            .timeline-slide > div {
-                flex-direction: column !important;
-                gap: 24px !important;
-            }
-            .slide-text {
-                opacity: 1 !important;
-                transform: none !important;
-            }
-            .timeline-slide .hover-card-trigger {
-                opacity: 1 !important;
-                transform: none !important;
-            }
+        .reveal-item.active {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
         }
     </style>
 </head>
-<body class="mystical-dark-theme text-[#e5e5e0] antialiased">
-<div id="scroll-progress" style="background-color: #e9c400;"></div>
+<body class="parchment-texture text-on-surface antialiased">
+<div id="scroll-progress" style="background-color: #8f4e00;"></div>
 <script>
     document.body.classList.add('page-loaded');
 </script>
@@ -534,16 +493,16 @@
   <!-- Immersive Floating Background Layers -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" id="immersive-bg">
     <!-- Wavy Water/Smoke Gradient Blobs -->
-    <div class="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-[#570000]/20 to-[#C2B280]/10 blur-[120px] -top-20 -left-40 animate-blob-slow"></div>
-    <div class="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-[#705d00]/12 via-[#C2B280]/8 to-transparent blur-[160px] top-[40vh] -right-80 animate-blob-slower"></div>
-    <div class="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-tr from-[#570000]/15 via-transparent to-[#C2B280]/10 blur-[140px] bottom-[10vh] -left-60 animate-blob-slow"></div>
+    <div class="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-sandalwood/12 to-primary/6 blur-[120px] -top-20 -left-40 animate-blob-slow"></div>
+    <div class="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-tertiary/6 via-sandalwood/6 to-transparent blur-[160px] top-[40vh] -right-80 animate-blob-slower"></div>
+    <div class="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-tr from-primary/6 via-transparent to-sandalwood/12 blur-[140px] bottom-[10vh] -left-60 animate-blob-slow"></div>
     
     <!-- Floating Faint Sanskrit Calligraphy at Parallax Depth -->
-    <div class="absolute text-[16vw] font-serif font-bold text-[#e9c400]/[0.035] select-none tracking-widest top-[20vh] right-[10%] rotate-12 parallax-bg-text" data-depth="0.12">अद्वैत</div>
-    <div class="absolute text-[18vw] font-serif font-bold text-[#FF6B35]/[0.03] select-none tracking-widest top-[90vh] left-[5%] -rotate-6 parallax-bg-text" data-depth="0.08">ज्ञानम्</div>
-    <div class="absolute text-[15vw] font-serif font-bold text-[#e9c400]/[0.035] select-none tracking-widest top-[180vh] right-[5%] rotate-6 parallax-bg-text" data-depth="0.15">मौनम्</div>
-    <div class="absolute text-[17vw] font-serif font-bold text-[#FF6B35]/[0.03] select-none tracking-widest top-[260vh] left-[8%] rotate-12 parallax-bg-text" data-depth="0.1">मुक्तिः</div>
-    <div class="absolute text-[16vw] font-serif font-bold text-[#e9c400]/[0.035] select-none tracking-widest top-[340vh] right-[12%] -rotate-12 parallax-bg-text" data-depth="0.07">शान्तिः</div>
+    <div class="absolute text-[16vw] font-serif font-bold text-primary/[0.025] select-none tracking-widest top-[20vh] right-[10%] rotate-12 parallax-bg-text" data-depth="0.12">अद्वैत</div>
+    <div class="absolute text-[18vw] font-serif font-bold text-secondary/[0.02] select-none tracking-widest top-[90vh] left-[5%] -rotate-6 parallax-bg-text" data-depth="0.08">ज्ञानम्</div>
+    <div class="absolute text-[15vw] font-serif font-bold text-primary/[0.025] select-none tracking-widest top-[180vh] right-[5%] rotate-6 parallax-bg-text" data-depth="0.15">मौनम्</div>
+    <div class="absolute text-[17vw] font-serif font-bold text-secondary/[0.02] select-none tracking-widest top-[260vh] left-[8%] rotate-12 parallax-bg-text" data-depth="0.1">मुक्तिः</div>
+    <div class="absolute text-[16vw] font-serif font-bold text-primary/[0.025] select-none tracking-widest top-[340vh] right-[12%] -rotate-12 parallax-bg-text" data-depth="0.07">शान्तिः</div>
   </div>
 
 <!-- Top Navigation Shell -->
@@ -596,162 +555,176 @@
 <div class="mt-12 h-0.5 w-64 bg-gradient-to-r from-transparent via-sandalwood to-transparent mx-auto reveal-item reveal-delay-400"></div>
 </section>
 
-<!-- Horizontal Scroll Timeline Container -->
-<section class="timeline-container relative w-full" id="timeline-horizontal-wrapper" style="height: 500vh;">
-  <div class="sticky top-0 h-screen w-full overflow-hidden bg-[#fbfbe2]">
-    <!-- Horizontal connecting progress lines behind the cards -->
-    <div class="absolute left-12 right-12 top-1/2 -translate-y-1/2 h-0.5 bg-dashed border-t border-sandalwood/35 z-0 pointer-events-none hidden md:block opacity-40"></div>
-    <div class="absolute left-12 top-1/2 -translate-y-1/2 h-[2px] bg-primary z-0 pointer-events-none hidden md:block transition-all duration-75" id="horizontal-progress-line" style="width: 0%; box-shadow: 0 0 10px rgba(87,0,0,0.5);"></div>
+<!-- Chronological Timeline Section -->
+<section class="timeline-container relative max-w-container-max mx-auto px-6 md:px-12 py-12">
+  
+  <!-- Left Vertical Journey Line -->
+  <div class="absolute left-6 md:left-12 top-0 bottom-0 w-[2px] bg-dashed border-l border-sandalwood/50 pointer-events-none z-0 opacity-40"></div>
+  <div class="absolute left-6 md:left-12 top-0 w-[2px] bg-primary pointer-events-none z-0 transition-all duration-75" id="vertical-progress-line" style="height: 0%; box-shadow: 0 0 8px rgba(87,0,0,0.5);"></div>
 
-    <!-- Horizontal Track -->
-    <div class="flex h-full w-[500vw] will-change-transform" id="timeline-track">
+  <!-- Timeline Items -->
+  <div class="space-y-16 relative z-10">
+
+    <!-- Entry 1: Birth in Kalady -->
+    <div class="timeline-item relative pl-10 md:pl-20 reveal-item">
+      <!-- Dot Node on the line -->
+      <div class="timeline-node absolute left-[15px] md:left-[39px] top-6 w-[18px] h-[18px] bg-primary rounded-full border-4 border-[#fbfbe2] shadow-[0_0_0_4px_rgba(194,178,128,0.35)] z-20 transition-all duration-300"></div>
       
-      <!-- Slide 1: Advent at Kalady -->
-      <div class="w-screen h-full flex flex-shrink-0 items-center justify-center px-4 md:px-20 lg:px-32 relative select-none timeline-slide">
-        <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 bg-surface-container-low/90 border border-sandalwood/35 p-6 md:p-10 rounded-2xl relative shadow-md backdrop-blur-md">
-          <div class="corner-trim corner-tl"></div>
-          <div class="corner-trim corner-tr"></div>
-          <div class="corner-trim corner-bl"></div>
-          <div class="corner-trim corner-br"></div>
-          
-          <!-- Text Column -->
-          <div class="w-full md:w-1/2 slide-text space-y-4 text-left">
+      <!-- Content Card -->
+      <div class="bg-surface-container-low/95 border-2 border-sandalwood p-6 md:p-8 rounded-2xl relative shadow-sm hover:shadow-[0_12px_24px_-8px_rgba(143,78,0,0.15)] transition-all duration-300 hover:scale-[1.01]">
+        <div class="corner-trim corner-tl"></div>
+        <div class="corner-trim corner-tr"></div>
+        <div class="corner-trim corner-bl"></div>
+        <div class="corner-trim corner-br"></div>
+        
+        <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          <!-- Text -->
+          <div class="w-full md:w-1/2 space-y-4">
             <span class="font-label-md text-secondary tracking-[0.2em] uppercase block">c. 788 CE • Kerala</span>
-            <h2 class="font-headline-lg text-3xl md:text-4xl text-primary font-bold">The Advent at Kalady</h2>
+            <h3 class="font-headline-lg text-3xl text-primary font-bold">The Advent at Kalady</h3>
             <p class="font-body-lg text-base md:text-lg text-on-surface-variant leading-relaxed">
               Born to the pious Namboothiri couple, Shivaguru and Aryamba, in the village of Kalady on the banks of the Purna. His birth was the fulfillment of a divine promise by Lord Shiva to revitalize the Sanatana Dharma.
             </p>
           </div>
-          
-          <!-- Image Column -->
-          <div class="w-full md:w-1/2 flex items-center justify-center">
-            <div class="w-full max-w-md hover-card-trigger shadow-sm">
-              <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
-                <img class="w-full h-full object-cover oil-painting-effect" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPSrhBPBBptxiUqW8Jouqf2yvxBYovt58K1iOMOgE520dSaceJNJOyCAczFps12mlikMZ7uAWRu-WFkdBE3ZKHGECReTND37uY27olgERN4edD1UQwE74crgide6Ua8-rHinuPF4i2sdDMnsRxyaOgBiROdzZnZKd-rXGRp_g9VG_tfU1XrZco_n1Fc3oXSLdY4ycEq0Tl84GNDnnPl7hdLlyIfKF5B8-mnqz-oIHNYuR4JBieAxyohg" alt="Kalady birthplace">
-                <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
-              </div>
+          <!-- Image -->
+          <div class="w-full md:w-1/2">
+            <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg hover-card-trigger">
+              <img class="w-full h-full object-cover oil-painting-effect transition-transform duration-700 hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPSrhBPBBptxiUqW8Jouqf2yvxBYovt58K1iOMOgE520dSaceJNJOyCAczFps12mlikMZ7uAWRu-WFkdBE3ZKHGECReTND37uY27olgERN4edD1UQwE74crgide6Ua8-rHinuPF4i2sdDMnsRxyaOgBiROdzZnZKd-rXGRp_g9VG_tfU1XrZco_n1Fc3oXSLdY4ycEq0Tl84GNDnnPl7hdLlyIfKF5B8-mnqz-oIHNYuR4JBieAxyohg" alt="Kalady birthplace">
+              <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Slide 2: Renunciation -->
-      <div class="w-screen h-full flex flex-shrink-0 items-center justify-center px-4 md:px-20 lg:px-32 relative select-none timeline-slide">
-        <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 bg-surface-container-low/90 border border-sandalwood/35 p-6 md:p-10 rounded-2xl relative shadow-md backdrop-blur-md">
-          <div class="corner-trim corner-tl"></div>
-          <div class="corner-trim corner-tr"></div>
-          <div class="corner-trim corner-bl"></div>
-          <div class="corner-trim corner-br"></div>
-          
-          <!-- Text Column -->
-          <div class="w-full md:w-1/2 slide-text space-y-4 text-left">
+    <!-- Entry 2: Renunciation -->
+    <div class="timeline-item relative pl-10 md:pl-20 reveal-item">
+      <!-- Dot Node on the line -->
+      <div class="timeline-node absolute left-[15px] md:left-[39px] top-6 w-[18px] h-[18px] bg-primary rounded-full border-4 border-[#fbfbe2] shadow-[0_0_0_4px_rgba(194,178,128,0.35)] z-20 transition-all duration-300"></div>
+      
+      <!-- Content Card -->
+      <div class="bg-surface-container-low/95 border-2 border-sandalwood p-6 md:p-8 rounded-2xl relative shadow-sm hover:shadow-[0_12px_24px_-8px_rgba(143,78,0,0.15)] transition-all duration-300 hover:scale-[1.01]">
+        <div class="corner-trim corner-tl"></div>
+        <div class="corner-trim corner-tr"></div>
+        <div class="corner-trim corner-bl"></div>
+        <div class="corner-trim corner-br"></div>
+        
+        <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          <!-- Image -->
+          <div class="w-full md:w-1/2 order-2 md:order-1">
+            <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg hover-card-trigger">
+              <img class="w-full h-full object-cover oil-painting-effect transition-transform duration-700 hover:scale-105" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIvif0e6tL60YJaI5L9Z558pamDnCVjtxwZAN0muqalnQ40ZsT43Ng9Sl26KwBB5LqvUuu9HX4QskmioBKGCzWvaJRvXy_V3Uh17Fw-aKDFum6nYvVQmlq-PqNMgpOdBXR4Q72XMzGNee8oHQZmW-Ri4ufwkH24YOLV27YeKuviY7icfY1aJjlpuURcI-ugI8L2iiJXs0Dd6QR7XuiCMdgBS54gOQSGs2xSSFYfbF1JAsrNVlrpAtCow" alt="Crocodile miracle">
+              <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
+            </div>
+          </div>
+          <!-- Text -->
+          <div class="w-full md:w-1/2 order-1 md:order-2 space-y-4">
             <span class="font-label-md text-secondary tracking-[0.2em] uppercase block">The Sannyasa Permission</span>
-            <h2 class="font-headline-lg text-3xl md:text-4xl text-primary font-bold">Embracing the Path of Truth</h2>
+            <h3 class="font-headline-lg text-3xl text-primary font-bold">Embracing the Path of Truth</h3>
             <p class="font-body-lg text-base md:text-lg text-on-surface-variant leading-relaxed">
               While bathing in the Purna river, a crocodile seized the young Shankara's leg. In that critical moment, he sought and obtained his mother Aryamba's permission to enter Sannyasa (renunciation), as "rebirth" through monastic vows would spare his life from the jaws of death.
             </p>
           </div>
-          
-          <!-- Image Column -->
-          <div class="w-full md:w-1/2 flex items-center justify-center">
-            <div class="w-full max-w-md hover-card-trigger shadow-sm">
-              <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
-                <img class="w-full h-full object-cover oil-painting-effect" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIvif0e6tL60YJaI5L9Z558pamDnCVjtxwZAN0muqalnQ40ZsT43Ng9Sl26KwBB5LqvUuu9HX4QskmioBKGCzWvaJRvXy_V3Uh17Fw-aKDFum6nYvVQmlq-PqNMgpOdBXR4Q72XMzGNee8oHQZmW-Ri4ufwkH24YOLV27YeKuviY7icfY1aJjlpuURcI-ugI8L2iiJXs0Dd6QR7XuiCMdgBS54gOQSGs2xSSFYfbF1JAsrNVlrpAtCow" alt="Crocodile miracle">
-                <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
+    </div>
 
-      <!-- Slide 3: Meeting the Guru -->
-      <div class="w-screen h-full flex flex-shrink-0 items-center justify-center px-4 md:px-20 lg:px-32 relative select-none timeline-slide">
-        <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 bg-surface-container-low/90 border border-sandalwood/35 p-6 md:p-10 rounded-2xl relative shadow-md backdrop-blur-md">
-          <div class="corner-trim corner-tl"></div>
-          <div class="corner-trim corner-tr"></div>
-          <div class="corner-trim corner-bl"></div>
-          <div class="corner-trim corner-br"></div>
-          
-          <!-- Text Column -->
-          <div class="w-full md:w-1/2 slide-text space-y-4 text-left">
+    <!-- Entry 3: Meeting the Guru -->
+    <div class="timeline-item relative pl-10 md:pl-20 reveal-item">
+      <!-- Dot Node on the line -->
+      <div class="timeline-node absolute left-[15px] md:left-[39px] top-6 w-[18px] h-[18px] bg-primary rounded-full border-4 border-[#fbfbe2] shadow-[0_0_0_4px_rgba(194,178,128,0.35)] z-20 transition-all duration-300"></div>
+      
+      <!-- Content Card -->
+      <div class="bg-surface-container-low/95 border-2 border-sandalwood p-6 md:p-8 rounded-2xl relative shadow-sm hover:shadow-[0_12px_24px_-8px_rgba(143,78,0,0.15)] transition-all duration-300 hover:scale-[1.01]">
+        <div class="corner-trim corner-tl"></div>
+        <div class="corner-trim corner-tr"></div>
+        <div class="corner-trim corner-bl"></div>
+        <div class="corner-trim corner-br"></div>
+        
+        <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          <!-- Text -->
+          <div class="w-full md:w-1/2 space-y-4">
             <span class="font-label-md text-secondary tracking-[0.2em] uppercase block">Narmada River Banks</span>
-            <h2 class="font-headline-lg text-3xl md:text-4xl text-primary font-bold">The Guru's Recognition</h2>
+            <h3 class="font-headline-lg text-3xl text-primary font-bold">The Guru's Recognition</h3>
             <p class="font-body-lg text-base md:text-lg text-on-surface-variant leading-relaxed">
               Journeying to the banks of the Narmada, he found the cave of Sage Govinda Bhagavatpada. When asked "Who are you?", Shankara replied with the 'Dashashloki', proving his realized state. The Sage recognized him as an avatar of Shiva and initiated him.
             </p>
           </div>
-          
-          <!-- Image Column -->
-          <div class="w-full md:w-1/2 flex items-center justify-center">
-            <div class="w-full max-w-md hover-card-trigger shadow-sm">
-              <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
-                <img class="w-full h-full object-cover oil-painting-effect" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9bmFf1t9G38mvnMt7j_LjGriD3b-KtaG7ryxuQgQN1kXoZcisZl2NSad4OrftEK9kG380HmBi-GcWbPe8gTV_mRVCW34E0-Ptc6caqxTpWnhrfPXYhh-wpv303h2g5hCDNeFg8OYkfMPJIWwcrqgqR69mSGSvWx5g6_gwaTLMGplLrboJMRCAm5AU95zrETIhb1DoX-1uN42rni1WasrmENbyeepeA6J9qVRITe9cDWeNUDPYpjmB2Q" alt="Govinda cave">
-                <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
-              </div>
+          <!-- Image -->
+          <div class="w-full md:w-1/2">
+            <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg hover-card-trigger">
+              <img class="w-full h-full object-cover oil-painting-effect transition-transform duration-700 hover:scale-105" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9bmFf1t9G38mvnMt7j_LjGriD3b-KtaG7ryxuQgQN1kXoZcisZl2NSad4OrftEK9kG380HmBi-GcWbPe8gTV_mRVCW34E0-Ptc6caqxTpWnhrfPXYhh-wpv303h2g5hCDNeFg8OYkfMPJIWwcrqgqR69mSGSvWx5g6_gwaTLMGplLrboJMRCAm5AU95zrETIhb1DoX-1uN42rni1WasrmENbyeepeA6J9qVRITe9cDWeNUDPYpjmB2Q" alt="Govinda cave">
+              <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Slide 4: Kashi & Commentaries -->
-      <div class="w-screen h-full flex flex-shrink-0 items-center justify-center px-4 md:px-20 lg:px-32 relative select-none timeline-slide">
-        <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 bg-surface-container-low/90 border border-sandalwood/35 p-6 md:p-10 rounded-2xl relative shadow-md backdrop-blur-md">
-          <div class="corner-trim corner-tl"></div>
-          <div class="corner-trim corner-tr"></div>
-          <div class="corner-trim corner-bl"></div>
-          <div class="corner-trim corner-br"></div>
-          
-          <!-- Text Column -->
-          <div class="w-full md:w-1/2 slide-text space-y-4 text-left">
+    <!-- Entry 4: Kashi & Commentaries -->
+    <div class="timeline-item relative pl-10 md:pl-20 reveal-item">
+      <!-- Dot Node on the line -->
+      <div class="timeline-node absolute left-[15px] md:left-[39px] top-6 w-[18px] h-[18px] bg-primary rounded-full border-4 border-[#fbfbe2] shadow-[0_0_0_4px_rgba(194,178,128,0.35)] z-20 transition-all duration-300"></div>
+      
+      <!-- Content Card -->
+      <div class="bg-surface-container-low/95 border-2 border-sandalwood p-6 md:p-8 rounded-2xl relative shadow-sm hover:shadow-[0_12px_24px_-8px_rgba(143,78,0,0.15)] transition-all duration-300 hover:scale-[1.01]">
+        <div class="corner-trim corner-tl"></div>
+        <div class="corner-trim corner-tr"></div>
+        <div class="corner-trim corner-bl"></div>
+        <div class="corner-trim corner-br"></div>
+        
+        <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          <!-- Image -->
+          <div class="w-full md:w-1/2 order-2 md:order-1">
+            <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg hover-card-trigger">
+              <img class="w-full h-full object-cover oil-painting-effect transition-transform duration-700 hover:scale-105" loading="lazy" decoding="async" src="kashi_commentaries.png" alt="Sanskrit commentaries">
+              <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
+            </div>
+          </div>
+          <!-- Text -->
+          <div class="w-full md:w-1/2 order-1 md:order-2 space-y-4">
             <span class="font-label-md text-secondary tracking-[0.2em] uppercase block">Varanasi (Kashi)</span>
-            <h2 class="font-headline-lg text-3xl md:text-4xl text-primary font-bold">The Prasthana Traya Bhashyas</h2>
+            <h3 class="font-headline-lg text-3xl text-primary font-bold">The Prasthana Traya Bhashyas</h3>
             <p class="font-body-lg text-base md:text-lg text-on-surface-variant leading-relaxed">
               In the holy city of Kashi, Shankara wrote his profound commentaries (Bhashyas) on the Upanishads, the Brahma Sutras, and the Bhagavad Gita. It was here that he defeated many scholars in debate, establishing Advaita as the crown jewel of Vedic thought.
             </p>
           </div>
-          
-          <!-- Image Column -->
-          <div class="w-full md:w-1/2 flex items-center justify-center">
-            <div class="w-full max-w-md hover-card-trigger shadow-sm">
-              <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
-                <img class="w-full h-full object-cover oil-painting-effect" loading="lazy" decoding="async" src="kashi_commentaries.png" alt="Sanskrit commentaries">
-                <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
+    </div>
 
-      <!-- Slide 5: The Amnaya Peethams -->
-      <div class="w-screen h-full flex flex-shrink-0 items-center justify-center px-4 md:px-20 lg:px-32 relative select-none timeline-slide">
-        <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 bg-surface-container-low/90 border border-sandalwood/35 p-6 md:p-10 rounded-2xl relative shadow-md backdrop-blur-md">
-          <div class="corner-trim corner-tl"></div>
-          <div class="corner-trim corner-tr"></div>
-          <div class="corner-trim corner-bl"></div>
-          <div class="corner-trim corner-br"></div>
-          
-          <!-- Text Column -->
-          <div class="w-full md:w-1/2 slide-text space-y-4 text-left">
+    <!-- Entry 5: The Amnaya Peethams -->
+    <div class="timeline-item relative pl-10 md:pl-20 reveal-item">
+      <!-- Dot Node on the line -->
+      <div class="timeline-node absolute left-[15px] md:left-[39px] top-6 w-[18px] h-[18px] bg-primary rounded-full border-4 border-[#fbfbe2] shadow-[0_0_0_4px_rgba(194,178,128,0.35)] z-20 transition-all duration-300"></div>
+      
+      <!-- Content Card -->
+      <div class="bg-surface-container-low/95 border-2 border-sandalwood p-6 md:p-8 rounded-2xl relative shadow-sm hover:shadow-[0_12px_24px_-8px_rgba(143,78,0,0.15)] transition-all duration-300 hover:scale-[1.01]">
+        <div class="corner-trim corner-tl"></div>
+        <div class="corner-trim corner-tr"></div>
+        <div class="corner-trim corner-bl"></div>
+        <div class="corner-trim corner-br"></div>
+        
+        <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          <!-- Text -->
+          <div class="w-full md:w-1/2 space-y-4">
             <span class="font-label-md text-secondary tracking-[0.2em] uppercase block">Dharma Rakshana</span>
-            <h2 class="font-headline-lg text-3xl md:text-4xl text-primary font-bold">Establishing the Amnaya Peethams</h2>
+            <h3 class="font-headline-lg text-3xl text-primary font-bold">Establishing the Amnaya Peethams</h3>
             <p class="font-body-lg text-base md:text-lg text-on-surface-variant leading-relaxed">
               To ensure the continuity of the tradition, the Jagadguru established four Peethams at the cardinal points of India: Sringeri (South), Dwarka (West), Puri (East), and Jyotirmath (North), each entrusted with one of the four Vedas.
             </p>
           </div>
-          
-          <!-- Image Column -->
-          <div class="w-full md:w-1/2 flex items-center justify-center">
-            <div class="w-full max-w-md hover-card-trigger shadow-sm">
-              <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg">
-                <img class="w-full h-full object-cover oil-painting-effect" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZata2AcdBx-Ro-omWbcmTj5HIUfUspx2l4XG5SBcY9cvAl0Jm60r4USHoVYg8lVCoez-dbhzAFTgobMU5Sy7h_p5GPDAypZsQ44sPw1lE-NGPpB1W9BLDm3EWFMOPPpj6mhhjKW40XXyHEqJieFx2AThle-WrgI3whHH1bDtu4vnQv63B_nSu5UfCRVFSzxnu1CqzKKjNNGzErwbSPAwV9oR82eOQNgugngTOrvMe0zf98GKO5bDXzQ" alt="Four Peethams map">
-                <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
-              </div>
+          <!-- Image -->
+          <div class="w-full md:w-1/2">
+            <div class="aspect-[4/3] bg-surface-dim overflow-hidden border border-sandalwood/50 relative rounded-lg hover-card-trigger">
+              <img class="w-full h-full object-cover oil-painting-effect transition-transform duration-700 hover:scale-105" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZata2AcdBx-Ro-omWbcmTj5HIUfUspx2l4XG5SBcY9cvAl0Jm60r4USHoVYg8lVCoez-dbhzAFTgobMU5Sy7h_p5GPDAypZsQ44sPw1lE-NGPpB1W9BLDm3EWFMOPPpj6mhhjKW40XXyHEqJieFx2AThle-WrgI3whHH1bDtu4vnQv63B_nSu5UfCRVFSzxnu1CqzKKjNNGzErwbSPAwV9oR82eOQNgugngTOrvMe0zf98GKO5bDXzQ" alt="Four Peethams map">
+              <div class="absolute inset-0 vignette-overlay pointer-events-none"></div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
+
   </div>
 </section>
 <!-- Interactive Quote Section -->
@@ -1152,54 +1125,21 @@
 
       const header = document.querySelector('header');
 
-      /* Horizontal Scroll Timeline Logic */
-      function updateHorizontalTimeline() {
-        const wrapper = document.getElementById('timeline-horizontal-wrapper');
-        const track = document.getElementById('timeline-track');
-        const progressLine = document.getElementById('horizontal-progress-line');
-        if (!wrapper || !track) return;
+      /* Vertical Progress Line Logic */
+      function updateVerticalTimelineProgress() {
+        const line = document.getElementById('vertical-progress-line');
+        const container = document.querySelector('.timeline-container');
+        if (!line || !container) return;
 
-        if (window.innerWidth < 768) {
-          track.style.transform = 'none';
-          if (progressLine) progressLine.style.width = '0%';
-          return;
-        }
-
-        const rect = wrapper.getBoundingClientRect();
+        const rect = container.getBoundingClientRect();
         const startY = rect.top + window.scrollY;
-        const totalScrollable = rect.height - window.innerHeight;
-        let scrolled = window.scrollY - startY;
+        const totalHeight = rect.height;
+        const currentScroll = window.scrollY + window.innerHeight / 2 - startY;
 
-        let pct = scrolled / totalScrollable;
-        pct = Math.min(1, Math.max(0, pct)); 
+        let pct = currentScroll / totalHeight;
+        pct = Math.min(1, Math.max(0, pct)); // Clamp 0 to 1
 
-        const translateX = pct * 80; // Slide horizontal track by 80% total (for 5 slides)
-        track.style.transform = `translate3d(-${translateX}vw, 0, 0)`;
-
-        if (progressLine) {
-          progressLine.style.width = `${pct * 95}%`;
-        }
-
-        // Horizontal Parallax of slides elements
-        const slides = document.querySelectorAll('.timeline-slide');
-        slides.forEach((slide, idx) => {
-          const slideProgress = pct * 4 - idx; // range from -idx to 4-idx
-          const textBox = slide.querySelector('.slide-text');
-          const cardBox = slide.querySelector('.hover-card-trigger');
-
-          if (cardBox) {
-            const shift = slideProgress * 140; 
-            const scale = 1 - Math.min(0.2, Math.abs(slideProgress) * 0.1);
-            cardBox.style.transform = `translate3d(${shift}px, 0, 0) scale(${scale})`;
-            cardBox.style.opacity = Math.max(0, 1 - Math.abs(slideProgress) * 1.6);
-          }
-
-          if (textBox) {
-            const shift = -slideProgress * 70;
-            textBox.style.transform = `translate3d(${shift}px, 0, 0)`;
-            textBox.style.opacity = Math.max(0, 1 - Math.abs(slideProgress) * 1.6);
-          }
-        });
+        line.style.height = `${pct * 100}%`;
       }
 
       function scrollParallaxBg() {
@@ -1219,12 +1159,12 @@
 
       // Initial run & listeners
       setTimeout(() => {
-        updateHorizontalTimeline();
+        updateVerticalTimelineProgress();
         scrollParallaxBg();
       }, 100);
 
       window.addEventListener('resize', () => {
-        updateHorizontalTimeline();
+        updateVerticalTimelineProgress();
       });
 
       if (typeof Lenis !== 'undefined') {
@@ -1245,7 +1185,7 @@
             if (scroll > 40) { header.style.boxShadow = '0 4px 24px rgba(87,0,0,.10)'; header.classList.add('scrolled'); }
             else { header.style.boxShadow = 'none'; header.classList.remove('scrolled'); }
           }
-          updateHorizontalTimeline();
+          updateVerticalTimelineProgress();
           scrollParallaxBg();
         });
 
@@ -1264,7 +1204,7 @@
             if (window.scrollY > 40) { header.style.boxShadow = '0 4px 24px rgba(87,0,0,0.10)'; header.classList.add('scrolled'); }
             else { header.style.boxShadow = 'none'; header.classList.remove('scrolled'); }
           }
-          updateHorizontalTimeline();
+          updateVerticalTimelineProgress();
           scrollParallaxBg();
         }, { passive: true });
         document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
