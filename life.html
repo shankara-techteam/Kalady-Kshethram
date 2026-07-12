@@ -424,6 +424,32 @@
             border: 2px solid rgba(87,0,0,0.4);
             animation: pulse-ring 1.5s ease-out infinite;
         }
+
+        /* Immersive Background Animations */
+        @keyframes blob-float {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            33% { transform: translate(30px, -50px) scale(1.05) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) scale(0.95) rotate(240deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(360deg); }
+        }
+        @keyframes blob-float-reverse {
+            0% { transform: translate(0, 0) scale(1) rotate(360deg); }
+            33% { transform: translate(-30px, 40px) scale(0.95) rotate(240deg); }
+            66% { transform: translate(40px, -20px) scale(1.05) rotate(120deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+        }
+        .animate-blob-slow {
+            animation: blob-float 25s infinite ease-in-out;
+        }
+        .animate-blob-slower {
+            animation: blob-float-reverse 35s infinite ease-in-out;
+        }
+        .parallax-bg-text {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            will-change: transform;
+            transform-origin: center;
+        }
     </style>
 </head>
 <body class="parchment-texture text-on-surface">
@@ -431,7 +457,22 @@
 <script>
     document.body.classList.add('page-loaded');
 </script>
-<div id="page-wrapper">
+<div id="page-wrapper" class="relative">
+  <!-- Immersive Floating Background Layers -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" id="immersive-bg">
+    <!-- Wavy Water/Smoke Gradient Blobs -->
+    <div class="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-sandalwood/10 to-primary/5 blur-[120px] -top-20 -left-40 animate-blob-slow"></div>
+    <div class="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-tertiary/5 via-sandalwood/5 to-transparent blur-[160px] top-[40vh] -right-80 animate-blob-slower"></div>
+    <div class="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-tr from-primary/5 via-transparent to-sandalwood/10 blur-[140px] bottom-[10vh] -left-60 animate-blob-slow"></div>
+    
+    <!-- Floating Faint Sanskrit Calligraphy at Parallax Depth -->
+    <div class="absolute text-[16vw] font-serif font-bold text-primary/[0.015] select-none tracking-widest top-[20vh] right-[10%] rotate-12 parallax-bg-text" data-depth="0.12">अद्वैत</div>
+    <div class="absolute text-[18vw] font-serif font-bold text-secondary/[0.012] select-none tracking-widest top-[90vh] left-[5%] -rotate-6 parallax-bg-text" data-depth="0.08">ज्ञानम्</div>
+    <div class="absolute text-[15vw] font-serif font-bold text-primary/[0.015] select-none tracking-widest top-[180vh] right-[5%] rotate-6 parallax-bg-text" data-depth="0.15">मौनम्</div>
+    <div class="absolute text-[17vw] font-serif font-bold text-secondary/[0.012] select-none tracking-widest top-[260vh] left-[8%] rotate-12 parallax-bg-text" data-depth="0.1">मुक्तिः</div>
+    <div class="absolute text-[16vw] font-serif font-bold text-primary/[0.015] select-none tracking-widest top-[340vh] right-[12%] -rotate-12 parallax-bg-text" data-depth="0.07">शान्तिः</div>
+  </div>
+
 <!-- Top Navigation Shell -->
 <header class="w-full top-0 sticky bg-surface/80 backdrop-blur-md border-b border-sandalwood/25 z-50 transition-all duration-300">
 <nav class="flex justify-between items-center px-gutter max-w-container-max mx-auto h-20 gap-4">
@@ -1099,9 +1140,77 @@
         progressPath.style.strokeDashoffset = totalLength * (1 - pct);
       }
 
+      function scrollParallaxBg() {
+        const scrollY = window.scrollY;
+        const texts = document.querySelectorAll('.parallax-bg-text');
+        texts.forEach(text => {
+          const depth = parseFloat(text.getAttribute('data-depth')) || 0.1;
+          const translateY = scrollY * depth;
+          let rotation = "";
+          if (text.classList.contains('rotate-12')) rotation = "rotate(12deg)";
+          else if (text.classList.contains('-rotate-6')) rotation = "rotate(-6deg)";
+          else if (text.classList.contains('rotate-6')) rotation = "rotate(6deg)";
+          else if (text.classList.contains('-rotate-12')) rotation = "rotate(-12deg)";
+          text.style.transform = `translate3d(0, ${translateY}px, 0) ${rotation}`;
+        });
+      }
+
+      function applyZigZagParallax() {
+        if (window.innerWidth < 768) {
+          document.querySelectorAll('.timeline-container .space-y-32 > div').forEach(row => {
+            const textBox = row.querySelector('.w-full.md\\:w-1\\/2:not(.relative)');
+            const cardBox = row.querySelector('.hover-card-trigger');
+            const node = row.querySelector('.timeline-node');
+            if (textBox) textBox.style.transform = '';
+            if (cardBox) cardBox.style.transform = '';
+            if (node) node.style.transform = '';
+          });
+          return;
+        }
+
+        const rows = document.querySelectorAll('.timeline-container .space-y-32 > div');
+        rows.forEach((row, index) => {
+          const rect = row.getBoundingClientRect();
+          const rowCenter = rect.top + rect.height / 2;
+          const viewportCenter = window.innerHeight / 2;
+          const distanceFromCenter = rowCenter - viewportCenter;
+
+          const maxSway = 50; 
+          const factor = Math.sin(distanceFromCenter * 0.0015);
+          const swayX = factor * maxSway;
+          const rotateY = factor * 4;
+
+          const textBox = row.querySelector('.w-full.md\\:w-1\\/2:not(.relative)');
+          const cardBox = row.querySelector('.hover-card-trigger');
+          const node = row.querySelector('.timeline-node');
+
+          if (node) {
+            node.style.transform = `translate3d(calc(-50% + ${swayX * 0.15}px), 0, 0)`;
+          }
+
+          if (textBox) {
+            const direction = (index % 2 === 0) ? 1 : -1;
+            textBox.style.transform = `translate3d(${swayX * 0.4 * direction}px, 0, 0)`;
+          }
+
+          if (cardBox) {
+            const direction = (index % 2 === 0) ? -1 : 1;
+            cardBox.style.transform = `translate3d(${swayX * 0.7 * direction}px, 0, 0) rotateY(${rotateY * direction}deg)`;
+          }
+        });
+      }
+
       // Initial run & listeners
-      setTimeout(drawCurvedTimeline, 100);
-      window.addEventListener('resize', drawCurvedTimeline);
+      setTimeout(() => {
+        drawCurvedTimeline();
+        scrollParallaxBg();
+        applyZigZagParallax();
+      }, 100);
+
+      window.addEventListener('resize', () => {
+        drawCurvedTimeline();
+        applyZigZagParallax();
+      });
 
       if (typeof Lenis !== 'undefined') {
         const lenis = new Lenis({
@@ -1122,6 +1231,8 @@
             else { header.style.boxShadow = 'none'; header.classList.remove('scrolled'); }
           }
           updateTimelineProgress();
+          scrollParallaxBg();
+          applyZigZagParallax();
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
@@ -1140,6 +1251,8 @@
             else { header.style.boxShadow = 'none'; header.classList.remove('scrolled'); }
           }
           updateTimelineProgress();
+          scrollParallaxBg();
+          applyZigZagParallax();
         }, { passive: true });
         document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
           const t = document.getElementById(this.getAttribute('href').slice(1));
