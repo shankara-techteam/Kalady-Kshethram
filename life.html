@@ -620,14 +620,25 @@
   </svg>
   <span class="inline md:hidden lg:inline">Sri Adi Shankara Janmabhoomi</span><span class="hidden md:inline lg:hidden">Adi Shankara Janmabhoomi</span>
 </a>
-<div class="hidden md:flex space-x-2.5 lg:space-x-4 xl:space-x-5 items-center flex-shrink-0">
-<a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#home" id="nav-home">Sacred Birthplace</a>
-<a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pathashala" id="nav-pathashala">Veda Pathashala</a>
-<a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pilgrimage" id="nav-pilgrimage">Pilgrimage Guide</a>
-<a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="significance.html" id="nav-significance">Significance</a>
-<a class="nav-link active font-label-md text-[10px] lg:text-label-md tracking-wide text-primary whitespace-nowrap" href="life.html" id="nav-life">Spiritual Journey</a>
-<a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="poojas.html" id="nav-poojas">Pujas & Offerings</a>
-<a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="gallery.html" id="nav-gallery">Gallery</a>
+<div class="hidden md:flex space-x-3 lg:space-x-5 xl:space-x-6 items-center flex-shrink-0">
+<div class="relative group py-2">
+  <a href="index.html#home" class="nav-link font-label-md text-xs lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap flex items-center gap-1.5 focus:outline-none" id="nav-home">
+    <span>Sacred Birthplace</span>
+    <svg class="w-3 h-3 transition-transform duration-300 group-hover:rotate-180 text-on-surface-variant group-hover:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+    </svg>
+  </a>
+  <!-- Dropdown Menu -->
+  <div class="absolute left-0 mt-2 w-48 rounded-xl bg-surface/95 backdrop-blur-md border border-sandalwood/25 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 py-1.5">
+    <a href="index.html#home" class="block px-4 py-2 text-xs lg:text-label-md text-on-surface-variant hover:text-primary hover:bg-sandalwood/10 transition-colors">Temple Overview</a>
+    <a href="index.html#pathashala" class="block px-4 py-2 text-xs lg:text-label-md text-on-surface-variant hover:text-primary hover:bg-sandalwood/10 transition-colors">Veda Pathashala</a>
+    <a href="index.html#pilgrimage" class="block px-4 py-2 text-xs lg:text-label-md text-on-surface-variant hover:text-primary hover:bg-sandalwood/10 transition-colors">Pilgrimage Guide</a>
+  </div>
+</div>
+<a class="nav-link font-label-md text-xs lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="significance.html" id="nav-significance">Significance</a>
+<a class="nav-link active font-label-md text-xs lg:text-label-md tracking-wide text-primary whitespace-nowrap" href="life.html" id="nav-life">Spiritual Journey</a>
+<a class="nav-link font-label-md text-xs lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="poojas.html" id="nav-poojas">Pujas & Offerings</a>
+<a class="nav-link font-label-md text-xs lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="gallery.html" id="nav-gallery">Gallery</a>
 </div>
 <div class="flex items-center gap-1.5 lg:gap-3 flex-shrink-0">
   <button id="ambient-toggle" title="Toggle Ambient Audio" aria-label="Toggle ambient sacred music" onclick="toggleAmbientAudio()">
