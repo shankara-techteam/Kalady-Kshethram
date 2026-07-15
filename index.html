@@ -180,12 +180,7 @@
         .animate-float {
             animation: float-ambient 8s infinite ease-in-out;
         }
-        .hover-card-trigger {
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
-        }
-        .hover-card-trigger:hover {
-            transform: translateY(-8px);
-        }
+
 
         /* Scroll Reveal System */
         .reveal-item {
@@ -608,7 +603,20 @@
         .mandala-bg {
             background-image: radial-gradient(circle at 50% 50%, rgba(194,178,128,0.06) 0%, transparent 70%);
         }
-    </style>
+    
+        /* Premium Polish Enhancements */
+        .ambient-glow-bg {
+            background: radial-gradient(circle at 50% 0%, rgba(87,0,0,0.03) 0%, transparent 70%);
+        }
+        .hover-card-trigger {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease, box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-card-trigger:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(87, 0, 0, 0.08);
+            border-color: rgba(194, 178, 128, 0.5);
+        }
+</style>
 </head>
 <body class="parchment-texture text-on-surface">
 <!-- Scroll Progress Bar -->
@@ -618,7 +626,7 @@
 </script>
 <div id="page-wrapper">
 <!-- Top Navigation Shell -->
-<header class="w-full top-0 sticky bg-surface/80 backdrop-blur-md border-b border-sandalwood/25 z-50 transition-all duration-300">
+<header class="w-full top-0 sticky bg-surface/85 backdrop-blur-xl border-b border-sandalwood/20 z-50 transition-all duration-500 shadow-[0_4px_32px_rgba(87,0,0,0.04)]">
 <nav class="flex justify-between items-center px-gutter max-w-container-max mx-auto h-20 gap-2 lg:gap-4">
 <a href="index.html" class="flex items-center gap-1.5 lg:gap-2.5 font-headline-md text-sm lg:text-base xl:text-lg text-primary tracking-tight font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">
   <!-- Sacred Lotus Logo -->
@@ -638,7 +646,7 @@
     </svg>
   </a>
   <!-- Dropdown Menu -->
-  <div class="absolute left-0 mt-2 w-48 rounded-xl bg-surface/95 backdrop-blur-md border border-sandalwood/25 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 py-1.5">
+  <div class="absolute left-0 mt-2 w-48 rounded-xl bg-surface/95 backdrop-blur-xl border border-sandalwood/20 shadow-[0_12px_40px_rgba(87,0,0,0.08)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-400 ease-out transform translate-y-4 group-hover:translate-y-0 z-50 py-1.5">
     <a href="index.html#home" class="block px-4 py-2 text-xs lg:text-label-md text-on-surface-variant hover:text-primary hover:bg-sandalwood/10 transition-colors">Temple Overview</a>
     <a href="index.html#pathashala" class="block px-4 py-2 text-xs lg:text-label-md text-on-surface-variant hover:text-primary hover:bg-sandalwood/10 transition-colors">Veda Pathashala</a>
     <a href="index.html#pilgrimage" class="block px-4 py-2 text-xs lg:text-label-md text-on-surface-variant hover:text-primary hover:bg-sandalwood/10 transition-colors">Pilgrimage Guide</a>
@@ -661,13 +669,13 @@
       <line x1="17" y1="9" x2="23" y2="15"></line>
     </svg>
   </button>
-  <button onclick="openDonateModal()" class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-2.5 lg:px-4 xl:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 rounded-lg whitespace-nowrap">
+  <button onclick="openDonateModal()" class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-2.5 lg:px-4 xl:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 rounded-lg whitespace-nowrap">
     Donate
   </button>
 </div>
 </nav>
 </header>
-<main>
+<main class="ambient-glow-bg">
 <!-- Hero Section -->
 <section id="home" class="relative h-[85vh] w-full overflow-hidden flex justify-center items-end transition-all duration-1000 opacity-100">
   <!-- Parallax Background Image -->
@@ -759,7 +767,7 @@
 <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed flex-grow">
                         The ancestral deity of the Kaippilly illam, where the young Master offered his daily prayers before his journey of world-conquest.
                     </p>
-<button onclick="openShrineModal(1)" class="text-tertiary hover:text-primary border-b border-transparent hover:border-primary pb-0.5 transition-all duration-300 uppercase tracking-[0.2em] font-label-md text-label-md hover:scale-105 active:scale-95">
+<button onclick="openShrineModal(1)" class="text-tertiary hover:text-primary border-b border-transparent hover:border-primary pb-0.5 transition-all duration-300 uppercase tracking-[0.2em] font-label-md text-label-md hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10">
     Explore Sanctuary
 </button>
 </div>
@@ -773,7 +781,7 @@
 <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed flex-grow">
                         The hallowed site of the 'Crocodile Miracle' where Shankara took Sanyasa, marking the beginning of his mission to restore Vedic truth.
                     </p>
-<button onclick="openShrineModal(2)" class="text-tertiary hover:text-primary border-b border-transparent hover:border-primary pb-0.5 transition-all duration-300 uppercase tracking-[0.2em] font-label-md text-label-md hover:scale-105 active:scale-95">
+<button onclick="openShrineModal(2)" class="text-tertiary hover:text-primary border-b border-transparent hover:border-primary pb-0.5 transition-all duration-300 uppercase tracking-[0.2em] font-label-md text-label-md hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10">
     View the Ghats
 </button>
 </div>
@@ -787,7 +795,7 @@
 <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed flex-grow">
                         A vibrant hub of spiritual education, preserving the oral tradition of the Vedas through disciplined learning and deep contemplation.
                     </p>
-<button onclick="openShrineModal(3)" class="text-tertiary hover:text-primary border-b border-transparent hover:border-primary pb-0.5 transition-all duration-300 uppercase tracking-[0.2em] font-label-md text-label-md hover:scale-105 active:scale-95">
+<button onclick="openShrineModal(3)" class="text-tertiary hover:text-primary border-b border-transparent hover:border-primary pb-0.5 transition-all duration-300 uppercase tracking-[0.2em] font-label-md text-label-md hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10">
     Learn Traditions
 </button>
 </div>
@@ -958,7 +966,7 @@
           <button id="audio-prev-btn" onclick="prevTrack()" class="text-on-surface-variant hover:text-primary transition-all active:scale-90 select-none">
             <span class="material-symbols-outlined text-3xl">skip_previous</span>
           </button>
-          <button id="audio-play-btn" onclick="togglePlayState()" class="w-14 h-14 bg-gradient-to-r from-primary to-primary-container text-tertiary flex items-center justify-center rounded-full hover:shadow-[0_4px_12px_rgba(87,0,0,0.25)] hover:scale-105 active:scale-95 transition-all select-none">
+          <button id="audio-play-btn" onclick="togglePlayState()" class="w-14 h-14 bg-gradient-to-r from-primary to-primary-container text-tertiary flex items-center justify-center rounded-full hover:shadow-[0_4px_12px_rgba(87,0,0,0.25)] hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 transition-all select-none">
             <span class="material-symbols-outlined text-4xl" id="play-btn-icon">play_arrow</span>
           </button>
           <button id="audio-next-btn" onclick="nextTrack()" class="text-on-surface-variant hover:text-primary transition-all active:scale-90 select-none">
@@ -2283,7 +2291,7 @@
 
 
     <!-- Chatbot Floating Toggle Button with Label -->
-    <button onclick="toggleChatbot()" id="chatbot-toggle-btn" class="fixed bottom-6 right-6 h-14 bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed rounded-full shadow-[0_6px_20px_rgba(87,0,0,0.3)] flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 z-50 select-none group px-4">
+    <button onclick="toggleChatbot()" id="chatbot-toggle-btn" class="fixed bottom-6 right-6 h-14 bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed rounded-full shadow-[0_6px_20px_rgba(87,0,0,0.3)] flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 z-50 select-none group px-4">
       <span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform duration-300" id="chatbot-toggle-icon">chat</span>
       <span class="font-label-md text-xs uppercase tracking-wider font-semibold max-w-0 overflow-hidden group-hover:max-w-[120px] transition-all duration-500 whitespace-nowrap">Vedic Guide</span>
       <!-- Pulse Indicator -->
@@ -2325,11 +2333,11 @@
             <p class="font-semibold text-primary font-serif mb-1.5">Hari Om! Pranams.</p>
             <p class="font-sans">Welcome to the Sri Adi Shankara Janmabhoomi. I can assist you with details regarding your pilgrimage, temple services, or the non-dual philosophy of Advaita Vedanta.</p>
             <div class="mt-3.5 flex flex-wrap gap-2 justify-start">
-              <button onclick="sendQuickReply('timings')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">🪷 Timings</button>
-              <button onclick="sendQuickReply('sevas')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">🕉️ Sevas</button>
-              <button onclick="sendQuickReply('lodging')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">🏡 Lodging</button>
-              <button onclick="sendQuickReply('advaita')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">📖 Advaita</button>
-              <button onclick="sendQuickReply('miracles')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">🐊 Miracles</button>
+              <button onclick="sendQuickReply('timings')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">🪷 Timings</button>
+              <button onclick="sendQuickReply('sevas')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">🕉️ Sevas</button>
+              <button onclick="sendQuickReply('lodging')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">🏡 Lodging</button>
+              <button onclick="sendQuickReply('advaita')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">📖 Advaita</button>
+              <button onclick="sendQuickReply('miracles')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">🐊 Miracles</button>
             </div>
           </div>
         </div>
@@ -2338,7 +2346,7 @@
       <!-- Input Area -->
       <form onsubmit="handleChatSubmit(event)" class="p-3.5 border-t border-sandalwood/25 bg-surface flex items-center gap-2">
         <input type="text" id="chatbot-input" placeholder="Ask about timings, sevas, directions, Advaita..." class="flex-grow border border-sandalwood/30 bg-surface-container-lowest px-4 py-2.5 rounded-xl text-xs focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all placeholder:text-on-surface-variant/45">
-        <button type="submit" class="bg-primary hover:bg-primary-container text-white w-9 h-9 flex items-center justify-center rounded-xl transition-all flex-shrink-0 hover:scale-105 active:scale-95 shadow-sm">
+        <button type="submit" class="bg-primary hover:bg-primary-container text-white w-9 h-9 flex items-center justify-center rounded-xl transition-all flex-shrink-0 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">
           <span class="material-symbols-outlined text-base">send</span>
         </button>
       </form>
