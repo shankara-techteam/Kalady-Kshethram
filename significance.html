@@ -319,26 +319,25 @@
 
 <!-- NAV -->
 <header class="w-full top-0 sticky bg-surface/80 backdrop-blur-md border-b border-sandalwood/25 z-50 transition-all duration-300">
-<nav class="flex justify-between items-center px-gutter max-w-container-max mx-auto h-20 gap-4">
-  <a href="index.html" class="flex items-center gap-2.5 font-headline-md text-base lg:text-lg xl:text-xl text-primary tracking-tight font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">
+<nav class="flex justify-between items-center px-gutter max-w-container-max mx-auto h-20 gap-2 lg:gap-4">
+  <a href="index.html" class="flex items-center gap-1.5 lg:gap-2.5 font-headline-md text-sm lg:text-base xl:text-lg text-primary tracking-tight font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">
     <svg class="w-7 h-7 text-primary fill-current flex-shrink-0" viewBox="0 0 24 24">
       <path d="M12 3c-1.2 3.5-2.5 6.5-2.5 9s1.3 5.5 2.5 9c1.2-3.5 2.5-6.5 2.5-9s-1.3-5.5-2.5-9z"/>
       <path d="M12 8c-3 1-5 4-5 6.5s1.5 4 4 5.5c-2.5-2.5-3.5-5.5-2-8.5.5-1 1.5-2.5 3-3.5z"/>
       <path d="M12 8c3 1 5 4 5 6.5s-1.5 4-4 5.5c-2.5-2.5 3.5-5.5 2-8.5-.5-1-1.5-2.5-3-3.5z"/>
     </svg>
-    <span>Sri Adi Shankara Janmabhoomi</span>
+    <span class="inline md:hidden lg:inline">Sri Adi Shankara Janmabhoomi</span><span class="hidden md:inline lg:hidden">Adi Shankara Janmabhoomi</span>
   </a>
-  <div class="hidden md:flex space-x-4 lg:space-x-6 items-center flex-shrink-0">
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#home">Sacred Birthplace</a>
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pathashala">Veda Pathashala</a>
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pilgrimage">Pilgrimage Guide</a>
-    <a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="significance.html">Significance</a>
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="life.html">Spiritual Journey</a>
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="poojas.html" id="nav-poojas">Pujas & Offerings</a>
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="gallery.html" id="nav-gallery">Gallery</a>
+  <div class="hidden md:flex space-x-2.5 lg:space-x-4 xl:space-x-5 items-center flex-shrink-0">
+    <a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#home">Sacred Birthplace</a>
+    <a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pathashala">Veda Pathashala</a>
+    <a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pilgrimage">Pilgrimage Guide</a>
+    <a class="nav-link active font-label-md text-[10px] lg:text-label-md tracking-wide text-primary whitespace-nowrap" href="significance.html">Significance</a>
+    <a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="life.html">Spiritual Journey</a>
+    <a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="poojas.html" id="nav-poojas">Pujas & Offerings</a>
+    <a class="nav-link font-label-md text-[10px] lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="gallery.html" id="nav-gallery">Gallery</a>
   </div>
-  <div class="flex items-center gap-3 flex-shrink-0">
-
+  <div class="flex items-center gap-1.5 lg:gap-3 flex-shrink-0">
     <button id="ambient-toggle" title="Toggle Ambient Audio" aria-label="Toggle ambient sacred music" onclick="toggleAmbientAudio()">
       <svg id="audio-icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
@@ -350,7 +349,7 @@
         <line x1="17" y1="9" x2="23" y2="15"></line>
       </svg>
     </button>
-    <button onclick="openDonateModal()" class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-4 lg:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 rounded-lg whitespace-nowrap">Donate</button>
+    <button onclick="openDonateModal()" class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-2.5 lg:px-4 xl:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 rounded-lg whitespace-nowrap">Donate</button>
   </div>
 </nav>
 </header>
