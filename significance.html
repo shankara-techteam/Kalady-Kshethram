@@ -851,37 +851,297 @@
 </div>
 
 <!-- CHATBOT -->
-<button onclick="toggleChatbot()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed rounded-full shadow-[0_4px_16px_rgba(87,0,0,0.25)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300 z-50 select-none">
-  <span class="material-symbols-outlined text-3xl" id="chatbot-toggle-icon">chat</span>
+<!-- Chatbot Floating Toggle Button with Label -->
+<button onclick="toggleChatbot()" id="chatbot-toggle-btn" class="fixed bottom-6 right-6 h-14 bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed rounded-full shadow-[0_6px_20px_rgba(87,0,0,0.3)] flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 z-50 select-none group px-4">
+  <span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform duration-300" id="chatbot-toggle-icon">chat</span>
+  <span class="font-label-md text-xs uppercase tracking-wider font-semibold max-w-0 overflow-hidden group-hover:max-w-[120px] transition-all duration-500 whitespace-nowrap">Vedic Guide</span>
+  <!-- Pulse Indicator -->
+  <span class="absolute top-0 right-0 flex h-3.5 w-3.5 -mt-0.5 -mr-0.5">
+    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-container opacity-75"></span>
+    <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-secondary-container border border-surface"></span>
+  </span>
 </button>
-<div id="chatbot-window" class="fixed bottom-24 right-6 w-80 sm:w-96 h-[460px] bg-surface/95 backdrop-blur-md border-2 border-sandalwood/50 rounded-xl shadow-[0_12px_40px_rgba(87,0,0,0.15)] flex flex-col justify-between hidden z-50 overflow-hidden modal-content-animate">
-  <div class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed p-4 border-b border-sandalwood/20 flex items-center justify-between">
-    <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-2xl">support_agent</span><div class="text-left"><span class="font-serif font-semibold text-sm block">Kshethram Seva Bot</span><span class="text-[9px] tracking-widest uppercase opacity-60">Vedic Guide</span></div></div>
-    <button onclick="toggleChatbot()" class="text-tertiary-fixed/70 hover:text-tertiary-fixed transition-colors"><span class="material-symbols-outlined text-xl">close</span></button>
+
+<!-- Chatbot Floating Window -->
+<div id="chatbot-window" class="fixed bottom-24 right-6 w-[340px] sm:w-[420px] h-[520px] bg-surface/90 backdrop-blur-lg border-2 border-sandalwood/50 rounded-2xl shadow-[0_16px_48px_rgba(87,0,0,0.22)] flex flex-col justify-between hidden z-50 overflow-hidden modal-content-animate text-on-surface">
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-primary via-primary/95 to-primary-container text-tertiary-fixed p-4 border-b border-sandalwood/20 flex items-center justify-between shadow-sm">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-surface/10 flex items-center justify-center border border-sandalwood/30">
+        <span class="material-symbols-outlined text-2xl text-tertiary-fixed">diversity_3</span>
+      </div>
+      <div class="text-left">
+        <span class="font-serif font-bold text-sm tracking-wide block">Kshethram Seva Bot</span>
+        <span class="text-[10px] tracking-widest uppercase opacity-75 flex items-center gap-1 font-sans">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+          Vedic Wisdom Guide
+        </span>
+      </div>
+    </div>
+    <button onclick="toggleChatbot()" class="text-tertiary-fixed/70 hover:text-tertiary-fixed hover:bg-white/10 p-1.5 rounded-full transition-all">
+      <span class="material-symbols-outlined text-xl">close</span>
+    </button>
   </div>
-  <div id="chatbot-messages" class="flex-grow p-4 overflow-y-auto space-y-3 bg-surface-container-lowest/30">
-    <div class="flex items-start gap-2"><div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-sm">support_agent</span></div><div class="bg-surface-container border border-sandalwood/15 p-3 rounded-lg max-w-[80%] text-xs text-on-surface-variant leading-relaxed">Pranams! Ask me about Kalady timings, sevas, lodging, location, or Advaita philosophy.<div class="mt-2.5 flex flex-wrap gap-1.5"><button onclick="sendQuickReply('timings')" class="bg-surface hover:bg-primary/5 text-primary border border-primary/20 px-2 py-1 rounded text-[10px] transition-colors">Timings</button><button onclick="sendQuickReply('sevas')" class="bg-surface hover:bg-primary/5 text-primary border border-primary/20 px-2 py-1 rounded text-[10px] transition-colors">Sevas</button><button onclick="sendQuickReply('lodging')" class="bg-surface hover:bg-primary/5 text-primary border border-primary/20 px-2 py-1 rounded text-[10px] transition-colors">Lodging</button><button onclick="sendQuickReply('advaita')" class="bg-surface hover:bg-primary/5 text-primary border border-primary/20 px-2 py-1 rounded text-[10px] transition-colors">Advaita</button></div></div></div>
+  
+  <!-- Messages List -->
+  <div id="chatbot-messages" class="flex-grow p-4 overflow-y-auto space-y-4 bg-surface-container-lowest/20 custom-scrollbar scroll-smooth">
+    <!-- Welcome Message -->
+    <div class="flex items-start gap-2.5">
+      <div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 shadow-sm">
+        <span class="material-symbols-outlined text-primary text-sm">support_agent</span>
+      </div>
+      <div class="bg-surface border border-sandalwood/20 p-3.5 rounded-xl rounded-tl-none max-w-[82%] text-xs text-on-surface-variant leading-relaxed text-left shadow-sm">
+        <p class="font-semibold text-primary font-serif mb-1.5">Hari Om! Pranams.</p>
+        <p class="font-sans">Welcome to the Sri Adi Shankara Janmabhoomi. I can assist you with details regarding your pilgrimage, temple services, or the non-dual philosophy of Advaita Vedanta.</p>
+        <div class="mt-3.5 flex flex-wrap gap-2 justify-start">
+          <button onclick="sendQuickReply('timings')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">🪷 Timings</button>
+          <button onclick="sendQuickReply('sevas')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">🕉️ Sevas</button>
+          <button onclick="sendQuickReply('lodging')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">🏡 Lodging</button>
+          <button onclick="sendQuickReply('advaita')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">📖 Advaita</button>
+          <button onclick="sendQuickReply('miracles')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">🐊 Miracles</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <form onsubmit="handleChatSubmit(event)" class="p-3 border-t border-sandalwood/25 bg-surface flex items-center gap-2">
-    <input type="text" id="chatbot-input" placeholder="Type your question..." class="flex-grow border border-sandalwood/30 bg-surface-container-lowest px-3 py-2 rounded-lg text-xs focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all">
-    <button type="submit" class="bg-primary hover:bg-primary-container text-white w-8 h-8 flex items-center justify-center rounded-lg transition-colors flex-shrink-0"><span class="material-symbols-outlined text-sm">send</span></button>
+  
+  <!-- Input Area -->
+  <form onsubmit="handleChatSubmit(event)" class="p-3.5 border-t border-sandalwood/25 bg-surface flex items-center gap-2">
+    <input type="text" id="chatbot-input" placeholder="Ask about timings, sevas, directions, Advaita..." class="flex-grow border border-sandalwood/30 bg-surface-container-lowest px-4 py-2.5 rounded-xl text-xs focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all placeholder:text-on-surface-variant/45">
+    <button type="submit" class="bg-primary hover:bg-primary-container text-white w-9 h-9 flex items-center justify-center rounded-xl transition-all flex-shrink-0 hover:scale-105 active:scale-95 shadow-sm">
+      <span class="material-symbols-outlined text-base">send</span>
+    </button>
   </form>
 </div>
 
 <script>
   function openDonateModal(){const m=document.getElementById('donate-modal');m.classList.remove('hidden');m.classList.add('flex');document.body.style.overflow='hidden'}
   function closeDonateModal(){const m=document.getElementById('donate-modal');m.classList.remove('flex');m.classList.add('hidden');document.body.style.overflow=''}
-  function handleDonateSubmit(e){e.preventDefault();const n=document.getElementById('donate-name').value,a=document.getElementById('donate-amount').value;alert('Pranams, '+n+'. Your donation pledge of 🪙'+a+' is simulated.');closeDonateModal()}
+  function handleDonateSubmit(e){e.preventDefault();const n=document.getElementById('donate-name').value,a=document.getElementById('donate-amount').value;alert('Pranams, '+n+'. Your donation pledge of ₹'+a+' is simulated. In a live system, this redirects to Sringeri Math\'s payment gateway.');closeDonateModal()}
   window.addEventListener('click',e=>{if(e.target===document.getElementById('donate-modal'))closeDonateModal()});
   window.addEventListener('keydown',e=>{if(e.key==='Escape')closeDonateModal()});
-  function toggleChatbot(){const w=document.getElementById('chatbot-window'),i=document.getElementById('chatbot-toggle-icon');if(w.classList.contains('hidden')){w.classList.remove('hidden');i.innerText='close';document.getElementById('chatbot-messages').scrollTop=9999}else{w.classList.add('hidden');i.innerText='chat'}}
-  const br={timings:"Temple timings:<br><strong>Morning:</strong> 5:30 AM \u2013 12:30 PM<br><strong>Evening:</strong> 4:30 PM \u2013 8:30 PM<br>Aarti at 6:30 AM, 12:00 PM, and 8:00 PM.",sevas:"Sevas available:<br>1. <strong>Adi Shankara Ashtothara Archana</strong><br>2. <strong>Sharadamba Suhasini Puja</strong><br>3. <strong>Veda Pathashala Support</strong>",lodging:"Boarding at <strong>Sri Sringeri Shankara Math Guest House (Adi Shankara Nilayam)</strong> inside the complex. Annadanam (free meals) served daily.",advaita:"Advaita Vedanta: <em>Brahma Satyam Jagan Mithya, Jivo Brahmaiva Naparah</em> \u2014 Brahman is real, the world is relative, the individual Self is identical to Brahman.",location:"Located in <strong>Kalady, Ernakulam District, Kerala</strong>. 10 km from Cochin Airport (COK), 8 km from Angamaly Railway Station (AFK).",miracle:"Two miracles:<br>1. <strong>River Course Shift</strong> \u2014 Prayed to redirect the Purna River.<br>2. <strong>Crocodile Ghat</strong> \u2014 Vowed Sannyasa when caught by a crocodile.",greetings:"Pranams! How may I assist you today on your spiritual journey to Kalady?",fallback:"Pranams. <em>'Chidananda Rupah Shivoham Shivoham'</em>. Ask about:<br>\u2022 <strong>Timings</strong> \u2022 <strong>Sevas</strong> \u2022 <strong>Lodging</strong> \u2022 <strong>Location</strong> \u2022 <strong>Advaita</strong>"};
-  function getBotResponse(q){q=q.toLowerCase();if(q.includes('hi')||q.includes('hello')||q.includes('pranam')||q.includes('namaste'))return br.greetings;if(q.includes('timing')||q.includes('hour')||q.includes('open')||q.includes('aarti'))return br.timings;if(q.includes('seva')||q.includes('puja')||q.includes('archana'))return br.sevas;if(q.includes('stay')||q.includes('lodging')||q.includes('room')||q.includes('guest'))return br.lodging;if(q.includes('advaita')||q.includes('philosophy')||q.includes('non-dual')||q.includes('truth'))return br.advaita;if(q.includes('location')||q.includes('where')||q.includes('reach')||q.includes('airport')||q.includes('kerala'))return br.location;if(q.includes('miracle')||q.includes('river')||q.includes('purna')||q.includes('crocodile'))return br.miracle;return br.fallback}
-  function escapeHTML(str){return str.replace(/[&<>'"]/g,tag=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[tag]||tag))}
-  function appendMessage(s,t){const c=document.getElementById('chatbot-messages'),d=document.createElement('div');d.className=s==='user'?'flex items-start justify-end gap-2':'flex items-start gap-2';const st=s==='user'?escapeHTML(t):t;const av=s==='user'?'<div class="w-8 h-8 rounded-full bg-secondary/15 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 order-2"><span class="material-symbols-outlined text-secondary text-sm">person</span></div>':'<div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-sm">support_agent</span></div>',bu=s==='user'?'<div class="bg-primary text-white p-3 rounded-lg max-w-[80%] text-xs leading-relaxed">'+st+'</div>':'<div class="bg-surface-container border border-sandalwood/15 p-3 rounded-lg max-w-[80%] text-xs text-on-surface-variant leading-relaxed">'+st+'</div>';d.innerHTML=av+bu;c.appendChild(d);c.scrollTop=c.scrollHeight}
-  function sendQuickReply(k){appendMessage('user',k.charAt(0).toUpperCase()+k.slice(1));showTyping(br[k])}
-  function handleChatSubmit(e){e.preventDefault();const el=document.getElementById('chatbot-input'),q=el.value.trim();if(!q)return;appendMessage('user',q);el.value='';showTyping(getBotResponse(q))}
-  function showTyping(t){const c=document.getElementById('chatbot-messages'),ind=document.createElement('div');ind.id='chatbot-typing-indicator';ind.className='flex items-start gap-2';ind.innerHTML='<div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-sm">support_agent</span></div><div class="bg-surface-container border border-sandalwood/15 p-3 rounded-lg text-xs text-on-surface-variant/60 italic">Typing...</div>';c.appendChild(ind);c.scrollTop=c.scrollHeight;setTimeout(()=>{const i=document.getElementById('chatbot-typing-indicator');if(i)i.remove();appendMessage('bot',t)},600)}
+
+  // Kshethram Seva Bot Logic (Offline Rule-Based Chatbot)
+  function toggleChatbot() {
+    const win = document.getElementById('chatbot-window');
+    const icon = document.getElementById('chatbot-toggle-icon');
+    if (win.classList.contains('hidden')) {
+      win.classList.remove('hidden');
+      icon.innerText = 'close';
+      const msgs = document.getElementById('chatbot-messages');
+      msgs.scrollTop = msgs.scrollHeight;
+    } else {
+      win.classList.add('hidden');
+      icon.innerText = 'chat';
+    }
+  }
+
+  const botReplies = {
+    greetings: `<div class="space-y-1">
+      <p class="font-serif font-semibold text-primary">Pranams! Namaste.</p>
+      <p class="font-sans text-xs">May the blessings of Goddess Sharadamba and Jagadguru Sri Adi Shankaracharya guide you. How may I assist your spiritual journey or pilgrimage details today?</p>
+    </div>`,
+    timings: `<div class="space-y-2">
+      <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🛕 Temple Shrine & Aarti Timings</p>
+      <p class="font-sans">The Sri Adi Shankara Janmabhoomi Kshethram is open daily. General visiting hours:</p>
+      <ul class="list-none space-y-1.5 my-2 pl-1">
+        <li class="flex items-center gap-1.5"><span class="text-primary text-[10px]">🪷</span> <strong>Morning:</strong> 5:30 AM – 12:30 PM</li>
+        <li class="flex items-center gap-1.5"><span class="text-primary text-[10px]">🪷</span> <strong>Evening:</strong> 4:30 PM – 8:30 PM</li>
+      </ul>
+      <div class="border-t border-sandalwood/20 pt-2 my-2">
+        <p class="font-semibold text-secondary text-xs uppercase tracking-wider mb-1">Daily Aarti & Puja Schedule:</p>
+        <ul class="list-disc pl-4 space-y-1 text-[11px] text-on-surface-variant">
+          <li><strong>06:30 AM:</strong> Usha Puja & Morning Aarti</li>
+          <li><strong>12:00 PM:</strong> Maha Puja & Noon Aarti</li>
+          <li><strong>08:00 PM:</strong> Athazha Puja & Night Aarti</li>
+        </ul>
+      </div>
+      <p class="text-[10px] text-on-surface-variant/75 italic">*Note: Timings are extended during major festivals such as Shankara Jayanthi (April/May) and Navaratri (September/October).*</p>
+    </div>`,
+    sevas: `<div class="space-y-2">
+      <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🙏 Sacred Seva Offerings</p>
+      <p class="font-sans">Devotees are invited to participate in the preservation of Vedic culture by sponsoring the following Pujas:</p>
+      <ol class="list-decimal pl-4 space-y-2 my-2">
+        <li>
+          <strong>Adi Shankara Ashtothara Archana (₹150)</strong>
+          <p class="text-[11px] text-on-surface-variant">Worship of Sri Adi Shankaracharya chanting his 108 names, praying for wisdom and spiritual growth.</p>
+        </li>
+        <li>
+          <strong>Sharadamba Suhasini Puja (₹500)</strong>
+          <p class="text-[11px] text-on-surface-variant">Special offerings to Goddess Sharadamba (the deity of learning) for blessings of intellect and prosperity, performed on Fridays.</p>
+        </li>
+        <li>
+          <strong>Veda Pathashala Support (Custom Donation)</strong>
+          <p class="text-[11px] text-on-surface-variant">Sponsor the boarding, lodging, and traditional scriptural education of young Vedic students.</p>
+        </li>
+        <li>
+          <strong>Annadanam Seva (₹1008)</strong>
+          <p class="text-[11px] text-on-surface-variant">Sponsor a day's traditional vegetarian meals (served on plantain leaves) for all visiting pilgrims.</p>
+        </li>
+      </ol>
+      <p class="text-[10px] text-on-surface-variant/75 italic">To book sevas, click the <strong>Donate</strong> button at the top header or contact the Math office directly.</p>
+    </div>`,
+    lodging: `<div class="space-y-2">
+      <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🏡 Pilgrim Accommodation (Yatri Nivas)</p>
+      <p class="font-sans">The Sringeri Sharada Peetham provides boarding and lodging within the peaceful temple complex at <strong>Sri Sringeri Shankara Math Guest House (Adi Shankara Nilayam)</strong>:</p>
+      <ul class="list-none space-y-1.5 my-2 pl-1">
+        <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🪷</span> <div><strong>Room Types:</strong> Both Air-Conditioned (AC) and Non-AC guest rooms are available, as well as larger family halls for tour groups.</div></li>
+        <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🪷</span> <div><strong>Booking Procedure:</strong> Rooms are allotted on a first-come, first-served basis. For peak seasons, email/post reservations to Sringeri Math, Kalady.</div></li>
+        <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🪷</span> <div><strong>Annadanam (Free Meals):</strong> Served daily to all visitors at the dining hall: Lunch (12:15 PM – 2:00 PM) and Dinner (7:45 PM – 9:00 PM).</div></li>
+      </ul>
+      <p class="text-[11px] text-secondary font-semibold">Contact Information: kalady@sringeri.net | +91 484 2462350</p>
+    </div>`,
+    advaita: `<div class="space-y-2">
+      <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">📖 Advaita Vedanta Philosophy</p>
+      <p class="font-sans">Sri Adi Shankaracharya consolidated the philosophy of absolute non-duality (Advaita). The core thesis is encapsulated in his famous verse:</p>
+      <div class="bg-surface-container-high/40 p-2.5 border-l-2 border-primary rounded my-2 font-serif italic text-primary text-center text-xs leading-relaxed">
+        "ब्रह्म सत्यं जगन्मिथ्या जीवो ब्रह्मैव नापरः"
+      </div>
+      <p class="text-[10px] text-center font-semibold text-secondary uppercase tracking-wider -mt-1 mb-2">— Brahmajnanavalimala</p>
+      <p class="font-sans">This states three fundamental principles:</p>
+      <ul class="list-disc pl-4 space-y-1.5 text-[11px] text-on-surface-variant">
+        <li><strong>Brahman is Real:</strong> The absolute, changeless reality, pure consciousness (Sat-Chit-Ananda), which exists beyond time and space.</li>
+        <li><strong>The World is Mithya:</strong> The objective universe is not an absolute reality, but relative/apparent, appearing real only due to sensory illusion (Maya).</li>
+        <li><strong>Identity of Self:</strong> The individual soul (Jiva) is in essence identical to the absolute consciousness (Brahman). Liberation is realizing this identity.</li>
+      </ul>
+    </div>`,
+    miracles: `<div class="space-y-2">
+      <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🐊 Miracles of Kalady</p>
+      <p class="font-sans">Two monumental events occurred in Kalady during Sri Shankara's childhood that shaped his divine path:</p>
+      <ul class="list-none space-y-3.5 my-2 pl-1">
+        <li>
+          <strong class="text-secondary text-xs uppercase tracking-wider flex items-center gap-1">💧 1. Redirecting the Purna River</strong>
+          <p class="text-[11px] text-on-surface-variant leading-relaxed">Young Shankara's widowed mother Aryamba would walk daily to the Purna River for her bath. One summer day, she collapsed from extreme heat and exhaustion. Stricken with grief, Shankara composed a prayer to Lord Krishna. The next morning, the Purna River miraculously changed its course, flowing directly past their house.</p>
+        </li>
+        <li>
+          <strong class="text-secondary text-xs uppercase tracking-wider flex items-center gap-1">🐊 2. The Crocodile Miracle at the Ghat</strong>
+          <p class="text-[11px] text-on-surface-variant leading-relaxed">Shankara felt the calling of Sannyasa (monasticism), but his mother Aryamba refused permission. While bathing at the river ghat, a crocodile seized Shankara's leg. He cried out to his mother that he was dying, but if she permitted him to take "Apat Sannyasa" (renunciation in the face of death), the crocodile might release him. Desperate to save him, she agreed. Shankara took the mental vow of a monk, and the crocodile instantly let him go.</p>
+        </li>
+      </ul>
+    </div>`,
+    location: `<div class="space-y-2">
+      <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">📍 Location & Route Guide</p>
+      <p class="font-sans">The Sri Adi Shankara Janmabhoomi Kshethram is located in the quiet town of <strong>Kalady, Ernakulam District, Kerala</strong>, along the banks of the Purna River.</p>
+      <ul class="list-none space-y-2 my-2 pl-1">
+        <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">✈️</span> <div><strong>By Air:</strong> Cochin International Airport (COK) is just 10 km away. Pre-paid taxis and cabs are readily available from the airport to the temple (approx. 20-minute drive).</div></li>
+        <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🚆</span> <div><strong>By Train:</strong> Angamaly Railway Station (AFK) is 8 km away, and Aluva Railway Station (AWY) is 15 km away. Autos, buses, and taxis connect both stations to Kalady.</div></li>
+        <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🚌</span> <div><strong>By Road:</strong> Located near State Highway 1, Kalady is well-connected by local KSRTC buses from Ernakulam (35 km) and Thrissur (45 km).</div></li>
+      </ul>
+    </div>`,
+    shankara: `<div class="space-y-2">
+      <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🪷 Life of Sri Adi Shankaracharya</p>
+      <p class="font-sans">Sri Adi Shankaracharya (c. 788 – 820 CE) was a philosopher-saint born in Kalady. His life was short but extraordinary:</p>
+      <ul class="list-disc pl-4 space-y-1.5 text-[11px] text-on-surface-variant">
+        <li><strong>Parentage:</strong> Born to a pious Namboothiri Brahmana couple, Shivaguru and Aryamba, after they prayed to Lord Shiva at Vadakkunnathan Temple.</li>
+        <li><strong>Renunciation:</strong> Took monastic vows at age 8 under Guru Govinda Bhagavatpada on the banks of the Narmada River.</li>
+        <li><strong>Writings:</strong> Traveled across India, writing profound commentaries (Prasthana Traya Bhashya) on the Upanishads, Bhagavad Gita, and Brahma Sutras.</li>
+        <li><strong>Peethams:</strong> Re-established the Sanatana Dharma by establishing four cardinal monasteries (Peethams) in Sringeri (South), Dwaraka (West), Puri (East), and Jyotirmath (North) to preserve scriptural knowledge.</li>
+      </ul>
+    </div>`,
+    shrines: `<div class="space-y-2">
+      <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🏛️ Shrines and Sights in Kalady</p>
+      <p class="font-sans">The holy complex in Kalady features several key sites of deep spiritual significance:</p>
+      <ul class="list-none space-y-2 my-2 pl-1">
+        <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🛕</span> <div><strong>Adi Shankara Shrine:</strong> A beautiful temple housing a life-size murti of Shankaracharya in a seated posture.</div></li>
+        <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🛕</span> <div><strong>Goddess Sharadamba Shrine:</strong> Adjacent to the main shrine, dedicated to the Goddess of Learning and Wisdom.</div></li>
+        <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🛕</span> <div><strong>Ancestral Sri Krishna Temple:</strong> The family temple of Shankara's parents, which marks the birthplace. This is the only ancient temple surviving from his era.</div></li>
+        <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🌊</span> <div><strong>Crocodile Ghat (Muthala Kadavu):</strong> The place on the Purna River where young Shankara was caught by the crocodile.</div></li>
+        <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🗼</span> <div><strong>Keerthi Sthambha Mandapam:</strong> A tall 8-story memorial displaying paintings of Adi Shankara's life journey.</div></li>
+      </ul>
+    </div>`,
+    fallback: `<div class="space-y-1.5">
+      <p class="font-serif font-semibold text-primary">Pranams. I am here to help you.</p>
+      <p class="font-sans text-xs">I didn't quite capture that query. Feel free to select from the topics below or ask about them:</p>
+      <div class="flex flex-col gap-1 text-[11px] pl-1 font-sans text-on-surface-variant">
+        <div>• Type <strong>timings</strong> for temple visiting hours.</div>
+        <div>• Type <strong>sevas</strong> to learn about Pujas & supporting Vedic students.</div>
+        <div>• Type <strong>lodging</strong> for accommodation details at the guest house.</div>
+        <div>• Type <strong>directions</strong> or <strong>location</strong> to plan your travel route.</div>
+        <div>• Type <strong>philosophy</strong> or <strong>advaita</strong> to explore Shankara's teachings.</div>
+        <div>• Type <strong>miracles</strong> to hear the sacred stories of young Shankara.</div>
+        <div>• Type <strong>shrines</strong> to learn about the shrines in Kalady.</div>
+      </div>
+    </div>`
+  };
+
+  function getBotResponse(input) {
+    const query = input.toLowerCase().trim();
+    if (query.includes('hi') || query.includes('hello') || query.includes('pranam') || query.includes('namaste')) return botReplies.greetings;
+    if (query.includes('timing') || query.includes('hour') || query.includes('schedule') || query.includes('open') || query.includes('close') || query.includes('aarti')) return botReplies.timings;
+    if (query.includes('seva') || query.includes('puja') || query.includes('offering') || query.includes('archana') || query.includes('sponsor')) return botReplies.sevas;
+    if (query.includes('stay') || query.includes('lodging') || query.includes('room') || query.includes('accommodation') || query.includes('guest')) return botReplies.lodging;
+    if (query.includes('advaita') || query.includes('philosophy') || query.includes('non-dual') || query.includes('teach')) return botReplies.advaita;
+    if (query.includes('location') || query.includes('where') || query.includes('reach') || query.includes('direction') || query.includes('kerala') || query.includes('route') || query.includes('airport')) return botReplies.location;
+    if (query.includes('miracle') || query.includes('river') || query.includes('purna') || query.includes('crocodile') || query.includes('ghat') || query.includes('krishna')) return botReplies.miracles;
+    if (query.includes('life') || query.includes('biography') || query.includes('shankara') || query.includes('monk') || query.includes('peetham') || query.includes('birth')) return botReplies.shankara;
+    if (query.includes('shrine') || query.includes('sight') || query.includes('temple') || query.includes('visit') || query.includes('mandapam') || query.includes('places')) return botReplies.shrines;
+    return botReplies.fallback;
+  }
+
+  function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+  }
+
+  function appendMessage(sender, text) {
+    const container = document.getElementById('chatbot-messages');
+    if (!container) return;
+    const msgDiv = document.createElement('div');
+    msgDiv.className = sender === 'user' ? 'flex items-start justify-end gap-2' : 'flex items-start gap-2.5';
+    const avatar = sender === 'user'
+      ? `<div class="w-8 h-8 rounded-full bg-secondary/15 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 order-2 shadow-sm"><span class="material-symbols-outlined text-secondary text-sm">person</span></div>`
+      : `<div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 shadow-sm"><span class="material-symbols-outlined text-primary text-sm">support_agent</span></div>`;
+    const safeText = sender === 'user' ? escapeHTML(text) : text;
+    const bubble = sender === 'user'
+      ? `<div class="bg-primary text-white p-3.5 rounded-2xl rounded-tr-none max-w-[80%] text-xs leading-relaxed text-left shadow-sm font-sans">${safeText}</div>`
+      : `<div class="bg-surface border border-sandalwood/20 p-3.5 rounded-2xl rounded-tl-none max-w-[82%] text-xs text-on-surface-variant leading-relaxed text-left shadow-sm">${safeText}</div>`;
+    msgDiv.innerHTML = avatar + bubble;
+    container.appendChild(msgDiv);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function sendQuickReply(key) {
+    appendMessage('user', key.charAt(0).toUpperCase() + key.slice(1));
+    showTypingIndicatorAndReply(botReplies[key]);
+  }
+
+  // Keep it local - no APIs
+  function handleChatSubmit(event) {
+    event.preventDefault();
+    const inputEl = document.getElementById('chatbot-input');
+    const query = inputEl.value.trim();
+    if (!query) return;
+    appendMessage('user', query);
+    inputEl.value = '';
+    const response = getBotResponse(query);
+    showTypingIndicatorAndReply(response);
+  }
+
+  function showTypingIndicatorAndReply(responseText) {
+    const container = document.getElementById('chatbot-messages');
+    if (!container) return;
+    const indicatorDiv = document.createElement('div');
+    indicatorDiv.id = 'chatbot-typing-indicator';
+    indicatorDiv.className = 'flex items-start gap-2.5';
+    indicatorDiv.innerHTML = `
+      <div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 shadow-sm">
+        <span class="material-symbols-outlined text-primary text-sm">support_agent</span>
+      </div>
+      <div class="bg-surface border border-sandalwood/20 p-3 rounded-2xl rounded-tl-none text-xs text-on-surface-variant/60 leading-relaxed italic flex items-center gap-1.5 shadow-sm font-sans">
+        Typing
+        <span class="flex gap-0.5 items-center mt-1">
+          <span class="w-1 h-1 bg-on-surface-variant/60 rounded-full animate-bounce" style="animation-delay: 0ms"></span>
+          <span class="w-1 h-1 bg-on-surface-variant/60 rounded-full animate-bounce" style="animation-delay: 150ms"></span>
+          <span class="w-1 h-1 bg-on-surface-variant/60 rounded-full animate-bounce" style="animation-delay: 300ms"></span>
+        </span>
+      </div>
+    `;
+    container.appendChild(indicatorDiv);
+    container.scrollTop = container.scrollHeight;
+    setTimeout(() => {
+      const ind = document.getElementById('chatbot-typing-indicator');
+      if (ind) ind.remove();
+      appendMessage('bot', responseText);
+    }, 850);
+  }
 </script>
 
 <script>
