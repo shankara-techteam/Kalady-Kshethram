@@ -1,0 +1,10 @@
+# Vercel Deployment Ignore List
+.DS_Store
+code.html
+DESIGN.md
+life_design.md
+screen.png
+Life_screen.png
+kashi_commentaries.png
+.git
+.gitignore

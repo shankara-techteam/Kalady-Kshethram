@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /code.html
+Disallow: /DESIGN.md
+Disallow: /life_design.md
+Disallow: /screen.png
+Disallow: /Life_screen.png
+Disallow: /kashi_commentaries.png

@@ -127,6 +127,176 @@
       color: #570000;
       transition: opacity 0.3s;
   }
+
+  /* Sticky Floating Sub-nav styles */
+  @keyframes subNavEntrance {
+      from {
+          opacity: 0;
+          transform: translateY(-15px) scale(0.96);
+      }
+      to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+      }
+  }
+  .sub-nav {
+      position: sticky;
+      top: 96px; /* offset below main header */
+      z-index: 40;
+      background: rgba(251, 251, 226, 0.88);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(194, 178, 128, 0.35);
+      border-radius: 9999px;
+      max-width: 880px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      box-shadow: 0 4px 24px rgba(87, 0, 0, 0.05);
+      animation: subNavEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .sub-nav.scrolled {
+      background: rgba(251, 251, 226, 0.96);
+      border-color: rgba(87, 0, 0, 0.25);
+      box-shadow: 0 12px 36px -12px rgba(87, 0, 0, 0.14);
+      transform: scale(1.015);
+  }
+  /* Active sliding indicator background */
+  .sub-nav-indicator {
+      position: absolute;
+      background: rgba(220, 209, 180, 0.45);
+      border: 1px solid rgba(87, 0, 0, 0.15);
+      border-radius: 9999px;
+      transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+      pointer-events: none;
+      z-index: 0;
+      box-shadow: inset 0 1px 2px rgba(87, 0, 0, 0.03);
+  }
+  .sub-nav-link {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #5a413d;
+      transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease;
+      position: relative;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-weight: 600;
+      z-index: 1;
+      display: inline-block;
+  }
+  .sub-nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background-color: #570000;
+      transform: scaleX(0);
+      transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .sub-nav-link.active {
+      color: #570000;
+  }
+  .sub-nav-link:hover {
+      color: #570000;
+  }
+  .sub-nav-link:hover::after {
+      transform: scaleX(0.5);
+  }
+  .sub-nav-link.active::after {
+      transform: scaleX(1);
+  }
+  
+  /* Gold border cards */
+  .premium-card {
+      background: rgba(251, 251, 226, 0.5);
+      border: 1px solid rgba(194, 178, 128, 0.35);
+      border-radius: 12px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+  }
+  .premium-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #C2B280, #570000);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+  }
+  .premium-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(87, 0, 0, 0.35);
+      box-shadow: 0 16px 32px -8px rgba(87, 0, 0, 0.08);
+      background: rgba(251, 251, 226, 0.95);
+  }
+  .premium-card:hover::before {
+      opacity: 1;
+  }
+  
+  /* Double frame image styling */
+  .sacred-image-frame {
+      border: 1px solid #C2B280;
+      padding: 6px;
+      border-radius: 16px;
+      background: rgba(251, 251, 226, 0.6);
+      box-shadow: 0 12px 36px -12px rgba(87, 0, 0, 0.12);
+      transition: transform 0.4s ease;
+      display: inline-block;
+  }
+  .sacred-image-frame:hover {
+      transform: scale(1.01);
+  }
+  .sacred-image-inner {
+      border: 1px solid rgba(194, 178, 128, 0.5);
+      border-radius: 10px;
+      overflow: hidden;
+  }
+  
+  /* Sacred quote upgrade */
+  .sacred-quote-box {
+      border-left: 3px solid #570000;
+      background: linear-gradient(90deg, rgba(194, 178, 128, 0.08), rgba(245, 245, 220, 0.02));
+      padding: 18px 22px;
+      border-radius: 0 8px 8px 0;
+      position: relative;
+  }
+  .sacred-quote-box::after {
+      content: '“';
+      position: absolute;
+      top: -12px;
+      right: 15px;
+      font-size: 72px;
+      color: rgba(194, 178, 128, 0.12);
+      font-family: 'EB Garamond', serif;
+      line-height: 1;
+  }
+  
+  /* Timeline stepper */
+  .stepper-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'EB Garamond', serif;
+      font-weight: bold;
+      font-size: 16px;
+      transition: all 0.3s ease;
+  }
+  .stepper-item:hover .stepper-badge {
+      background-color: #570000;
+      color: #ffe16d;
+      border-color: #570000;
+  }
+
   /* Pulse ring on audio toggle when playing */
   @keyframes pulse-ring {
       0%   { transform: scale(1);   opacity: 0.7; }
@@ -150,7 +320,7 @@
 <!-- NAV -->
 <header class="w-full top-0 sticky bg-surface/80 backdrop-blur-md border-b border-sandalwood/25 z-50 transition-all duration-300">
 <nav class="flex justify-between items-center px-gutter max-w-container-max mx-auto h-20 gap-4">
-  <a href="/" class="flex items-center gap-2.5 font-headline-md text-base lg:text-lg xl:text-xl text-primary tracking-tight font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">
+  <a href="index.html" class="flex items-center gap-2.5 font-headline-md text-base lg:text-lg xl:text-xl text-primary tracking-tight font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">
     <svg class="w-7 h-7 text-primary fill-current flex-shrink-0" viewBox="0 0 24 24">
       <path d="M12 3c-1.2 3.5-2.5 6.5-2.5 9s1.3 5.5 2.5 9c1.2-3.5 2.5-6.5 2.5-9s-1.3-5.5-2.5-9z"/>
       <path d="M12 8c-3 1-5 4-5 6.5s1.5 4 4 5.5c-2.5-2.5-3.5-5.5-2-8.5.5-1 1.5-2.5 3-3.5z"/>
@@ -159,13 +329,15 @@
     <span>Sri Adi Shankara Janmabhoomi</span>
   </a>
   <div class="hidden md:flex space-x-4 lg:space-x-6 items-center flex-shrink-0">
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#home">Sacred Birthplace</a>
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#pathashala">Veda Pathashala</a>
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#pilgrimage">Pilgrimage Guide</a>
-    <a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="/significance">Significance</a>
-    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/life">Spiritual Journey</a>
+    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#home">Sacred Birthplace</a>
+    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pathashala">Veda Pathashala</a>
+    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pilgrimage">Pilgrimage Guide</a>
+    <a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="significance.html">Significance</a>
+    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="life.html">Spiritual Journey</a>
+    <a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="gallery.html" id="nav-gallery">Gallery</a>
   </div>
   <div class="flex items-center gap-3 flex-shrink-0">
+
     <button id="ambient-toggle" title="Toggle Ambient Audio" aria-label="Toggle ambient sacred music" onclick="toggleAmbientAudio()">
       <svg id="audio-icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
@@ -212,71 +384,91 @@
   </div>
 </section>
 
+<!-- STICKY SUB-NAV -->
+<div id="sub-nav-bar" class="sub-nav sticky top-[95px] z-40 hidden md:flex items-center justify-center py-2 px-6 space-x-2">
+  <div id="sub-nav-indicator" class="sub-nav-indicator"></div>
+  <a href="#birthplace" class="sub-nav-link active">01 Birthplace</a>
+  <a href="#landscape" class="sub-nav-link">02 Landscape</a>
+  <a href="#aryamba" class="sub-nav-link">03 Mother</a>
+  <a href="#departure" class="sub-nav-link">04 Departure</a>
+  <a href="#philosophy" class="sub-nav-link">05 Philosophy</a>
+  <a href="#rediscovery" class="sub-nav-link">06 Rediscovery</a>
+  <a href="#living" class="sub-nav-link">07 Living Tradition</a>
+</div>
+
 <!-- 1. BIRTHPLACE -->
 <section id="birthplace" class="py-section-gap-lg px-gutter max-w-container-max mx-auto">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
     <div class="space-y-6">
       <div class="reveal-item">
         <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.3em] block mb-3">Dimension I</span>
-        <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3rem)">The Significance<br>of the Birthplace</h2>
-        <p class="font-body-md text-sm text-secondary mt-1 italic">Where a world-changing journey began</p>
+        <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3.2rem); line-height:1.15">The Significance<br>of the Birthplace</h2>
+        <p class="font-body-md text-sm text-secondary mt-2 italic font-serif">Where a world-changing journey began</p>
       </div>
       <div class="gold-line reveal-item"></div>
-      <div class="space-y-4 font-body-md text-body-md text-on-surface-variant leading-relaxed reveal-item reveal-delay-200">
+      <div class="space-y-4 font-body-md text-body-md text-on-surface-variant leading-relaxed reveal-item reveal-delay-100">
         <p>Every great journey begins somewhere. For Sri Adi Shankaracharya, that place was Kalady.</p>
         <p>The significance of a Janmabhoomi is not merely geographical. It connects a great life to a real landscape — to the place where childhood unfolded, where formative experiences occurred, and where the first steps of an extraordinary journey were taken.</p>
         <p>From Kalady, Sri Adi Shankaracharya would go on to travel across Bharata, expound the teachings of the Upanishads, write influential commentaries, and leave a legacy that continues through institutions, texts, teachers, and seekers.</p>
       </div>
-      <blockquote class="sacred-quote reveal-item reveal-delay-300">
-        <p class="font-headline-md text-primary text-xl italic leading-snug">"Before the journeys across Bharata, there was Kalady.<br>Before the Acharya, there was the child."</p>
-      </blockquote>
+      <div class="sacred-quote-box reveal-item reveal-delay-200">
+        <p class="font-display-lg text-primary text-xl italic leading-snug">"Before the journeys across Bharata, there was Kalady. Before the Acharya, there was the child."</p>
+      </div>
     </div>
-    <div class="reveal-item reveal-delay-400">
-      <div class="double-border w-full max-w-md mx-auto">
-        <img src="kalady_birthplace.png" alt="Kalady Birthplace" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.01] transition-transform duration-300" loading="lazy" decoding="async">
+    <div class="reveal-item reveal-delay-300 flex justify-center">
+      <div class="sacred-image-frame max-w-md w-full">
+        <div class="sacred-image-inner">
+          <img src="kalady_birthplace.png" alt="Kalady Birthplace" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- 2. SACRED LANDSCAPE -->
-<section id="landscape" class="river-band py-section-gap-lg relative overflow-hidden">
+<section id="landscape" class="river-band py-section-gap-lg relative overflow-hidden bg-gradient-to-b from-surface to-surface-container-low/40">
   <div class="river-wave" style="width:60%;top:35%;animation-delay:0s;"></div>
   <div class="river-wave" style="width:80%;top:50%;animation-delay:1.5s;opacity:.5;"></div>
   <div class="river-wave" style="width:45%;top:65%;animation-delay:3s;"></div>
   <div class="relative z-10 px-gutter max-w-container-max mx-auto">
-    <div class="max-w-2xl mx-auto text-center space-y-8">
+    <div class="max-w-3xl mx-auto text-center space-y-8">
       <div class="reveal-item">
         <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.3em] block mb-3">Dimension II</span>
-        <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3rem)">The Significance of<br>the Sacred Landscape</h2>
-        <p class="font-body-md text-sm text-secondary mt-1 italic">The land, the river, and the memory</p>
+        <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3.2rem); line-height:1.15">The Significance of<br>the Sacred Landscape</h2>
+        <p class="font-body-md text-sm text-secondary mt-2 italic font-serif">The land, the river, and the memory</p>
       </div>
-      <div class="space-y-4 font-body-md text-body-md text-on-surface-variant leading-relaxed reveal-item reveal-delay-200">
+      <div class="space-y-4 font-body-md text-body-md text-on-surface-variant leading-relaxed reveal-item reveal-delay-100">
         <p>Kalady should not be presented only as a coordinate on a map. Its sacred identity is connected to its landscape.</p>
-        <p>The <strong class="text-primary">Poorna River</strong> forms an important part of the traditional memory of Sri Adi Shankaracharya's early life. A 2017 discourse recorded by the Sringeri Peetham compared Kalady on the Poorna with Kashi on the Ganga in explaining its sacred significance to pilgrims.</p>
+        <p>The <strong class="text-primary font-serif">Poorna River</strong> forms an important part of the traditional memory of Sri Adi Shankaracharya's early life. A 2017 discourse recorded by the Sringeri Peetham compared Kalady on the Poorna with Kashi on the Ganga in explaining its sacred significance to pilgrims.</p>
       </div>
-      <div class="grid grid-cols-3 gap-4 my-8 reveal-item reveal-delay-300">
-        <div class="bg-surface/70 border border-sandalwood/40 rounded-xl p-5 text-center backdrop-blur-sm hover:border-primary/40 transition-all">
-          <span class="material-symbols-outlined text-primary text-3xl block mb-2">landscape</span>
-          <p class="font-label-md text-primary font-bold tracking-[.2em] uppercase text-sm">Land</p>
-          <p class="font-body-md text-xs text-on-surface-variant mt-1">Not merely a backdrop</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 reveal-item reveal-delay-200">
+        <div class="premium-card p-6 text-center backdrop-blur-sm">
+          <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 border border-sandalwood/35">
+            <span class="material-symbols-outlined text-primary text-2xl">landscape</span>
+          </div>
+          <h4 class="font-label-md text-primary font-bold tracking-[.15em] uppercase text-sm">Land</h4>
+          <p class="font-body-md text-xs text-on-surface-variant mt-2 leading-relaxed">The physical setting is not merely a background, but a bearer of history.</p>
         </div>
-        <div class="bg-surface/70 border border-sandalwood/40 rounded-xl p-5 text-center backdrop-blur-sm hover:border-primary/40 transition-all">
-          <span class="material-symbols-outlined text-primary text-3xl block mb-2">waves</span>
-          <p class="font-label-md text-primary font-bold tracking-[.2em] uppercase text-sm">River</p>
-          <p class="font-body-md text-xs text-on-surface-variant mt-1">Not merely scenery</p>
+        <div class="premium-card p-6 text-center backdrop-blur-sm">
+          <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 border border-sandalwood/35">
+            <span class="material-symbols-outlined text-primary text-2xl">waves</span>
+          </div>
+          <h4 class="font-label-md text-primary font-bold tracking-[.15em] uppercase text-sm">River</h4>
+          <p class="font-body-md text-xs text-on-surface-variant mt-2 leading-relaxed">The Poorna flows as a witness to the miracles and early renunciation vows.</p>
         </div>
-        <div class="bg-surface/70 border border-sandalwood/40 rounded-xl p-5 text-center backdrop-blur-sm hover:border-primary/40 transition-all">
-          <span class="material-symbols-outlined text-primary text-3xl block mb-2">history_edu</span>
-          <p class="font-label-md text-primary font-bold tracking-[.2em] uppercase text-sm">Memory</p>
-          <p class="font-body-md text-xs text-on-surface-variant mt-1">The place carries it</p>
+        <div class="premium-card p-6 text-center backdrop-blur-sm">
+          <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 border border-sandalwood/35">
+            <span class="material-symbols-outlined text-primary text-2xl">history_edu</span>
+          </div>
+          <h4 class="font-label-md text-primary font-bold tracking-[.15em] uppercase text-sm">Memory</h4>
+          <p class="font-body-md text-xs text-on-surface-variant mt-2 leading-relaxed">The ongoing worship keeps the memories of the Acharya alive today.</p>
         </div>
       </div>
-      <blockquote class="sacred-quote text-left reveal-item reveal-delay-400">
-        <p class="font-body-lg text-primary text-lg italic leading-relaxed">"Some places are remembered because history happened there. Some places remain alive because memory, worship, and tradition continue there."</p>
-        <p class="font-label-md text-xs text-secondary uppercase tracking-wider mt-3">Kalady is both.</p>
-      </blockquote>
-      <p class="font-headline-md text-xl text-primary font-medium italic reveal-item reveal-delay-500">A sacred geography takes shape.</p>
+      
+      <div class="sacred-quote-box text-left reveal-item reveal-delay-300">
+        <p class="font-body-lg text-primary text-lg italic leading-relaxed">"Some places are remembered because history happened there. Some places remain alive because memory, worship, and tradition continue there. Kalady is both."</p>
+      </div>
     </div>
   </div>
 </section>
@@ -285,96 +477,105 @@
 <section id="aryamba" class="py-section-gap-lg px-gutter max-w-container-max mx-auto">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
     <div class="reveal-item flex flex-col items-center justify-center gap-4">
-      <div class="double-border w-full max-w-md mx-auto">
-        <img src="aryamba_mother.png" alt="Aryamba Mother" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.01] transition-transform duration-300" loading="lazy" decoding="async">
+      <div class="sacred-image-frame max-w-sm w-full">
+        <div class="sacred-image-inner">
+          <img src="aryamba_mother.png" alt="Aryamba Mother" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
+        </div>
       </div>
-      <p class="font-headline-md text-2xl text-primary font-bold tracking-[.3em] uppercase mt-2">Aryamba</p>
-      <p class="font-body-md text-sm text-on-surface-variant italic max-w-xs leading-relaxed text-center">The mother remembered in the story of the Acharya.</p>
+      <p class="font-display-lg text-2xl text-primary font-bold tracking-[.25em] uppercase mt-4">Aryamba</p>
+      <p class="font-body-md text-xs text-on-surface-variant italic max-w-xs leading-relaxed text-center font-serif">The mother remembered in the story of the Acharya.</p>
     </div>
     <div class="space-y-6">
       <div class="reveal-item">
-        <span class="font-label-md text-label-md text-secondary uppercase tracking-[.3em] block mb-3">Dimension III</span>
-        <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3rem)">The Significance<br>of Aryamba</h2>
-        <p class="font-body-md text-sm text-secondary mt-1 italic">A place shaped by the bond between mother and son</p>
+        <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.3em] block mb-3">Dimension III</span>
+        <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3.2rem); line-height:1.15">The Significance<br>of Aryamba</h2>
+        <p class="font-body-md text-sm text-secondary mt-2 italic font-serif">A place shaped by the bond between mother and son</p>
       </div>
       <div class="gold-line reveal-item"></div>
-      <div class="space-y-4 font-body-md text-body-md text-on-surface-variant leading-relaxed reveal-item reveal-delay-200">
-        <p>Kalady also preserves the memory of Sri Adi Shankaracharya's relationship with his mother, <strong class="text-primary">Aryamba</strong>.</p>
+      <div class="space-y-4 font-body-md text-body-md text-on-surface-variant leading-relaxed reveal-item reveal-delay-100">
+        <p>Kalady also preserves the memory of Sri Adi Shankaracharya's relationship with his mother, <strong class="text-primary font-serif">Aryamba</strong>.</p>
         <p>The traditions associated with his childhood, his departure, his promise to his mother, and his return connect the Janmabhoomi to a deeply human dimension of his life.</p>
         <p>The official account of Kalady's rediscovery records the 33rd Jagadguru of Sringeri visiting the ashoka tree at the place traditionally connected with her cremation before the consecration of the Kalady shrines in 1910.</p>
       </div>
-      <div class="grid grid-cols-2 gap-3 reveal-item reveal-delay-300">
-        <div class="bg-surface-container border border-sandalwood/30 rounded-lg p-3 text-center"><p class="font-label-md text-xs text-secondary uppercase tracking-wider">Spiritual</p></div>
-        <div class="bg-surface-container border border-sandalwood/30 rounded-lg p-3 text-center"><p class="font-label-md text-xs text-secondary uppercase tracking-wider">Historical</p></div>
-        <div class="bg-surface-container border border-sandalwood/30 rounded-lg p-3 text-center"><p class="font-label-md text-xs text-secondary uppercase tracking-wider">Emotional</p></div>
-        <div class="bg-surface-container border border-sandalwood/30 rounded-lg p-3 text-center"><p class="font-label-md text-xs text-secondary uppercase tracking-wider">Deeply Personal</p></div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 reveal-item reveal-delay-200">
+        <div class="bg-surface-container border border-sandalwood/25 rounded-lg py-2.5 text-center hover:bg-primary/5 hover:border-primary/30 transition-colors"><p class="font-label-md text-[10px] text-secondary uppercase tracking-widest">Spiritual</p></div>
+        <div class="bg-surface-container border border-sandalwood/25 rounded-lg py-2.5 text-center hover:bg-primary/5 hover:border-primary/30 transition-colors"><p class="font-label-md text-[10px] text-secondary uppercase tracking-widest">Historical</p></div>
+        <div class="bg-surface-container border border-sandalwood/25 rounded-lg py-2.5 text-center hover:bg-primary/5 hover:border-primary/30 transition-colors"><p class="font-label-md text-[10px] text-secondary uppercase tracking-widest">Emotional</p></div>
+        <div class="bg-surface-container border border-sandalwood/25 rounded-lg py-2.5 text-center hover:bg-primary/5 hover:border-primary/30 transition-colors"><p class="font-label-md text-[10px] text-secondary uppercase tracking-widest">Personal</p></div>
       </div>
-      <blockquote class="sacred-quote reveal-item reveal-delay-400">
-        <p class="font-body-lg text-primary text-lg italic leading-relaxed">"The story of a teacher who travelled across Bharata remains connected to the mother and the home from which he departed."</p>
-      </blockquote>
+      <div class="sacred-quote-box reveal-item reveal-delay-300">
+        <p class="font-body-lg text-primary text-base italic leading-relaxed">"The story of a teacher who travelled across Bharata remains connected to the mother and the home from which he departed."</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- 4. THE DEPARTURE -->
-<section id="departure" class="bg-gradient-to-b from-surface-container-low to-surface py-section-gap-lg px-gutter">
+<section id="departure" class="bg-gradient-to-b from-surface-container-low/40 to-surface py-section-gap-lg px-gutter">
   <div class="max-w-container-max mx-auto">
     <div class="text-center mb-16 reveal-item">
       <span class="font-label-md text-label-md text-secondary uppercase tracking-[.3em] block mb-3">Dimension IV</span>
-      <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3rem)">The Significance<br>of the Departure</h2>
-      <p class="font-body-md text-sm text-secondary mt-1 italic">From Kalady to Bharata</p>
+      <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3.2rem); line-height:1.15">The Significance<br>of the Departure</h2>
+      <p class="font-body-md text-sm text-secondary mt-2 italic font-serif">From Kalady to Bharata</p>
+      <div class="mt-6 h-[1px] w-48 bg-gradient-to-r from-transparent via-sandalwood to-transparent mx-auto"></div>
     </div>
+    
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-      <div class="space-y-5 reveal-item reveal-delay-200">
+      <div class="space-y-6 reveal-item reveal-delay-100">
         <div class="space-y-4 font-body-md text-body-md text-on-surface-variant leading-relaxed">
-          <p>Kalady is significant not only because Sri Adi Shankaracharya was born here. It is also the <strong class="text-primary">starting point of the journey beyond it.</strong></p>
+          <p>Kalady is significant not only because Sri Adi Shankaracharya was born here. It is also the <strong class="text-primary font-serif">starting point of the journey beyond it.</strong></p>
           <p>From the landscape of his childhood, the journey of Sri Adi Shankaracharya extended across Bharata. The child of Kalady became the disciple seeking a Guru. The disciple became the teacher. The teacher became the traveller. The traveller became an Acharya whose philosophical and spiritual legacy continues across centuries.</p>
         </div>
-        <blockquote class="sacred-quote">
-          <p class="font-body-lg text-primary text-lg italic">"Kalady is the first point on that journey."</p>
-        </blockquote>
-        <a href="/life" class="inline-flex items-center gap-2 font-label-md text-label-md text-primary hover:text-primary-container transition-colors border-b border-sandalwood/40 hover:border-primary pb-1">
-          Explore His Life <span class="material-symbols-outlined text-base">arrow_forward</span>
+        <div class="sacred-quote-box">
+          <p class="font-body-lg text-primary text-base italic">"Kalady is the first point on that journey."</p>
+        </div>
+        <a href="life.html" class="inline-flex items-center gap-2 font-label-md text-xs uppercase tracking-wider text-primary hover:text-primary-container transition-colors border-b border-sandalwood/40 hover:border-primary pb-1 font-bold">
+          Explore His Life Chronology <span class="material-symbols-outlined text-base">arrow_forward</span>
         </a>
       </div>
+      
       <!-- Journey spine -->
-      <div class="reveal-item reveal-delay-300 journey-node pl-8 space-y-0">
-        <div class="flex items-start gap-4 pb-7 relative">
-          <div class="absolute -left-[25px] w-4 h-4 rounded-full bg-primary border-2 border-surface shadow-[0_0_0_4px_rgba(87,0,0,0.1)] flex-shrink-0 mt-1"></div>
-          <div class="bg-surface border-2 border-primary rounded-xl p-5 w-full shadow-sm">
-            <p class="font-label-md text-xs text-secondary uppercase tracking-widest mb-1">Origin</p>
-            <p class="font-headline-md text-primary text-xl font-semibold">Kalady</p>
-            <p class="font-body-md text-xs text-on-surface-variant mt-1">The sacred birthplace on the Poorna</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4 pb-7 relative">
-          <div class="absolute -left-[21px] w-3 h-3 rounded-full bg-secondary/60 border border-surface flex-shrink-0 mt-1"></div>
-          <div class="bg-surface-container border border-sandalwood/30 rounded-xl p-4 w-full">
-            <p class="font-label-md text-xs text-secondary uppercase tracking-widest">Renunciation &bull; The Call</p>
-            <p class="font-body-md text-xs text-on-surface-variant mt-1">Sannyasa — the turn toward truth</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4 pb-7 relative">
-          <div class="absolute -left-[21px] w-3 h-3 rounded-full bg-secondary/60 border border-surface flex-shrink-0 mt-1"></div>
-          <div class="bg-surface-container border border-sandalwood/30 rounded-xl p-4 w-full">
-            <p class="font-label-md text-xs text-secondary uppercase tracking-widest">The Guru</p>
-            <p class="font-headline-md text-on-surface text-base font-semibold">Govinda Bhagavatpada</p>
-            <p class="font-body-md text-xs text-on-surface-variant">At the banks of the Narmada</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4 pb-7 relative">
-          <div class="absolute -left-[21px] w-3 h-3 rounded-full bg-secondary/60 border border-surface flex-shrink-0 mt-1"></div>
-          <div class="bg-surface-container border border-sandalwood/30 rounded-xl p-4 w-full">
-            <p class="font-label-md text-xs text-secondary uppercase tracking-widest">The Journey Across Bharata</p>
-            <p class="font-body-md text-xs text-on-surface-variant">Commentaries, debates, and teaching</p>
-          </div>
-        </div>
+      <div class="reveal-item reveal-delay-200 journey-node pl-8 space-y-6">
         <div class="flex items-start gap-4 relative">
-          <div class="absolute -left-[21px] w-3 h-3 rounded-full bg-tertiary-container border border-surface flex-shrink-0 mt-1"></div>
-          <div class="bg-primary/5 border border-primary/25 rounded-xl p-4 w-full">
-            <p class="font-label-md text-xs text-secondary uppercase tracking-widest">Enduring</p>
-            <p class="font-headline-md text-primary text-base font-bold">The Living Legacy</p>
-            <p class="font-body-md text-xs text-on-surface-variant">Centuries of Advaita tradition</p>
+          <div class="absolute -left-[41px] w-5 h-5 rounded-full bg-primary border-4 border-surface shadow-[0_0_12px_rgba(87,0,0,0.2)] flex-shrink-0 mt-1"></div>
+          <div class="premium-card p-5 w-full bg-surface">
+            <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest mb-1 font-bold">Origin</p>
+            <h4 class="font-display-lg text-primary text-lg font-bold">Kalady</h4>
+            <p class="font-body-md text-xs text-on-surface-variant mt-1.5 leading-relaxed">The sacred birthplace on the banks of the Poorna.</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start gap-4 relative">
+          <div class="absolute -left-[37px] w-3 h-3 rounded-full bg-secondary/80 border border-surface flex-shrink-0 mt-2"></div>
+          <div class="premium-card p-4 w-full bg-surface-container-low/40">
+            <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest mb-1">Renunciation &bull; The Call</p>
+            <p class="font-body-md text-xs text-on-surface-variant leading-relaxed">Embracing monastic life (Sannyasa) following the crocodile ghat event.</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start gap-4 relative">
+          <div class="absolute -left-[37px] w-3 h-3 rounded-full bg-secondary/80 border border-surface flex-shrink-0 mt-2"></div>
+          <div class="premium-card p-4 w-full bg-surface-container-low/40">
+            <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest mb-1">The Guru</p>
+            <h5 class="font-display-lg text-on-surface text-sm font-semibold">Govinda Bhagavatpada</h5>
+            <p class="font-body-md text-xs text-on-surface-variant mt-1 leading-relaxed">Meeting his spiritual preceptor on the banks of the Narmada.</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start gap-4 relative">
+          <div class="absolute -left-[37px] w-3 h-3 rounded-full bg-secondary/80 border border-surface flex-shrink-0 mt-2"></div>
+          <div class="premium-card p-4 w-full bg-surface-container-low/40">
+            <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest mb-1">The Digvijaya</p>
+            <p class="font-body-md text-xs text-on-surface-variant leading-relaxed">Writing the Prasthana Traya commentaries and teaching across Bharata.</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start gap-4 relative">
+          <div class="absolute -left-[39px] w-4 h-4 rounded-full bg-primary/20 border-2 border-primary flex-shrink-0 mt-2"></div>
+          <div class="premium-card p-5 w-full bg-primary/5 border border-primary/20">
+            <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest mb-1 font-bold">Enduring legacy</p>
+            <h4 class="font-display-lg text-primary text-base font-bold">Monastic Centers & Shrines</h4>
+            <p class="font-body-md text-xs text-on-surface-variant mt-1.5 leading-relaxed">Establishing the Amnaya Peethams to safeguard Advaita teachings.</p>
           </div>
         </div>
       </div>
@@ -386,99 +587,141 @@
 <section id="philosophy" class="py-section-gap-lg px-gutter max-w-container-max mx-auto">
   <div class="text-center mb-16 reveal-item">
     <span class="font-label-md text-label-md text-secondary uppercase tracking-[.3em] block mb-3">Dimension V</span>
-    <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3rem)">The Philosophical<br>Significance</h2>
-    <p class="font-body-md text-sm text-secondary mt-1 italic">The birthplace of the teacher of Advaita</p>
+    <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3.2rem); line-height:1.15">The Philosophical<br>Significance</h2>
+    <p class="font-body-md text-sm text-secondary mt-2 italic font-serif">The birthplace of the teacher of Advaita</p>
     <div class="mt-6 h-[1px] w-48 bg-gradient-to-r from-transparent via-sandalwood to-transparent mx-auto"></div>
   </div>
+  
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-    <div class="space-y-5 reveal-item reveal-delay-100">
+    <div class="space-y-6 reveal-item reveal-delay-100">
       <div class="space-y-4 font-body-md text-body-md text-on-surface-variant leading-relaxed">
         <p>The significance of Kalady cannot be understood only through biography.</p>
-        <p>Sri Adi Shankaracharya's enduring legacy is inseparable from <strong class="text-primary">Advaita Vedanta</strong> — the philosophy of non-duality — and his role in expounding the Upanishadic teaching through commentaries, works, teaching, and institution-building.</p>
+        <p>Sri Adi Shankaracharya's enduring legacy is inseparable from <strong class="text-primary font-serif">Advaita Vedanta</strong> — the philosophy of non-duality — and his role in expounding the Upanishadic teaching through commentaries, works, teaching, and institution-building.</p>
         <p>The place where his life began therefore carries special significance for all those who study and follow the Advaita tradition. The official Sringeri account describes Kalady as particularly important for those engaged in the pursuit of knowledge.</p>
       </div>
-      <blockquote class="sacred-quote">
-        <p class="font-body-lg text-primary text-lg italic leading-relaxed">"The significance of Kalady is not only that a philosopher was born here. It is that an inquiry which continues to shape seekers across centuries began its journey here."</p>
-      </blockquote>
-      <a href="/#contemplation" class="inline-flex items-center gap-2 font-label-md text-label-md text-primary hover:text-primary-container transition-colors border-b border-sandalwood/40 hover:border-primary pb-1">
-        Enter the Inquiry <span class="material-symbols-outlined text-base">arrow_forward</span>
+      <div class="sacred-quote-box">
+        <p class="font-body-lg text-primary text-base italic leading-relaxed">"The significance of Kalady is not only that a philosopher was born here. It is that an inquiry which continues to shape seekers across centuries began its journey here."</p>
+      </div>
+      <a href="index.html#contemplation" class="inline-flex items-center gap-2 font-label-md text-xs uppercase tracking-wider text-primary hover:text-primary-container transition-colors border-b border-sandalwood/40 hover:border-primary pb-1 font-bold">
+        Enter the Contemplation Room <span class="material-symbols-outlined text-base">arrow_forward</span>
       </a>
     </div>
-    <div class="space-y-3 reveal-item reveal-delay-300">
-      <p class="font-label-md text-xs text-secondary uppercase tracking-widest mb-4">Advaita asks fundamental questions:</p>
-      <div class="bg-surface border border-sandalwood/40 rounded-xl p-5 flex items-center gap-4 hover:border-primary/40 hover:shadow-sm transition-all">
-        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-base">self_improvement</span></div>
-        <p class="font-headline-md text-on-surface text-lg font-semibold italic">Who am I?</p>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 reveal-item reveal-delay-200">
+      <div class="premium-card p-5 flex flex-col justify-between hover:shadow-md h-36">
+        <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center border border-sandalwood/30">
+          <span class="material-symbols-outlined text-primary text-lg">self_improvement</span>
+        </div>
+        <div>
+          <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest font-bold">Inquiry I</p>
+          <h4 class="font-display-lg text-primary text-base italic font-bold mt-1">Who am I?</h4>
+        </div>
       </div>
-      <div class="bg-surface border border-sandalwood/40 rounded-xl p-5 flex items-center gap-4 hover:border-primary/40 hover:shadow-sm transition-all">
-        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-base">psychology</span></div>
-        <p class="font-headline-md text-on-surface text-lg font-semibold italic">What is the Self?</p>
+      <div class="premium-card p-5 flex flex-col justify-between hover:shadow-md h-36">
+        <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center border border-sandalwood/30">
+          <span class="material-symbols-outlined text-primary text-lg">psychology</span>
+        </div>
+        <div>
+          <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest font-bold">Inquiry II</p>
+          <h4 class="font-display-lg text-primary text-base italic font-bold mt-1">What is the Self?</h4>
+        </div>
       </div>
-      <div class="bg-surface border border-sandalwood/40 rounded-xl p-5 flex items-center gap-4 hover:border-primary/40 hover:shadow-sm transition-all">
-        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-base">visibility</span></div>
-        <p class="font-headline-md text-on-surface text-lg font-semibold italic">What is ultimately real?</p>
+      <div class="premium-card p-5 flex flex-col justify-between hover:shadow-md h-36">
+        <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center border border-sandalwood/30">
+          <span class="material-symbols-outlined text-primary text-lg">visibility</span>
+        </div>
+        <div>
+          <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest font-bold">Inquiry III</p>
+          <h4 class="font-display-lg text-primary text-base italic font-bold mt-1">What is real?</h4>
+        </div>
       </div>
-      <div class="bg-surface border border-sandalwood/40 rounded-xl p-5 flex items-center gap-4 hover:border-primary/40 hover:shadow-sm transition-all">
-        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-base">flare</span></div>
-        <p class="font-headline-md text-on-surface text-lg font-semibold italic">What is the nature of freedom?</p>
+      <div class="premium-card p-5 flex flex-col justify-between hover:shadow-md h-36">
+        <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center border border-sandalwood/30">
+          <span class="material-symbols-outlined text-primary text-lg">flare</span>
+        </div>
+        <div>
+          <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest font-bold">Inquiry IV</p>
+          <h4 class="font-display-lg text-primary text-base italic font-bold mt-1">Nature of freedom?</h4>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- 6. REDISCOVERY -->
-<section id="rediscovery" class="bg-gradient-to-b from-surface to-surface-container-low py-section-gap-lg px-gutter">
+<section id="rediscovery" class="bg-gradient-to-b from-surface to-surface-container-low/40 py-section-gap-lg px-gutter">
   <div class="max-w-container-max mx-auto">
     <div class="text-center mb-16 reveal-item">
       <span class="font-label-md text-label-md text-secondary uppercase tracking-[.3em] block mb-3">Dimension VI</span>
-      <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3rem)">The Significance<br>of Rediscovery</h2>
-      <p class="font-body-md text-sm text-secondary mt-1 italic">A sacred place remembered again</p>
+      <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3.2rem); line-height:1.15">The Significance<br>of Rediscovery</h2>
+      <p class="font-body-md text-sm text-secondary mt-2 italic font-serif">A sacred place remembered again</p>
       <div class="mt-6 h-[1px] w-48 bg-gradient-to-r from-transparent via-sandalwood to-transparent mx-auto"></div>
     </div>
+    
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-      <!-- Timeline -->
-      <div class="space-y-4 reveal-item reveal-delay-100">
-        <div class="flex gap-4 items-start">
-          <div class="flex flex-col items-center flex-shrink-0"><div class="w-10 h-10 rounded-full bg-outline/20 border border-outline/30 flex items-center justify-center"><span class="material-symbols-outlined text-outline text-base">blur_on</span></div><div class="w-px h-6 bg-sandalwood/30 mt-2"></div></div>
-          <div class="pt-1"><p class="font-label-md text-xs text-secondary uppercase tracking-widest">I &bull; Obscurity</p><p class="font-body-md text-sm text-on-surface-variant mt-0.5">The birthplace had receded from wider public recognition over centuries</p></div>
+      <!-- Stepper timeline -->
+      <div class="space-y-6 reveal-item reveal-delay-100">
+        <div class="flex gap-4 items-start stepper-item group">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="stepper-badge border-2 border-sandalwood/50 bg-surface text-secondary">I</div>
+            <div class="w-px h-10 bg-sandalwood/30 mt-2"></div>
+          </div>
+          <div class="pt-0.5">
+            <h4 class="font-label-md text-xs text-secondary uppercase tracking-wider font-bold">Obscurity</h4>
+            <p class="font-body-md text-sm text-on-surface-variant mt-1 leading-relaxed">The birthplace had receded from wider public recognition over centuries.</p>
+          </div>
         </div>
-        <div class="flex gap-4 items-start">
-          <div class="flex flex-col items-center flex-shrink-0"><div class="w-10 h-10 rounded-full bg-secondary/10 border border-secondary/30 flex items-center justify-center"><span class="material-symbols-outlined text-secondary text-base">search</span></div><div class="w-px h-6 bg-sandalwood/30 mt-2"></div></div>
-          <div class="pt-1"><p class="font-label-md text-xs text-secondary uppercase tracking-widest">II &bull; The Search</p><p class="font-body-md text-sm text-on-surface-variant mt-0.5">The 33rd Jagadguru of Sringeri, with support from the Maharaja of Travancore</p></div>
+        
+        <div class="flex gap-4 items-start stepper-item group">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="stepper-badge border-2 border-sandalwood/50 bg-surface text-secondary">II</div>
+            <div class="w-px h-10 bg-sandalwood/30 mt-2"></div>
+          </div>
+          <div class="pt-0.5">
+            <h4 class="font-label-md text-xs text-secondary uppercase tracking-wider font-bold">The Search</h4>
+            <p class="font-body-md text-sm text-on-surface-variant mt-1 leading-relaxed">Initiated by the 33rd Jagadguru of Sringeri, with support from the Maharaja of Travancore.</p>
+          </div>
         </div>
-        <div class="flex gap-4 items-start">
-          <div class="flex flex-col items-center flex-shrink-0"><div class="w-10 h-10 rounded-full bg-tertiary-fixed/40 border border-sandalwood/50 flex items-center justify-center"><span class="material-symbols-outlined text-tertiary text-base">location_on</span></div><div class="w-px h-6 bg-sandalwood/30 mt-2"></div></div>
-          <div class="pt-1"><p class="font-label-md text-xs text-secondary uppercase tracking-widest">III &bull; Identified</p><p class="font-body-md text-sm text-on-surface-variant mt-0.5">Kalady confirmed as the true Janmabhoomi</p></div>
+        
+        <div class="flex gap-4 items-start stepper-item group">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="stepper-badge border-2 border-sandalwood/50 bg-surface text-secondary">III</div>
+            <div class="w-px h-10 bg-sandalwood/30 mt-2"></div>
+          </div>
+          <div class="pt-0.5">
+            <h4 class="font-label-md text-xs text-secondary uppercase tracking-wider font-bold">Identification</h4>
+            <p class="font-body-md text-sm text-on-surface-variant mt-1 leading-relaxed">Kalady confirmed as the true Janmabhoomi based on historical and geographical evidence.</p>
+          </div>
         </div>
-        <div class="flex gap-4 items-start">
-          <div class="flex flex-col items-center flex-shrink-0"><div class="w-10 h-10 rounded-full bg-primary/15 border border-primary/30 flex items-center justify-center"><span class="material-symbols-outlined text-primary text-base">temple_hindu</span></div><div class="w-px h-6 bg-sandalwood/30 mt-2"></div></div>
-          <div class="pt-1"><p class="font-label-md text-xs text-secondary uppercase tracking-widest">IV &bull; Consecrated</p><p class="font-headline-md text-primary text-base font-bold">21 February 1910</p><p class="font-body-md text-xs text-on-surface-variant">Shrines for Sri Adi Shankaracharya and Sri Sharada consecrated</p></div>
-        </div>
-        <div class="flex gap-4 items-start">
-          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-[0_0_12px_rgba(87,0,0,0.25)]"><span class="material-symbols-outlined text-tertiary-fixed text-base">brightness_high</span></div>
-          <div class="pt-1"><p class="font-label-md text-xs text-secondary uppercase tracking-widest">Today</p><p class="font-headline-md text-primary text-base font-bold">The Janmabhoomi Kshethram</p><p class="font-body-md text-xs text-on-surface-variant">A living centre of pilgrimage, worship, and Vedic learning</p></div>
+        
+        <div class="flex gap-4 items-start stepper-item group">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <div class="stepper-badge border-2 border-primary bg-primary text-white shadow-md">IV</div>
+          </div>
+          <div class="pt-0.5">
+            <h4 class="font-label-md text-xs text-primary uppercase tracking-wider font-bold">Consecration (21 Feb 1910)</h4>
+            <p class="font-body-md text-sm text-on-surface-variant mt-1 leading-relaxed">Shrines for Sri Adi Shankaracharya and Sri Sharada consecrated, establishing the Kshethram.</p>
+          </div>
         </div>
       </div>
+      
       <!-- Text -->
-      <div class="space-y-5 reveal-item reveal-delay-300">
-        <div class="gold-line"></div>
+      <div class="space-y-6 reveal-item reveal-delay-200">
         <div class="space-y-4 font-body-md text-body-md text-on-surface-variant leading-relaxed">
           <p>For centuries, the memory of Sri Adi Shankaracharya endured. Yet the precise birthplace had receded from wider public recognition.</p>
           <p>The rediscovery of Kalady and the establishment of the shrines marked a new chapter in the life of the sacred place. What had remained obscure emerged again as a centre of pilgrimage, worship, remembrance, and learning.</p>
         </div>
-        <blockquote class="sacred-quote">
-          <p class="font-body-lg text-primary text-lg italic leading-relaxed">"The birthplace was not created in 1910. Its sacred memory was brought again into public prominence."</p>
-        </blockquote>
-        <div class="flex flex-wrap gap-2 items-center font-label-md text-xs uppercase tracking-wider text-on-surface-variant">
-          <span class="bg-surface-container border border-sandalwood/30 px-2 py-1 rounded">Memory</span>
-          <span class="text-sandalwood">&rarr;</span>
-          <span class="bg-surface-container border border-sandalwood/30 px-2 py-1 rounded">Search</span>
-          <span class="text-sandalwood">&rarr;</span>
-          <span class="bg-surface-container border border-sandalwood/30 px-2 py-1 rounded">Identification</span>
-          <span class="text-sandalwood">&rarr;</span>
-          <span class="bg-primary text-tertiary-fixed px-2 py-1 rounded">Consecration</span>
-          <span class="text-sandalwood">&rarr;</span>
-          <span class="bg-surface-container border border-sandalwood/30 px-2 py-1 rounded">Renewal</span>
+        <div class="sacred-quote-box">
+          <p class="font-body-lg text-primary text-base italic leading-relaxed">"The birthplace was not created in 1910. Its sacred memory was brought again into public prominence."</p>
+        </div>
+        <div class="flex flex-wrap gap-2 items-center font-label-md text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">
+          <span class="bg-surface-container border border-sandalwood/25 px-2.5 py-1.5 rounded">Memory</span>
+          <span class="text-sandalwood font-normal">&rarr;</span>
+          <span class="bg-surface-container border border-sandalwood/25 px-2.5 py-1.5 rounded">Search</span>
+          <span class="text-sandalwood font-normal">&rarr;</span>
+          <span class="bg-surface-container border border-sandalwood/25 px-2.5 py-1.5 rounded">Identification</span>
+          <span class="text-sandalwood font-normal">&rarr;</span>
+          <span class="bg-primary text-tertiary-fixed px-2.5 py-1.5 rounded">Consecration</span>
         </div>
       </div>
     </div>
@@ -489,29 +732,48 @@
 <section id="living" class="py-section-gap-lg px-gutter max-w-container-max mx-auto">
   <div class="text-center mb-16 reveal-item">
     <span class="font-label-md text-label-md text-secondary uppercase tracking-[.3em] block mb-3">Dimension VII</span>
-    <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3rem)">The Significance of<br>the Living Tradition</h2>
-    <p class="font-body-md text-sm text-secondary mt-1 italic">Not only a place of the past</p>
+    <h2 class="font-display-lg text-primary tracking-tight" style="font-size:clamp(2rem,4vw,3.2rem); line-height:1.15">The Significance of<br>the Living Tradition</h2>
+    <p class="font-body-md text-sm text-secondary mt-2 italic font-serif">Not only a place of the past</p>
     <div class="mt-6 h-[1px] w-48 bg-gradient-to-r from-transparent via-sandalwood to-transparent mx-auto"></div>
   </div>
+  
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-    <div class="space-y-5 reveal-item reveal-delay-100">
-      <div class="gold-line"></div>
+    <div class="space-y-6 reveal-item reveal-delay-100">
       <div class="space-y-4 font-body-md text-body-md text-on-surface-variant leading-relaxed">
         <p>Kalady is not preserved merely as a monument to a distant past.</p>
         <p>The significance of the Janmabhoomi continues through living practice. The official account records the establishment of a Veda Vedanta Pathashala in 1927 and subsequent development of the temple complex. The Peetham also records a five-day Shastra conference at the Janmabhoomi during Shankara Jayanti.</p>
         <p>The sacred place remains connected to the tradition that continues to preserve and transmit the teachings associated with Sri Adi Shankaracharya.</p>
       </div>
-      <blockquote class="sacred-quote">
-        <p class="font-body-lg text-primary text-lg italic leading-relaxed">"A birthplace becomes a living Kshetram when memory continues through worship, learning, and tradition."</p>
-      </blockquote>
+      <div class="sacred-quote-box">
+        <p class="font-body-lg text-primary text-base italic leading-relaxed">"A birthplace becomes a living Kshetram when memory continues through worship, learning, and tradition."</p>
+      </div>
     </div>
-    <div class="grid grid-cols-2 gap-3 reveal-item reveal-delay-300">
-      <div class="bg-surface border-2 border-sandalwood/30 rounded-xl p-5 text-center hover:border-primary/40 hover:shadow-md transition-all"><span class="material-symbols-outlined text-primary text-2xl block mb-2">temple_hindu</span><p class="font-label-md text-xs text-secondary uppercase tracking-wider">Worship</p></div>
-      <div class="bg-surface border-2 border-sandalwood/30 rounded-xl p-5 text-center hover:border-primary/40 hover:shadow-md transition-all"><span class="material-symbols-outlined text-primary text-2xl block mb-2">directions_walk</span><p class="font-label-md text-xs text-secondary uppercase tracking-wider">Pilgrimage</p></div>
-      <div class="bg-surface border-2 border-sandalwood/30 rounded-xl p-5 text-center hover:border-primary/40 hover:shadow-md transition-all"><span class="material-symbols-outlined text-primary text-2xl block mb-2">menu_book</span><p class="font-label-md text-xs text-secondary uppercase tracking-wider">Study</p></div>
-      <div class="bg-surface border-2 border-sandalwood/30 rounded-xl p-5 text-center hover:border-primary/40 hover:shadow-md transition-all"><span class="material-symbols-outlined text-primary text-2xl block mb-2">record_voice_over</span><p class="font-label-md text-xs text-secondary uppercase tracking-wider">Teaching</p></div>
-      <div class="bg-surface border-2 border-sandalwood/30 rounded-xl p-5 text-center hover:border-primary/40 hover:shadow-md transition-all"><span class="material-symbols-outlined text-primary text-2xl block mb-2">celebration</span><p class="font-label-md text-xs text-secondary uppercase tracking-wider">Festivals</p></div>
-      <div class="bg-surface border-2 border-sandalwood/30 rounded-xl p-5 text-center hover:border-primary/40 hover:shadow-md transition-all"><span class="material-symbols-outlined text-primary text-2xl block mb-2">account_tree</span><p class="font-label-md text-xs text-secondary uppercase tracking-wider">Guru Parampara</p></div>
+    
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 reveal-item reveal-delay-200">
+      <div class="premium-card p-5 text-center">
+        <span class="material-symbols-outlined text-primary text-2xl block mb-2">temple_hindu</span>
+        <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest font-bold">Worship</p>
+      </div>
+      <div class="premium-card p-5 text-center">
+        <span class="material-symbols-outlined text-primary text-2xl block mb-2">directions_walk</span>
+        <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest font-bold">Pilgrimage</p>
+      </div>
+      <div class="premium-card p-5 text-center">
+        <span class="material-symbols-outlined text-primary text-2xl block mb-2">menu_book</span>
+        <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest font-bold">Study</p>
+      </div>
+      <div class="premium-card p-5 text-center">
+        <span class="material-symbols-outlined text-primary text-2xl block mb-2">record_voice_over</span>
+        <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest font-bold">Teaching</p>
+      </div>
+      <div class="premium-card p-5 text-center">
+        <span class="material-symbols-outlined text-primary text-2xl block mb-2">celebration</span>
+        <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest font-bold">Festivals</p>
+      </div>
+      <div class="premium-card p-5 text-center">
+        <span class="material-symbols-outlined text-primary text-2xl block mb-2">account_tree</span>
+        <p class="font-label-md text-[10px] text-secondary uppercase tracking-widest font-bold">Parampara</p>
+      </div>
     </div>
   </div>
 </section>
@@ -550,9 +812,9 @@
     <h2 class="font-display-lg text-primary tracking-tight mb-10" style="font-size:clamp(2rem,5vw,3.5rem)">The journey began here.</h2>
     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
       <div class="double-border">
-        <a href="/" class="block px-8 py-3.5 bg-primary text-tertiary-fixed border border-tertiary-fixed/30 hover:bg-primary-container transition-all duration-300 rounded-lg font-label-md text-label-md uppercase tracking-[.2em] text-center">Visit the Kshethram</a>
+        <a href="index.html" class="block px-8 py-3.5 bg-primary text-tertiary-fixed border border-tertiary-fixed/30 hover:bg-primary-container transition-all duration-300 rounded-lg font-label-md text-label-md uppercase tracking-[.2em] text-center">Visit the Kshethram</a>
       </div>
-      <a href="/life" class="inline-flex items-center gap-2 font-label-md text-label-md text-primary hover:text-primary-container border-b border-sandalwood/40 hover:border-primary pb-1 transition-all">
+      <a href="life.html" class="inline-flex items-center gap-2 font-label-md text-label-md text-primary hover:text-primary-container border-b border-sandalwood/40 hover:border-primary pb-1 transition-all">
         Explore the Spiritual Journey <span class="material-symbols-outlined text-base">arrow_forward</span>
       </a>
     </div>
@@ -615,7 +877,8 @@
   function toggleChatbot(){const w=document.getElementById('chatbot-window'),i=document.getElementById('chatbot-toggle-icon');if(w.classList.contains('hidden')){w.classList.remove('hidden');i.innerText='close';document.getElementById('chatbot-messages').scrollTop=9999}else{w.classList.add('hidden');i.innerText='chat'}}
   const br={timings:"Temple timings:<br><strong>Morning:</strong> 5:30 AM \u2013 12:30 PM<br><strong>Evening:</strong> 4:30 PM \u2013 8:30 PM<br>Aarti at 6:30 AM, 12:00 PM, and 8:00 PM.",sevas:"Sevas available:<br>1. <strong>Adi Shankara Ashtothara Archana</strong><br>2. <strong>Sharadamba Suhasini Puja</strong><br>3. <strong>Veda Pathashala Support</strong>",lodging:"Boarding at <strong>Sri Sringeri Shankara Math Guest House (Adi Shankara Nilayam)</strong> inside the complex. Annadanam (free meals) served daily.",advaita:"Advaita Vedanta: <em>Brahma Satyam Jagan Mithya, Jivo Brahmaiva Naparah</em> \u2014 Brahman is real, the world is relative, the individual Self is identical to Brahman.",location:"Located in <strong>Kalady, Ernakulam District, Kerala</strong>. 10 km from Cochin Airport (COK), 8 km from Angamaly Railway Station (AFK).",miracle:"Two miracles:<br>1. <strong>River Course Shift</strong> \u2014 Prayed to redirect the Purna River.<br>2. <strong>Crocodile Ghat</strong> \u2014 Vowed Sannyasa when caught by a crocodile.",greetings:"Pranams! How may I assist you today on your spiritual journey to Kalady?",fallback:"Pranams. <em>'Chidananda Rupah Shivoham Shivoham'</em>. Ask about:<br>\u2022 <strong>Timings</strong> \u2022 <strong>Sevas</strong> \u2022 <strong>Lodging</strong> \u2022 <strong>Location</strong> \u2022 <strong>Advaita</strong>"};
   function getBotResponse(q){q=q.toLowerCase();if(q.includes('hi')||q.includes('hello')||q.includes('pranam')||q.includes('namaste'))return br.greetings;if(q.includes('timing')||q.includes('hour')||q.includes('open')||q.includes('aarti'))return br.timings;if(q.includes('seva')||q.includes('puja')||q.includes('archana'))return br.sevas;if(q.includes('stay')||q.includes('lodging')||q.includes('room')||q.includes('guest'))return br.lodging;if(q.includes('advaita')||q.includes('philosophy')||q.includes('non-dual')||q.includes('truth'))return br.advaita;if(q.includes('location')||q.includes('where')||q.includes('reach')||q.includes('airport')||q.includes('kerala'))return br.location;if(q.includes('miracle')||q.includes('river')||q.includes('purna')||q.includes('crocodile'))return br.miracle;return br.fallback}
-  function appendMessage(s,t){const c=document.getElementById('chatbot-messages'),d=document.createElement('div');d.className=s==='user'?'flex items-start justify-end gap-2':'flex items-start gap-2';const av=s==='user'?'<div class="w-8 h-8 rounded-full bg-secondary/15 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 order-2"><span class="material-symbols-outlined text-secondary text-sm">person</span></div>':'<div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-sm">support_agent</span></div>',bu=s==='user'?'<div class="bg-primary text-white p-3 rounded-lg max-w-[80%] text-xs leading-relaxed">'+t+'</div>':'<div class="bg-surface-container border border-sandalwood/15 p-3 rounded-lg max-w-[80%] text-xs text-on-surface-variant leading-relaxed">'+t+'</div>';d.innerHTML=av+bu;c.appendChild(d);c.scrollTop=c.scrollHeight}
+  function escapeHTML(str){return str.replace(/[&<>'"]/g,tag=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[tag]||tag))}
+  function appendMessage(s,t){const c=document.getElementById('chatbot-messages'),d=document.createElement('div');d.className=s==='user'?'flex items-start justify-end gap-2':'flex items-start gap-2';const st=s==='user'?escapeHTML(t):t;const av=s==='user'?'<div class="w-8 h-8 rounded-full bg-secondary/15 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 order-2"><span class="material-symbols-outlined text-secondary text-sm">person</span></div>':'<div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-sm">support_agent</span></div>',bu=s==='user'?'<div class="bg-primary text-white p-3 rounded-lg max-w-[80%] text-xs leading-relaxed">'+st+'</div>':'<div class="bg-surface-container border border-sandalwood/15 p-3 rounded-lg max-w-[80%] text-xs text-on-surface-variant leading-relaxed">'+st+'</div>';d.innerHTML=av+bu;c.appendChild(d);c.scrollTop=c.scrollHeight}
   function sendQuickReply(k){appendMessage('user',k.charAt(0).toUpperCase()+k.slice(1));showTyping(br[k])}
   function handleChatSubmit(e){e.preventDefault();const el=document.getElementById('chatbot-input'),q=el.value.trim();if(!q)return;appendMessage('user',q);el.value='';showTyping(getBotResponse(q))}
   function showTyping(t){const c=document.getElementById('chatbot-messages'),ind=document.createElement('div');ind.id='chatbot-typing-indicator';ind.className='flex items-start gap-2';ind.innerHTML='<div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-sm">support_agent</span></div><div class="bg-surface-container border border-sandalwood/15 p-3 rounded-lg text-xs text-on-surface-variant/60 italic">Typing...</div>';c.appendChild(ind);c.scrollTop=c.scrollHeight;setTimeout(()=>{const i=document.getElementById('chatbot-typing-indicator');if(i)i.remove();appendMessage('bot',t)},600)}
@@ -646,8 +909,9 @@
   document.querySelectorAll('section').forEach(s => lo.observe(s));
 
   /* ---------- 7. LENIS Buttery Smooth Scroll ---------- */
+  let lenis;
   if (typeof Lenis !== 'undefined') {
-    const lenis = new Lenis({
+    lenis = new Lenis({
       duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smooth: true,
@@ -727,30 +991,36 @@
     link.addEventListener('click', function(e) {
       try {
         const targetUrl = new URL(href, window.location.href);
-        // If navigating to the same page but a different hash
-        if (targetUrl.pathname === window.location.pathname) {
-          if (targetUrl.hash) {
-            e.preventDefault();
-            const targetEl = document.getElementById(targetUrl.hash.slice(1));
-            if (targetEl) {
-              const headerH = header ? header.offsetHeight : 80;
-              if (typeof lenis !== 'undefined') {
-                lenis.scrollTo(targetEl, { offset: -(headerH + 16), duration: 1.6 });
-              } else {
-                window.scrollTo({ top: targetEl.getBoundingClientRect().top + window.scrollY - headerH - 16, behavior: 'smooth' });
+        const normalizePath = (p) => {
+          let n = p.replace(/\.html$/, '');
+          return (n === '' || n === '/index') ? '/' : n;
+        };
+
+        // Only handle local transitions
+        if (targetUrl.origin === window.location.origin) {
+          const targetPath = normalizePath(targetUrl.pathname);
+          const currentPath = normalizePath(window.location.pathname);
+
+          if (targetPath === currentPath) {
+            if (targetUrl.hash) {
+              e.preventDefault();
+              const targetEl = document.getElementById(targetUrl.hash.slice(1));
+              if (targetEl) {
+                const headerH = header ? header.offsetHeight : 80;
+                if (typeof lenis !== 'undefined') {
+                  lenis.scrollTo(targetEl, { offset: -(headerH + 16), duration: 1.6 });
+                } else {
+                  window.scrollTo({ top: targetEl.getBoundingClientRect().top + window.scrollY - headerH - 16, behavior: 'smooth' });
+                }
+                history.pushState(null, null, targetUrl.hash);
               }
-              history.pushState(null, null, targetUrl.hash);
             }
+          } else {
+            // Different local page
+            e.preventDefault();
+            document.body.classList.add('page-exit');
+            setTimeout(() => { window.location.href = href; }, 150);
           }
-          return;
-        }
-        
-        // If different local page
-        const isLocal = href.startsWith('/') || href.startsWith('index') || href.startsWith('life') || href.startsWith('significance');
-        if (isLocal) {
-          e.preventDefault();
-          document.body.classList.add('page-exit');
-          setTimeout(() => { window.location.href = href; }, 150);
         }
       } catch (err) {
         console.warn(err);
@@ -827,6 +1097,154 @@
     window.addEventListener('click', startOnGesture);
     window.addEventListener('touchstart', startOnGesture);
     window.addEventListener('keydown', startOnGesture);
+    // Sticky Sub-nav highlighting logic
+    const subNavBar = document.getElementById('sub-nav-bar');
+    if (subNavBar) {
+      const sections = ['birthplace', 'landscape', 'aryamba', 'departure', 'philosophy', 'rediscovery', 'living'].map(id => document.getElementById(id));
+      const subNavLinks = document.querySelectorAll('.sub-nav-link');
+      const subNavIndicator = document.getElementById('sub-nav-indicator');
+      let isScrollingFromClick = false;
+      let clickTimeout = null;
+
+      // Active slide indicator position updater
+      function updateActiveIndicator() {
+        if (!subNavIndicator) return;
+        const activeLink = subNavBar.querySelector('.sub-nav-link.active');
+        if (activeLink) {
+          subNavIndicator.style.left = activeLink.offsetLeft + 'px';
+          subNavIndicator.style.width = activeLink.offsetWidth + 'px';
+          subNavIndicator.style.height = activeLink.offsetHeight + 'px';
+          subNavIndicator.style.top = activeLink.offsetTop + 'px';
+        } else {
+          subNavIndicator.style.width = '0px';
+        }
+      }
+
+      // Initialize slide position on load and resize
+      setTimeout(updateActiveIndicator, 200);
+      window.addEventListener('load', updateActiveIndicator);
+      window.addEventListener('resize', updateActiveIndicator);
+
+      // Active link highlight scroll updater
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > window.innerHeight * 0.4) {
+          subNavBar.classList.add('scrolled');
+        } else {
+          subNavBar.classList.remove('scrolled');
+        }
+
+        if (isScrollingFromClick) return;
+
+        const header = document.querySelector('header');
+        const headerH = header ? header.offsetHeight : 80;
+        const subNavH = subNavBar.offsetHeight || 44;
+        const offset = headerH + subNavH + 20;
+
+        let activeSectionId = null;
+        let closestDiff = Infinity;
+
+        sections.forEach(sec => {
+          if (!sec) return;
+          const rect = sec.getBoundingClientRect();
+          const diff = Math.abs(rect.top - offset);
+          if (diff < closestDiff) {
+            closestDiff = diff;
+            activeSectionId = sec.getAttribute('id');
+          }
+        });
+
+        if (activeSectionId) {
+          let changed = false;
+          subNavLinks.forEach(link => {
+            const isMatch = link.getAttribute('href') === '#' + activeSectionId;
+            if (isMatch && !link.classList.contains('active')) {
+              link.classList.add('active');
+              changed = true;
+            } else if (!isMatch && link.classList.contains('active')) {
+              link.classList.remove('active');
+              changed = true;
+            }
+          });
+          if (changed) updateActiveIndicator();
+        }
+      }, { passive: true });
+
+      // Smooth scroll click handler for sub-nav links
+      subNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href').slice(1);
+          const targetEl = document.getElementById(targetId);
+          if (targetEl) {
+            isScrollingFromClick = true;
+            if (clickTimeout) clearTimeout(clickTimeout);
+
+            // Instantly transition active highlights
+            subNavLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            updateActiveIndicator();
+
+            const header = document.querySelector('header');
+            const headerH = header ? header.offsetHeight : 80;
+            const subNavH = subNavBar.offsetHeight || 44;
+            const offset = headerH + subNavH + 16;
+
+            if (typeof lenis !== 'undefined') {
+              lenis.scrollTo(targetEl, { 
+                offset: -offset, 
+                duration: 1.2,
+                onComplete: () => {
+                  isScrollingFromClick = false;
+                  updateActiveIndicator();
+                }
+              });
+            } else {
+              const elementPosition = targetEl.getBoundingClientRect().top + window.scrollY;
+              window.scrollTo({
+                top: elementPosition - offset,
+                behavior: 'smooth'
+              });
+            }
+
+            // Fallback timeout to reset flag
+            clickTimeout = setTimeout(() => {
+              isScrollingFromClick = false;
+              updateActiveIndicator();
+            }, 1400);
+
+            // Update URL hash without instant jump
+            history.pushState(null, null, '#' + targetId);
+          }
+        });
+      });
+
+      // Math-based macOS Dock hover magnification on sub-nav container
+      subNavBar.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX;
+        subNavLinks.forEach(link => {
+          const rect = link.getBoundingClientRect();
+          const linkCenterX = rect.left + rect.width / 2;
+          
+          // Distance from cursor to link center
+          const dist = Math.abs(mouseX - linkCenterX);
+          const maxDist = 160; // range of magnification influence
+          
+          if (dist < maxDist) {
+            const factor = 1 - dist / maxDist;
+            const scale = 1 + (0.24 * Math.pow(factor, 2)); // Dynamic curve (max 1.24x)
+            link.style.transform = `scale(${scale})`;
+          } else {
+            link.style.transform = 'scale(1)';
+          }
+        });
+      });
+      
+      subNavBar.addEventListener('mouseleave', () => {
+        subNavLinks.forEach(link => {
+          link.style.transform = 'scale(1)';
+        });
+      });
+    }
   }
 
 })();
@@ -836,6 +1254,7 @@
 <audio id="ambient-audio" loop muted preload="metadata" style="display:none">
   <source src="https://archive.org/download/om-chanting/y2mate.com%20-%20Om%20Chanting%20%20639%20Hz%20%203%20Hours.mp3" type="audio/mpeg">
 </audio>
+
 
 
 </body></html>

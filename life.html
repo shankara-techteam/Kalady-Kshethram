@@ -1,6 +1,7 @@
 <!DOCTYPE html><html class="light" lang="en" style=""><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="description" content="Follow the spiritual journey and chronological life stages of Sri Adi Shankaracharya, from his birth in Kalady to his crocodile miracle, renunciation, and consolidation of Advaita.">
 <title>The Life of Adi Shankara | Sri Adi Shankaracharya Journey</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -411,6 +412,8 @@
             color: #570000;
             transition: opacity 0.3s;
         }
+
+
         /* Pulse ring on audio toggle when playing */
         @keyframes pulse-ring {
             0%   { transform: scale(1);   opacity: 0.7; }
@@ -608,7 +611,7 @@
 <!-- Top Navigation Shell -->
 <header class="w-full top-0 sticky bg-surface-container-high/80 backdrop-blur-md border-b border-sandalwood/25 z-50 transition-all duration-300">
 <nav class="flex justify-between items-center px-gutter max-w-container-max mx-auto h-20 gap-4">
-<a href="/" class="flex items-center gap-2.5 font-headline-md text-base lg:text-lg xl:text-xl text-primary tracking-tight font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">
+<a href="index.html" class="flex items-center gap-2.5 font-headline-md text-base lg:text-lg xl:text-xl text-primary tracking-tight font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">
   <!-- Sacred Lotus Logo -->
   <svg class="w-7 h-7 text-primary fill-current flex-shrink-0" viewBox="0 0 24 24">
     <path d="M12 3c-1.2 3.5-2.5 6.5-2.5 9s1.3 5.5 2.5 9c1.2-3.5 2.5-6.5 2.5-9s-1.3-5.5-2.5-9z"/>
@@ -618,13 +621,15 @@
   <span>Sri Adi Shankara Janmabhoomi</span>
 </a>
 <div class="hidden md:flex space-x-4 lg:space-x-6 items-center flex-shrink-0">
-<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#home" id="nav-home">Sacred Birthplace</a>
-<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#pathashala" id="nav-pathashala">Veda Pathashala</a>
-<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/#pilgrimage" id="nav-pilgrimage">Pilgrimage Guide</a>
-<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="/significance" id="nav-significance">Significance</a>
-<a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="/life" id="nav-life">Spiritual Journey</a>
+<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#home" id="nav-home">Sacred Birthplace</a>
+<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pathashala" id="nav-pathashala">Veda Pathashala</a>
+<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="index.html#pilgrimage" id="nav-pilgrimage">Pilgrimage Guide</a>
+<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="significance.html" id="nav-significance">Significance</a>
+<a class="nav-link active font-label-md text-label-md tracking-wide text-primary whitespace-nowrap" href="life.html" id="nav-life">Spiritual Journey</a>
+<a class="nav-link font-label-md text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="gallery.html" id="nav-gallery">Gallery</a>
 </div>
 <div class="flex items-center gap-3 flex-shrink-0">
+
   <button id="ambient-toggle" title="Toggle Ambient Audio" aria-label="Toggle ambient sacred music" onclick="toggleAmbientAudio()">
     <svg id="audio-icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
@@ -663,7 +668,7 @@
   <div class="space-y-32 relative z-10">
 
     <!-- Entry 1: Birth in Kalady -->
-    <div class="relative flex flex-col md:flex-row items-center justify-between reveal-item">
+    <div id="timeline-birth" class="relative flex flex-col md:flex-row items-center justify-between reveal-item">
       <!-- Centered node on the line -->
       <div class="timeline-node absolute left-4 md:left-1/2 top-4 md:top-1/2 transform -translate-x-1/2 md:-translate-y-1/2 w-[14px] h-[14px] rounded-full border-2 border-[#C2B280] bg-[#fbfbe2] flex items-center justify-center z-20">
         <div class="w-1.5 h-1.5 rounded-full bg-[#570000]"></div>
@@ -689,7 +694,7 @@
     </div>
 
     <!-- Entry 2: Renunciation -->
-    <div class="relative flex flex-col md:flex-row items-center justify-between reveal-item">
+    <div id="timeline-renunciation" class="relative flex flex-col md:flex-row items-center justify-between reveal-item">
       <!-- Centered node on the line -->
       <div class="timeline-node absolute left-4 md:left-1/2 top-4 md:top-1/2 transform -translate-x-1/2 md:-translate-y-1/2 w-[14px] h-[14px] rounded-full border-2 border-[#C2B280] bg-[#fbfbe2] flex items-center justify-center z-20">
         <div class="w-1.5 h-1.5 rounded-full bg-[#570000]"></div>
@@ -715,7 +720,7 @@
     </div>
 
     <!-- Entry 3: Meeting the Guru -->
-    <div class="relative flex flex-col md:flex-row items-center justify-between reveal-item">
+    <div id="timeline-guru" class="relative flex flex-col md:flex-row items-center justify-between reveal-item">
       <!-- Centered node on the line -->
       <div class="timeline-node absolute left-4 md:left-1/2 top-4 md:top-1/2 transform -translate-x-1/2 md:-translate-y-1/2 w-[14px] h-[14px] rounded-full border-2 border-[#C2B280] bg-[#fbfbe2] flex items-center justify-center z-20">
         <div class="w-1.5 h-1.5 rounded-full bg-[#570000]"></div>
@@ -741,7 +746,7 @@
     </div>
 
     <!-- Entry 4: Kashi & Commentaries -->
-    <div class="relative flex flex-col md:flex-row items-center justify-between reveal-item">
+    <div id="timeline-bhashyas" class="relative flex flex-col md:flex-row items-center justify-between reveal-item">
       <!-- Centered node on the line -->
       <div class="timeline-node absolute left-4 md:left-1/2 top-4 md:top-1/2 transform -translate-x-1/2 md:-translate-y-1/2 w-[14px] h-[14px] rounded-full border-2 border-[#C2B280] bg-[#fbfbe2] flex items-center justify-center z-20">
         <div class="w-1.5 h-1.5 rounded-full bg-[#570000]"></div>
@@ -767,7 +772,7 @@
     </div>
 
     <!-- Entry 5: The Amnaya Peethams -->
-    <div class="relative flex flex-col md:flex-row items-center justify-between reveal-item">
+    <div id="timeline-peethams" class="relative flex flex-col md:flex-row items-center justify-between reveal-item">
       <!-- Centered node on the line -->
       <div class="timeline-node absolute left-4 md:left-1/2 top-4 md:top-1/2 transform -translate-x-1/2 md:-translate-y-1/2 w-[14px] h-[14px] rounded-full border-2 border-[#C2B280] bg-[#fbfbe2] flex items-center justify-center z-20">
         <div class="w-1.5 h-1.5 rounded-full bg-[#570000]"></div>
@@ -883,7 +888,7 @@
     <p class="font-body-md text-stone-600 italic text-base leading-relaxed mb-8">
       "Brahman is the absolute reality, the world is an appearance, and the individual soul is none other than Brahman."
     </p>
-    <button onclick="window.location.href='/#home'" class="bg-[#570000] text-white border border-[#570000] px-8 py-3.5 font-label-md text-xs tracking-widest uppercase hover:bg-primary-container transition-colors rounded-sm font-semibold">
+    <button onclick="window.location.href='index.html#home'" class="bg-[#570000] text-white border border-[#570000] px-8 py-3.5 font-label-md text-xs tracking-widest uppercase hover:bg-primary-container transition-colors rounded-sm font-semibold">
       Explore The Teachings
     </button>
   </div>
@@ -1025,7 +1030,16 @@
             const parts = href.split('#');
             const path = parts[0];
             const targetId = '#' + parts[1];
-            const isLocal = path === '' || path === 'life.html' || path === '/life.html' || path.endsWith(window.location.pathname);
+            
+            const normalizePath = (p) => {
+              let n = p.replace(/\.html$/, '');
+              if (n.startsWith('/')) n = n.substring(1);
+              return (n === '' || n === 'index') ? '/' : n;
+            };
+            const currentPath = normalizePath(window.location.pathname);
+            const targetPath = normalizePath(path);
+            const isLocal = targetPath === currentPath || targetPath === '';
+
             if (isLocal) {
                 const target = document.querySelector(targetId);
                 if (target) {
@@ -1081,25 +1095,6 @@
       });
     });
 
-    // Page exit transition for cross-page navigation
-    document.querySelectorAll('a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && !href.startsWith('#') && !link.target && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('javascript:')) {
-            link.addEventListener('click', function(e) {
-                const parser = document.createElement('a');
-                parser.href = href;
-                
-                if (parser.pathname !== window.location.pathname) {
-                    e.preventDefault();
-                    document.body.classList.remove('page-loaded');
-                    document.body.classList.add('page-exit');
-                    setTimeout(() => {
-                        window.location.href = href;
-                    }, 450);
-                }
-            });
-        }
-    });
 
     // Modals Management
     function openDonateModal() {
@@ -1189,6 +1184,18 @@
       return botReplies.fallback;
     }
 
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[tag] || tag)
+      );
+    }
+
     function appendMessage(sender, text) {
       const container = document.getElementById('chatbot-messages');
       if (!container) return;
@@ -1199,9 +1206,10 @@
         ? `<div class="w-8 h-8 rounded-full bg-secondary/15 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 order-2"><span class="material-symbols-outlined text-secondary text-sm">person</span></div>`
         : `<div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary text-sm">support_agent</span></div>`;
         
+      const safeText = sender === 'user' ? escapeHTML(text) : text;
       const bubble = sender === 'user'
-        ? `<div class="bg-primary text-white p-3 rounded-lg max-w-[80%] text-xs leading-relaxed text-left">${text}</div>`
-        : `<div class="bg-surface-container border border-sandalwood/15 p-3 rounded-lg max-w-[80%] text-xs text-on-surface-variant leading-relaxed text-left">${text}</div>`;
+        ? `<div class="bg-primary text-white p-3 rounded-lg max-w-[80%] text-xs leading-relaxed text-left">${safeText}</div>`
+        : `<div class="bg-surface-container border border-sandalwood/15 p-3 rounded-lg max-w-[80%] text-xs text-on-surface-variant leading-relaxed text-left">${safeText}</div>`;
         
       msgDiv.innerHTML = avatar + bubble;
       container.appendChild(msgDiv);
@@ -1370,30 +1378,36 @@
         link.addEventListener('click', function(e) {
           try {
             const targetUrl = new URL(href, window.location.href);
-            // If navigating to the same page but a different hash
-            if (targetUrl.pathname === window.location.pathname) {
-              if (targetUrl.hash) {
-                e.preventDefault();
-                const targetEl = document.getElementById(targetUrl.hash.slice(1));
-                if (targetEl) {
-                  const headerH = header ? header.offsetHeight : 80;
-                  if (typeof lenis !== 'undefined') {
-                    lenis.scrollTo(targetEl, { offset: -(headerH + 16), duration: 1.6 });
-                  } else {
-                    window.scrollTo({ top: targetEl.getBoundingClientRect().top + window.scrollY - headerH - 16, behavior: 'smooth' });
+            const normalizePath = (p) => {
+              let n = p.replace(/\.html$/, '');
+              return (n === '' || n === '/index') ? '/' : n;
+            };
+
+            // Only handle local transitions
+            if (targetUrl.origin === window.location.origin) {
+              const targetPath = normalizePath(targetUrl.pathname);
+              const currentPath = normalizePath(window.location.pathname);
+
+              if (targetPath === currentPath) {
+                if (targetUrl.hash) {
+                  e.preventDefault();
+                  const targetEl = document.getElementById(targetUrl.hash.slice(1));
+                  if (targetEl) {
+                    const headerH = header ? header.offsetHeight : 80;
+                    if (typeof lenis !== 'undefined') {
+                      lenis.scrollTo(targetEl, { offset: -(headerH + 16), duration: 1.6 });
+                    } else {
+                      window.scrollTo({ top: targetEl.getBoundingClientRect().top + window.scrollY - headerH - 16, behavior: 'smooth' });
+                    }
+                    history.pushState(null, null, targetUrl.hash);
                   }
-                  history.pushState(null, null, targetUrl.hash);
                 }
+              } else {
+                // Different local page
+                e.preventDefault();
+                document.body.classList.add('page-exit');
+                setTimeout(() => { window.location.href = href; }, 150);
               }
-              return;
-            }
-            
-            // If different local page
-            const isLocal = href.startsWith('/') || href.startsWith('index') || href.startsWith('life') || href.startsWith('significance');
-            if (isLocal) {
-              e.preventDefault();
-              document.body.classList.add('page-exit');
-              setTimeout(() => { window.location.href = href; }, 150);
             }
           } catch (err) {
             console.warn(err);
@@ -1472,6 +1486,8 @@
         window.addEventListener('keydown', startOnGesture);
       }
 
+
+
     })();
     </script>
 
@@ -1530,8 +1546,6 @@
     </button>
   </form>
 </div>
-
-
 
 
 </body></html>
