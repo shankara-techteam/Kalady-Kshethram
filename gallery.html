@@ -285,6 +285,27 @@
 <!-- Scroll Progress Bar -->
 <div id="scroll-progress"></div>
 <script>
+    window.toggleMobileMenu = function () {
+      const menu = document.getElementById('mobile-menu');
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+          menu.classList.remove('opacity-0');
+          menu.classList.add('opacity-100');
+        }, 50);
+      } else {
+        menu.classList.remove('opacity-100');
+        menu.classList.add('opacity-0');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          menu.classList.remove('flex');
+          menu.classList.add('hidden');
+        }, 300);
+      }
+    };
     document.body.classList.add('page-loaded');
 </script>
 <div id="page-wrapper" class="flex flex-col min-h-screen">
@@ -336,41 +357,206 @@
     Donate
   </button>
 </div>
-</nav>
+        <!-- Mobile Menu Button -->
+        <button onclick="toggleMobileMenu()" class="block md:hidden text-primary focus:outline-none hover:scale-105 transition-transform ml-2" aria-label="Toggle Navigation Menu" id="mobile-menu-btn">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </nav>
 </header>
 
-<main class="flex-grow flex items-center justify-center py-24 px-gutter">
-  <div class="max-w-xl w-full text-center relative z-10 flex flex-col items-center reveal-item">
-    <!-- Floating lotus emblem with glowing shadow -->
-    <div class="w-16 h-16 border border-sandalwood rounded-full flex items-center justify-center mb-8 relative animate-float shadow-sm bg-surface-container-high/40">
-      <svg class="w-8 h-8 text-primary fill-current" viewBox="0 0 24 24">
-        <path d="M12 3c-1.2 3.5-2.5 6.5-2.5 9s1.3 5.5 2.5 9c1.2-3.5 2.5-6.5 2.5-9s-1.3-5.5-2.5-9z"/>
-        <path d="M12 8c-3 1-5 4-5 6.5s1.5 4 4 5.5c-2.5-2.5-3.5-5.5-2-8.5.5-1 1.5-2.5 3-3.5z"/>
-        <path d="M12 8c3 1 5 4 5 6.5s-1.5 4-4 5.5c-2.5-2.5 3.5-5.5 2-8.5-.5-1-1.5-2.5-3-3.5z"/>
-      </svg>
-    </div>
-    
-    <!-- Title "Coming Soon.." in EB Garamond -->
-    <h1 class="font-display-lg text-4xl md:text-5xl lg:text-6xl text-primary tracking-tight font-bold mb-4 animate-fade-in">
-      Coming Soon..
-    </h1>
-    
-    <!-- Decorative gradient separator line -->
-    <div class="w-40 h-[1.5px] bg-gradient-to-r from-transparent via-sandalwood to-transparent mb-8 animate-fade-in"></div>
-    
-    <!-- Description paragraph in Source Serif 4 -->
-    <p class="font-body-md text-body-lg text-on-surface-variant max-w-md leading-relaxed mb-10 animate-fade-in">
-      We are currently curating a visual gallery of the Sri Adi Shankara Janmabhoomi Kshethram, capturing the serene river ghats, ancient shrines, and the sacred atmosphere of Kalady.
-    </p>
-    
-    <!-- Action button in Inter -->
-    <a href="index.html" class="inline-flex items-center gap-2 bg-[#570000] text-white px-8 py-3.5 font-label-md text-xs tracking-widest uppercase hover:bg-primary-container transition-all rounded-sm font-semibold shadow-sm hover:shadow-md active:scale-95 duration-300 animate-fade-in">
-      Return to Birthplace
-      <span class="material-symbols-outlined text-sm">arrow_forward</span>
-    </a>
-  </div>
-</main>
+    <main class="flex-grow py-16 px-gutter max-w-container-max mx-auto w-full">
+      <!-- Editorial Header -->
+      <div class="text-center mb-16 reveal-item">
+        <!-- Sacred Emblem Header Divider -->
+        <div class="flex items-center justify-center gap-4 mb-4" aria-hidden="true">
+          <div class="h-[1px] w-16 bg-gradient-to-r from-transparent to-[#C5B48D]"></div>
+          <span class="text-[#ffe16d] text-2xl font-serif leading-none select-none">ॐ</span>
+          <div class="h-[1px] w-16 bg-gradient-to-l from-transparent to-[#C5B48D]"></div>
+        </div>
+        <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.35em] block mb-3 font-semibold">Sacred Darshan</span>
+        <h1 class="font-display-lg text-4xl md:text-5xl lg:text-6xl text-primary tracking-tight font-bold mb-4">
+          Kshethram Visual Gallery</h1>
+        <p class="font-serif italic text-primary/95 text-lg md:text-xl mt-4 max-w-xl mx-auto title-line-grow pb-2">
+          "रूपं रूपं प्रतिरूपो बभूव"
+        </p>
+        <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl mx-auto mt-6 leading-relaxed font-serif">
+          A visual journey capturing the tranquil beauty, traditional architecture, and meditative sanctuaries of Sri
+          Adi Shankaracharya's birthplace in Kalady.
+        </p>
+      </div>
 
+      <!-- Filter Controls -->
+      <div class="flex justify-center flex-wrap gap-4 mb-16 reveal-item reveal-delay-100">
+        <button onclick="filterGallery('all')" id="filter-btn-all"
+          class="filter-btn active px-6 py-2.5 border-2 border-primary bg-primary text-white text-xs font-label-md tracking-wider uppercase rounded-full transition-all duration-300 font-semibold select-none shadow-[0_8px_20px_rgba(122,12,17,0.15)]">All
+          Shrines</button>
+        <button onclick="filterGallery('shrine')" id="filter-btn-shrine"
+          class="filter-btn px-6 py-2.5 border border-[#C5B48D]/35 hover:border-primary/60 bg-surface-container-low hover:bg-surface-container-lowest text-xs font-label-md tracking-wider uppercase rounded-full transition-all duration-300 font-semibold select-none">Shrines
+          & Courtyards</button>
+        <button onclick="filterGallery('architecture')" id="filter-btn-architecture"
+          class="filter-btn px-6 py-2.5 border border-[#C5B48D]/35 hover:border-primary/60 bg-surface-container-low hover:bg-surface-container-lowest text-xs font-label-md tracking-wider uppercase rounded-full transition-all duration-300 font-semibold select-none">Architecture</button>
+        <button onclick="filterGallery('nature')" id="filter-btn-nature"
+          class="filter-btn px-6 py-2.5 border border-[#C5B48D]/35 hover:border-primary/60 bg-surface-container-low hover:bg-surface-container-lowest text-xs font-label-md tracking-wider uppercase rounded-full transition-all duration-300 font-semibold select-none">Nature
+          & Grottos</button>
+      </div>
+
+      <!-- Gallery Grid (Masonry-like layout using columns or flex wrap/grid) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-item reveal-delay-200" id="gallery-grid">
+        <!-- Featured Image Card (Lord Shiva Grotto - SUPREME SIGNIFICANCE) -->
+        <div
+          class="gallery-item group col-span-1 md:col-span-2 bg-[#7A0C11]/5 border-2 border-double border-[#C5B48D]/40 p-6 rounded-xl hover-card-trigger cursor-pointer flex flex-col md:flex-row gap-6 overflow-hidden transition-all duration-500 shadow-sm hover:shadow-md"
+          data-category="nature" onclick="openLightbox(0)">
+          <div
+            class="w-full md:w-1/2 h-64 md:h-80 overflow-hidden border border-[#C5B48D]/20 rounded-lg relative bg-black/5 flex-shrink-0 image-double-frame">
+            <img
+              class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+              loading="lazy" src="https://lh3.googleusercontent.com/d/1p1EL7mzhMxrIg1ur4EHLDpZZHaL4wX4R"
+              alt="Outdoor Lord Shiva Grotto Shrine, Kalady Sringeri Math">
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-[#7A0C11]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+              <span class="text-white text-xs font-label-md uppercase tracking-widest flex items-center gap-1.5"><span
+                  class="material-symbols-outlined text-sm">zoom_in</span> View Image</span>
+            </div>
+            <!-- Sacred Lotus visual signature overlay -->
+            <div class="absolute bottom-3 right-3 text-white/40 pointer-events-none select-none font-serif text-sm">🪷</div>
+          </div>
+          <div class="flex flex-col justify-between py-2">
+            <div>
+              <div class="flex items-center gap-2 mb-3">
+                <span
+                  class="text-[10px] font-label-md bg-primary text-white px-2.5 py-0.5 rounded-full uppercase tracking-widest font-bold">Featured
+                  Shrine</span>
+                <span
+                  class="text-[10px] font-label-md text-secondary border border-secondary/20 px-2 py-0.5 rounded uppercase tracking-widest">Nature</span>
+              </div>
+              <h3 class="font-display-lg text-2xl text-primary mb-3 font-bold tracking-wide leading-snug">Outdoor Lord
+                Shiva Grotto Shrine</h3>
+              <p class="font-body-md text-sm text-on-surface-variant leading-relaxed font-serif">
+                A beautiful eye-level shot of a unique, nature-integrated shrine within the Kalady temple complex. A
+                dark bronze-finished statue of Lord Shiva sits in a classic meditative posture, backed by a textured
+                dark stone wall and a base of natural river stones. The most striking feature is the organic canopy of
+                lush green vines and a dense, dramatic curtain of long, reddish-brown aerial roots that frame the deity.
+              </p>
+            </div>
+            <span
+              class="text-xs font-label-md text-primary font-semibold uppercase tracking-wider mt-4 flex items-center gap-1 group-hover:translate-x-1.5 transition-transform duration-300">Explore
+              Darshan <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+          </div>
+        </div>
+
+        <!-- Image Card 2 (Golden Statue) -->
+        <div
+          class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
+          data-category="shrine" onclick="openLightbox(1)">
+          <div class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
+            <img
+              class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+              loading="lazy" src="https://lh3.googleusercontent.com/d/1odcOiyUXf9KyZsybUGRPvPBFoD1QV0-i"
+              alt="Golden Meditative Statue of Sri Adi Shankaracharya, Kalady">
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-[#7A0C11]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+              <span class="text-white text-xs font-label-md uppercase tracking-widest flex items-center gap-1.5"><span
+                  class="material-symbols-outlined text-sm">zoom_in</span> View Image</span>
+            </div>
+            <div class="absolute bottom-3 right-3 text-white/40 pointer-events-none select-none font-serif text-sm">🪷</div>
+          </div>
+          <div>
+            <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold tracking-wide leading-snug">Golden
+              Meditative Statue of Sri Adi Shankaracharya</h3>
+            <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
+              In the serene town of Kalady, Kerala, this temple courtyard honors Jagadguru Adi Shankaracharya, the great
+              philosopher and founder of Advaita Vedanta. The centerpiece is a golden statue of Shankaracharya in
+              meditation, seated on a red-and-gold pedestal surrounded by greenery. Traditional Kerala-style
+              architecture, with sloping tiled roofs and floral motifs, frames the space.
+            </p>
+          </div>
+        </div>
+
+        <!-- Image Card 3 (Entrance Walkway) -->
+        <div
+          class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
+          data-category="architecture" onclick="openLightbox(2)">
+          <div class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
+            <img
+              class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+              loading="lazy" src="https://lh3.googleusercontent.com/d/1Oi0pH7GLghdA3NptmaSQdvLrmNlJOyHc"
+              alt="Entrance to Sri Adi Shankara Janmabhoomi Kshethram, Kalady">
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-[#7A0C11]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+              <span class="text-white text-xs font-label-md uppercase tracking-widest flex items-center gap-1.5"><span
+                  class="material-symbols-outlined text-sm">zoom_in</span> View Image</span>
+            </div>
+            <div class="absolute bottom-3 right-3 text-white/40 pointer-events-none select-none font-serif text-sm">🪷</div>
+          </div>
+          <div>
+            <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold tracking-wide leading-snug">Entrance to
+              Sri Adi Shankara Janmabhoomi Kshethram</h3>
+            <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
+              A striking wide-angle shot of the entrance to the sacred birth site of Adi Shankaracharya in Kerala. A
+              vibrant red-tiled walkway draws the eye directly into the central sanctuary, where a meditative statue of
+              the philosopher is visible. The architecture showcases classic Kerala-style sloping clay roofs paired with
+              an intricate, colorful gopuram relief displaying Hindu deities.
+            </p>
+          </div>
+        </div>
+
+        <!-- Image Card 4 (Mandapam) -->
+        <div
+          class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
+          data-category="shrine" onclick="openLightbox(3)">
+          <div class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
+            <img
+              class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+              loading="lazy" src="https://lh3.googleusercontent.com/d/1PhmqQWQbnR4lC4nGc0jRo3OlzLcKGEhB"
+              alt="Mandapam Shrine of Jagadguru Sri Sachidananda Shivabhinava Narasimha Bharati Mahaswamiji, Kalady">
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-[#7A0C11]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+              <span class="text-white text-xs font-label-md uppercase tracking-widest flex items-center gap-1.5"><span
+                  class="material-symbols-outlined text-sm">zoom_in</span> View Image</span>
+            </div>
+            <div class="absolute bottom-3 right-3 text-white/40 pointer-events-none select-none font-serif text-sm">🪷</div>
+          </div>
+          <div>
+            <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold tracking-wide leading-snug">Mandapam
+              Shrine of Jagadguru Sri Sachidananda Shivabhinava Narasimha Bharati Mahaswamiji</h3>
+            <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
+              This image features the beautifully crafted stone mandapam (pavilion) situated in the central stone-paved
+              courtyard of the Sri Adi Shankara Janmabhoomi Kshethram in Kalady, Kerala. Under an octagonal pillar
+              canopy topped with classic terracotta clay tiles sits a lifelike, saffron-robed statue of the 33rd
+              Jagadguru of the Sringeri Math.
+            </p>
+          </div>
+        </div>
+
+        <!-- Image Card 5 (Gateway) -->
+        <div
+          class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
+          data-category="architecture" onclick="openLightbox(4)">
+          <div class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
+            <img
+              class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+              loading="lazy" src="https://lh3.googleusercontent.com/d/1mvN6Wpg8LJ4rsc2p3q49s0G0c74FAcFI"
+              alt="Main Entrance Gateway of Sri Adi Shankara Janmabhoomi Kshetram, Kalady">
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-[#7A0C11]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+              <span class="text-white text-xs font-label-md uppercase tracking-widest flex items-center gap-1.5"><span
+                  class="material-symbols-outlined text-sm">zoom_in</span> View Image</span>
+            </div>
+            <div class="absolute bottom-3 right-3 text-white/40 pointer-events-none select-none font-serif text-sm">🪷</div>
+          </div>
+          <div>
+            <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold tracking-wide leading-snug">Main
+              Entrance Gateway of Sri Adi Shankara Janmabhoomi Kshetram</h3>
+            <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
+              A wide-angle exterior shot capturing the grand entrance portal to the sacred birthplace of Adi
+              Shankaracharya. The structure beautifully blends traditional Kerala temple architecture with rich artistic
+              storytelling. Thick, polished black columns flank a central open archway displaying a maroon signboard
+              with the temple's name.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>\n
 <footer class="bg-surface-container-high border-t-4 border-double border-sandalwood py-24">
 <div class="grid grid-cols-1 md:grid-cols-3 gap-16 w-full px-8 max-w-container-max mx-auto">
 <div class="space-y-8">
@@ -407,20 +593,80 @@
 </footer>
 </div> <!-- end page-wrapper -->
 
+<!-- Fullscreen Lightbox Modal -->
+<div id="lightbox-modal" class="fixed inset-0 bg-[#443D32]/90 backdrop-blur-xl z-[150] hidden flex-col justify-center items-center p-4 md:p-8 select-none transition-all duration-300 opacity-0">
+  <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white/70 hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 focus:outline-none z-[160]">
+    <span class="material-symbols-outlined text-3xl">close</span>
+  </button>
+  
+  <!-- Left Navigation Arrow -->
+  <button onclick="prevImage()" class="absolute left-6 text-white/50 hover:text-white hover:scale-110 active:scale-90 transition-all duration-300 focus:outline-none z-[160] w-12 h-12 bg-white/5 hover:bg-white/10 rounded-full flex items-center justify-center border border-white/10">
+    <span class="material-symbols-outlined text-2xl">arrow_back_ios_new</span>
+  </button>
+  
+  <!-- Right Navigation Arrow -->
+  <button onclick="nextImage()" class="absolute right-6 text-white/50 hover:text-white hover:scale-110 active:scale-90 transition-all duration-300 focus:outline-none z-[160] w-12 h-12 bg-white/5 hover:bg-white/10 rounded-full flex items-center justify-center border border-white/10">
+    <span class="material-symbols-outlined text-2xl">arrow_forward_ios</span>
+  </button>
+
+  <div class="max-w-5xl w-full flex flex-col md:flex-row items-center gap-8 bg-[#fdfbf7] border-2 border-double border-[#C5B48D]/60 p-6 md:p-8 rounded-2xl relative shadow-2xl overflow-hidden max-h-[90vh]">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(197,180,141,0.02)_0%,transparent_70%)] pointer-events-none"></div>
+    
+    <!-- Image Display Card -->
+    <div class="flex-grow w-full md:w-1/2 h-[40vh] md:h-[60vh] overflow-hidden border border-[#C5B48D]/20 rounded-xl relative shadow-md bg-black">
+      <img id="lightbox-img" class="w-full h-full object-contain transition-all duration-500 transform scale-100" src="" alt="">
+    </div>
+
+    <!-- Image details text -->
+    <div class="w-full md:w-1/2 flex flex-col justify-center text-left space-y-4">
+      <div class="flex items-center gap-2">
+        <span id="lightbox-category" class="text-[10px] font-label-md text-secondary border border-secondary/20 px-2 py-0.5 rounded uppercase tracking-widest">Category</span>
+      </div>
+      <h3 id="lightbox-title" class="font-headline-lg text-2xl md:text-3xl text-primary font-bold tracking-tight leading-snug">Image Title</h3>
+      <div class="h-[1px] w-24 bg-gradient-to-r from-sandalwood via-sandalwood/20 to-transparent my-2"></div>
+      <p id="lightbox-desc" class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed overflow-y-auto max-h-[25vh] custom-scrollbar pr-2">
+        Image description goes here...
+      </p>
+    </div>
+  </div>
+</div>
+\n\n<!-- Donation Modal -->
 <!-- Donation Modal -->
-<div id="donate-modal" class="fixed inset-0 bg-charcoal-stone/75 backdrop-blur-md z-[100] hidden items-center justify-center p-4">
-  <div class="bg-surface border-2 border-double border-sandalwood p-8 max-w-lg w-full rounded-xl relative modal-content-animate text-on-surface shadow-[0_20px_50px_rgba(87,0,0,0.25)]">
-    <button onclick="closeDonateModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-all duration-300 hover:rotate-90 focus:outline-none">
-      <span class="material-symbols-outlined text-2xl">close</span>
+<div id="donate-modal"
+  class="fixed inset-0 bg-[#443D32]/80 backdrop-blur-xl z-[100] hidden items-center justify-center p-4">
+  <div
+    class="bg-[#fdfbf7] border-2 border-double border-[#C5B48D]/60 p-8 max-w-lg w-full rounded-2xl relative text-on-surface shadow-[0_32px_64px_rgba(87,0,0,0.22)] overflow-hidden">
+    <!-- Ambient glows inside modal -->
+    <div class="absolute -top-32 -left-32 w-64 h-64 bg-[#ffe16d]/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute -bottom-32 -right-32 w-64 h-64 bg-[#7A0C11]/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+    
+    <!-- Close Button -->
+    <button onclick="closeDonateModal()"
+      class="absolute top-5 right-5 text-on-surface-variant hover:text-primary transition-all duration-300 hover:rotate-90 focus:outline-none z-10 w-8 h-8 rounded-full bg-surface-container-low border border-sandalwood/20 flex items-center justify-center hover:bg-surface-container-lowest">
+      <span class="material-symbols-outlined text-lg font-semibold">close</span>
     </button>
-    <h3 class="font-headline-lg text-headline-lg text-primary mb-2">Support the Kshethram</h3>
-    <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed">
-      Sponsor the preservation of Vedic culture and maintain the birthplace of Sri Adi Shankaracharya. Contributions are received directly by the Sringeri Math administration.
+    
+    <!-- Sacred Header -->
+    <div class="text-center mb-6 relative">
+      <div class="flex items-center justify-center gap-2 mb-2" aria-hidden="true">
+        <div class="h-[1px] w-8 bg-gradient-to-r from-transparent to-[#C5B48D]"></div>
+        <span class="text-[#ffe16d] text-lg font-serif">🪷</span>
+        <div class="h-[1px] w-8 bg-gradient-to-l from-transparent to-[#C5B48D]"></div>
+      </div>
+      <h3 class="font-headline-lg text-2xl md:text-3xl text-primary font-bold tracking-wide">Support the Kshethram</h3>
+      <div class="h-[1px] w-24 bg-gradient-to-r from-transparent via-[#C5B48D]/30 to-transparent mx-auto mt-2"></div>
+    </div>
+
+    <p class="font-body-md text-sm text-on-surface-variant mb-6 text-center leading-relaxed font-serif max-w-sm mx-auto">
+      Sponsor the preservation of Vedic culture and maintain the birthplace of Sri Adi Shankaracharya. Contributions
+      are received directly by the Sringeri Math administration.
     </p>
-    <form onsubmit="handleDonateSubmit(event)" class="space-y-4">
+    <form onsubmit="handleDonateSubmit(event)" class="space-y-4 relative z-10">
       <div>
-        <label class="block font-label-md text-xs uppercase tracking-wider text-secondary mb-1">Select Seva / Purpose</label>
-        <select required id="donate-purpose" class="w-full border border-sandalwood/40 bg-surface-container-lowest px-4 py-2.5 rounded-lg text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all">
+        <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Select Seva /
+          Purpose</label>
+        <select required id="donate-purpose"
+          class="w-full border border-sandalwood/35 bg-white/70 px-4 py-2.5 rounded-xl text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all duration-300 text-sm">
           <option value="veda">Veda Pathashala Sponsorship</option>
           <option value="annadanam">Annadanam (Free Meals Scheme)</option>
           <option value="general">Temple General Maintenance</option>
@@ -428,29 +674,36 @@
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label class="block font-label-md text-xs uppercase tracking-wider text-secondary mb-1">Your Name</label>
-          <input required type="text" id="donate-name" placeholder="Devotee Name" class="w-full border border-sandalwood/40 bg-surface-container-lowest px-4 py-2.5 rounded-lg text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all">
+          <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Your Name</label>
+          <input required type="text" id="donate-name" placeholder="Devotee Name"
+            class="w-full border border-sandalwood/35 bg-white/70 px-4 py-2.5 rounded-xl text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all duration-300 text-sm">
         </div>
         <div>
-          <label class="block font-label-md text-xs uppercase tracking-wider text-secondary mb-1">Email Address</label>
-          <input required type="email" id="donate-email" placeholder="email@address.com" class="w-full border border-sandalwood/40 bg-surface-container-lowest px-4 py-2.5 rounded-lg text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all">
+          <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Email
+            Address</label>
+          <input required type="email" id="donate-email" placeholder="email@address.com"
+            class="w-full border border-sandalwood/35 bg-white/70 px-4 py-2.5 rounded-xl text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all duration-300 text-sm">
         </div>
       </div>
       <div>
-        <label class="block font-label-md text-xs uppercase tracking-wider text-secondary mb-1">Donation Amount</label>
+        <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Donation
+          Amount</label>
         <div class="relative">
           <span class="absolute left-4 top-2.5 text-on-surface-variant font-body-md">₹</span>
-          <input required type="number" id="donate-amount" min="100" placeholder="1008" class="w-full border border-sandalwood/40 bg-surface-container-lowest pl-8 pr-4 py-2.5 rounded-lg text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all font-semibold font-serif">
+          <input required type="number" id="donate-amount" min="100" placeholder="1008"
+            class="w-full border border-sandalwood/35 bg-white/70 pl-8 pr-4 py-2.5 rounded-xl text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all duration-300 font-semibold font-serif text-sm">
         </div>
       </div>
       <div>
-        <label class="block font-label-md text-xs uppercase tracking-wider text-secondary mb-1">Payment Method</label>
-        <select required class="w-full border border-sandalwood/40 bg-surface-container-lowest px-4 py-2.5 rounded-lg text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all">
+        <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Payment Method</label>
+        <select required
+          class="w-full border border-sandalwood/35 bg-white/70 px-4 py-2.5 rounded-xl text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all duration-300 text-sm">
           <option>UPI / Net Banking</option>
           <option>Credit / Debit Card</option>
         </select>
       </div>
-      <button type="submit" class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-tertiary border border-tertiary/40 py-3 rounded-lg font-label-md text-label-md uppercase tracking-wider hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:opacity-95 transition-all focus:outline-none font-semibold">
+      <button type="submit"
+        class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3.5 rounded-xl font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 focus:outline-none font-bold">
         Proceed to Secure Payment
       </button>
     </form>
@@ -458,6 +711,133 @@
 </div>
 
 <script>
+    // Gallery Data
+    const galleryData = [
+      {
+        title: "Outdoor Lord Shiva Grotto Shrine",
+        category: "Nature",
+        desc: "A beautiful eye-level shot of a unique, nature-integrated shrine within the Kalady temple complex. A dark bronze-finished statue of Lord Shiva sits in a classic meditative posture, backed by a textured dark stone wall and a base of natural river stones. The most striking feature is the organic canopy of lush green vines and a dense, dramatic curtain of long, reddish-brown aerial roots that frame the deity. The foreground shows a wet, stone-paved courtyard flanked by sitting benches, with a decorative red base panel featuring traditional white folk art motifs running beneath the shrine.",
+        src: "https://lh3.googleusercontent.com/d/1p1EL7mzhMxrIg1ur4EHLDpZZHaL4wX4R"
+      },
+      {
+        title: "Golden Meditative Statue of Sri Adi Shankaracharya",
+        category: "Shrine",
+        desc: "In the serene town of Kalady, Kerala, this temple courtyard honors Jagadguru Adi Shankaracharya, the great philosopher and founder of Advaita Vedanta. The centerpiece is a golden statue of Shankaracharya in meditation, seated on a red-and-gold pedestal surrounded by greenery. Traditional Kerala-style architecture, with sloping tiled roofs and floral motifs, frames the space, while the tranquil atmosphere invites reflection and reverence. This sacred site is not only a place of worship but also a living reminder of India’s rich spiritual heritage.",
+        src: "https://lh3.googleusercontent.com/d/1odcOiyUXf9KyZsybUGRPvPBFoD1QV0-i"
+      },
+      {
+        title: "Entrance to Sri Adi Shankara Janmabhoomi Kshethram",
+        category: "Architecture",
+        desc: "A striking wide-angle shot of the entrance to the sacred birth site of Adi Shankaracharya in Kerala. A vibrant red-tiled walkway draws the eye directly into the central sanctuary, where a meditative statue of the philosopher is visible. The architecture showcases classic Kerala-style sloping clay roofs paired with an intricate, colorful gopuram relief displaying Hindu deities. Symmetrical pink temple towers flank the sides, beautifully framed by lush green lawns and flowering rose gardens under a soft, cloudy sky.",
+        src: "https://lh3.googleusercontent.com/d/1Oi0pH7GLghdA3NptmaSQdvLrmNlJOyHc"
+      },
+      {
+        title: "Mandapam Shrine of Jagadguru Sri Sachidananda Shivabhinava Narasimha Bharati Mahaswamiji",
+        category: "Shrine",
+        desc: "This image features the beautifully crafted stone mandapam (pavilion) situated in the central stone-paved courtyard of the Sri Adi Shankara Janmabhoomi Kshethram in Kalady, Kerala. Under an octagonal pillar canopy topped with classic terracotta clay tiles sits a lifelike, saffron-robed statue of the 33rd Jagadguru of the Sringeri Math, depicted in a peaceful meditative posture wearing a rudraksha mala. The pavilion is encircled by a light-blue-painted water fountain ring, with neatly manicured flower beds anchoring the foreground against a traditional veranda backdrop.",
+        src: "https://lh3.googleusercontent.com/d/1PhmqQWQbnR4lC4nGc0jRo3OlzLcKGEhB"
+      },
+      {
+        title: "Main Entrance Gateway of Sri Adi Shankara Janmabhoomi Kshetram",
+        category: "Architecture",
+        desc: "A wide-angle exterior shot capturing the grand entrance portal to the sacred birthplace of Adi Shankaracharya. The structure beautifully blends traditional Kerala temple architecture with rich artistic storytelling. Thick, polished black columns flank a central open archway displaying a maroon signboard with the temple's name. The most striking features are the large, highly detailed multi-colored murals painted across the front facade, depicting scenes from Hindu scriptures and the philosopher's life. A triangular tiled gable crowns the center, while tall betel nut palm trees rise in the background under a bright sky.",
+        src: "https://lh3.googleusercontent.com/d/1mvN6Wpg8LJ4rsc2p3q49s0G0c74FAcFI"
+      }
+    ];
+
+    let currentImageIndex = 0;
+
+    window.filterGallery = function(category) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if(btn.id === 'filter-btn-' + category) {
+          btn.classList.add('bg-primary', 'text-white', 'border-primary', 'shadow-[0_8px_20px_rgba(122,12,17,0.15)]');
+          btn.classList.remove('bg-surface-container-low', 'text-on-surface-variant', 'border-[#C5B48D]/35');
+        } else {
+          btn.classList.remove('bg-primary', 'text-white', 'border-primary', 'shadow-[0_8px_20px_rgba(122,12,17,0.15)]');
+          btn.classList.add('bg-surface-container-low', 'text-on-surface-variant', 'border-[#C5B48D]/35');
+        }
+      });
+
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        const itemCat = item.getAttribute('data-category');
+        if (category === 'all' || itemCat === category) {
+          item.style.display = 'flex';
+          setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+          }, 50);
+        } else {
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(16px)';
+          setTimeout(() => {
+            item.style.display = 'none';
+          }, 300);
+        }
+      });
+    };
+
+    window.openLightbox = function(index) {
+      currentImageIndex = index;
+      const data = galleryData[index];
+      if (!data) return;
+
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      const title = document.getElementById('lightbox-title');
+      const category = document.getElementById('lightbox-category');
+      const desc = document.getElementById('lightbox-desc');
+
+      img.src = data.src;
+      img.alt = data.title;
+      title.innerText = data.title;
+      category.innerText = data.category;
+      desc.innerText = data.desc;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+      }, 50);
+    };
+
+    window.closeLightbox = function() {
+      const modal = document.getElementById('lightbox-modal');
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0');
+      
+      setTimeout(() => {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 300);
+    };
+
+    window.nextImage = function() {
+      let nextIndex = (currentImageIndex + 1) % galleryData.length;
+      openLightbox(nextIndex);
+    };
+
+    window.prevImage = function() {
+      let prevIndex = (currentImageIndex - 1 + galleryData.length) % galleryData.length;
+      openLightbox(prevIndex);
+    };
+
+    window.addEventListener('click', function(e) {
+      const lightboxModal = document.getElementById('lightbox-modal');
+      if (e.target === lightboxModal) closeLightbox();
+    });
+
+    window.addEventListener('keydown', function(e) {
+      const modal = document.getElementById('lightbox-modal');
+      if (!modal || modal.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+    });
+
     // Scroll Reveal Intersection Observer for items
     const revealItems = document.querySelectorAll('.reveal-item');
     const revealObserver = new IntersectionObserver((entries) => {
@@ -821,65 +1201,112 @@
 </audio>
 
 <!-- Chatbot Floating Toggle Button with Label -->
-<button onclick="toggleChatbot()" id="chatbot-toggle-btn" class="fixed bottom-6 right-6 h-14 bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed rounded-full shadow-[0_6px_20px_rgba(87,0,0,0.3)] flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 z-50 select-none group px-4">
-  <span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform duration-300" id="chatbot-toggle-icon">chat</span>
-  <span class="font-label-md text-xs uppercase tracking-wider font-semibold max-w-0 overflow-hidden group-hover:max-w-[120px] transition-all duration-500 whitespace-nowrap">Vedic Guide</span>
+<button onclick="toggleChatbot()" id="chatbot-toggle-btn"
+  class="fixed bottom-6 right-6 h-14 bg-gradient-to-r from-primary to-primary-container text-[#ffe16d] rounded-full shadow-[0_6px_20px_rgba(87,0,0,0.3)] flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 z-50 select-none group px-4">
+  <span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform duration-300"
+    id="chatbot-toggle-icon">chat</span>
+  <span
+    class="font-label-md text-xs uppercase tracking-wider font-semibold max-w-0 overflow-hidden group-hover:max-w-[120px] transition-all duration-500 whitespace-nowrap">Vedic
+    Guide</span>
   <!-- Pulse Indicator -->
   <span class="absolute top-0 right-0 flex h-3.5 w-3.5 -mt-0.5 -mr-0.5">
-    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-container opacity-75"></span>
+    <span
+      class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-container opacity-75"></span>
     <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-secondary-container border border-surface"></span>
   </span>
 </button>
 
 <!-- Chatbot Floating Window -->
-<div id="chatbot-window" class="fixed bottom-24 right-6 w-[340px] sm:w-[420px] h-[520px] bg-surface/90 backdrop-blur-lg border-2 border-sandalwood/50 rounded-2xl shadow-[0_16px_48px_rgba(87,0,0,0.22)] flex flex-col justify-between hidden z-50 overflow-hidden modal-content-animate text-on-surface">
+<div id="chatbot-window"
+  class="fixed bottom-24 right-6 w-[340px] sm:w-[420px] h-[520px] bg-[#fdfbf7]/95 backdrop-blur-xl border-2 border-[#C5B48D]/50 rounded-2xl shadow-[0_24px_64px_rgba(87,0,0,0.22)] flex flex-col justify-between hidden z-50 overflow-hidden modal-content-animate text-on-surface">
   <!-- Header -->
-  <div class="bg-gradient-to-r from-primary via-primary/95 to-primary-container text-tertiary-fixed p-4 border-b border-sandalwood/20 flex items-center justify-between shadow-sm">
+  <div
+    class="bg-gradient-to-r from-primary via-primary/95 to-primary-container text-[#ffe16d] p-4 border-b border-sandalwood/20 flex items-center justify-between shadow-sm relative">
     <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-full bg-surface/10 flex items-center justify-center border border-sandalwood/30">
-        <span class="material-symbols-outlined text-2xl text-tertiary-fixed">diversity_3</span>
+      <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-sandalwood/30 shadow-inner">
+        <span class="material-symbols-outlined text-xl text-[#ffe16d]">diversity_3</span>
       </div>
       <div class="text-left">
         <span class="font-serif font-bold text-sm tracking-wide block">Kshethram Seva Bot</span>
-        <span class="text-[10px] tracking-widest uppercase opacity-75 flex items-center gap-1 font-sans">
+        <span class="text-[9px] tracking-widest uppercase opacity-85 flex items-center gap-1 font-sans">
           <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
           Vedic Wisdom Guide
         </span>
       </div>
     </div>
-    <button onclick="toggleChatbot()" class="text-tertiary-fixed/70 hover:text-tertiary-fixed hover:bg-white/10 p-1.5 rounded-full transition-all">
+    <button onclick="toggleChatbot()"
+      class="text-white/70 hover:text-white hover:bg-white/10 p-1.5 rounded-full transition-all focus:outline-none">
       <span class="material-symbols-outlined text-xl">close</span>
     </button>
   </div>
-  
+
   <!-- Messages List -->
-  <div id="chatbot-messages" class="flex-grow p-4 overflow-y-auto space-y-4 bg-surface-container-lowest/20 custom-scrollbar scroll-smooth">
+  <div id="chatbot-messages"
+    class="flex-grow p-4 overflow-y-auto space-y-4 bg-surface-container-lowest/10 custom-scrollbar scroll-smooth">
     <!-- Welcome Message -->
     <div class="flex items-start gap-2.5">
-      <div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 shadow-sm">
+      <div
+        class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 shadow-sm">
         <span class="material-symbols-outlined text-primary text-sm">support_agent</span>
       </div>
-      <div class="bg-surface border border-sandalwood/20 p-3.5 rounded-xl rounded-tl-none max-w-[82%] text-xs text-on-surface-variant leading-relaxed text-left shadow-sm">
-        <p class="font-semibold text-primary font-serif mb-1.5">Hari Om! Pranams.</p>
-        <p class="font-sans">Welcome to the Sri Adi Shankara Janmabhoomi. I can assist you with details regarding your pilgrimage, temple services, or the non-dual philosophy of Advaita Vedanta.</p>
-        <div class="mt-3.5 flex flex-wrap gap-2 justify-start">
-          <button onclick="sendQuickReply('timings')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">🪷 Timings</button>
-          <button onclick="sendQuickReply('sevas')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">🕉️ Sevas</button>
-          <button onclick="sendQuickReply('lodging')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">🏡 Lodging</button>
-          <button onclick="sendQuickReply('advaita')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">📖 Advaita</button>
-          <button onclick="sendQuickReply('miracles')" class="bg-surface hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-sans transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">🐊 Miracles</button>
+      <div
+        class="bg-white border border-sandalwood/25 p-3.5 rounded-2xl rounded-tl-none max-w-[82%] text-xs text-on-surface-variant leading-relaxed text-left shadow-sm font-serif">
+        <p class="font-semibold text-primary mb-1.5 font-sans">Hari Om! Pranams.</p>
+        <p>Welcome to the Sri Adi Shankara Janmabhoomi. I can assist you with details regarding your
+          pilgrimage, temple services, or the non-dual philosophy of Advaita Vedanta.</p>
+        <div class="mt-3.5 flex flex-wrap gap-2 justify-start font-sans">
+          <button onclick="sendQuickReply('timings')"
+            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🪷
+            Timings</button>
+          <button onclick="sendQuickReply('sevas')"
+            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🕉️
+            Sevas</button>
+          <button onclick="sendQuickReply('lodging')"
+            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🏡
+            Lodging</button>
+          <button onclick="sendQuickReply('advaita')"
+            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">📖
+            Advaita</button>
+          <button onclick="sendQuickReply('miracles')"
+            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🐊
+            Miracles</button>
         </div>
       </div>
     </div>
   </div>
-  
+
   <!-- Input Area -->
-  <form onsubmit="handleChatSubmit(event)" class="p-3.5 border-t border-sandalwood/25 bg-surface flex items-center gap-2">
-    <input type="text" id="chatbot-input" placeholder="Ask about timings, sevas, directions, Advaita..." class="flex-grow border border-sandalwood/30 bg-surface-container-lowest px-4 py-2.5 rounded-xl text-xs focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all placeholder:text-on-surface-variant/45">
-    <button type="submit" class="bg-primary hover:bg-primary-container text-white w-9 h-9 flex items-center justify-center rounded-xl transition-all flex-shrink-0 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 shadow-sm">
+  <form onsubmit="handleChatSubmit(event)"
+    class="p-3 border-t border-sandalwood/25 bg-[#fdfbf7] flex items-center gap-2">
+    <input type="text" id="chatbot-input" placeholder="Ask about timings, sevas, directions, Advaita..."
+      class="flex-grow border border-sandalwood/35 bg-white px-4 py-2.5 rounded-xl text-xs focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all placeholder:text-on-surface-variant/45 font-sans">
+    <button type="submit"
+      class="bg-primary hover:bg-primary-container text-white w-9 h-9 flex items-center justify-center rounded-xl transition-all flex-shrink-0 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">
       <span class="material-symbols-outlined text-base">send</span>
     </button>
   </form>
 </div>
 
+
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 bg-[#443D32]/85 backdrop-blur-xl z-[90] hidden flex-col justify-center items-center space-y-6 text-center select-none transition-all duration-300 opacity-0">
+    <!-- Close Button -->
+    <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-white/70 hover:text-white hover:scale-110 transition-all duration-300 focus:outline-none w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+      <span class="material-symbols-outlined text-2xl">close</span>
+    </button>
+    
+    <div class="flex flex-col space-y-6 text-lg font-serif">
+      <a href="index.html" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2 uppercase tracking-widest text-sm font-sans font-bold">Home</a>
+      <a href="index.html#home" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Sacred Birthplace</a>
+      <a href="significance.html" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Significance</a>
+      <a href="life.html" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Spiritual Journey</a>
+      <a href="poojas.html" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Pujas & Offerings</a>
+      <a href="gallery.html" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Gallery</a>
+    </div>
+    
+    <button onclick="openDonateModal(); toggleMobileMenu();" class="mt-8 bg-gradient-to-r from-primary to-primary-container text-white border border-[#C5B48D]/30 px-8 py-3 font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] rounded-xl transition-all font-bold">
+      Donate
+    </button>
+  </div>
 </body></html>

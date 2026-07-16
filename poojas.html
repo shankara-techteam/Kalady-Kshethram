@@ -321,7 +321,11 @@
     Donate
   </button>
 </div>
-</nav>
+        <!-- Mobile Menu Button -->
+        <button onclick="toggleMobileMenu()" class="block md:hidden text-primary focus:outline-none hover:scale-105 transition-transform ml-2" aria-label="Toggle Navigation Menu" id="mobile-menu-btn">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </nav>
 </header>
 
 <main>
@@ -774,37 +778,109 @@
 </div> <!-- end page-wrapper -->
 
 <!-- Donation Modal -->
-<div id="donate-modal" class="fixed inset-0 bg-charcoal-stone/75 backdrop-blur-md z-[100] hidden items-center justify-center p-4">
-  <div class="bg-surface border-2 border-double border-sandalwood p-8 max-w-lg w-full rounded-xl relative modal-content-animate text-on-surface shadow-[0_20px_50px_rgba(87,0,0,0.25)]">
-    <button onclick="closeDonateModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-all duration-300 hover:rotate-90 focus:outline-none">
-      <span class="material-symbols-outlined">close</span>
+<!-- Donation Modal -->
+<!-- Donation Modal -->
+<div id="donate-modal"
+  class="fixed inset-0 bg-[#443D32]/80 backdrop-blur-xl z-[100] hidden items-center justify-center p-4">
+  <div
+    class="bg-[#fdfbf7] border-2 border-double border-[#C5B48D]/60 p-8 max-w-lg w-full rounded-2xl relative text-on-surface shadow-[0_32px_64px_rgba(87,0,0,0.22)] overflow-hidden">
+    <!-- Ambient glows inside modal -->
+    <div class="absolute -top-32 -left-32 w-64 h-64 bg-[#ffe16d]/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute -bottom-32 -right-32 w-64 h-64 bg-[#7A0C11]/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+    
+    <!-- Close Button -->
+    <button onclick="closeDonateModal()"
+      class="absolute top-5 right-5 text-on-surface-variant hover:text-primary transition-all duration-300 hover:rotate-90 focus:outline-none z-10 w-8 h-8 rounded-full bg-surface-container-low border border-sandalwood/20 flex items-center justify-center hover:bg-surface-container-lowest">
+      <span class="material-symbols-outlined text-lg font-semibold">close</span>
     </button>
-    <h3 class="font-display-lg text-2xl text-primary font-bold border-b border-sandalwood/20 pb-4 mb-6">Sponsor Sacred Sevas</h3>
-    <form onsubmit="handleDonateSubmit(event)" class="space-y-4">
+    
+    <!-- Sacred Header -->
+    <div class="text-center mb-6 relative">
+      <div class="flex items-center justify-center gap-2 mb-2" aria-hidden="true">
+        <div class="h-[1px] w-8 bg-gradient-to-r from-transparent to-[#C5B48D]"></div>
+        <span class="text-[#ffe16d] text-lg font-serif">🪷</span>
+        <div class="h-[1px] w-8 bg-gradient-to-l from-transparent to-[#C5B48D]"></div>
+      </div>
+      <h3 class="font-headline-lg text-2xl md:text-3xl text-primary font-bold tracking-wide">Support the Kshethram</h3>
+      <div class="h-[1px] w-24 bg-gradient-to-r from-transparent via-[#C5B48D]/30 to-transparent mx-auto mt-2"></div>
+    </div>
+
+    <p class="font-body-md text-sm text-on-surface-variant mb-6 text-center leading-relaxed font-serif max-w-sm mx-auto">
+      Sponsor the preservation of Vedic culture and maintain the birthplace of Sri Adi Shankaracharya. Contributions
+      are received directly by the Sringeri Math administration.
+    </p>
+    <form onsubmit="handleDonateSubmit(event)" class="space-y-4 relative z-10">
       <div>
-        <label for="donate-name" class="block font-label-md text-[10px] uppercase tracking-wider text-on-surface-variant/80 mb-1.5">Devotee Name</label>
-        <input type="text" id="donate-name" required placeholder="Enter name for Sankalpa..." class="w-full border border-sandalwood/30 bg-surface-container-lowest px-4 py-3 rounded-lg text-sm focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all">
+        <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Select Seva /
+          Purpose</label>
+        <select required id="donate-purpose"
+          class="w-full border border-sandalwood/35 bg-white/70 px-4 py-2.5 rounded-xl text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all duration-300 text-sm">
+          <option value="veda">Veda Pathashala Sponsorship</option>
+          <option value="annadanam">Annadanam (Free Meals Scheme)</option>
+          <option value="general">Temple General Maintenance</option>
+        </select>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Your Name</label>
+          <input required type="text" id="donate-name" placeholder="Devotee Name"
+            class="w-full border border-sandalwood/35 bg-white/70 px-4 py-2.5 rounded-xl text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all duration-300 text-sm">
+        </div>
+        <div>
+          <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Email
+            Address</label>
+          <input required type="email" id="donate-email" placeholder="email@address.com"
+            class="w-full border border-sandalwood/35 bg-white/70 px-4 py-2.5 rounded-xl text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all duration-300 text-sm">
+        </div>
       </div>
       <div>
-        <label for="donate-nakshatra" class="block font-label-md text-[10px] uppercase tracking-wider text-on-surface-variant/80 mb-1.5">Nakshatra / Birth Star (Optional)</label>
-        <input type="text" id="donate-nakshatra" placeholder="Enter Nakshatra & Gothra..." class="w-full border border-sandalwood/30 bg-surface-container-lowest px-4 py-3 rounded-lg text-sm focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all">
+        <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Donation
+          Amount</label>
+        <div class="relative">
+          <span class="absolute left-4 top-2.5 text-on-surface-variant font-body-md">₹</span>
+          <input required type="number" id="donate-amount" min="100" placeholder="1008"
+            class="w-full border border-sandalwood/35 bg-white/70 pl-8 pr-4 py-2.5 rounded-xl text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all duration-300 font-semibold font-serif text-sm">
+        </div>
       </div>
       <div>
-        <label for="donate-amount" class="block font-label-md text-[10px] uppercase tracking-wider text-on-surface-variant/80 mb-1.5">Contribution Amount (INR)</label>
-        <input type="number" id="donate-amount" required min="10" placeholder="Enter amount..." class="w-full border border-sandalwood/30 bg-surface-container-lowest px-4 py-3 rounded-lg text-sm focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all">
+        <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Payment Method</label>
+        <select required
+          class="w-full border border-sandalwood/35 bg-white/70 px-4 py-2.5 rounded-xl text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all duration-300 text-sm">
+          <option>UPI / Net Banking</option>
+          <option>Credit / Debit Card</option>
+        </select>
       </div>
-      <button type="submit" class="w-full bg-[#570000] text-white py-3.5 rounded-lg text-sm uppercase tracking-widest font-semibold hover:bg-primary-container shadow-md hover:shadow-lg transition-all duration-300">
-        Proceed to Offer
+      <button type="submit"
+        class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3.5 rounded-xl font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 focus:outline-none font-bold">
+        Proceed to Secure Payment
       </button>
     </form>
-    <p class="text-[10px] text-on-surface-variant/70 text-center mt-4">
-      *Note: This is a secure portal. All contributions directly support Sri Sringeri Math, Kalady.
-    </p>
   </div>
 </div>
 
 <!-- Scripts -->
 <script>
+    window.toggleMobileMenu = function () {
+      const menu = document.getElementById('mobile-menu');
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+          menu.classList.remove('opacity-0');
+          menu.classList.add('opacity-100');
+        }, 50);
+      } else {
+        menu.classList.remove('opacity-100');
+        menu.classList.add('opacity-0');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          menu.classList.remove('flex');
+          menu.classList.add('hidden');
+        }, 300);
+      }
+    };
   function openDonateModal(){const m=document.getElementById('donate-modal');m.classList.remove('hidden');m.classList.add('flex');document.body.style.overflow='hidden'}
   function closeDonateModal(){const m=document.getElementById('donate-modal');m.classList.remove('flex');m.classList.add('hidden');document.body.style.overflow=''}
   function handleDonateSubmit(e){e.preventDefault();const n=document.getElementById('donate-name').value,a=document.getElementById('donate-amount').value;alert('Pranams, '+n+'. Your donation pledge of ₹'+a+' is simulated. In a live system, this redirects to Sringeri Math\'s payment gateway.');closeDonateModal()}
@@ -1108,4 +1184,114 @@
     }, { threshold: 0.15 });
     revealItems.forEach(item => observer.observe(item));
 </script>
+
+
+  <!-- Chatbot Floating Toggle Button with Label -->
+<button onclick="toggleChatbot()" id="chatbot-toggle-btn"
+  class="fixed bottom-6 right-6 h-14 bg-gradient-to-r from-primary to-primary-container text-[#ffe16d] rounded-full shadow-[0_6px_20px_rgba(87,0,0,0.3)] flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 z-50 select-none group px-4">
+  <span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform duration-300"
+    id="chatbot-toggle-icon">chat</span>
+  <span
+    class="font-label-md text-xs uppercase tracking-wider font-semibold max-w-0 overflow-hidden group-hover:max-w-[120px] transition-all duration-500 whitespace-nowrap">Vedic
+    Guide</span>
+  <!-- Pulse Indicator -->
+  <span class="absolute top-0 right-0 flex h-3.5 w-3.5 -mt-0.5 -mr-0.5">
+    <span
+      class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-container opacity-75"></span>
+    <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-secondary-container border border-surface"></span>
+  </span>
+</button>
+
+<!-- Chatbot Floating Window -->
+<div id="chatbot-window"
+  class="fixed bottom-24 right-6 w-[340px] sm:w-[420px] h-[520px] bg-[#fdfbf7]/95 backdrop-blur-xl border-2 border-[#C5B48D]/50 rounded-2xl shadow-[0_24px_64px_rgba(87,0,0,0.22)] flex flex-col justify-between hidden z-50 overflow-hidden modal-content-animate text-on-surface">
+  <!-- Header -->
+  <div
+    class="bg-gradient-to-r from-primary via-primary/95 to-primary-container text-[#ffe16d] p-4 border-b border-sandalwood/20 flex items-center justify-between shadow-sm relative">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-sandalwood/30 shadow-inner">
+        <span class="material-symbols-outlined text-xl text-[#ffe16d]">diversity_3</span>
+      </div>
+      <div class="text-left">
+        <span class="font-serif font-bold text-sm tracking-wide block">Kshethram Seva Bot</span>
+        <span class="text-[9px] tracking-widest uppercase opacity-85 flex items-center gap-1 font-sans">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+          Vedic Wisdom Guide
+        </span>
+      </div>
+    </div>
+    <button onclick="toggleChatbot()"
+      class="text-white/70 hover:text-white hover:bg-white/10 p-1.5 rounded-full transition-all focus:outline-none">
+      <span class="material-symbols-outlined text-xl">close</span>
+    </button>
+  </div>
+
+  <!-- Messages List -->
+  <div id="chatbot-messages"
+    class="flex-grow p-4 overflow-y-auto space-y-4 bg-surface-container-lowest/10 custom-scrollbar scroll-smooth">
+    <!-- Welcome Message -->
+    <div class="flex items-start gap-2.5">
+      <div
+        class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 shadow-sm">
+        <span class="material-symbols-outlined text-primary text-sm">support_agent</span>
+      </div>
+      <div
+        class="bg-white border border-sandalwood/25 p-3.5 rounded-2xl rounded-tl-none max-w-[82%] text-xs text-on-surface-variant leading-relaxed text-left shadow-sm font-serif">
+        <p class="font-semibold text-primary mb-1.5 font-sans">Hari Om! Pranams.</p>
+        <p>Welcome to the Sri Adi Shankara Janmabhoomi. I can assist you with details regarding your
+          pilgrimage, temple services, or the non-dual philosophy of Advaita Vedanta.</p>
+        <div class="mt-3.5 flex flex-wrap gap-2 justify-start font-sans">
+          <button onclick="sendQuickReply('timings')"
+            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🪷
+            Timings</button>
+          <button onclick="sendQuickReply('sevas')"
+            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🕉️
+            Sevas</button>
+          <button onclick="sendQuickReply('lodging')"
+            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🏡
+            Lodging</button>
+          <button onclick="sendQuickReply('advaita')"
+            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">📖
+            Advaita</button>
+          <button onclick="sendQuickReply('miracles')"
+            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🐊
+            Miracles</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <form onsubmit="handleChatSubmit(event)"
+    class="p-3 border-t border-sandalwood/25 bg-[#fdfbf7] flex items-center gap-2">
+    <input type="text" id="chatbot-input" placeholder="Ask about timings, sevas, directions, Advaita..."
+      class="flex-grow border border-sandalwood/35 bg-white px-4 py-2.5 rounded-xl text-xs focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all placeholder:text-on-surface-variant/45 font-sans">
+    <button type="submit"
+      class="bg-primary hover:bg-primary-container text-white w-9 h-9 flex items-center justify-center rounded-xl transition-all flex-shrink-0 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">
+      <span class="material-symbols-outlined text-base">send</span>
+    </button>
+  </form>
+</div>
+
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 bg-[#443D32]/85 backdrop-blur-xl z-[90] hidden flex-col justify-center items-center space-y-6 text-center select-none transition-all duration-300 opacity-0">
+    <!-- Close Button -->
+    <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-white/70 hover:text-white hover:scale-110 transition-all duration-300 focus:outline-none w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+      <span class="material-symbols-outlined text-2xl">close</span>
+    </button>
+    
+    <div class="flex flex-col space-y-6 text-lg font-serif">
+      <a href="index.html" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2 uppercase tracking-widest text-sm font-sans font-bold">Home</a>
+      <a href="index.html#home" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Sacred Birthplace</a>
+      <a href="significance.html" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Significance</a>
+      <a href="life.html" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Spiritual Journey</a>
+      <a href="poojas.html" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Pujas & Offerings</a>
+      <a href="gallery.html" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Gallery</a>
+    </div>
+    
+    <button onclick="openDonateModal(); toggleMobileMenu();" class="mt-8 bg-gradient-to-r from-primary to-primary-container text-white border border-[#C5B48D]/30 px-8 py-3 font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] rounded-xl transition-all font-bold">
+      Donate
+    </button>
+  </div>
 </body></html>
