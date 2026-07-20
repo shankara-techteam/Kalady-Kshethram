@@ -766,8 +766,8 @@
 </style>
 <section class="w-full relative overflow-hidden bg-black my-16 transition-all duration-1000 opacity-100 border-y-2 border-sandalwood/30">
   <div class="relative w-full h-[60vh] md:h-[75vh] lg:h-[85vh] overflow-hidden group">
-    <!-- Native Video Element (Muted by default to allow scrolling autoplay) -->
-    <video id="sacred-journey-video" class="w-full h-full object-cover cursor-pointer" preload="metadata" loop muted playsinline>
+    <!-- Native Video Element (Tries to play unmuted by default; browser fallback handles muted autoplay) -->
+    <video id="sacred-journey-video" class="w-full h-full object-cover cursor-pointer" preload="metadata" loop playsinline>
       <source src="adi_shankara_animation.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -778,7 +778,7 @@
       <div class="flex justify-between items-center opacity-90 group-hover:opacity-100 transition-opacity">
         <span class="text-[10px] font-label-md bg-secondary text-white px-3 py-1 rounded-full uppercase tracking-widest font-bold flex items-center gap-1.5 shadow-sm">
           <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
-          <span id="video-autoplay-cue">Autoplay Muted</span>
+          <span id="video-autoplay-cue">Playing</span>
         </span>
         <span class="font-serif text-white/60 text-base">ॐ</span>
       </div>
@@ -798,9 +798,9 @@
           <p class="font-serif italic text-white/80 text-sm mt-2">A spiritual journey through sacred digital photo-art of the Great Master</p>
         </div>
         <div class="flex items-center gap-3 pointer-events-auto self-end md:self-auto">
-          <span id="mute-hint" class="text-xs font-sans text-white/80 bg-black/50 px-3 py-1.5 rounded transition-opacity duration-300 shadow-sm">Muted - Click to listen</span>
+          <span id="mute-hint" class="text-xs font-sans text-white/80 bg-black/50 px-3 py-1.5 rounded transition-opacity duration-300 shadow-sm opacity-0">Muted - Click to listen</span>
           <button id="video-mute-btn" class="text-white hover:text-secondary w-12 h-12 rounded-full border border-white/20 bg-black/20 hover:bg-white/10 transition-all duration-300 flex items-center justify-center">
-            <span id="video-volume-icon" class="material-symbols-outlined text-xl">volume_off</span>
+            <span id="video-volume-icon" class="material-symbols-outlined text-xl">volume_up</span>
           </button>
         </div>
       </div>
@@ -828,14 +828,26 @@
 
     function setPlayingState(playing) {
       if (playing) {
+        // Try playing unmuted by default
+        video.muted = false;
         video.play().then(() => {
           if (playIcon) playIcon.textContent = 'pause';
           overlay.classList.add('playing-mode');
-          if (autoplayCue) {
-            autoplayCue.textContent = video.muted ? 'Autoplay Muted' : 'Playing';
-          }
+          if (autoplayCue) autoplayCue.textContent = 'Playing';
+          if (volumeIcon) volumeIcon.textContent = 'volume_up';
+          if (muteHint) muteHint.classList.add('opacity-0');
         }).catch(err => {
-          console.warn('Playback blocked by browser', err);
+          // Fallback to muted autoplay if blocked
+          video.muted = true;
+          video.play().then(() => {
+            if (playIcon) playIcon.textContent = 'pause';
+            overlay.classList.add('playing-mode');
+            if (autoplayCue) autoplayCue.textContent = 'Autoplay Muted';
+            if (volumeIcon) volumeIcon.textContent = 'volume_off';
+            if (muteHint) muteHint.classList.remove('opacity-0');
+          }).catch(err2 => {
+            console.warn('Playback completely blocked by browser settings', err2);
+          });
         });
       } else {
         video.pause();
@@ -853,7 +865,13 @@
           volumeIcon.textContent = video.muted ? 'volume_off' : 'volume_up';
         }
         if (muteHint) {
-          muteHint.style.opacity = video.muted ? '1' : '0';
+          if (video.muted) {
+            muteHint.style.opacity = '1';
+            muteHint.classList.remove('opacity-0');
+          } else {
+            muteHint.style.opacity = '0';
+            muteHint.classList.add('opacity-0');
+          }
         }
         if (autoplayCue) {
           autoplayCue.textContent = video.muted ? 'Autoplay Muted' : 'Playing';
@@ -888,6 +906,25 @@
       });
     }, { threshold: 0.25 });
     videoIO.observe(video);
+
+    // Unmute on first user interaction anywhere if it was playing muted
+    const unmuteOnInteraction = () => {
+      if (video && !video.paused && video.muted) {
+        video.muted = false;
+        if (volumeIcon) volumeIcon.textContent = 'volume_up';
+        if (muteHint) {
+          muteHint.style.opacity = '0';
+          muteHint.classList.add('opacity-0');
+        }
+        if (autoplayCue) autoplayCue.textContent = 'Playing';
+      }
+      window.removeEventListener('click', unmuteOnInteraction);
+      window.removeEventListener('touchstart', unmuteOnInteraction);
+      window.removeEventListener('keydown', unmuteOnInteraction);
+    };
+    window.addEventListener('click', unmuteOnInteraction);
+    window.addEventListener('touchstart', unmuteOnInteraction);
+    window.addEventListener('keydown', unmuteOnInteraction);
 
     // Parallax motion inside the video frame on scroll
     function handleVideoParallax() {
