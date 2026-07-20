@@ -1,4 +1,9 @@
 {
+  "functions": {
+  "api/chat.js": {
+    "includeFiles": "knowledge-base/**"
+  }
+},
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
