@@ -384,59 +384,16 @@
           & Courtyards</button>
         <button onclick="filterGallery('architecture')" id="filter-btn-architecture"
           class="filter-btn px-6 py-2.5 border border-[#C5B48D]/35 hover:border-primary/60 bg-surface-container-low hover:bg-surface-container-lowest text-xs font-label-md tracking-wider uppercase rounded-full transition-all duration-300 font-semibold select-none">Architecture</button>
-        <button onclick="filterGallery('nature')" id="filter-btn-nature"
-          class="filter-btn px-6 py-2.5 border border-[#C5B48D]/35 hover:border-primary/60 bg-surface-container-low hover:bg-surface-container-lowest text-xs font-label-md tracking-wider uppercase rounded-full transition-all duration-300 font-semibold select-none">Nature
-          & Grottos</button>
       </div>
 
       <!-- Gallery Grid (Masonry-like layout using columns or flex wrap/grid) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-item reveal-delay-200" id="gallery-grid">
-        <!-- Featured Image Card (Lord Shiva Grotto - SUPREME SIGNIFICANCE) -->
-        <div
-          class="gallery-item group col-span-1 md:col-span-2 bg-[#7A0C11]/5 border-2 border-double border-[#C5B48D]/40 p-6 rounded-xl hover-card-trigger cursor-pointer flex flex-col md:flex-row gap-6 overflow-hidden transition-all duration-500 shadow-sm hover:shadow-md"
-          data-category="nature" onclick="openLightbox(0)">
-          <div
-            class="w-full md:w-1/2 h-64 md:h-80 overflow-hidden border border-[#C5B48D]/20 rounded-lg relative bg-black/5 flex-shrink-0 image-double-frame">
-            <img
-              class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-              loading="lazy" src="https://lh3.googleusercontent.com/d/1p1EL7mzhMxrIg1ur4EHLDpZZHaL4wX4R"
-              alt="Outdoor Lord Shiva Grotto Shrine, Kalady Sringeri Math">
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-[#7A0C11]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-              <span class="text-white text-xs font-label-md uppercase tracking-widest flex items-center gap-1.5"><span
-                  class="material-symbols-outlined text-sm">zoom_in</span> View Image</span>
-            </div>
-            <!-- Sacred Lotus visual signature overlay -->
-            <div class="absolute bottom-3 right-3 text-white/40 pointer-events-none select-none font-serif text-sm">🪷</div>
-          </div>
-          <div class="flex flex-col justify-between py-2">
-            <div>
-              <div class="flex items-center gap-2 mb-3">
-                <span
-                  class="text-[10px] font-label-md bg-primary text-white px-2.5 py-0.5 rounded-full uppercase tracking-widest font-bold">Featured
-                  Shrine</span>
-                <span
-                  class="text-[10px] font-label-md text-secondary border border-secondary/20 px-2 py-0.5 rounded uppercase tracking-widest">Nature</span>
-              </div>
-              <h3 class="font-display-lg text-2xl text-primary mb-3 font-bold tracking-wide leading-snug">Outdoor Lord
-                Shiva Grotto Shrine</h3>
-              <p class="font-body-md text-sm text-on-surface-variant leading-relaxed font-serif">
-                A beautiful eye-level shot of a unique, nature-integrated shrine within the Kalady temple complex. A
-                dark bronze-finished statue of Lord Shiva sits in a classic meditative posture, backed by a textured
-                dark stone wall and a base of natural river stones. The most striking feature is the organic canopy of
-                lush green vines and a dense, dramatic curtain of long, reddish-brown aerial roots that frame the deity.
-              </p>
-            </div>
-            <span
-              class="text-xs font-label-md text-primary font-semibold uppercase tracking-wider mt-4 flex items-center gap-1 group-hover:translate-x-1.5 transition-transform duration-300">Explore
-              Darshan <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-          </div>
-        </div>
 
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-item reveal-delay-200" id="gallery-grid">
         <!-- Image Card 2 (Golden Statue) -->
         <div
           class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
-          data-category="shrine" onclick="openLightbox(1)">
+          data-category="shrine" onclick="openLightbox(0)">
           <div class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
             <img
               class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
@@ -464,7 +421,7 @@
         <!-- Image Card 3 (Entrance Walkway) -->
         <div
           class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
-          data-category="architecture" onclick="openLightbox(2)">
+          data-category="architecture" onclick="openLightbox(1)">
           <div class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
             <img
               class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
@@ -492,7 +449,7 @@
         <!-- Image Card 4 (Mandapam) -->
         <div
           class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
-          data-category="shrine" onclick="openLightbox(3)">
+          data-category="shrine" onclick="openLightbox(2)">
           <div class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
             <img
               class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
@@ -520,7 +477,7 @@
         <!-- Image Card 5 (Gateway) -->
         <div
           class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
-          data-category="architecture" onclick="openLightbox(4)">
+          data-category="architecture" onclick="openLightbox(3)">
           <div class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
             <img
               class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
@@ -702,12 +659,6 @@
 <script>
     // Gallery Data
     const galleryData = [
-      {
-        title: "Outdoor Lord Shiva Grotto Shrine",
-        category: "Nature",
-        desc: "A beautiful eye-level shot of a unique, nature-integrated shrine within the Kalady temple complex. A dark bronze-finished statue of Lord Shiva sits in a classic meditative posture, backed by a textured dark stone wall and a base of natural river stones. The most striking feature is the organic canopy of lush green vines and a dense, dramatic curtain of long, reddish-brown aerial roots that frame the deity. The foreground shows a wet, stone-paved courtyard flanked by sitting benches, with a decorative red base panel featuring traditional white folk art motifs running beneath the shrine.",
-        src: "https://lh3.googleusercontent.com/d/1p1EL7mzhMxrIg1ur4EHLDpZZHaL4wX4R"
-      },
       {
         title: "Golden Meditative Statue of Sri Adi Shankaracharya",
         category: "Shrine",
