@@ -755,6 +755,95 @@
 </div>
 </section>
 
+<!-- Cinematic Video Section -->
+<section class="py-section-gap-md px-gutter max-w-container-max mx-auto transition-all duration-1000 opacity-100">
+  <div class="max-w-4xl mx-auto">
+    <div class="relative rounded-2xl overflow-hidden border-2 border-sandalwood/35 shadow-[0_20px_50px_rgba(87,0,0,0.15)] bg-surface-container-low group aspect-video">
+      <!-- Native Video Element -->
+      <video id="sacred-journey-video" class="w-full h-full object-cover cursor-pointer" preload="metadata" loop playsinline>
+        <source src="adi_shankara_animation.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      
+      <!-- Video Overlays (Controls) -->
+      <div id="video-overlay" class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/35 flex flex-col justify-between p-6 transition-all duration-500 cursor-pointer">
+        <!-- Top row: Badge -->
+        <div class="flex justify-between items-center opacity-90 group-hover:opacity-100 transition-opacity">
+          <span class="text-[10px] font-label-md bg-secondary text-white px-3 py-1 rounded-full uppercase tracking-widest font-bold flex items-center gap-1.5 shadow-sm">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+            Sacred Darshan
+          </span>
+          <span class="font-serif text-white/60 text-sm">ॐ</span>
+        </div>
+        
+        <!-- Center play button -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <button id="video-play-btn" class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/90 text-white flex items-center justify-center shadow-[0_10px_25px_rgba(122,12,17,0.4)] border border-sandalwood/40 transition-all duration-300 hover:scale-110 active:scale-95 group-hover:bg-primary pointer-events-auto">
+            <span class="material-symbols-outlined text-3xl md:text-4xl transition-transform duration-300" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;">play_arrow</span>
+          </button>
+        </div>
+        
+        <!-- Bottom row: Title and mute -->
+        <div class="flex justify-between items-end opacity-90 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+          <div class="text-left">
+            <h4 class="font-display-lg text-base md:text-xl text-white font-bold tracking-wide">The Life and Legacy of Jagadguru Adi Shankara</h4>
+            <p class="font-serif italic text-white/70 text-[10px] md:text-xs mt-1">A cinematic journey through sacred photo-art</p>
+          </div>
+          <button id="video-mute-btn" class="text-white hover:text-secondary p-2 rounded-full hover:bg-white/10 transition-colors pointer-events-auto flex items-center justify-center">
+            <span id="video-volume-icon" class="material-symbols-outlined text-lg md:text-xl">volume_up</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const video = document.getElementById('sacred-journey-video');
+    const overlay = document.getElementById('video-overlay');
+    const playBtn = document.getElementById('video-play-btn');
+    const playIcon = playBtn ? playBtn.querySelector('.material-symbols-outlined') : null;
+    const muteBtn = document.getElementById('video-mute-btn');
+    const volumeIcon = document.getElementById('video-volume-icon');
+
+    if (!video || !overlay) return;
+
+    function togglePlay() {
+      if (video.paused) {
+        video.play().then(() => {
+          if (playIcon) playIcon.textContent = 'pause';
+          overlay.classList.add('opacity-0', 'pointer-events-none');
+        }).catch(err => {
+          console.warn('Playback blocked by browser', err);
+        });
+      } else {
+        video.pause();
+        if (playIcon) playIcon.textContent = 'play_arrow';
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    video.addEventListener('click', () => {
+      video.pause();
+      if (playIcon) playIcon.textContent = 'play_arrow';
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target.closest('#video-mute-btn')) {
+        e.stopPropagation();
+        video.muted = !video.muted;
+        if (volumeIcon) {
+          volumeIcon.textContent = video.muted ? 'volume_off' : 'volume_up';
+        }
+      } else {
+        togglePlay();
+      }
+    });
+  })();
+</script>
+
 <!-- Sacred Shrines (Bento-style Grid) -->
 <section id="shrine-grid" class="py-section-gap-md px-gutter max-w-container-max mx-auto transition-all duration-1000 opacity-100">
 <div class="text-center mb-16 reveal-item">
