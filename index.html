@@ -617,6 +617,34 @@
 </style>
 </head>
 <body class="parchment-texture text-on-surface">
+<!-- Immersive Sanctuary Splash Screen -->
+<div id="sanctuary-splash" class="fixed inset-0 bg-[#350000] z-[9999] flex flex-col items-center justify-center text-center px-6 transition-all duration-1000 ease-out select-none">
+  <!-- Soft glowing background gradients -->
+  <div class="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-primary/20 via-sandalwood/20 to-transparent blur-[100px] animate-pulse"></div>
+  
+  <div class="relative z-10 space-y-8 max-w-lg">
+    <!-- Glowing Om Symbol -->
+    <div class="w-24 h-24 rounded-full border border-sandalwood/30 flex items-center justify-center bg-white/5 shadow-lg mx-auto backdrop-blur-md animate-float">
+      <span class="font-serif text-[#ffe16d] text-4xl">ॐ</span>
+    </div>
+    
+    <div class="space-y-3">
+      <span class="font-label-md text-xs text-tertiary-fixed/80 uppercase tracking-[0.3em] block">Advaita Vedanta Sanctuary</span>
+      <h1 class="font-display-lg text-3xl md:text-4xl text-[#ffe16d] font-bold tracking-wide leading-tight">Sri Adi Shankara Janmabhoomi</h1>
+      <p class="font-serif italic text-white/80 text-sm max-w-sm mx-auto leading-relaxed">"Revere the lineage of Gurus, starting from Lord Shiva, with Shankara in the middle."</p>
+    </div>
+    
+    <!-- Entry Button -->
+    <div class="pt-4">
+      <button id="enter-sanctuary-btn" class="relative group px-10 py-4 bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/40 font-label-md text-sm uppercase tracking-[0.25em] rounded-xl hover:scale-105 hover:shadow-[0_8px_30px_rgba(255,225,109,0.2)] active:scale-95 transition-all duration-300 font-bold select-none cursor-pointer">
+        <!-- Pulse ring -->
+        <span class="absolute inset-0 rounded-xl bg-primary/30 animate-ping opacity-75"></span>
+        <span class="relative z-10">Enter Sanctuary</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Scroll Progress Bar -->
 <div id="scroll-progress"></div>
 <script>
@@ -819,6 +847,41 @@
     const muteHint = document.getElementById('mute-hint');
     const autoplayCue = document.getElementById('video-autoplay-cue');
     let userPaused = false;
+
+    // Splash Screen Entry Logic
+    const splash = document.getElementById('sanctuary-splash');
+    const enterBtn = document.getElementById('enter-sanctuary-btn');
+    const ambientAudio = document.getElementById('ambient-audio');
+
+    if (splash && enterBtn) {
+      if (sessionStorage.getItem('sanctuary-entered') === 'true') {
+        splash.style.display = 'none';
+      } else {
+        document.body.classList.add('overflow-hidden');
+        enterBtn.addEventListener('click', () => {
+          sessionStorage.setItem('sanctuary-entered', 'true');
+          
+          // 1. Play ambient background audio (Om sound)
+          if (ambientAudio) {
+            localStorage.setItem('ambient-audio-playing', 'true');
+            ambientAudio.muted = false;
+            ambientAudio.play().catch(err => console.warn('Ambient play blocked', err));
+          }
+
+          // 2. Play cinematic video unmuted
+          userPaused = false;
+          setPlayingState(true);
+
+          // 3. Fade out splash screen
+          splash.classList.add('opacity-0', 'scale-105', 'pointer-events-none');
+          document.body.classList.remove('overflow-hidden');
+
+          setTimeout(() => {
+            splash.style.display = 'none';
+          }, 1000);
+        });
+      }
+    }
 
     if (!video || !overlay) return;
 
