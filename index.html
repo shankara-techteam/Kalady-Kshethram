@@ -2308,19 +2308,32 @@
       }
       window.addEventListener('scroll', updateProgress, { passive: true });
 
-      /* ---------- 2. Parallax Hero ---------- */
+      /* ---------- 2. Parallax Hero & Images ---------- */
       const heroImg = document.getElementById('hero-parallax-img');
       const heroSection = document.getElementById('home');
-      function updateParallax() {
-        if (!heroImg || !heroSection) return;
+      function updateParallax(scrollVal) {
         if (window.innerWidth < 768) return;
-        const scrollY = window.scrollY || window.pageYOffset;
-        const heroH = heroSection.offsetHeight;
-        if (scrollY > heroH) return;
-        heroImg.style.transform = 'translateY(' + (scrollY * 0.35) + 'px)';
+        const scrollY = typeof scrollVal === 'number' ? scrollVal : (window.scrollY || window.pageYOffset);
+        
+        // Hero Image Parallax
+        if (heroImg && heroSection && scrollY <= heroSection.offsetHeight) {
+          heroImg.style.transform = 'translateY(' + (scrollY * 0.35) + 'px)';
+        }
+
+        // Shrine Cards Image Parallax
+        const shrineImages = document.querySelectorAll('#shrine-grid .w-full.h-72 img');
+        shrineImages.forEach((img) => {
+          const rect = img.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+            const translateY = (progress - 0.5) * -30; // moves -15px to +15px
+            img.style.transition = 'transform 0.12s ease-out';
+            img.style.transform = `scale(1.08) translateY(${translateY}px)`;
+          }
+        });
       }
-      window.addEventListener('scroll', updateParallax, { passive: true });
-      window.addEventListener('resize', updateParallax);
+      window.addEventListener('scroll', () => updateParallax(), { passive: true });
+      window.addEventListener('resize', () => updateParallax());
 
       /* ---------- 3. IntersectionObserver Reveal (item + scale) ---------- */
       const ioCallback = (entries, observer) => {
@@ -2473,11 +2486,7 @@
             progressBar.style.width = (limit > 0 ? (scroll / limit) * 100 : 0) + '%';
           }
           // Parallax
-          if (heroImg && heroSection && window.innerWidth >= 768) {
-            if (scroll <= heroSection.offsetHeight) {
-              heroImg.style.transform = 'translateY(' + (scroll * 0.35) + 'px)';
-            }
-          }
+          updateParallax(scroll);
           // Nav header
           updateHeader(scroll);
         });
