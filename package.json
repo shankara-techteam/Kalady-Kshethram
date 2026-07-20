@@ -1,0 +1,9 @@
+{
+  "name": "kalady-kshethram",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Adi Shankara Janmabhoomi Kshethram official website with Shankara Sevak chatbot",
+  "dependencies": {
+    "groq-sdk": "^0.7.0"
+  }
+}
