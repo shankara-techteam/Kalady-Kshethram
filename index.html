@@ -756,29 +756,37 @@
 </section>
 
 <!-- Cinematic Video Section -->
+<style>
+  #video-overlay.playing-mode {
+    opacity: 0;
+  }
+  #video-overlay.playing-mode:hover {
+    opacity: 1;
+  }
+</style>
 <section class="py-section-gap-md px-gutter max-w-container-max mx-auto transition-all duration-1000 opacity-100">
   <div class="max-w-4xl mx-auto">
     <div class="relative rounded-2xl overflow-hidden border-2 border-sandalwood/35 shadow-[0_20px_50px_rgba(87,0,0,0.15)] bg-surface-container-low group aspect-video">
-      <!-- Native Video Element -->
-      <video id="sacred-journey-video" class="w-full h-full object-cover cursor-pointer" preload="metadata" loop playsinline>
+      <!-- Native Video Element (Muted by default to allow scrolling autoplay) -->
+      <video id="sacred-journey-video" class="w-full h-full object-cover cursor-pointer" preload="metadata" loop muted playsinline>
         <source src="adi_shankara_animation.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       
       <!-- Video Overlays (Controls) -->
-      <div id="video-overlay" class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/35 flex flex-col justify-between p-6 transition-all duration-500 cursor-pointer">
+      <div id="video-overlay" class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/35 flex flex-col justify-between p-6 transition-all duration-500 cursor-pointer z-10">
         <!-- Top row: Badge -->
         <div class="flex justify-between items-center opacity-90 group-hover:opacity-100 transition-opacity">
           <span class="text-[10px] font-label-md bg-secondary text-white px-3 py-1 rounded-full uppercase tracking-widest font-bold flex items-center gap-1.5 shadow-sm">
-            <span class="inline-block w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-            Sacred Darshan
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+            <span id="video-autoplay-cue">Autoplay Muted</span>
           </span>
           <span class="font-serif text-white/60 text-sm">ॐ</span>
         </div>
         
         <!-- Center play button -->
         <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <button id="video-play-btn" class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/90 text-white flex items-center justify-center shadow-[0_10px_25px_rgba(122,12,17,0.4)] border border-sandalwood/40 transition-all duration-300 hover:scale-110 active:scale-95 group-hover:bg-primary pointer-events-auto">
+          <button id="video-play-btn" class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/95 text-white flex items-center justify-center shadow-[0_10px_25px_rgba(122,12,17,0.4)] border border-sandalwood/40 transition-all duration-300 hover:scale-110 active:scale-95 group-hover:bg-primary pointer-events-auto opacity-0 group-hover:opacity-100 transition-opacity">
             <span class="material-symbols-outlined text-3xl md:text-4xl transition-transform duration-300" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;">play_arrow</span>
           </button>
         </div>
@@ -789,9 +797,12 @@
             <h4 class="font-display-lg text-base md:text-xl text-white font-bold tracking-wide">The Life and Legacy of Jagadguru Adi Shankara</h4>
             <p class="font-serif italic text-white/70 text-[10px] md:text-xs mt-1">A cinematic journey through sacred photo-art</p>
           </div>
-          <button id="video-mute-btn" class="text-white hover:text-secondary p-2 rounded-full hover:bg-white/10 transition-colors pointer-events-auto flex items-center justify-center">
-            <span id="video-volume-icon" class="material-symbols-outlined text-lg md:text-xl">volume_up</span>
-          </button>
+          <div class="flex items-center gap-2 pointer-events-auto">
+            <span id="mute-hint" class="text-[9px] font-sans text-white/80 bg-black/45 px-2 py-1 rounded transition-opacity duration-300 shadow-sm">Muted - Click to listen</span>
+            <button id="video-mute-btn" class="text-white hover:text-secondary p-2 rounded-full hover:bg-white/10 transition-colors pointer-events-auto flex items-center justify-center">
+              <span id="video-volume-icon" class="material-symbols-outlined text-lg md:text-xl">volume_off</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -806,30 +817,35 @@
     const playIcon = playBtn ? playBtn.querySelector('.material-symbols-outlined') : null;
     const muteBtn = document.getElementById('video-mute-btn');
     const volumeIcon = document.getElementById('video-volume-icon');
+    const muteHint = document.getElementById('mute-hint');
+    const autoplayCue = document.getElementById('video-autoplay-cue');
+    let userPaused = false;
 
     if (!video || !overlay) return;
 
-    function togglePlay() {
-      if (video.paused) {
+    // Apply parallax style initialization
+    video.style.transform = 'scale(1.1) translateY(0px)';
+    video.style.transition = 'transform 0.15s ease-out';
+
+    function setPlayingState(playing) {
+      if (playing) {
         video.play().then(() => {
           if (playIcon) playIcon.textContent = 'pause';
-          overlay.classList.add('opacity-0', 'pointer-events-none');
+          overlay.classList.add('playing-mode');
+          if (autoplayCue) {
+            autoplayCue.textContent = video.muted ? 'Autoplay Muted' : 'Playing';
+          }
         }).catch(err => {
           console.warn('Playback blocked by browser', err);
         });
       } else {
         video.pause();
         if (playIcon) playIcon.textContent = 'play_arrow';
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.remove('playing-mode');
       }
     }
 
-    video.addEventListener('click', () => {
-      video.pause();
-      if (playIcon) playIcon.textContent = 'play_arrow';
-      overlay.classList.remove('opacity-0', 'pointer-events-none');
-    });
-
+    // Toggle play state via overlay click (except mute button)
     overlay.addEventListener('click', (e) => {
       if (e.target.closest('#video-mute-btn')) {
         e.stopPropagation();
@@ -837,10 +853,55 @@
         if (volumeIcon) {
           volumeIcon.textContent = video.muted ? 'volume_off' : 'volume_up';
         }
+        if (muteHint) {
+          muteHint.style.opacity = video.muted ? '1' : '0';
+        }
+        if (autoplayCue) {
+          autoplayCue.textContent = video.muted ? 'Autoplay Muted' : 'Playing';
+        }
       } else {
-        togglePlay();
+        if (!video.paused) {
+          userPaused = true;
+          setPlayingState(false);
+        } else {
+          userPaused = false;
+          setPlayingState(true);
+        }
       }
     });
+
+    // Pause on direct video click
+    video.addEventListener('click', () => {
+      userPaused = true;
+      setPlayingState(false);
+    });
+
+    // Autoplay as we scroll using IntersectionObserver
+    const videoIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!userPaused) {
+            setPlayingState(true);
+          }
+        } else {
+          setPlayingState(false);
+        }
+      });
+    }, { threshold: 0.25 });
+    videoIO.observe(video);
+
+    // Parallax motion inside the video frame on scroll
+    function handleVideoParallax() {
+      const rect = video.getBoundingClientRect();
+      const viewHeight = window.innerHeight;
+      
+      if (rect.top < viewHeight && rect.bottom > 0) {
+        const scrolledPercentage = (viewHeight - rect.top) / (viewHeight + rect.height);
+        const translateY = (scrolledPercentage - 0.5) * -40; // moves -20px to +20px
+        video.style.transform = `scale(1.1) translateY(${translateY}px)`;
+      }
+    }
+    window.addEventListener('scroll', handleVideoParallax, { passive: true });
   })();
 </script>
 
