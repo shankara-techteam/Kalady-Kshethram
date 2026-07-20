@@ -306,17 +306,6 @@
 <a class="nav-link font-label-md text-xs lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="gallery.html" id="nav-gallery">Gallery</a>
 </div>
 <div class="flex items-center gap-1.5 lg:gap-3 flex-shrink-0">
-  <button id="ambient-toggle" title="Toggle Ambient Audio" aria-label="Toggle ambient sacred music" onclick="toggleAmbientAudio()">
-    <svg id="audio-icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-    </svg>
-    <svg id="audio-icon-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <line x1="23" y1="9" x2="17" y2="15"></line>
-      <line x1="17" y1="9" x2="23" y2="15"></line>
-    </svg>
-  </button>
   <button onclick="openDonateModal()" class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-2.5 lg:px-4 xl:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 rounded-lg whitespace-nowrap">
     Donate
   </button>
@@ -1112,6 +1101,11 @@
   }
 </script>
 
+<!-- Ambient Audio Resource -->
+<audio id="ambient-audio" loop muted preload="metadata" style="display:none">
+  <source src="https://archive.org/download/OmChanting/om2.wav.mp3" type="audio/mpeg">
+</audio>
+
 <!-- Immersive JS (Lenis, Audio, Reveal Animation) -->
 <script>
     // Lenis Smooth Scroll
@@ -1152,26 +1146,58 @@
       });
     }
 
-    // Ambient Audio controls
-    const ambientAudio = document.getElementById('ambient-audio');
-    function toggleAmbientAudio() {
-      if (!ambientAudio) return;
-      const onIcon = document.getElementById('audio-icon-on');
-      const offIcon = document.getElementById('audio-icon-off');
-      if (ambientAudio.paused) {
-        ambientAudio.muted = false;
-        ambientAudio.play().then(() => {
-          onIcon.style.display = 'block';
-          offIcon.style.display = 'none';
-        }).catch(err => {
-          console.log('Audio autoplay blocked or failed', err);
-        });
-      } else {
-        ambientAudio.pause();
-        onIcon.style.display = 'none';
-        offIcon.style.display = 'block';
+    // Ambient Audio system
+    (function() {
+      const audioEl = document.getElementById('ambient-audio');
+      const toggleBtn = document.getElementById('ambient-toggle');
+      const iconOn = document.getElementById('audio-icon-on');
+      const iconOff = document.getElementById('audio-icon-off');
+
+      function setAudioPlayingState(play) {
+        if (!audioEl) return;
+        if (play) {
+          audioEl.muted = false;
+          audioEl.play().then(() => {
+            localStorage.setItem('ambient-audio-playing', 'true');
+            if (iconOn) iconOn.style.display = 'block';
+            if (iconOff) iconOff.style.display = 'none';
+            if (toggleBtn) toggleBtn.classList.add('playing');
+          }).catch(err => {
+            console.warn('Playback blocked by browser.', err);
+          });
+        } else {
+          audioEl.muted = true;
+          audioEl.pause();
+          localStorage.setItem('ambient-audio-playing', 'false');
+          if (iconOn) iconOn.style.display = 'none';
+          if (iconOff) iconOff.style.display = 'block';
+          if (toggleBtn) toggleBtn.classList.remove('playing');
+        }
       }
-    }
+
+      window.toggleAmbientAudio = function() {
+        if (!audioEl) return;
+        const shouldPlay = audioEl.paused || audioEl.muted;
+        setAudioPlayingState(shouldPlay);
+      };
+
+      // Restore play state on page load
+      const savedState = localStorage.getItem('ambient-audio-playing');
+      if (savedState === 'true') {
+        setAudioPlayingState(true);
+        const startOnGesture = () => {
+          if (audioEl && (audioEl.paused || audioEl.muted)) {
+            setAudioPlayingState(true);
+          }
+          window.removeEventListener('click', startOnGesture);
+          window.removeEventListener('touchstart', startOnGesture);
+          window.removeEventListener('keydown', startOnGesture);
+        };
+        window.addEventListener('click', startOnGesture);
+        window.addEventListener('touchstart', startOnGesture);
+        window.addEventListener('keydown', startOnGesture);
+      }
+    })();
 
     // Scroll reveal items
     const revealItems = document.querySelectorAll('.reveal-item');
