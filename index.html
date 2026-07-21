@@ -1175,41 +1175,7 @@
           }
         }
 
-        /* Floating Audio Toggle */
-        #cinematic-audio-toggle {
-          position: absolute;
-          top: 2.5rem;
-          right: 3rem;
-          width: 48px;
-          height: 48px;
-          background: rgba(12, 8, 6, 0.8);
-          border: 1px solid rgba(194, 178, 128, 0.45);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          z-index: 20;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          color: #ffe16d;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
 
-        #cinematic-audio-toggle:hover {
-          background: #570000;
-          transform: scale(1.08);
-          box-shadow: 0 0 20px rgba(255, 225, 109, 0.35);
-          border-color: #ffe16d;
-        }
-
-        @media (max-width: 768px) {
-          #cinematic-audio-toggle {
-            top: 1.5rem;
-            right: 1.25rem;
-            width: 40px;
-            height: 40px;
-          }
-        }
       </style>
 
       <section id="sacred-journey-scroll-container">
@@ -1228,11 +1194,7 @@
             <source src="adi_shankara_animation.mp4" type="audio/mp4">
           </audio>
 
-          <!-- Floating Audio Toggle button -->
-          <button id="cinematic-audio-toggle" onclick="toggleCinematicAudio()" title="Toggle Sacred Audio"
-            aria-label="Toggle sacred chanting music">
-            <span id="cinematic-audio-icon" class="material-symbols-outlined text-2xl">volume_off</span>
-          </button>
+
 
           <!-- Narrative Overlays (arranged stacked absolutely, crossfading) -->
           <div class="narrative-overlay">
@@ -1316,7 +1278,44 @@
           let targetPct = 0;
           let lastPct = 0;
           let isIntersecting = false;
-          let userWantsMusic = false;
+          let userWantsMusic = true; // Play by default
+
+          // Helper to trigger play unmuted with browser autoplay fallbacks
+          function playCinematicAudio() {
+            if (!cinematicAudio) return;
+
+            // Pause global ambient audio to avoid overlapping
+            const globalAudio = document.getElementById('ambient-audio');
+            if (globalAudio && !globalAudio.paused) {
+              if (window.toggleAmbientAudio) {
+                window.toggleAmbientAudio(); // Pauses global audio and syncs icon
+              }
+            }
+
+            cinematicAudio.play().catch(err => {
+              console.warn("Cinematic audio autoplay blocked. Awaiting user gesture.", err);
+              // Setup fallback triggers on first user interaction anywhere
+              const startOnGesture = () => {
+                if (cinematicAudio && cinematicAudio.paused && isIntersecting && userWantsMusic) {
+                  // Double check global audio is paused
+                  if (globalAudio && !globalAudio.paused) {
+                    if (window.toggleAmbientAudio) {
+                      window.toggleAmbientAudio();
+                    }
+                  }
+                  cinematicAudio.play().catch(e => console.warn(e));
+                }
+                window.removeEventListener('click', startOnGesture);
+                window.removeEventListener('touchstart', startOnGesture);
+                window.removeEventListener('keydown', startOnGesture);
+                window.removeEventListener('scroll', startOnGesture);
+              };
+              window.addEventListener('click', startOnGesture);
+              window.addEventListener('touchstart', startOnGesture);
+              window.addEventListener('keydown', startOnGesture);
+              window.addEventListener('scroll', startOnGesture);
+            });
+          }
 
           // Use IntersectionObserver to pause loop/actions when out of viewport
           const observer = new IntersectionObserver((entries) => {
@@ -1327,12 +1326,11 @@
                 // Pause cinematic music when scrolling away
                 if (cinematicAudio && !cinematicAudio.paused) {
                   cinematicAudio.pause();
-                  updateCinematicAudioIcon();
                 }
               } else {
-                // Resume cinematic music if the user wanted it
-                if (userWantsMusic && cinematicAudio && cinematicAudio.paused) {
-                  cinematicAudio.play().then(updateCinematicAudioIcon).catch(err => console.warn(err));
+                // Resume cinematic music if allowed
+                if (userWantsMusic) {
+                  playCinematicAudio();
                 }
               }
             });
@@ -1433,43 +1431,6 @@
             });
           };
 
-          // Audio Sync logic
-          function updateCinematicAudioIcon() {
-            const icon = document.getElementById('cinematic-audio-icon');
-            if (!icon || !cinematicAudio) return;
-            if (cinematicAudio.paused) {
-              icon.textContent = 'volume_off';
-            } else {
-              icon.textContent = 'volume_up';
-            }
-          }
-
-          window.toggleCinematicAudio = function () {
-            if (!cinematicAudio) return;
-            const isMuted = cinematicAudio.paused;
-            if (isMuted) {
-              // 1. Pause global ambient audio to avoid overlapping
-              const globalAudio = document.getElementById('ambient-audio');
-              if (globalAudio && !globalAudio.paused) {
-                if (window.toggleAmbientAudio) {
-                  window.toggleAmbientAudio(); // This will pause global audio and sync header button icon
-                }
-              }
-
-              // 2. Play cinematic audio
-              cinematicAudio.play().then(() => {
-                userWantsMusic = true;
-                updateCinematicAudioIcon();
-              }).catch(err => {
-                console.warn("Cinematic audio playback blocked:", err);
-              });
-            } else {
-              cinematicAudio.pause();
-              userWantsMusic = false;
-              updateCinematicAudioIcon();
-            }
-          };
-
           // Pause cinematic audio if the global ambient audio starts playing
           document.addEventListener('DOMContentLoaded', () => {
             const globalAudio = document.getElementById('ambient-audio');
@@ -1478,7 +1439,6 @@
                 if (cinematicAudio && !cinematicAudio.paused) {
                   cinematicAudio.pause();
                   userWantsMusic = false;
-                  updateCinematicAudioIcon();
                 }
               });
             }
