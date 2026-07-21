@@ -1292,6 +1292,7 @@
               }
             }
 
+            cinematicAudio.muted = false;
             cinematicAudio.play().catch(err => {
               console.warn("Cinematic audio autoplay blocked. Awaiting user gesture.", err);
               // Setup fallback triggers on first user interaction anywhere
@@ -1303,6 +1304,7 @@
                       window.toggleAmbientAudio();
                     }
                   }
+                  cinematicAudio.muted = false;
                   cinematicAudio.play().catch(e => console.warn(e));
                 }
                 window.removeEventListener('click', startOnGesture);
