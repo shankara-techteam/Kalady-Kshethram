@@ -1,0 +1,39 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Shankara Sevak">
+  <defs>
+    <linearGradient id="ssRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FF9933"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="58" fill="#FDFBF7"/>
+  <circle cx="60" cy="60" r="57" fill="none" stroke="url(#ssRing)" stroke-width="2"/>
+
+  <!-- Minimal line-art seated figure -->
+  <g fill="none" stroke="#800000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Jata (matted hair knot) -->
+    <path d="M60 26 C 56 22, 56 16, 60 13 C 64 16, 64 22, 60 26 Z"/>
+    <line x1="60" y1="26" x2="60" y2="30"/>
+
+    <!-- Head -->
+    <circle cx="60" cy="40" r="11"/>
+
+    <!-- Tilaka mark -->
+    <line x1="60" y1="35" x2="60" y2="38" stroke="#FF9933" stroke-width="1.4"/>
+
+    <!-- Shoulders / robe -->
+    <path d="M42 66 C 42 54, 50 50, 60 50 C 70 50, 78 54, 78 66 L 78 70 L 42 70 Z"/>
+
+    <!-- Robe drape lines -->
+    <path d="M50 52 C 48 60, 48 66, 50 70" stroke-width="1.1"/>
+    <path d="M70 52 C 72 60, 72 66, 70 70" stroke-width="1.1"/>
+
+    <!-- Crossed legs (seated / padmasana) -->
+    <path d="M34 92 C 34 82, 44 76, 60 76 C 76 76, 86 82, 86 92 L 86 96 L 34 96 Z"/>
+    <path d="M40 90 C 48 84, 72 84, 80 90" stroke-width="1.1"/>
+
+    <!-- Hands resting (dhyana mudra hint) -->
+    <circle cx="60" cy="86" r="4.5" stroke-width="1.2"/>
+  </g>
+</svg>
