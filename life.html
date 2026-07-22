@@ -258,6 +258,14 @@
         
 
         
+        /* Hardware accelerated smooth image rendering */
+        img {
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
         .oil-painting-effect {
             filter: sepia(0.08) contrast(1.05) saturate(1.08);
         }
@@ -1470,17 +1478,6 @@
           text.style.transform = `translate3d(0, ${translateY}px, 0) ${rotation}`;
         });
 
-        // Parallax scroll effect for timeline oil paintings
-        const images = document.querySelectorAll('.oil-painting-effect');
-        images.forEach(img => {
-          const rect = img.getBoundingClientRect();
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-            const translateY = (progress - 0.5) * -35; // moves -17.5px to +17.5px
-            img.style.transition = 'transform 0.12s ease-out';
-            img.style.transform = `scale(1.08) translateY(${translateY}px)`;
-          }
-        });
       }
 
       // Initial run & listeners

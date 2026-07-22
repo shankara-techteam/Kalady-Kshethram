@@ -358,6 +358,14 @@
       box-shadow: 0 0 8px rgba(87, 0, 0, 0.35);
     }
 
+    /* Hardware accelerated smooth image rendering */
+    img {
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+
     /* Parallax Hero Image */
     #hero-parallax-img {
       transform: translateY(0);
@@ -2926,18 +2934,6 @@
         if (heroImg && heroSection && scrollY <= heroSection.offsetHeight) {
           heroImg.style.transform = 'translateY(' + (scrollY * 0.35) + 'px)';
         }
-
-        // Shrine Cards Image Parallax
-        const shrineImages = document.querySelectorAll('#shrine-grid .w-full.h-72 img');
-        shrineImages.forEach((img) => {
-          const rect = img.getBoundingClientRect();
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-            const translateY = (progress - 0.5) * -30; // moves -15px to +15px
-            img.style.transition = 'transform 0.12s ease-out';
-            img.style.transform = `scale(1.08) translateY(${translateY}px)`;
-          }
-        });
       }
       window.addEventListener('scroll', () => updateParallax(), { passive: true });
       window.addEventListener('resize', () => updateParallax());
