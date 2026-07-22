@@ -1895,6 +1895,35 @@
               Kalady is nestled in a highly accessible region of Central Kerala. The Purna River (Periyar) flows
               directly adjacent to the temple premises, providing a serene environment for meditation and bathing.
             </p>
+
+            <!-- Google Maps Callout Card & Embedded Map -->
+            <div class="bg-surface-container-low border border-sandalwood/30 rounded-2xl p-6 md:p-8 space-y-6 shadow-sm my-6">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-sandalwood/15 pb-6">
+                <div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="material-symbols-outlined text-primary text-xl">location_on</span>
+                    <h4 class="font-headline-sm text-lg text-primary font-bold">Temple Location & Route Map</h4>
+                  </div>
+                  <p class="font-body-sm text-xs text-on-surface-variant">Thalayattumpilli, Kalady, Vadakkumbhagom, Kerala 683574</p>
+                </div>
+                <a href="https://www.google.com/maps?vet=10CAAQoqAOahcKEwjo67yJouWVAxUAAAAAHQAAAAAQCQ..i&pvq=CgwvZy8xMXhidDF3Y2YiGQoTYWRpIHNoYW5rYXJhIHRlbXBsZRACGAM&lqi=ChphZGkgc2hhbmthcmEga2FsYWR5IHRlbXBsZUjt2sOs8YGAgAhaKBAAEAEQAxgAGAEYAiIaYWRpIHNoYW5rYXJhIGthbGFkeSB0ZW1wbGWSAQxoaW5kdV90ZW1wbGU&fvr=1&cs=1&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KbeR2EXwBwg7MX9y39tYjXG0&daddr=Thalayattumpilli,+Kalady,+Vadakkumbhagom,+Kerala+683574"
+                  target="_blank" rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-[#570000] text-white px-5 py-2.5 rounded-xl font-label-md text-xs font-semibold tracking-wider uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02] flex-shrink-0">
+                  <span class="material-symbols-outlined text-sm">directions</span>
+                  Get Google Maps Directions
+                </a>
+              </div>
+
+              <!-- Interactive Google Map Embed Frame -->
+              <div class="w-full h-80 rounded-xl overflow-hidden border border-sandalwood/20 shadow-inner relative bg-surface-container-lowest">
+                <iframe
+                  title="Google Maps Location for Adi Shankara Temple Kalady"
+                  src="https://maps.google.com/maps?q=Thalayattumpilli,%20Kalady,%20Vadakkumbhagom,%20Kerala%20683574&t=&z=15&ie=UTF-8&iwloc=&output=embed"
+                  width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+              </div>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
               <div class="space-y-3">
                 <h4 class="font-label-md text-label-md text-secondary uppercase tracking-wider">By Air</h4>
@@ -2722,7 +2751,14 @@
           </div>`,
       location: `<div class="space-y-2">
             <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">📍 Location & Route Guide</p>
-            <p class="font-sans">The Sri Adi Shankara Janmabhoomi Kshethram is located in the quiet town of <strong>Kalady, Ernakulam District, Kerala</strong>, along the banks of the Purna River.</p>
+            <p class="font-sans">The Sri Adi Shankara Janmabhoomi Kshethram is located in <strong>Thalayattumpilli, Kalady, Vadakkumbhagom, Kerala 683574</strong>, along the banks of the Purna River.</p>
+            <div class="my-2">
+              <a href="https://www.google.com/maps?vet=10CAAQoqAOahcKEwjo67yJouWVAxUAAAAAHQAAAAAQCQ..i&pvq=CgwvZy8xMXhidDF3Y2YiGQoTYWRpIHNoYW5rYXJhIHRlbXBsZRACGAM&lqi=ChphZGkgc2hhbmthcmEga2FsYWR5IHRlbXBsZUjt2sOs8YGAgAhaKBAAEAEQAxgAGAEYAiIaYWRpIHNoYW5rYXJhIGthbGFkeSB0ZW1wbGWSAQxoaW5kdV90ZW1wbGU&fvr=1&cs=1&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KbeR2EXwBwg7MX9y39tYjXG0&daddr=Thalayattumpilli,+Kalady,+Vadakkumbhagom,+Kerala+683574"
+                target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 bg-primary text-white text-[11px] font-semibold px-3 py-1.5 rounded-lg shadow hover:bg-[#570000] transition-colors">
+                🗺️ Open Google Maps Directions
+              </a>
+            </div>
             <ul class="list-none space-y-2 my-2 pl-1">
               <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">✈️</span> <div><strong>By Air:</strong> Cochin International Airport (COK) is just 10 km away. Pre-paid taxis and cabs are readily available from the airport to the temple (approx. 20-minute drive).</div></li>
               <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🚆</span> <div><strong>By Train:</strong> Angamaly Railway Station (AFK) is 8 km away, and Aluva Railway Station (AWY) is 15 km away. Autos, buses, and taxis connect both stations to Kalady.</div></li>
