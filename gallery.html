@@ -192,14 +192,6 @@
       animation: fadeIn 1.2s ease-out forwards;
     }
 
-    /* Hardware accelerated smooth image rendering */
-    img {
-      will-change: transform;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      transform: translateZ(0);
-    }
-
     .animate-float {
       animation: float-ambient 8s infinite ease-in-out;
     }
@@ -986,7 +978,23 @@
     }
     requestAnimationFrame(raf);
 
-
+    // Gallery Cards Scroll Parallax
+    function updateGalleryParallax() {
+      if (window.innerWidth < 768) return;
+      const images = document.querySelectorAll('.gallery-item img');
+      images.forEach((img) => {
+        const rect = img.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+          const translateY = (progress - 0.5) * -30; // moves -15px to +15px
+          img.style.transition = 'transform 0.12s ease-out';
+          img.style.transform = `scale(1.08) translateY(${translateY}px)`;
+        }
+      });
+    }
+    lenis.on('scroll', updateGalleryParallax);
+    window.addEventListener('scroll', updateGalleryParallax, { passive: true });
+    setTimeout(updateGalleryParallax, 100);
 
     // Ambient Audio system
     (function () {
