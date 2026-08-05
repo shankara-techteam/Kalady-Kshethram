@@ -127,6 +127,62 @@
       font-family: 'Source Serif 4', ui-serif, Georgia, Cambria, serif;
     }
 
+    /* Standardized Typography System */
+    .text-hero-title {
+        font-family: 'EB Garamond', serif;
+        font-size: clamp(2.25rem, 5vw, 3.75rem);
+        line-height: 1.15;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+    }
+    .text-section-title {
+        font-family: 'EB Garamond', serif;
+        font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+        line-height: 1.2;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+    }
+    .text-card-title {
+        font-family: 'EB Garamond', serif;
+        font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+        line-height: 1.3;
+        font-weight: 700;
+    }
+    .text-subhead {
+        font-family: 'EB Garamond', serif;
+        font-size: 1.125rem;
+        line-height: 1.4;
+        font-weight: 600;
+    }
+    .text-lead {
+        font-family: 'Source Serif 4', serif;
+        font-size: 1.125rem;
+        line-height: 1.7;
+    }
+    .text-body-std {
+        font-family: 'Source Serif 4', serif;
+        font-size: 1rem;
+        line-height: 1.65;
+    }
+    .text-body-sm {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.875rem;
+        line-height: 1.5;
+    }
+    .text-badge-label {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        line-height: 1.4;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+    .text-caption-meta {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        line-height: 1.4;
+    }
+
     input,
     select,
     textarea,
@@ -158,6 +214,88 @@
 
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Anti-Flicker & Hardware Acceleration */
+    html, body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .reveal-item {
+      will-change: opacity, transform;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+
+    header, nav, #donate-modal, #lightbox-modal, #chatbot-window {
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+
+    /* ========= 3D FLIP CARD & UNCROWDED GALLERY STYLING ========= */
+    .gallery-flip-card {
+      perspective: 1200px;
+      height: 490px;
+    }
+
+    .gallery-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-style: preserve-3d;
+    }
+
+    .gallery-flip-card:hover .gallery-card-inner,
+    .gallery-flip-card.flipped .gallery-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .gallery-card-front,
+    .gallery-card-back {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 1.25rem;
+      overflow: hidden;
+    }
+
+    .gallery-card-front {
+      z-index: 2;
+      transform: rotateY(0deg);
+    }
+
+    .gallery-card-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(145deg, #fdfbf7 0%, #f4eee0 100%);
+    }
+
+    /* 3D Lightbox Flip Open & Close Animations */
+    #lightbox-modal {
+      perspective: 1400px;
+      transition: opacity 0.4s ease;
+    }
+
+    .lightbox-modal-content {
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+      transform: rotateY(-90deg) scale(0.85);
+      opacity: 0;
+      transform-style: preserve-3d;
+    }
+
+    #lightbox-modal.modal-open .lightbox-modal-content {
+      transform: rotateY(0deg) scale(1);
+      opacity: 1;
+    }
+
+    #lightbox-modal.modal-closing .lightbox-modal-content {
+      transform: rotateY(90deg) scale(0.85);
+      opacity: 0;
     }
 
     .parchment-texture {
@@ -419,10 +557,10 @@
             href="gallery.html" id="nav-gallery">Gallery</a>
         </div>
         <div class="flex items-center gap-1.5 lg:gap-3 flex-shrink-0">
-          <button onclick="openDonateModal()"
-            class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-2.5 lg:px-4 xl:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 rounded-lg whitespace-nowrap">
+          <a href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer"
+            class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-2.5 lg:px-4 xl:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 rounded-lg whitespace-nowrap inline-block text-center">
             Donate
-          </button>
+          </a>
         </div>
         <!-- Mobile Menu Button -->
         <button onclick="toggleMobileMenu()"
@@ -445,7 +583,7 @@
         <span
           class="font-label-md text-label-md text-secondary uppercase tracking-[0.35em] block mb-3 font-semibold">Sacred
           Darshan</span>
-        <h1 class="font-display-lg text-4xl md:text-5xl lg:text-6xl text-primary tracking-tight font-bold mb-4">
+        <h1 class="text-hero-title text-primary mb-4">
           Kshethram Visual Gallery</h1>
         <p class="font-serif italic text-primary/95 text-lg md:text-xl mt-4 max-w-xl mx-auto title-line-grow pb-2">
           "रूपं रूपं प्रतिरूपो बभूव"
@@ -471,124 +609,170 @@
       <!-- Gallery Grid (Masonry-like layout using columns or flex wrap/grid) -->
 
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-item reveal-delay-200" id="gallery-grid">
-        <!-- Image Card 2 (Golden Statue) -->
-        <div
-          class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
-          data-category="shrine" onclick="openLightbox(0)">
-          <div
-            class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
-            <img
-              class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-              loading="lazy" src="https://lh3.googleusercontent.com/d/1odcOiyUXf9KyZsybUGRPvPBFoD1QV0-i"
-              alt="Golden Meditative Statue of Sri Adi Shankaracharya, Kalady">
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-[#7A0C11]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-              <span class="text-white text-xs font-label-md uppercase tracking-widest flex items-center gap-1.5"><span
-                  class="material-symbols-outlined text-sm">zoom_in</span> View Image</span>
+      <!-- Uncrowded Spacious 3D Flip Gallery Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 max-w-6xl mx-auto py-8 reveal-item reveal-delay-200" id="gallery-grid">
+        
+        <!-- Image Card 1 (Golden Statue) -->
+        <div class="gallery-item gallery-flip-card reveal-item reveal-delay-100" data-category="shrine" onclick="this.classList.toggle('flipped')">
+          <div class="gallery-card-inner">
+            <!-- FRONT FACE -->
+            <div class="gallery-card-front bg-surface border-2 border-double border-[#C5B48D]/60 p-6 flex flex-col justify-between shadow-md hover:shadow-xl transition-all duration-500">
+              <div class="relative h-64 w-full overflow-hidden rounded-xl border border-[#C5B48D]/30 bg-black/5">
+                <img class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" loading="lazy" src="https://lh3.googleusercontent.com/d/1odcOiyUXf9KyZsybUGRPvPBFoD1QV0-i" alt="Golden Meditative Statue of Sri Adi Shankaracharya, Kalady">
+                <div class="absolute top-3 left-3 bg-primary/90 text-white text-[10px] font-label-md px-3 py-1 rounded-full uppercase tracking-widest font-semibold backdrop-blur-md shadow-sm">
+                  Shrine & Courtyard
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-60"></div>
+                <span class="absolute bottom-3 right-3 text-white/90 font-serif text-sm">🪷</span>
+              </div>
+              <div class="mt-4 text-center">
+                <h3 class="text-card-title text-primary mb-2 font-bold leading-tight">Golden Meditative Statue of Sri Adi Shankaracharya</h3>
+                <span class="inline-flex items-center gap-1.5 text-xs text-secondary font-label-md uppercase tracking-wider font-semibold mt-1">
+                  <span class="material-symbols-outlined text-sm animate-pulse">flip</span> Hover / Tap to Flip Card
+                </span>
+              </div>
             </div>
-            <div class="absolute bottom-3 right-3 text-white/40 pointer-events-none select-none font-serif text-sm">🪷
+
+            <!-- BACK FACE -->
+            <div class="gallery-card-back border-2 border-double border-primary/40 p-7 flex flex-col justify-between shadow-2xl">
+              <div>
+                <div class="flex justify-between items-center mb-3">
+                  <span class="text-[10px] font-label-md text-secondary border border-secondary/30 px-2.5 py-0.5 rounded-full uppercase tracking-widest font-bold">Shrines & Courtyards</span>
+                  <span class="text-primary font-serif text-base">ॐ</span>
+                </div>
+                <h3 class="text-card-title text-primary mb-3 font-bold">Golden Meditative Statue</h3>
+                <div class="h-[1px] w-16 bg-gradient-to-r from-sandalwood to-transparent mb-4"></div>
+                <p class="font-body-md text-sm text-on-surface-variant leading-relaxed">
+                  In the serene town of Kalady, Kerala, this temple courtyard honors Jagadguru Adi Shankaracharya. The centerpiece is a golden statue of Shankaracharya in meditation, seated on a red-and-gold pedestal surrounded by greenery. Traditional Kerala-style architecture frames the space.
+                </p>
+              </div>
+              <button onclick="event.stopPropagation(); openLightbox(0)" class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3 rounded-xl font-label-md text-xs uppercase tracking-widest font-bold hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-sm">zoom_in</span> View Fullscreen Darshan
+              </button>
             </div>
-          </div>
-          <div>
-            <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold tracking-wide leading-snug">Golden
-              Meditative Statue of Sri Adi Shankaracharya</h3>
-            <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
-              In the serene town of Kalady, Kerala, this temple courtyard honors Jagadguru Adi Shankaracharya, the great
-              philosopher and founder of Advaita Vedanta. The centerpiece is a golden statue of Shankaracharya in
-              meditation, seated on a red-and-gold pedestal surrounded by greenery. Traditional Kerala-style
-              architecture, with sloping tiled roofs and floral motifs, frames the space.
-            </p>
           </div>
         </div>
 
-        <!-- Image Card 3 (Entrance Walkway) -->
-        <div
-          class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
-          data-category="architecture" onclick="openLightbox(1)">
-          <div
-            class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
-            <img
-              class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-              loading="lazy" src="https://lh3.googleusercontent.com/d/1Oi0pH7GLghdA3NptmaSQdvLrmNlJOyHc"
-              alt="Entrance to Sri Adi Shankara Janmabhoomi Kshethram, Kalady">
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-[#7A0C11]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-              <span class="text-white text-xs font-label-md uppercase tracking-widest flex items-center gap-1.5"><span
-                  class="material-symbols-outlined text-sm">zoom_in</span> View Image</span>
+        <!-- Image Card 2 (Entrance Walkway) -->
+        <div class="gallery-item gallery-flip-card reveal-item reveal-delay-200" data-category="architecture" onclick="this.classList.toggle('flipped')">
+          <div class="gallery-card-inner">
+            <!-- FRONT FACE -->
+            <div class="gallery-card-front bg-surface border-2 border-double border-[#C5B48D]/60 p-6 flex flex-col justify-between shadow-md hover:shadow-xl transition-all duration-500">
+              <div class="relative h-64 w-full overflow-hidden rounded-xl border border-[#C5B48D]/30 bg-black/5">
+                <img class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" loading="lazy" src="https://lh3.googleusercontent.com/d/1Oi0pH7GLghdA3NptmaSQdvLrmNlJOyHc" alt="Entrance to Sri Adi Shankara Janmabhoomi Kshethram, Kalady">
+                <div class="absolute top-3 left-3 bg-primary/90 text-white text-[10px] font-label-md px-3 py-1 rounded-full uppercase tracking-widest font-semibold backdrop-blur-md shadow-sm">
+                  Architecture
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-60"></div>
+                <span class="absolute bottom-3 right-3 text-white/90 font-serif text-sm">🪷</span>
+              </div>
+              <div class="mt-4 text-center">
+                <h3 class="text-card-title text-primary mb-2 font-bold leading-tight">Entrance to Sri Adi Shankara Janmabhoomi Kshethram</h3>
+                <span class="inline-flex items-center gap-1.5 text-xs text-secondary font-label-md uppercase tracking-wider font-semibold mt-1">
+                  <span class="material-symbols-outlined text-sm animate-pulse">flip</span> Hover / Tap to Flip Card
+                </span>
+              </div>
             </div>
-            <div class="absolute bottom-3 right-3 text-white/40 pointer-events-none select-none font-serif text-sm">🪷
+
+            <!-- BACK FACE -->
+            <div class="gallery-card-back border-2 border-double border-primary/40 p-7 flex flex-col justify-between shadow-2xl">
+              <div>
+                <div class="flex justify-between items-center mb-3">
+                  <span class="text-[10px] font-label-md text-secondary border border-secondary/30 px-2.5 py-0.5 rounded-full uppercase tracking-widest font-bold">Architecture</span>
+                  <span class="text-primary font-serif text-base">ॐ</span>
+                </div>
+                <h3 class="text-card-title text-primary mb-3 font-bold">Entrance Archway & Gopuram</h3>
+                <div class="h-[1px] w-16 bg-gradient-to-r from-sandalwood to-transparent mb-4"></div>
+                <p class="font-body-md text-sm text-on-surface-variant leading-relaxed">
+                  A striking wide-angle shot of the entrance to the sacred birth site of Adi Shankaracharya in Kerala. A vibrant red-tiled walkway draws the eye directly into the central sanctuary, where a meditative statue of the philosopher is visible.
+                </p>
+              </div>
+              <button onclick="event.stopPropagation(); openLightbox(1)" class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3 rounded-xl font-label-md text-xs uppercase tracking-widest font-bold hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-sm">zoom_in</span> View Fullscreen Darshan
+              </button>
             </div>
-          </div>
-          <div>
-            <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold tracking-wide leading-snug">Entrance to
-              Sri Adi Shankara Janmabhoomi Kshethram</h3>
-            <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
-              A striking wide-angle shot of the entrance to the sacred birth site of Adi Shankaracharya in Kerala. A
-              vibrant red-tiled walkway draws the eye directly into the central sanctuary, where a meditative statue of
-              the philosopher is visible. The architecture showcases classic Kerala-style sloping clay roofs paired with
-              an intricate, colorful gopuram relief displaying Hindu deities.
-            </p>
           </div>
         </div>
 
-        <!-- Image Card 4 (Mandapam) -->
-        <div
-          class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
-          data-category="shrine" onclick="openLightbox(2)">
-          <div
-            class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
-            <img
-              class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-              loading="lazy" src="https://lh3.googleusercontent.com/d/1PhmqQWQbnR4lC4nGc0jRo3OlzLcKGEhB"
-              alt="Mandapam Shrine of Jagadguru Sri Sachidananda Shivabhinava Narasimha Bharati Mahaswamiji, Kalady">
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-[#7A0C11]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-              <span class="text-white text-xs font-label-md uppercase tracking-widest flex items-center gap-1.5"><span
-                  class="material-symbols-outlined text-sm">zoom_in</span> View Image</span>
+        <!-- Image Card 3 (Mandapam) -->
+        <div class="gallery-item gallery-flip-card reveal-item reveal-delay-300" data-category="shrine" onclick="this.classList.toggle('flipped')">
+          <div class="gallery-card-inner">
+            <!-- FRONT FACE -->
+            <div class="gallery-card-front bg-surface border-2 border-double border-[#C5B48D]/60 p-6 flex flex-col justify-between shadow-md hover:shadow-xl transition-all duration-500">
+              <div class="relative h-64 w-full overflow-hidden rounded-xl border border-[#C5B48D]/30 bg-black/5">
+                <img class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" loading="lazy" src="https://lh3.googleusercontent.com/d/1PhmqQWQbnR4lC4nGc0jRo3OlzLcKGEhB" alt="Mandapam Shrine of Jagadguru Sri Sachidananda Shivabhinava Narasimha Bharati Mahaswamiji, Kalady">
+                <div class="absolute top-3 left-3 bg-primary/90 text-white text-[10px] font-label-md px-3 py-1 rounded-full uppercase tracking-widest font-semibold backdrop-blur-md shadow-sm">
+                  Shrine & Courtyard
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-60"></div>
+                <span class="absolute bottom-3 right-3 text-white/90 font-serif text-sm">🪷</span>
+              </div>
+              <div class="mt-4 text-center">
+                <h3 class="text-card-title text-primary mb-2 font-bold leading-tight">Mandapam Shrine of Jagadguru Sri Sachidananda Swamiji</h3>
+                <span class="inline-flex items-center gap-1.5 text-xs text-secondary font-label-md uppercase tracking-wider font-semibold mt-1">
+                  <span class="material-symbols-outlined text-sm animate-pulse">flip</span> Hover / Tap to Flip Card
+                </span>
+              </div>
             </div>
-            <div class="absolute bottom-3 right-3 text-white/40 pointer-events-none select-none font-serif text-sm">🪷
+
+            <!-- BACK FACE -->
+            <div class="gallery-card-back border-2 border-double border-primary/40 p-7 flex flex-col justify-between shadow-2xl">
+              <div>
+                <div class="flex justify-between items-center mb-3">
+                  <span class="text-[10px] font-label-md text-secondary border border-secondary/30 px-2.5 py-0.5 rounded-full uppercase tracking-widest font-bold">Shrines & Courtyards</span>
+                  <span class="text-primary font-serif text-base">ॐ</span>
+                </div>
+                <h3 class="text-card-title text-primary mb-3 font-bold">Stone Mandapam Pavilion</h3>
+                <div class="h-[1px] w-16 bg-gradient-to-r from-sandalwood to-transparent mb-4"></div>
+                <p class="font-body-md text-sm text-on-surface-variant leading-relaxed">
+                  This image features the beautifully crafted stone mandapam situated in the central stone-paved courtyard of the Sri Adi Shankara Janmabhoomi Kshethram. Under an octagonal pillar canopy sits a lifelike statue of the 33rd Jagadguru of Sringeri.
+                </p>
+              </div>
+              <button onclick="event.stopPropagation(); openLightbox(2)" class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3 rounded-xl font-label-md text-xs uppercase tracking-widest font-bold hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-sm">zoom_in</span> View Fullscreen Darshan
+              </button>
             </div>
-          </div>
-          <div>
-            <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold tracking-wide leading-snug">Mandapam
-              Shrine of Jagadguru Sri Sachidananda Shivabhinava Narasimha Bharati Mahaswamiji</h3>
-            <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
-              This image features the beautifully crafted stone mandapam (pavilion) situated in the central stone-paved
-              courtyard of the Sri Adi Shankara Janmabhoomi Kshethram in Kalady, Kerala. Under an octagonal pillar
-              canopy topped with classic terracotta clay tiles sits a lifelike, saffron-robed statue of the 33rd
-              Jagadguru of the Sringeri Math.
-            </p>
           </div>
         </div>
 
-        <!-- Image Card 5 (Gateway) -->
-        <div
-          class="gallery-item group bg-surface border border-[#C5B48D]/30 p-5 rounded-xl hover-card-trigger cursor-pointer flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
-          data-category="architecture" onclick="openLightbox(3)">
-          <div
-            class="h-64 overflow-hidden border border-[#C5B48D]/15 rounded-lg mb-4 relative bg-black/5 image-double-frame">
-            <img
-              class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-              loading="lazy" src="https://lh3.googleusercontent.com/d/1mvN6Wpg8LJ4rsc2p3q49s0G0c74FAcFI"
-              alt="Main Entrance Gateway of Sri Adi Shankara Janmabhoomi Kshetram, Kalady">
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-[#7A0C11]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-              <span class="text-white text-xs font-label-md uppercase tracking-widest flex items-center gap-1.5"><span
-                  class="material-symbols-outlined text-sm">zoom_in</span> View Image</span>
+        <!-- Image Card 4 (Gateway) -->
+        <div class="gallery-item gallery-flip-card reveal-item reveal-delay-400" data-category="architecture" onclick="this.classList.toggle('flipped')">
+          <div class="gallery-card-inner">
+            <!-- FRONT FACE -->
+            <div class="gallery-card-front bg-surface border-2 border-double border-[#C5B48D]/60 p-6 flex flex-col justify-between shadow-md hover:shadow-xl transition-all duration-500">
+              <div class="relative h-64 w-full overflow-hidden rounded-xl border border-[#C5B48D]/30 bg-black/5">
+                <img class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" loading="lazy" src="https://lh3.googleusercontent.com/d/1mvN6Wpg8LJ4rsc2p3q49s0G0c74FAcFI" alt="Main Entrance Gateway of Sri Adi Shankara Janmabhoomi Kshetram, Kalady">
+                <div class="absolute top-3 left-3 bg-primary/90 text-white text-[10px] font-label-md px-3 py-1 rounded-full uppercase tracking-widest font-semibold backdrop-blur-md shadow-sm">
+                  Architecture
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-60"></div>
+                <span class="absolute bottom-3 right-3 text-white/90 font-serif text-sm">🪷</span>
+              </div>
+              <div class="mt-4 text-center">
+                <h3 class="text-card-title text-primary mb-2 font-bold leading-tight">Main Entrance Gateway of Sri Adi Shankara Kshetram</h3>
+                <span class="inline-flex items-center gap-1.5 text-xs text-secondary font-label-md uppercase tracking-wider font-semibold mt-1">
+                  <span class="material-symbols-outlined text-sm animate-pulse">flip</span> Hover / Tap to Flip Card
+                </span>
+              </div>
             </div>
-            <div class="absolute bottom-3 right-3 text-white/40 pointer-events-none select-none font-serif text-sm">🪷
+
+            <!-- BACK FACE -->
+            <div class="gallery-card-back border-2 border-double border-primary/40 p-7 flex flex-col justify-between shadow-2xl">
+              <div>
+                <div class="flex justify-between items-center mb-3">
+                  <span class="text-[10px] font-label-md text-secondary border border-secondary/30 px-2.5 py-0.5 rounded-full uppercase tracking-widest font-bold">Architecture</span>
+                  <span class="text-primary font-serif text-base">ॐ</span>
+                </div>
+                <h3 class="text-card-title text-primary mb-3 font-bold">Main Entrance Portal</h3>
+                <div class="h-[1px] w-16 bg-gradient-to-r from-sandalwood to-transparent mb-4"></div>
+                <p class="font-body-md text-sm text-on-surface-variant leading-relaxed">
+                  A wide-angle exterior shot capturing the grand entrance portal to the sacred birthplace of Adi Shankaracharya. The structure beautifully blends traditional Kerala temple architecture with rich artistic storytelling murals.
+                </p>
+              </div>
+              <button onclick="event.stopPropagation(); openLightbox(3)" class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3 rounded-xl font-label-md text-xs uppercase tracking-widest font-bold hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-sm">zoom_in</span> View Fullscreen Darshan
+              </button>
             </div>
-          </div>
-          <div>
-            <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold tracking-wide leading-snug">Main
-              Entrance Gateway of Sri Adi Shankara Janmabhoomi Kshetram</h3>
-            <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
-              A wide-angle exterior shot capturing the grand entrance portal to the sacred birthplace of Adi
-              Shankaracharya. The structure beautifully blends traditional Kerala temple architecture with rich artistic
-              storytelling. Thick, polished black columns flank a central open archway displaying a maroon signboard
-              with the temple's name.
-            </p>
           </div>
         </div>
       </div>
@@ -611,7 +795,7 @@
           <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors border-b border-transparent hover:border-primary w-fit"
             href="#">Official Channels</a>
           <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors border-b border-transparent hover:border-primary w-fit cursor-pointer"
-            onclick="openDonateModal()">Donate Online</a>
+            href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer">Donate Online</a>
         </div>
         <div class="flex flex-col space-y-6">
           <h4 class="font-label-md text-sm font-bold text-primary tracking-widest uppercase">Stay Connected</h4>
@@ -658,7 +842,7 @@
     </button>
 
     <div
-      class="max-w-5xl w-full flex flex-col md:flex-row items-center gap-8 bg-[#fdfbf7] border-2 border-double border-[#C5B48D]/60 p-6 md:p-8 rounded-2xl relative shadow-2xl overflow-hidden max-h-[90vh]">
+      class="lightbox-modal-content max-w-5xl w-full flex flex-col md:flex-row items-center gap-8 bg-[#fdfbf7] border-2 border-double border-[#C5B48D]/60 p-6 md:p-8 rounded-2xl relative shadow-2xl overflow-hidden max-h-[90vh]">
       <div
         class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(197,180,141,0.02)_0%,transparent_70%)] pointer-events-none">
       </div>
@@ -770,10 +954,10 @@
             <option>Credit / Debit Card</option>
           </select>
         </div>
-        <button type="submit"
-          class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3.5 rounded-xl font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 focus:outline-none font-bold">
-          Proceed to Secure Payment
-        </button>
+        <a href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer"
+          class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3.5 rounded-xl font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 focus:outline-none font-bold text-center inline-block">
+          Proceed to Sringeri Donation Portal
+        </a>
       </form>
     </div>
   </div>
@@ -823,7 +1007,7 @@
       document.querySelectorAll('.gallery-item').forEach(item => {
         const itemCat = item.getAttribute('data-category');
         if (category === 'all' || itemCat === category) {
-          item.style.display = 'flex';
+          item.style.display = 'block';
           setTimeout(() => {
             item.style.opacity = '1';
             item.style.transform = 'translateY(0)';
@@ -855,26 +1039,28 @@
       category.innerText = data.category;
       desc.innerText = data.desc;
 
-      modal.classList.remove('hidden');
+      modal.classList.remove('hidden', 'modal-closing');
       modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
 
-      setTimeout(() => {
+      requestAnimationFrame(() => {
+        modal.classList.add('modal-open');
         modal.classList.remove('opacity-0');
         modal.classList.add('opacity-100');
-      }, 50);
+      });
     };
 
     window.closeLightbox = function () {
       const modal = document.getElementById('lightbox-modal');
-      modal.classList.remove('opacity-100');
-      modal.classList.add('opacity-0');
+      if (!modal) return;
+      modal.classList.remove('modal-open');
+      modal.classList.add('modal-closing');
 
       setTimeout(() => {
-        modal.classList.remove('flex');
+        modal.classList.remove('flex', 'modal-closing');
         modal.classList.add('hidden');
         document.body.style.overflow = '';
-      }, 300);
+      }, 500);
     };
 
     window.nextImage = function () {
@@ -923,23 +1109,19 @@
 
     // Donate Modal controls
     function openDonateModal() {
-      const m = document.getElementById('donate-modal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-      document.body.style.overflow = 'hidden';
+      window.location.href = 'https://donate.sringeri.net/donation';
     }
     function closeDonateModal() {
       const m = document.getElementById('donate-modal');
-      m.classList.remove('flex');
-      m.classList.add('hidden');
+      if (m) {
+        m.classList.remove('flex');
+        m.classList.add('hidden');
+      }
       document.body.style.overflow = '';
     }
     function handleDonateSubmit(event) {
-      event.preventDefault();
-      const name = document.getElementById('donate-name').value;
-      const amt = document.getElementById('donate-amount').value;
-      alert(`Pranams, ${name}. Your donation pledge of ₹${amt} is simulated. In a live system, this redirects to Sringeri Math's payment gateway.`);
-      closeDonateModal();
+      if (event) event.preventDefault();
+      window.location.href = 'https://donate.sringeri.net/donation';
     }
 
     window.addEventListener('click', function (e) {
@@ -1071,18 +1253,18 @@
         <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🛕 Temple Shrine & Aarti Timings</p>
         <p class="font-sans">The Sri Adi Shankara Janmabhoomi Kshethram is open daily. General visiting hours:</p>
         <ul class="list-none space-y-1.5 my-2 pl-1">
-          <li class="flex items-center gap-1.5"><span class="text-primary text-[10px]">🪷</span> <strong>Morning:</strong> 5:30 AM – 12:30 PM</li>
-          <li class="flex items-center gap-1.5"><span class="text-primary text-[10px]">🪷</span> <strong>Evening:</strong> 4:30 PM – 8:30 PM</li>
+          <li class="flex items-center gap-1.5"><span class="text-primary text-xs">🪷</span> <strong>Morning:</strong> 5:30 AM – 12:30 PM</li>
+          <li class="flex items-center gap-1.5"><span class="text-primary text-xs">🪷</span> <strong>Evening:</strong> 4:30 PM – 8:30 PM</li>
         </ul>
         <div class="border-t border-sandalwood/20 pt-2 my-2">
           <p class="font-semibold text-secondary text-xs uppercase tracking-wider mb-1">Daily Aarti & Puja Schedule:</p>
-          <ul class="list-disc pl-4 space-y-1 text-[11px] text-on-surface-variant">
+          <ul class="list-disc pl-4 space-y-1 text-xs text-on-surface-variant">
             <li><strong>06:30 AM:</strong> Usha Puja & Morning Aarti</li>
             <li><strong>12:00 PM:</strong> Maha Puja & Noon Aarti</li>
             <li><strong>08:00 PM:</strong> Athazha Puja & Night Aarti</li>
           </ul>
         </div>
-        <p class="text-[10px] text-on-surface-variant/75 italic">*Note: Timings are extended during major festivals such as Shankara Jayanthi (April/May) and Navaratri (September/October).*</p>
+        <p class="text-xs text-on-surface-variant/75 italic">*Note: Timings are extended during major festivals such as Shankara Jayanthi (April/May) and Navaratri (September/October).*</p>
       </div>`,
       sevas: `<div class="space-y-2">
         <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🙏 Sacred Seva Offerings</p>
@@ -1090,22 +1272,22 @@
         <ol class="list-decimal pl-4 space-y-2 my-2">
           <li>
             <strong>Adi Shankara Ashtothara Archana (₹150)</strong>
-            <p class="text-[11px] text-on-surface-variant">Worship of Sri Adi Shankaracharya chanting his 108 names, praying for wisdom and spiritual growth.</p>
+            <p class="text-xs text-on-surface-variant">Worship of Sri Adi Shankaracharya chanting his 108 names, praying for wisdom and spiritual growth.</p>
           </li>
           <li>
             <strong>Sharadamba Suhasini Puja (₹500)</strong>
-            <p class="text-[11px] text-on-surface-variant">Special offerings to Goddess Sharadamba (the deity of learning) for blessings of intellect and prosperity, performed on Fridays.</p>
+            <p class="text-xs text-on-surface-variant">Special offerings to Goddess Sharadamba (the deity of learning) for blessings of intellect and prosperity, performed on Fridays.</p>
           </li>
           <li>
             <strong>Veda Pathashala Support (Custom Donation)</strong>
-            <p class="text-[11px] text-on-surface-variant">Sponsor the boarding, lodging, and traditional scriptural education of young Vedic students.</p>
+            <p class="text-xs text-on-surface-variant">Sponsor the boarding, lodging, and traditional scriptural education of young Vedic students.</p>
           </li>
           <li>
             <strong>Annadanam Seva (₹1008)</strong>
-            <p class="text-[11px] text-on-surface-variant">Sponsor a day's traditional vegetarian meals (served on plantain leaves) for all visiting pilgrims.</p>
+            <p class="text-xs text-on-surface-variant">Sponsor a day's traditional vegetarian meals (served on plantain leaves) for all visiting pilgrims.</p>
           </li>
         </ol>
-        <p class="text-[10px] text-on-surface-variant/75 italic">To book sevas, click the <strong>Donate</strong> button at the top header or contact the Math office directly.</p>
+        <p class="text-xs text-on-surface-variant/75 italic">To book sevas, click the <strong>Donate</strong> button at the top header or contact the Math office directly.</p>
       </div>`,
       lodging: `<div class="space-y-2">
         <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🏡 Pilgrim Accommodation (Yatri Nivas)</p>
@@ -1401,10 +1583,10 @@
         class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Gallery</a>
     </div>
 
-    <button onclick="openDonateModal(); toggleMobileMenu();"
-      class="mt-8 bg-gradient-to-r from-primary to-primary-container text-white border border-[#C5B48D]/30 px-8 py-3 font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] rounded-xl transition-all font-bold">
+    <a href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu();"
+      class="mt-8 bg-gradient-to-r from-primary to-primary-container text-white border border-[#C5B48D]/30 px-8 py-3 font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] rounded-xl transition-all font-bold text-center inline-block">
       Donate
-    </button>
+    </a>
   </div>
 </body>
 

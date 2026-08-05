@@ -116,6 +116,62 @@
         html, body {
             font-family: 'Source Serif 4', ui-serif, Georgia, Cambria, serif;
         }
+
+        /* Standardized Typography System */
+        .text-hero-title {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(2.25rem, 5vw, 3.75rem);
+            line-height: 1.15;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        .text-section-title {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        .text-card-title {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+            line-height: 1.3;
+            font-weight: 700;
+        }
+        .text-subhead {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.125rem;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+        .text-lead {
+            font-family: 'Source Serif 4', serif;
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+        .text-body-std {
+            font-family: 'Source Serif 4', serif;
+            font-size: 1rem;
+            line-height: 1.65;
+        }
+        .text-body-sm {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .text-badge-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .text-caption-meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
         input, select, textarea, button {
             font-family: inherit;
         }
@@ -305,10 +361,23 @@
             transform: translateY(0) !important;
             transition: opacity 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
         }
-        .page-exit #page-wrapper {
-            opacity: 0 !important;
-            transform: translateY(-8px) !important;
-            transition: opacity 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+
+        /* Anti-Flicker & Hardware Acceleration */
+        html, body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        .reveal-item {
+            will-change: opacity, transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+        header, nav, #donate-modal, #chatbot-window {
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
 
         /* ========= IMMERSIVE ADDITIONS ========= */
@@ -668,9 +737,9 @@
 <a class="nav-link font-label-md text-xs lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap" href="gallery.html" id="nav-gallery">Gallery</a>
 </div>
 <div class="flex items-center gap-1.5 lg:gap-3 flex-shrink-0">
-  <button onclick="openDonateModal()" class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-2.5 lg:px-4 xl:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 rounded-lg whitespace-nowrap">
+  <a href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer" class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-2.5 lg:px-4 xl:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 rounded-lg whitespace-nowrap inline-block text-center">
     Donate
-  </button>
+  </a>
 </div>
         <!-- Mobile Menu Button -->
         <button onclick="toggleMobileMenu()" class="block md:hidden text-primary focus:outline-none hover:scale-105 transition-transform ml-2" aria-label="Toggle Navigation Menu" id="mobile-menu-btn">
@@ -681,11 +750,32 @@
 <main class="pt-40 pb-section-gap-lg">
 <!-- Hero Section -->
 <section class="max-w-4xl mx-auto px-6 mb-24 text-center reveal-item" id="timeline-start">
-  <h1 class="font-display-lg text-4xl md:text-5xl text-primary font-bold mt-16 mb-6">The Divine Life of Adi Shankara</h1>
+  <h1 class="text-hero-title text-primary mt-16 mb-6">The Divine Life of Adi Shankara</h1>
   <p class="font-body-lg text-stone-600 italic text-lg leading-relaxed max-w-2xl mx-auto">
     "By whose light the darkness of ignorance is dispelled, and the non-dual truth of Advaita is re-established for the welfare of all beings."
   </p>
   <div class="mt-8 h-[1px] w-48 bg-sandalwood/40 mx-auto"></div>
+</section>
+
+<!-- Relocated Cinematic Video Section -->
+<section id="video-journey" class="max-w-4xl mx-auto px-6 mb-20 reveal-item">
+  <div class="bg-surface border-2 border-double border-sandalwood rounded-2xl p-6 md:p-8 shadow-[0_12px_40px_rgba(87,0,0,0.08)] text-center">
+    <div class="mb-6">
+      <span class="font-label-md text-xs text-secondary uppercase tracking-[0.3em] block mb-2 font-semibold">Cinematic Presentation</span>
+      <h2 class="text-section-title text-primary">Life Journey Animation</h2>
+      <p class="font-body-md text-sm text-stone-600 mt-2 max-w-xl mx-auto">
+        An animated visualization depicting the sacred life stages and teachings of Jagadguru Sri Adi Shankaracharya.
+      </p>
+      <div class="w-24 h-[1px] bg-sandalwood/40 mx-auto mt-4"></div>
+    </div>
+    
+    <div class="relative aspect-video w-full rounded-xl overflow-hidden shadow-lg border border-sandalwood/30 bg-black">
+      <video id="life-journey-video" class="w-full h-full object-cover" controls preload="metadata" poster="kalady_birthplace.png">
+        <source src="adi_shankara_animation.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
 </section>
 
 <!-- Modern Editorial Centered Timeline Section -->
@@ -708,7 +798,7 @@
       <!-- Content (Left Column on Desktop, Right Aligned) -->
       <div class="w-full md:w-[calc(50%-50px)] pl-12 md:pl-0 text-left md:text-right order-2 md:order-1 space-y-2">
         <span class="font-label-md text-secondary tracking-[0.2em] uppercase text-xs">C. 788 CE • KERALA</span>
-        <h3 class="font-display-md text-2xl md:text-3xl text-primary font-bold mt-1 mb-3">The Advent at Kalady</h3>
+        <h3 class="text-card-title text-primary font-bold mt-1 mb-3">The Advent at Kalady</h3>
         <p class="font-body-md text-stone-600 text-sm md:text-base leading-relaxed">
           Born to the pious Namboothiri couple, Shivaguru and Aryamba, in the village of Kalady on the banks of the Purna. His birth was the fulfillment of a divine promise by Lord Shiva to revitalize the Sanatana Dharma.
         </p>
@@ -743,7 +833,7 @@
       <!-- Content (Right Column on Desktop, Left Aligned) -->
       <div class="w-full md:w-[calc(50%-50px)] pl-12 md:pl-0 text-left order-2 md:order-2 space-y-2">
         <span class="font-label-md text-secondary tracking-[0.2em] uppercase text-xs">THE SANNYASA PERMISSION</span>
-        <h3 class="font-display-md text-2xl md:text-3xl text-primary font-bold mt-1 mb-3">Embracing the Path of Truth</h3>
+        <h3 class="text-card-title text-primary font-bold mt-1 mb-3">Embracing the Path of Truth</h3>
         <p class="font-body-md text-stone-600 text-sm md:text-base leading-relaxed">
           While bathing in the Purna river, a crocodile seized the young Shankara's leg. In that critical moment, he sought and obtained his mother Aryamba's permission to enter Sannyasa (renunciation), as "rebirth" through monastic vows would spare his life from the jaws of death.
         </p>
@@ -760,7 +850,7 @@
       <!-- Content (Left Column on Desktop, Right Aligned) -->
       <div class="w-full md:w-[calc(50%-50px)] pl-12 md:pl-0 text-left md:text-right order-2 md:order-1 space-y-2">
         <span class="font-label-md text-secondary tracking-[0.2em] uppercase text-xs">NARMADA RIVER BANKS</span>
-        <h3 class="font-display-md text-2xl md:text-3xl text-primary font-bold mt-1 mb-3">The Guru's Recognition</h3>
+        <h3 class="text-card-title text-primary font-bold mt-1 mb-3">The Guru's Recognition</h3>
         <p class="font-body-md text-stone-600 text-sm md:text-base leading-relaxed">
           Journeying to the banks of the Narmada, he found the cave of Sage Govinda Bhagavatpada. When asked "Who are you?", Shankara replied with the 'Dashashloki' (Nirvana Shatakam), proving his realized state. The Sage recognized him as an avatar of Shiva and initiated him.
         </p>
@@ -795,7 +885,7 @@
       <!-- Content (Right Column on Desktop, Left Aligned) -->
       <div class="w-full md:w-[calc(50%-50px)] pl-12 md:pl-0 text-left order-2 md:order-2 space-y-2">
         <span class="font-label-md text-secondary tracking-[0.2em] uppercase text-xs">VARANASI (KASHI)</span>
-        <h3 class="font-display-md text-2xl md:text-3xl text-primary font-bold mt-1 mb-3">The Bhashyas & Manisha Panchakam</h3>
+        <h3 class="text-card-title text-primary font-bold mt-1 mb-3">The Bhashyas & Manisha Panchakam</h3>
         <p class="font-body-md text-stone-600 text-sm md:text-base leading-relaxed">
           Residing at Kedar Ghat on the holy Ganges, Shankara composed his monumental commentaries (Bhashyas) on the Prasthana Traya. It was here that he met Lord Shiva disguised as a Chandala, prompting the creation of the <i>Manisha Panchakam</i>. Today, the Sringeri Shankar Math at Kedar Ghat stands as a living testament to his stay.
         </p>
@@ -812,7 +902,7 @@
       <!-- Content (Left Column on Desktop, Right Aligned) -->
       <div class="w-full md:w-[calc(50%-50px)] pl-12 md:pl-0 text-left md:text-right order-2 md:order-1 space-y-2">
         <span class="font-label-md text-secondary tracking-[0.2em] uppercase text-xs">DHARMA RAKSHANA</span>
-        <h3 class="font-display-md text-2xl md:text-3xl text-primary font-bold mt-1 mb-3">Establishing the Amnaya Peethams</h3>
+        <h3 class="text-card-title text-primary font-bold mt-1 mb-3">Establishing the Amnaya Peethams</h3>
         <p class="font-body-md text-stone-600 text-sm md:text-base leading-relaxed">
           To ensure the continuity of the tradition, the Jagadguru established four Peethams at the cardinal points of India: Sringeri (South), Dwarka (West), Puri (East), and Jyotirmath (North), each entrusted with one of the four Vedas.
         </p>
@@ -838,7 +928,7 @@
       <span class="material-symbols-outlined text-base">menu_book</span>
       <span class="font-label-md text-xs tracking-wider uppercase font-semibold">Advaita Philosophy Works</span>
     </div>
-    <h2 class="font-display-md text-4xl md:text-5xl text-primary font-bold">The Literary Legacy</h2>
+    <h2 class="text-section-title text-primary">The Literary Legacy</h2>
     <p class="font-body-md text-lg text-stone-600 max-w-2xl mx-auto">
       Beyond his extensive travels, Adi Shankara authored hundreds of texts, ranging from intense intellectual commentaries to soulful devotional stotras.
     </p>
@@ -938,7 +1028,7 @@
 <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors border-b border-transparent hover:border-primary w-fit" href="#">Contact Peetham</a>
 <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors border-b border-transparent hover:border-primary w-fit" href="#">Daily Quote</a>
 <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors border-b border-transparent hover:border-primary w-fit" href="#">Official Channels</a>
-<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors border-b border-transparent hover:border-primary w-fit cursor-pointer" onclick="openDonateModal()">Donate Online</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors border-b border-transparent hover:border-primary w-fit cursor-pointer" href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer">Donate Online</a>
 </div>
 <div class="flex flex-col space-y-6">
 <h4 class="font-label-md text-sm font-bold text-primary tracking-widest uppercase">Stay Connected</h4>
@@ -1034,10 +1124,10 @@
           <option>Credit / Debit Card</option>
         </select>
       </div>
-      <button type="submit"
-        class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3.5 rounded-xl font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 focus:outline-none font-bold">
-        Proceed to Secure Payment
-      </button>
+      <a href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer"
+        class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3.5 rounded-xl font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 focus:outline-none font-bold text-center inline-block">
+        Proceed to Sringeri Donation Portal
+      </a>
     </form>
   </div>
 </div>
@@ -1160,23 +1250,19 @@
 
     // Modals Management
     function openDonateModal() {
-      const m = document.getElementById('donate-modal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-      document.body.style.overflow = 'hidden';
+      window.location.href = 'https://donate.sringeri.net/donation';
     }
     function closeDonateModal() {
       const m = document.getElementById('donate-modal');
-      m.classList.remove('flex');
-      m.classList.add('hidden');
+      if (m) {
+        m.classList.remove('flex');
+        m.classList.add('hidden');
+      }
       document.body.style.overflow = '';
     }
     function handleDonateSubmit(event) {
-      event.preventDefault();
-      const name = document.getElementById('donate-name').value;
-      const amt = document.getElementById('donate-amount').value;
-      alert(`Pranams, ${name}. Your donation pledge of ₹${amt} is simulated. In a live system, this redirects to Sringeri Math's payment gateway.`);
-      closeDonateModal();
+      if (event) event.preventDefault();
+      window.location.href = 'https://donate.sringeri.net/donation';
     }
 
     // Close modal on escape or background click
@@ -1213,18 +1299,18 @@
         <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🛕 Temple Shrine & Aarti Timings</p>
         <p class="font-sans">The Sri Adi Shankara Janmabhoomi Kshethram is open daily. General visiting hours:</p>
         <ul class="list-none space-y-1.5 my-2 pl-1">
-          <li class="flex items-center gap-1.5"><span class="text-primary text-[10px]">🪷</span> <strong>Morning:</strong> 5:30 AM – 12:30 PM</li>
-          <li class="flex items-center gap-1.5"><span class="text-primary text-[10px]">🪷</span> <strong>Evening:</strong> 4:30 PM – 8:30 PM</li>
+          <li class="flex items-center gap-1.5"><span class="text-primary text-xs">🪷</span> <strong>Morning:</strong> 5:30 AM – 12:30 PM</li>
+          <li class="flex items-center gap-1.5"><span class="text-primary text-xs">🪷</span> <strong>Evening:</strong> 4:30 PM – 8:30 PM</li>
         </ul>
         <div class="border-t border-sandalwood/20 pt-2 my-2">
           <p class="font-semibold text-secondary text-xs uppercase tracking-wider mb-1">Daily Aarti & Puja Schedule:</p>
-          <ul class="list-disc pl-4 space-y-1 text-[11px] text-on-surface-variant">
+          <ul class="list-disc pl-4 space-y-1 text-xs text-on-surface-variant">
             <li><strong>06:30 AM:</strong> Usha Puja & Morning Aarti</li>
             <li><strong>12:00 PM:</strong> Maha Puja & Noon Aarti</li>
             <li><strong>08:00 PM:</strong> Athazha Puja & Night Aarti</li>
           </ul>
         </div>
-        <p class="text-[10px] text-on-surface-variant/75 italic">*Note: Timings are extended during major festivals such as Shankara Jayanthi (April/May) and Navaratri (September/October).*</p>
+        <p class="text-xs text-on-surface-variant/75 italic">*Note: Timings are extended during major festivals such as Shankara Jayanthi (April/May) and Navaratri (September/October).*</p>
       </div>`,
       sevas: `<div class="space-y-2">
         <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🙏 Sacred Seva Offerings</p>
@@ -1232,22 +1318,22 @@
         <ol class="list-decimal pl-4 space-y-2 my-2">
           <li>
             <strong>Adi Shankara Ashtothara Archana (₹150)</strong>
-            <p class="text-[11px] text-on-surface-variant">Worship of Sri Adi Shankaracharya chanting his 108 names, praying for wisdom and spiritual growth.</p>
+            <p class="text-xs text-on-surface-variant">Worship of Sri Adi Shankaracharya chanting his 108 names, praying for wisdom and spiritual growth.</p>
           </li>
           <li>
             <strong>Sharadamba Suhasini Puja (₹500)</strong>
-            <p class="text-[11px] text-on-surface-variant">Special offerings to Goddess Sharadamba (the deity of learning) for blessings of intellect and prosperity, performed on Fridays.</p>
+            <p class="text-xs text-on-surface-variant">Special offerings to Goddess Sharadamba (the deity of learning) for blessings of intellect and prosperity, performed on Fridays.</p>
           </li>
           <li>
             <strong>Veda Pathashala Support (Custom Donation)</strong>
-            <p class="text-[11px] text-on-surface-variant">Sponsor the boarding, lodging, and traditional scriptural education of young Vedic students.</p>
+            <p class="text-xs text-on-surface-variant">Sponsor the boarding, lodging, and traditional scriptural education of young Vedic students.</p>
           </li>
           <li>
             <strong>Annadanam Seva (₹1008)</strong>
-            <p class="text-[11px] text-on-surface-variant">Sponsor a day's traditional vegetarian meals (served on plantain leaves) for all visiting pilgrims.</p>
+            <p class="text-xs text-on-surface-variant">Sponsor a day's traditional vegetarian meals (served on plantain leaves) for all visiting pilgrims.</p>
           </li>
         </ol>
-        <p class="text-[10px] text-on-surface-variant/75 italic">To book sevas, click the <strong>Donate</strong> button at the top header or contact the Math office directly.</p>
+        <p class="text-xs text-on-surface-variant/75 italic">To book sevas, click the <strong>Donate</strong> button at the top header or contact the Math office directly.</p>
       </div>`,
       lodging: `<div class="space-y-2">
         <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🏡 Pilgrim Accommodation (Yatri Nivas)</p>
@@ -1579,10 +1665,8 @@
                   }
                 }
               } else {
-                // Different local page
-                e.preventDefault();
-                document.body.classList.add('page-exit');
-                setTimeout(() => { window.location.href = href; }, 150);
+                // Different local page - navigate immediately without flicker
+                window.location.href = href;
               }
             }
           } catch (err) {
@@ -1785,8 +1869,8 @@
       <a href="gallery.html" onclick="toggleMobileMenu()" class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Gallery</a>
     </div>
     
-    <button onclick="openDonateModal(); toggleMobileMenu();" class="mt-8 bg-gradient-to-r from-primary to-primary-container text-white border border-[#C5B48D]/30 px-8 py-3 font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] rounded-xl transition-all font-bold">
+    <a href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu();" class="mt-8 bg-gradient-to-r from-primary to-primary-container text-white border border-[#C5B48D]/30 px-8 py-3 font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] rounded-xl transition-all font-bold text-center inline-block">
       Donate
-    </button>
+    </a>
   </div>
 </body></html>

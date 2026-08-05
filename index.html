@@ -128,6 +128,62 @@
       font-family: 'Source Serif 4', ui-serif, Georgia, Cambria, serif;
     }
 
+    /* Standardized Typography System */
+    .text-hero-title {
+        font-family: 'EB Garamond', serif;
+        font-size: clamp(2.25rem, 5vw, 3.75rem);
+        line-height: 1.15;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+    }
+    .text-section-title {
+        font-family: 'EB Garamond', serif;
+        font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+        line-height: 1.2;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+    }
+    .text-card-title {
+        font-family: 'EB Garamond', serif;
+        font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+        line-height: 1.3;
+        font-weight: 700;
+    }
+    .text-subhead {
+        font-family: 'EB Garamond', serif;
+        font-size: 1.125rem;
+        line-height: 1.4;
+        font-weight: 600;
+    }
+    .text-lead {
+        font-family: 'Source Serif 4', serif;
+        font-size: 1.125rem;
+        line-height: 1.7;
+    }
+    .text-body-std {
+        font-family: 'Source Serif 4', serif;
+        font-size: 1rem;
+        line-height: 1.65;
+    }
+    .text-body-sm {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.875rem;
+        line-height: 1.5;
+    }
+    .text-badge-label {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        line-height: 1.4;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+    .text-caption-meta {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        line-height: 1.4;
+    }
+
     input,
     select,
     textarea,
@@ -336,10 +392,22 @@
       transition: opacity 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
     }
 
-    .page-exit #page-wrapper {
-      opacity: 0 !important;
-      transform: translateY(-8px) !important;
-      transition: opacity 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    /* Anti-Flicker & Hardware Acceleration */
+    html, body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .reveal-item {
+      will-change: opacity, transform;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+
+    header, nav, #donate-modal, #shrine-modal, #chatbot-window, .premium-card {
+      backface-visibility: hidden;
+      transform: translateZ(0);
     }
 
     /* ========= IMMERSIVE ADDITIONS ========= */
@@ -502,7 +570,7 @@
       bottom: 10%;
       right: 6%;
       font-family: 'EB Garamond', serif;
-      font-size: clamp(6rem, 15vw, 14rem);
+      font-size: clamp(4rem, 10vw, 8rem);
       color: #ffffff;
       pointer-events: none;
       user-select: none;
@@ -861,10 +929,10 @@
             href="gallery.html" id="nav-gallery">Gallery</a>
         </div>
         <div class="flex items-center gap-1.5 lg:gap-3 flex-shrink-0">
-          <button onclick="openDonateModal()"
-            class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-2.5 lg:px-4 xl:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 rounded-lg whitespace-nowrap">
+          <a href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer"
+            class="bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed border border-tertiary-fixed/30 px-2.5 lg:px-4 xl:px-6 py-2 font-label-md text-label-md uppercase tracking-widest hover:shadow-[0_4px_12px_rgba(87,0,0,0.2)] hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 rounded-lg whitespace-nowrap inline-block text-center">
             Donate
-          </button>
+          </a>
         </div>
         <!-- Mobile Menu Button -->
         <button onclick="toggleMobileMenu()"
@@ -929,7 +997,7 @@
         class="py-section-gap-lg px-gutter max-w-container-max mx-auto text-center transition-all duration-1000 opacity-100">
         <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.4em] block mb-6 reveal-item">Om
           Namo Narayanaya</span>
-        <h2 class="font-headline-lg text-display-lg text-primary mb-2 tracking-normal reveal-item reveal-delay-100">
+        <h2 class="text-section-title text-primary mb-2">
           Sri Adi Shankara Janmabhoomi Kshethram
         </h2>
         <div class="flex items-center justify-center my-6 space-x-4 opacity-80 reveal-item reveal-delay-200">
@@ -958,495 +1026,7 @@
         </div>
       </section>
 
-      <!-- Scroll-Animated Cinematic Video Section -->
-      <style>
-        #sacred-journey-scroll-container {
-          position: relative;
-          height: 350vh;
-          background-color: #0c0806;
-        }
 
-        #sacred-journey-sticky {
-          position: sticky;
-          top: 0;
-          height: 100vh;
-          width: 100%;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: #0c0806;
-          border-top: 2px solid rgba(194, 178, 128, 0.25);
-          border-bottom: 2px solid rgba(194, 178, 128, 0.25);
-        }
-
-        #sacred-journey-video {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          opacity: 0.95;
-          pointer-events: none;
-        }
-
-        .cinematic-vignette {
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(circle at center, transparent 40%, rgba(12, 8, 6, 0.35) 75%, rgba(12, 8, 6, 0.85) 100%);
-          pointer-events: none;
-          z-index: 5;
-        }
-
-        .narrative-overlay {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          padding: 0 8%;
-          z-index: 10;
-          pointer-events: none;
-        }
-
-        .narratives-wrapper {
-          position: relative;
-          width: 100%;
-          height: 100%;
-        }
-
-        .narrative-card {
-          position: absolute;
-          left: 0;
-          top: 50%;
-          transform: translateY(-30%);
-          opacity: 0;
-          pointer-events: none;
-          max-width: 520px;
-          background: rgba(22, 17, 15, 0.8);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(194, 178, 128, 0.3);
-          padding: 2.5rem;
-          border-radius: 1.25rem;
-          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65), 0 0 50px rgba(122, 12, 17, 0.08);
-          transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
-          will-change: transform, opacity;
-          z-index: 10;
-        }
-
-        @media (max-width: 768px) {
-          .narrative-overlay {
-            padding: 0 5%;
-          }
-          .narrative-card {
-            left: 0;
-            right: 0;
-            max-width: 100%;
-            padding: 1.75rem;
-          }
-        }
-
-        .narrative-card.active {
-          transform: translateY(-50%);
-          opacity: 1;
-          pointer-events: auto;
-        }
-
-        /* Timeline Navigation */
-        .timeline-indicator {
-          position: absolute;
-          right: 3rem;
-          top: 50%;
-          transform: translateY(-50%);
-          display: flex;
-          flex-direction: column;
-          gap: 1.75rem;
-          z-index: 20;
-        }
-
-        @media (max-width: 768px) {
-          .timeline-indicator {
-            right: 1.25rem;
-            gap: 1.25rem;
-          }
-        }
-
-        .timeline-step {
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          gap: 1.25rem;
-          cursor: pointer;
-          opacity: 0.4;
-          transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-
-        .timeline-step:hover,
-        .timeline-step.active {
-          opacity: 1;
-          transform: scale(1.05);
-        }
-
-        .timeline-label {
-          color: rgba(255, 255, 255, 0.85);
-          font-family: 'Inter', sans-serif;
-          font-size: 10px;
-          text-transform: uppercase;
-          letter-spacing: 0.2em;
-          opacity: 0;
-          transform: translateX(10px);
-          transition: opacity 0.4s ease, transform 0.4s ease;
-          pointer-events: none;
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-          font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-          .timeline-label {
-            display: none;
-          }
-        }
-
-        .timeline-step:hover .timeline-label,
-        .timeline-step.active .timeline-label {
-          opacity: 1;
-          transform: translateX(0);
-        }
-
-        .timeline-dot {
-          width: 14px;
-          height: 14px;
-          border-radius: 50%;
-          border: 1px solid rgba(194, 178, 128, 0.6);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(12, 8, 6, 0.8);
-          transition: all 0.4s ease;
-        }
-
-        .timeline-dot::after {
-          content: '';
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: transparent;
-          transition: all 0.4s ease;
-        }
-
-        .timeline-step.active .timeline-dot {
-          border-color: #ffe16d;
-          box-shadow: 0 0 12px rgba(255, 225, 109, 0.6);
-          background: #570000;
-        }
-
-        .timeline-step.active .timeline-dot::after {
-          background: #ffe16d;
-        }
-
-        /* Scroll Hint */
-        .scroll-down-hint {
-          position: absolute;
-          bottom: 2.5rem;
-          left: 50%;
-          transform: translateX(-50%);
-          color: rgba(255, 255, 255, 0.6);
-          font-family: 'Inter', sans-serif;
-          font-size: 10px;
-          text-transform: uppercase;
-          letter-spacing: 0.35em;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 0.5rem;
-          z-index: 10;
-          animation: float-hint 2.5s infinite ease-in-out;
-          font-weight: 500;
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        @keyframes float-hint {
-          0%, 100% {
-            transform: translate(-50%, 0);
-            opacity: 0.5;
-          }
-          50% {
-            transform: translate(-50%, -8px);
-            opacity: 0.95;
-          }
-        }
-
-
-      </style>
-
-      <section id="sacred-journey-scroll-container">
-        <div id="sacred-journey-sticky">
-          <!-- Vignette shadow layers for visual quality -->
-          <div class="cinematic-vignette"></div>
-
-          <!-- Native Video Element (plays inline, preloaded for scrub speed) -->
-          <video id="sacred-journey-video" preload="auto" loop muted playsinline>
-            <source src="adi_shankara_animation.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-
-          <!-- Subtle background audio from the original video's audio track -->
-          <audio id="cinematic-background-audio" loop preload="auto">
-            <source src="adi_shankara_animation.mp4" type="audio/mp4">
-          </audio>
-
-
-
-          <!-- Narrative Overlays (arranged stacked absolutely, crossfading) -->
-          <div class="narrative-overlay">
-            <div class="narratives-wrapper">
-              <!-- Stage 1 Card -->
-              <div id="narrative-stage-1" class="narrative-card active">
-                <span class="text-secondary font-label-md text-xs uppercase tracking-widest block mb-2">Sacred Birth</span>
-                <h3 class="font-display-lg text-3xl md:text-4xl text-[#ffe16d] font-bold tracking-wide leading-tight">The Birth at Kalady</h3>
-                <div class="h-[1px] w-20 bg-gradient-to-r from-sandalwood via-sandalwood/20 to-transparent my-3.5"></div>
-                <p class="font-serif italic text-white/90 text-sm md:text-base leading-relaxed">
-                  Jagadguru Adi Shankaracharya was born on the holy banks of the River Periyar, in the quiet village of Kalady, Kerala, fulfilling the prayers of his devout parents, Shivaguru and Aryamba.
-                </p>
-              </div>
-
-              <!-- Stage 2 Card -->
-              <div id="narrative-stage-2" class="narrative-card">
-                <span class="text-secondary font-label-md text-xs uppercase tracking-widest block mb-2">Spiritual Quest</span>
-                <h3 class="font-display-lg text-3xl md:text-4xl text-[#ffe16d] font-bold tracking-wide leading-tight">Renunciation & Guru</h3>
-                <div class="h-[1px] w-20 bg-gradient-to-r from-sandalwood via-sandalwood/20 to-transparent my-3.5"></div>
-                <p class="font-serif italic text-white/90 text-sm md:text-base leading-relaxed">
-                  Embracing sannyasa (asceticism) at a young age, the Master journeyed north to find his Guru, Sri Govinda Bhagavatpada, on the sacred banks of the River Narmada, learning the core Advaita philosophy.
-                </p>
-              </div>
-
-              <!-- Stage 3 Card -->
-              <div id="narrative-stage-3" class="narrative-card">
-                <span class="text-secondary font-label-md text-xs uppercase tracking-widest block mb-2">Vedic Revival</span>
-                <h3 class="font-display-lg text-3xl md:text-4xl text-[#ffe16d] font-bold tracking-wide leading-tight">Commentaries at Kashi</h3>
-                <div class="h-[1px] w-20 bg-gradient-to-r from-sandalwood via-sandalwood/20 to-transparent my-3.5"></div>
-                <p class="font-serif italic text-white/90 text-sm md:text-base leading-relaxed">
-                  In the holy city of Kashi, Adi Shankara authored his monumental commentaries (Bhashyas) on the Upanishads, Brahmasutras, and Bhagavad Gita, systematically establishing the philosophy of non-dual Vedanta.
-                </p>
-              </div>
-
-              <!-- Stage 4 Card -->
-              <div id="narrative-stage-4" class="narrative-card">
-                <span class="text-secondary font-label-md text-xs uppercase tracking-widest block mb-2">Eternal Guardian</span>
-                <h3 class="font-display-lg text-3xl md:text-4xl text-[#ffe16d] font-bold tracking-wide leading-tight">The Unbroken Lineage</h3>
-                <div class="h-[1px] w-20 bg-gradient-to-r from-sandalwood via-sandalwood/20 to-transparent my-3.5"></div>
-                <p class="font-serif italic text-white/90 text-sm md:text-base leading-relaxed">
-                  To safeguard Sanatana Dharma, the Great Master established four main Mathas in the four corners of India, setting up an eternal lineage of Jagadgurus to guide humanity.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Vertical Navigation Indicators -->
-          <div class="timeline-indicator">
-            <div onclick="scrollToJourneyStage(0)" id="timeline-step-1" class="timeline-step active">
-              <span class="timeline-label">Birth at Kalady</span>
-              <div class="timeline-dot"></div>
-            </div>
-            <div onclick="scrollToJourneyStage(1)" id="timeline-step-2" class="timeline-step">
-              <span class="timeline-label">Search for Guru</span>
-              <div class="timeline-dot"></div>
-            </div>
-            <div onclick="scrollToJourneyStage(2)" id="timeline-step-3" class="timeline-step">
-              <span class="timeline-label">Commentaries at Kashi</span>
-              <div class="timeline-dot"></div>
-            </div>
-            <div onclick="scrollToJourneyStage(3)" id="timeline-step-4" class="timeline-step">
-              <span class="timeline-label">Establishing Mathas</span>
-              <div class="timeline-dot"></div>
-            </div>
-          </div>
-
-          <!-- Animated Scroll Hint -->
-          <div class="scroll-down-hint">
-            <span>Scroll the Legacy</span>
-            <span class="material-symbols-outlined text-sm">keyboard_double_arrow_down</span>
-          </div>
-        </div>
-      </section>
-
-      <script>
-        (function () {
-          const container = document.getElementById('sacred-journey-scroll-container');
-          const video = document.getElementById('sacred-journey-video');
-          const cinematicAudio = document.getElementById('cinematic-background-audio');
-          
-          let targetPct = 0;
-          let lastPct = 0;
-          let isIntersecting = false;
-          let userWantsMusic = true; // Play by default
-
-          // Helper to trigger play unmuted with browser autoplay fallbacks
-          function playCinematicAudio() {
-            if (!cinematicAudio) return;
-
-            // Pause global ambient audio to avoid overlapping
-            const globalAudio = document.getElementById('ambient-audio');
-            if (globalAudio && !globalAudio.paused) {
-              if (window.toggleAmbientAudio) {
-                window.toggleAmbientAudio(); // Pauses global audio and syncs icon
-              }
-            }
-
-            cinematicAudio.muted = false;
-            cinematicAudio.play().catch(err => {
-              console.warn("Cinematic audio autoplay blocked. Awaiting user gesture.", err);
-              // Setup fallback triggers on first user interaction anywhere
-              const startOnGesture = () => {
-                if (cinematicAudio && cinematicAudio.paused && isIntersecting && userWantsMusic) {
-                  // Double check global audio is paused
-                  if (globalAudio && !globalAudio.paused) {
-                    if (window.toggleAmbientAudio) {
-                      window.toggleAmbientAudio();
-                    }
-                  }
-                  cinematicAudio.muted = false;
-                  cinematicAudio.play().catch(e => console.warn(e));
-                }
-                window.removeEventListener('click', startOnGesture);
-                window.removeEventListener('touchstart', startOnGesture);
-                window.removeEventListener('keydown', startOnGesture);
-                window.removeEventListener('scroll', startOnGesture);
-              };
-              window.addEventListener('click', startOnGesture);
-              window.addEventListener('touchstart', startOnGesture);
-              window.addEventListener('keydown', startOnGesture);
-              window.addEventListener('scroll', startOnGesture);
-            });
-          }
-
-          // Use IntersectionObserver to pause loop/actions when out of viewport
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              isIntersecting = entry.isIntersecting;
-              
-              if (!isIntersecting) {
-                // Pause cinematic music when scrolling away
-                if (cinematicAudio && !cinematicAudio.paused) {
-                  cinematicAudio.pause();
-                }
-              } else {
-                // Resume cinematic music if allowed
-                if (userWantsMusic) {
-                  playCinematicAudio();
-                }
-              }
-            });
-          }, { threshold: 0.01 });
-          observer.observe(container);
-
-          // Calculate current scroll ratio within container boundaries
-          function updateScrollRatio() {
-            if (!container) return;
-            const rect = container.getBoundingClientRect();
-            const totalScrollable = rect.height - window.innerHeight;
-            if (totalScrollable <= 0) return;
-            
-            const pct = -rect.top / totalScrollable;
-            targetPct = Math.max(0, Math.min(1, pct));
-          }
-
-          window.addEventListener('scroll', updateScrollRatio, { passive: true });
-          window.addEventListener('resize', updateScrollRatio, { passive: true });
-          
-          // Initial trigger
-          setTimeout(updateScrollRatio, 150);
-
-          // smooth lerped requestAnimationFrame loop
-          function renderLoop() {
-            if (isIntersecting && video) {
-              if (video.readyState >= 2 && video.duration) {
-                // smooth lerp
-                const diff = targetPct - lastPct;
-                if (Math.abs(diff) > 0.001) {
-                  lastPct += diff * 0.12; // Lerp easing
-                  video.currentTime = Math.max(0, Math.min(video.duration - 0.02, lastPct * video.duration));
-                }
-                
-                updateVisuals(lastPct);
-              }
-            }
-            requestAnimationFrame(renderLoop);
-          }
-          requestAnimationFrame(renderLoop);
-
-          function updateVisuals(pct) {
-            // Define active stages ranges
-            const stages = [
-              { id: 'narrative-stage-1', min: 0.0, max: 0.22, dotId: 'timeline-step-1' },
-              { id: 'narrative-stage-2', min: 0.25, max: 0.47, dotId: 'timeline-step-2' },
-              { id: 'narrative-stage-3', min: 0.50, max: 0.72, dotId: 'timeline-step-3' },
-              { id: 'narrative-stage-4', min: 0.75, max: 1.0, dotId: 'timeline-step-4' }
-            ];
-
-            let activeIdx = -1;
-
-            stages.forEach((stage, idx) => {
-              const card = document.getElementById(stage.id);
-              const dot = document.getElementById(stage.dotId);
-              
-              if (pct >= stage.min && pct <= stage.max) {
-                if (card) card.classList.add('active');
-                if (dot) dot.classList.add('active');
-                activeIdx = idx;
-              } else {
-                if (card) card.classList.remove('active');
-                if (dot) dot.classList.remove('active');
-              }
-            });
-
-            // Fallback: If transitioning between stages, ensure the nearest dot is active
-            if (activeIdx === -1) {
-              let nearestIdx = 0;
-              let minDiff = Infinity;
-              stages.forEach((stage, idx) => {
-                const center = (stage.min + stage.max) / 2;
-                const diff = Math.abs(pct - center);
-                if (diff < minDiff) {
-                  minDiff = diff;
-                  nearestIdx = idx;
-                }
-              });
-              const nearestDot = document.getElementById(stages[nearestIdx].dotId);
-              if (nearestDot) nearestDot.classList.add('active');
-            }
-          }
-
-          // Smooth navigation to a specific stage via scrolling
-          window.scrollToJourneyStage = function (idx) {
-            if (!container) return;
-            const rect = container.getBoundingClientRect();
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const containerTopY = rect.top + scrollTop;
-            const totalScrollable = rect.height - window.innerHeight;
-
-            const targetPcts = [0.05, 0.35, 0.60, 0.85];
-            const targetScrollY = containerTopY + (targetPcts[idx] * totalScrollable);
-
-            window.scrollTo({
-              top: targetScrollY,
-              behavior: 'smooth'
-            });
-          };
-
-          // Pause cinematic audio if the global ambient audio starts playing
-          document.addEventListener('DOMContentLoaded', () => {
-            const globalAudio = document.getElementById('ambient-audio');
-            if (globalAudio) {
-              globalAudio.addEventListener('play', () => {
-                if (cinematicAudio && !cinematicAudio.paused) {
-                  cinematicAudio.pause();
-                  userWantsMusic = false;
-                }
-              });
-            }
-          });
-        })();
-      </script>
 
       <!-- Sacred Shrines (Bento-style Grid) -->
       <section id="shrine-grid"
@@ -1454,8 +1034,7 @@
         <div class="text-center mb-16 reveal-item">
           <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.3em] block mb-3">Sacred
             Shrines</span>
-          <h2 class="font-display-lg text-display-lg text-primary tracking-tight">The Holy Shrines of the Birthplace
-          </h2>
+          <h2 class="text-section-title text-primary">The Holy Shrines of the Birthplace</h2>
           <p class="font-serif italic text-primary/95 text-lg md:text-xl mt-4">
             "नमामि शङ्कराचार्यं सर्वलोकैकशरणम्"
           </p>
@@ -1549,8 +1128,7 @@
           <span
             class="font-label-md text-label-md text-sacred-orange uppercase tracking-[0.3em] block reveal-item reveal-delay-100">The
             Power of Devotion</span>
-          <h2
-            class="font-display-lg text-3xl md:text-display-lg text-primary leading-tight tracking-tight reveal-item reveal-delay-200">
+          <h2 class="text-section-title text-primary">
             The Kanakadhara Stotram: A Rain of Gold
           </h2>
           <p class="font-serif italic text-primary text-base md:text-lg my-3 reveal-item reveal-delay-250">
@@ -1587,7 +1165,7 @@
         <div class="text-center mb-16 reveal-item">
           <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.3em] block mb-3">Vedantic
             Sanctuary</span>
-          <h2 class="font-display-lg text-display-lg text-primary tracking-tight">The Sanctuary of Advaita</h2>
+          <h2 class="text-section-title text-primary">The Sanctuary of Advaita</h2>
           <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl mx-auto mt-4 leading-relaxed">
             Step into the spiritual presence of Adi Shankara. Reflect on self-inquiry dialogue or immerse yourself in
             the sacred vibrations of temple chants.
@@ -1747,7 +1325,7 @@
       <section id="pilgrimage"
         class="py-section-gap-lg px-gutter max-w-container-max mx-auto transition-all duration-1000 opacity-100">
         <div class="text-center mb-12 reveal-item">
-          <h2 class="font-headline-lg text-headline-lg text-primary mb-2 tracking-tight">Plan Your Pilgrimage</h2>
+          <h2 class="text-section-title text-primary mb-2">Plan Your Pilgrimage</h2>
           <p class="font-serif italic text-primary text-base md:text-lg my-3">
             "तीर्थयात्रा परा पुंसां सर्वपापप्रणाशिनी"
           </p>
@@ -1960,16 +1538,16 @@
       </div>
       <div class="flex flex-wrap justify-center gap-10">
         <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
-          href="https://sringeri.net" target="_blank" rel="noopener">Sringeri Math</a>
+          href="https://sringeri.net" target="_blank" rel="noopener noreferrer">Sringeri Math</a>
         <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
-          href="https://sringeri.net/branches/kerala/kalady" target="_blank" rel="noopener">Official Kalady Page</a>
+          href="https://sringeri.net/branches/kerala/kalady" target="_blank" rel="noopener noreferrer">Official Kalady Page</a>
         <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
-          onclick="openDonateModal()">Donate Online</a>
+          href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer">Donate Online</a>
         <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
           onclick="selectPilgrimageTab(3); document.getElementById('pilgrimage').scrollIntoView({behavior: 'smooth'})">Directions</a>
       </div>
       <div class="flex gap-8 text-on-surface-variant/70">
-        <a class="hover:text-primary transition-colors" href="https://sringeri.net" target="_blank" rel="noopener"><span
+        <a class="hover:text-primary transition-colors" href="https://sringeri.net" target="_blank" rel="noopener noreferrer"><span
             class="material-symbols-outlined text-2xl">public</span></a>
         <a class="hover:text-primary transition-colors" href="mailto:kalady@sringeri.net"><span
             class="material-symbols-outlined text-2xl">mail</span></a>
@@ -2063,10 +1641,10 @@
             <option>Credit / Debit Card</option>
           </select>
         </div>
-        <button type="submit"
-          class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3.5 rounded-xl font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 focus:outline-none font-bold">
-          Proceed to Secure Payment
-        </button>
+        <a href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer"
+          class="w-full mt-4 bg-gradient-to-r from-primary to-primary-container text-white border border-sandalwood/30 py-3.5 rounded-xl font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 focus:outline-none font-bold text-center inline-block">
+          Proceed to Sringeri Donation Portal
+        </a>
       </form>
     </div>
   </div>
@@ -2231,23 +1809,19 @@
 
     // Modals Management
     function openDonateModal() {
-      const m = document.getElementById('donate-modal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-      document.body.style.overflow = 'hidden';
+      window.location.href = 'https://donate.sringeri.net/donation';
     }
     function closeDonateModal() {
       const m = document.getElementById('donate-modal');
-      m.classList.remove('flex');
-      m.classList.add('hidden');
+      if (m) {
+        m.classList.remove('flex');
+        m.classList.add('hidden');
+      }
       document.body.style.overflow = '';
     }
     function handleDonateSubmit(event) {
-      event.preventDefault();
-      const name = document.getElementById('donate-name').value;
-      const amt = document.getElementById('donate-amount').value;
-      alert(`Pranams, ${name}. Your donation pledge of ₹${amt} is simulated. In a live system, this redirects to Sringeri Math's payment gateway.`);
-      closeDonateModal();
+      if (event) event.preventDefault();
+      window.location.href = 'https://donate.sringeri.net/donation';
     }
 
     // Shrine Modals
@@ -3180,10 +2754,8 @@
                   }
                 }
               } else {
-                // Different local page
-                e.preventDefault();
-                document.body.classList.add('page-exit');
-                setTimeout(() => { window.location.href = href; }, 150);
+                // Different local page - navigate immediately without flicker
+                window.location.href = href;
               }
             }
           } catch (err) {
@@ -3329,10 +2901,10 @@
         class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Gallery</a>
     </div>
 
-    <button onclick="openDonateModal(); toggleMobileMenu();"
-      class="mt-8 bg-gradient-to-r from-primary to-primary-container text-white border border-[#C5B48D]/30 px-8 py-3 font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] rounded-xl transition-all font-bold">
+    <a href="https://donate.sringeri.net/donation" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu();"
+      class="mt-8 bg-gradient-to-r from-primary to-primary-container text-white border border-[#C5B48D]/30 px-8 py-3 font-label-md text-xs uppercase tracking-widest hover:shadow-[0_8px_20px_rgba(87,0,0,0.25)] rounded-xl transition-all font-bold text-center inline-block">
       Donate
-    </button>
+    </a>
   </div>
 </body>
 
