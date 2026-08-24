@@ -406,8 +406,7 @@
 
     /* Parallax Hero Image */
     #hero-parallax-img {
-      transform: translateY(0);
-      transition: transform 0.05s linear;
+      transform: translate3d(0, 0, 0);
       will-change: transform;
       height: 115%;
       top: -7.5%;
@@ -2473,7 +2472,7 @@
 
         // Hero Image Parallax
         if (heroImg && heroSection && scrollY <= heroSection.offsetHeight) {
-          heroImg.style.transform = 'translateY(' + (scrollY * 0.35) + 'px)';
+          heroImg.style.transform = 'translate3d(0, ' + (scrollY * 0.35) + 'px, 0)';
         }
 
         // Shrine Cards Image Parallax
