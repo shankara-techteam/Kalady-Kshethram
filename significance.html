@@ -342,6 +342,8 @@
       <div class="md:col-span-6 order-2 md:order-1 reveal-item reveal-delay-100">
         <!-- Delicate Journey Spine -->
         <div class="timeline-spine pl-8 space-y-12">
+          <!-- Animated Vertical Progress Line -->
+          <div id="vertical-progress-line" class="absolute left-0 top-0 w-[1px] bg-primary z-0 shadow-[0_0_8px_rgba(87,0,0,0.5)] pointer-events-none" style="height: 0%;"></div>
           
           <div class="relative">
             <div class="absolute -left-[36px] w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0 shadow-[0_0_8px_rgba(87,0,0,0.3)]"></div>
@@ -742,6 +744,7 @@
           header.classList.remove('scrolled');
         }
       }
+      updateVerticalTimelineProgress();
     });
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -771,7 +774,24 @@
           header.classList.remove('scrolled');
         }
       }
+      updateVerticalTimelineProgress();
     }, { passive: true });
+
+    /* Vertical Progress Line Logic */
+    function updateVerticalTimelineProgress() {
+      const line = document.getElementById('vertical-progress-line');
+      const spine = document.querySelector('.timeline-spine');
+      if (!line || !spine) return;
+
+      const rect = spine.getBoundingClientRect();
+      const distanceFromMiddle = (window.innerHeight / 2) - rect.top;
+      const totalHeight = rect.height;
+
+      let pct = distanceFromMiddle / totalHeight;
+      pct = Math.min(1, Math.max(0, pct)); // Clamp 0 to 1
+
+      line.style.height = `${pct * 100}%`;
+    }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
