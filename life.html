@@ -9,7 +9,7 @@
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js" as="script">
 <link rel="preload" href="https://lh3.googleusercontent.com/aida-public/AB6AXuCPSrhBPBBptxiUqW8Jouqf2yvxBYovt58K1iOMOgE520dSaceJNJOyCAczFps12mlikMZ7uAWRu-WFkdBE3ZKHGECReTND37uY27olgERN4edD1UQwE74crgide6Ua8-rHinuPF4i2sdDMnsRxyaOgBiROdzZnZKd-rXGRp_g9VG_tfU1XrZco_n1Fc3oXSLdY4ycEq0Tl84GNDnnPl7hdLlyIfKF5B8-mnqz-oIHNYuR4JBieAxyohg" as="image">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
 <script id="tailwind-config">
@@ -176,24 +176,7 @@
             font-family: inherit;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-            background-color: #eaead1;
-        }
-        ::-webkit-scrollbar-track {
-            background-color: #eaead1;
-            border-left: 1px solid rgba(194, 178, 128, 0.3);
-        }
-        ::-webkit-scrollbar-thumb {
-            background-color: #C2B280;
-            border-radius: 9999px;
-            border: 2px solid #eaead1;
-            transition: background-color 0.3s ease;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: #8f4e00;
-        }
+        /* Removed custom scrollbar for better native OS overlay scrollbar support */
 
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -204,7 +187,7 @@
         }
 
         .lotus-bullet::before {
-            content: '🪷';
+            content: '✦';
             margin-right: 8px;
             font-size: 14px;
             color: #570000;
@@ -314,9 +297,7 @@
         
 
         
-        .oil-painting-effect {
-            filter: sepia(0.08) contrast(1.05) saturate(1.08);
-        }
+        /* Image hover effects */
         .vignette-overlay {
             background: radial-gradient(circle, transparent 65%, rgba(87, 0, 0, 0.08) 100%);
         }
@@ -450,73 +431,9 @@
         .quote-animate { animation: quote-fade 0.8s cubic-bezier(0.16,1,0.3,1) both; }
         header.scrolled { backdrop-filter: blur(16px); }
 
-        /* Ambient Audio Toggle Button */
-        #ambient-toggle {
-            position: relative;
-            width: 40px;
-            height: 40px;
-            background: rgba(251,251,226,0.88);
-            border: 1px solid rgba(194,178,128,0.55);
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-            box-shadow: 0 2px 8px rgba(87,0,0,0.08);
-            flex-shrink: 0;
-        }
-        #ambient-toggle:hover {
-            transform: scale(1.08);
-            box-shadow: 0 4px 18px rgba(87,0,0,0.2);
-        }
-        #ambient-toggle svg {
-            width: 18px;
-            height: 18px;
-            color: #570000;
-            transition: opacity 0.3s;
-        }
+        /* Ambient Audio Removed */
 
-
-        /* Pulse ring on audio toggle when playing */
-        @keyframes pulse-ring {
-            0%   { transform: scale(1);   opacity: 0.7; }
-            100% { transform: scale(1.6); opacity: 0; }
-        }
-        #ambient-toggle.playing::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 9999px;
-            border: 2px solid rgba(87,0,0,0.4);
-            animation: pulse-ring 1.5s ease-out infinite;
-        }
-
-        /* Immersive Background Animations */
-        @keyframes blob-float {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(30px, -50px) scale(1.05) rotate(120deg); }
-            66% { transform: translate(-20px, 20px) scale(0.95) rotate(240deg); }
-            100% { transform: translate(0, 0) scale(1) rotate(360deg); }
-        }
-        @keyframes blob-float-reverse {
-            0% { transform: translate(0, 0) scale(1) rotate(360deg); }
-            33% { transform: translate(-30px, 40px) scale(0.95) rotate(240deg); }
-            66% { transform: translate(40px, -20px) scale(1.05) rotate(120deg); }
-            100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-        }
-        .animate-blob-slow {
-            animation: blob-float 25s infinite ease-in-out;
-        }
-        .animate-blob-slower {
-            animation: blob-float-reverse 35s infinite ease-in-out;
-        }
-        .parallax-bg-text {
-            font-family: 'EB Garamond', serif;
-            font-style: italic;
-            will-change: transform;
-            transform-origin: center;
-        }
+        /* Immersive Background Animations - REMOVED */
 
         /* Modern Editorial Layout styling with matching theme colors */
         .parchment-texture {
@@ -537,26 +454,7 @@
             box-shadow: 0 0 20px rgba(143, 78, 0, 0.4) !important;
         }
 
-        /* Flowing Wave Animations */
-        @keyframes wave-sway {
-            0%, 100% { transform: translateY(0) scaleY(1); }
-            50% { transform: translateY(-15px) scaleY(1.05); }
-        }
-        @keyframes wave-flow {
-            to { stroke-dashoffset: -2000; }
-        }
-        .animate-wave-1 {
-            stroke-dasharray: 800;
-            animation: wave-sway 18s infinite ease-in-out, wave-flow 45s infinite linear;
-        }
-        .animate-wave-2 {
-            stroke-dasharray: 1000;
-            animation: wave-sway 25s infinite ease-in-out, wave-flow 60s infinite linear;
-        }
-        .animate-wave-3 {
-            stroke-dasharray: 600;
-            animation: wave-sway 30s infinite ease-in-out, wave-flow 80s infinite linear;
-        }
+        /* Flowing Wave Animations - REMOVED */
 
         /* Spinning Slow Medallions */
         @keyframes spin-slow {
@@ -608,12 +506,12 @@
             overflow: hidden;
         }
         .hymn-box::after {
-            content: '🪷';
+            content: '✦';
             position: absolute;
             right: 8px;
             bottom: -4px;
-            font-size: 2.25rem;
-            opacity: 0.05;
+            font-size: 4rem;
+            opacity: 0.03;
             color: #570000;
             pointer-events: none;
         }
@@ -655,7 +553,7 @@
         }
 </style>
 </head>
-<body class="parchment-texture text-on-surface antialiased">
+<body class="parchment-texture text-on-surface antialiased overflow-x-hidden">
 <div id="scroll-progress" style="background-color: #8f4e00;"></div>
 <script>
     window.toggleMobileMenu = function () {
@@ -682,27 +580,8 @@
     document.body.classList.add('page-loaded');
 </script>
 <div id="page-wrapper" class="relative">
-  <!-- Immersive Floating Background Layers -->
-  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" id="immersive-bg">
-    <!-- Wavy Water/Smoke Gradient Blobs -->
-    <div class="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-sandalwood/12 to-primary/6 blur-[120px] -top-20 -left-40 animate-blob-slow"></div>
-    <div class="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-tertiary/6 via-sandalwood/6 to-transparent blur-[160px] top-[40vh] -right-80 animate-blob-slower"></div>
-    <div class="absolute w-[700px] h-[700px] rounded-full bg-gradient-to-tr from-primary/6 via-transparent to-sandalwood/12 blur-[140px] bottom-[10vh] -left-60 animate-blob-slow"></div>
-    
-    <!-- Flowing Wave Paths -->
-    <svg class="absolute w-full h-full opacity-[0.06] z-10" viewBox="0 0 1440 800" preserveAspectRatio="none">
-      <path d="M0,150 C150,220 350,80 500,150 C650,220 850,80 1000,150 C1150,220 1350,80 1440,150" fill="none" stroke="#8f4e00" stroke-width="2" class="animate-wave-1"></path>
-      <path d="M0,250 C200,120 400,320 600,250 C800,180 1000,380 1200,250 C1300,190 1380,310 1440,250" fill="none" stroke="#570000" stroke-width="1.5" class="animate-wave-2"></path>
-      <path d="M0,350 C100,420 250,280 400,350 C550,420 700,280 850,350 C1000,420 1150,280 1300,350" fill="none" stroke="#C2B280" stroke-width="1" class="animate-wave-3"></path>
-    </svg>
+  <!-- Immersive Background Layers Removed -->
 
-    <!-- Floating Faint Sanskrit Calligraphy at Parallax Depth -->
-    <div class="absolute text-[16vw] font-serif font-bold text-primary/[0.025] select-none tracking-widest top-[20vh] right-[10%] rotate-12 parallax-bg-text" data-depth="0.12">अद्वैत</div>
-    <div class="absolute text-[18vw] font-serif font-bold text-secondary/[0.02] select-none tracking-widest top-[90vh] left-[5%] -rotate-6 parallax-bg-text" data-depth="0.08">ज्ञानम्</div>
-    <div class="absolute text-[15vw] font-serif font-bold text-primary/[0.025] select-none tracking-widest top-[180vh] right-[5%] rotate-6 parallax-bg-text" data-depth="0.15">मौनम्</div>
-    <div class="absolute text-[17vw] font-serif font-bold text-secondary/[0.02] select-none tracking-widest top-[260vh] left-[8%] rotate-12 parallax-bg-text" data-depth="0.1">मुक्तिः</div>
-    <div class="absolute text-[16vw] font-serif font-bold text-primary/[0.025] select-none tracking-widest top-[340vh] right-[12%] -rotate-12 parallax-bg-text" data-depth="0.07">शान्तिः</div>
-  </div>
 
 <!-- Top Navigation Shell -->
 <header class="w-full top-0 sticky bg-surface-container-high/80 backdrop-blur-md border-b border-sandalwood/25 z-50 transition-all duration-300">
@@ -757,26 +636,6 @@
   <div class="mt-8 h-[1px] w-48 bg-sandalwood/40 mx-auto"></div>
 </section>
 
-<!-- Relocated Cinematic Video Section -->
-<section id="video-journey" class="max-w-4xl mx-auto px-6 mb-20 reveal-item">
-  <div class="bg-surface border-2 border-double border-sandalwood rounded-2xl p-6 md:p-8 shadow-[0_12px_40px_rgba(87,0,0,0.08)] text-center">
-    <div class="mb-6">
-      <span class="font-label-md text-xs text-secondary uppercase tracking-[0.3em] block mb-2 font-semibold">Cinematic Presentation</span>
-      <h2 class="text-section-title text-primary">Life Journey Animation</h2>
-      <p class="font-body-md text-sm text-stone-600 mt-2 max-w-xl mx-auto">
-        An animated visualization depicting the sacred life stages and teachings of Jagadguru Sri Adi Shankaracharya.
-      </p>
-      <div class="w-24 h-[1px] bg-sandalwood/40 mx-auto mt-4"></div>
-    </div>
-    
-    <div class="relative aspect-video w-full rounded-xl overflow-hidden shadow-lg border border-sandalwood/30 bg-black">
-      <video id="life-journey-video" class="w-full h-full object-cover" controls preload="metadata" poster="kalady_birthplace.png">
-        <source src="adi_shankara_animation.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  </div>
-</section>
 
 <!-- Modern Editorial Centered Timeline Section -->
 <section class="timeline-container relative max-w-5xl mx-auto px-6 py-24">
@@ -808,7 +667,7 @@
       <div class="w-full md:w-[calc(50%-50px)] pl-12 md:pl-0 mb-6 md:mb-0 order-1 md:order-2">
         <div class="bg-white p-2.5 border border-sandalwood/40 shadow-[0_12px_24px_rgba(0,0,0,0.06)] rounded-2xl max-w-md mx-auto md:mx-0">
           <div class="aspect-[4/3] overflow-hidden relative rounded-xl">
-            <img class="w-full h-full object-cover oil-painting-effect transition-transform duration-700 hover:scale-103 rounded-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPSrhBPBBptxiUqW8Jouqf2yvxBYovt58K1iOMOgE520dSaceJNJOyCAczFps12mlikMZ7uAWRu-WFkdBE3ZKHGECReTND37uY27olgERN4edD1UQwE74crgide6Ua8-rHinuPF4i2sdDMnsRxyaOgBiROdzZnZKd-rXGRp_g9VG_tfU1XrZco_n1Fc3oXSLdY4ycEq0Tl84GNDnnPl7hdLlyIfKF5B8-mnqz-oIHNYuR4JBieAxyohg" alt="Kalady birthplace">
+            <img class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02] rounded-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPSrhBPBBptxiUqW8Jouqf2yvxBYovt58K1iOMOgE520dSaceJNJOyCAczFps12mlikMZ7uAWRu-WFkdBE3ZKHGECReTND37uY27olgERN4edD1UQwE74crgide6Ua8-rHinuPF4i2sdDMnsRxyaOgBiROdzZnZKd-rXGRp_g9VG_tfU1XrZco_n1Fc3oXSLdY4ycEq0Tl84GNDnnPl7hdLlyIfKF5B8-mnqz-oIHNYuR4JBieAxyohg" alt="Kalady birthplace">
           </div>
         </div>
       </div>
@@ -825,7 +684,7 @@
       <div class="w-full md:w-[calc(50%-50px)] pl-12 md:pl-0 mb-6 md:mb-0 order-1 md:order-1">
         <div class="bg-white p-2.5 border border-sandalwood/40 shadow-[0_12px_24px_rgba(0,0,0,0.06)] rounded-2xl max-w-md mx-auto md:ml-auto md:mr-0">
           <div class="aspect-[4/3] overflow-hidden relative rounded-xl">
-            <img class="w-full h-full object-cover oil-painting-effect transition-transform duration-700 hover:scale-103 rounded-xl" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIvif0e6tL60YJaI5L9Z558pamDnCVjtxwZAN0muqalnQ40ZsT43Ng9Sl26KwBB5LqvUuu9HX4QskmioBKGCzWvaJRvXy_V3Uh17Fw-aKDFum6nYvVQmlq-PqNMgpOdBXR4Q72XMzGNee8oHQZmW-Ri4ufwkH24YOLV27YeKuviY7icfY1aJjlpuURcI-ugI8L2iiJXs0Dd6QR7XuiCMdgBS54gOQSGs2xSSFYfbF1JAsrNVlrpAtCow" alt="Crocodile miracle">
+            <img class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02] rounded-xl" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIvif0e6tL60YJaI5L9Z558pamDnCVjtxwZAN0muqalnQ40ZsT43Ng9Sl26KwBB5LqvUuu9HX4QskmioBKGCzWvaJRvXy_V3Uh17Fw-aKDFum6nYvVQmlq-PqNMgpOdBXR4Q72XMzGNee8oHQZmW-Ri4ufwkH24YOLV27YeKuviY7icfY1aJjlpuURcI-ugI8L2iiJXs0Dd6QR7XuiCMdgBS54gOQSGs2xSSFYfbF1JAsrNVlrpAtCow" alt="Crocodile miracle">
           </div>
         </div>
       </div>
@@ -860,7 +719,7 @@
       <div class="w-full md:w-[calc(50%-50px)] pl-12 md:pl-0 mb-6 md:mb-0 order-1 md:order-2">
         <div class="bg-white p-2.5 border border-sandalwood/40 shadow-[0_12px_24px_rgba(0,0,0,0.06)] rounded-2xl max-w-md mx-auto md:mx-0">
           <div class="aspect-[4/3] overflow-hidden relative rounded-xl">
-            <img class="w-full h-full object-cover oil-painting-effect transition-transform duration-700 hover:scale-103 rounded-xl" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9bmFf1t9G38mvnMt7j_LjGriD3b-KtaG7ryxuQgQN1kXoZcisZl2NSad4OrftEK9kG380HmBi-GcWbPe8gTV_mRVCW34E0-Ptc6caqxTpWnhrfPXYhh-wpv303h2g5hCDNeFg8OYkfMPJIWwcrqgqR69mSGSvWx5g6_gwaTLMGplLrboJMRCAm5AU95zrETIhb1DoX-1uN42rni1WasrmENbyeepeA6J9qVRITe9cDWeNUDPYpjmB2Q" alt="Govinda cave">
+            <img class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02] rounded-xl" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9bmFf1t9G38mvnMt7j_LjGriD3b-KtaG7ryxuQgQN1kXoZcisZl2NSad4OrftEK9kG380HmBi-GcWbPe8gTV_mRVCW34E0-Ptc6caqxTpWnhrfPXYhh-wpv303h2g5hCDNeFg8OYkfMPJIWwcrqgqR69mSGSvWx5g6_gwaTLMGplLrboJMRCAm5AU95zrETIhb1DoX-1uN42rni1WasrmENbyeepeA6J9qVRITe9cDWeNUDPYpjmB2Q" alt="Govinda cave">
           </div>
         </div>
       </div>
@@ -877,7 +736,7 @@
       <div class="w-full md:w-[calc(50%-50px)] pl-12 md:pl-0 mb-6 md:mb-0 order-1 md:order-1">
         <div class="bg-white p-2.5 border border-sandalwood/40 shadow-[0_12px_24px_rgba(0,0,0,0.06)] rounded-2xl max-w-md mx-auto md:ml-auto md:mr-0">
           <div class="aspect-[4/3] overflow-hidden relative rounded-xl">
-            <img referrerpolicy="no-referrer" class="w-full h-full object-cover oil-painting-effect transition-transform duration-700 hover:scale-105 rounded-xl" loading="lazy" decoding="async" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Kedar_ghat_Varanasi.JPG" alt="Kedar Ghat, Varanasi">
+            <img referrerpolicy="no-referrer" class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02] rounded-xl" loading="lazy" decoding="async" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Kedar_ghat_Varanasi.JPG" alt="Kedar Ghat, Varanasi">
           </div>
         </div>
       </div>
@@ -912,7 +771,7 @@
       <div class="w-full md:w-[calc(50%-50px)] pl-12 md:pl-0 mb-6 md:mb-0 order-1 md:order-2">
         <div class="bg-white p-2.5 border border-sandalwood/40 shadow-[0_12px_24px_rgba(0,0,0,0.06)] rounded-2xl max-w-md mx-auto md:mx-0">
           <div class="aspect-[4/3] overflow-hidden relative rounded-xl">
-            <img class="w-full h-full object-cover oil-painting-effect transition-transform duration-700 hover:scale-105 rounded-xl" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZata2AcdBx-Ro-omWbcmTj5HIUfUspx2l4XG5SBcY9cvAl0Jm60r4USHoVYg8lVCoez-dbhzAFTgobMU5Sy7h_p5GPDAypZsQ44sPw1lE-NGPpB1W9BLDm3EWFMOPPpj6mhhjKW40XXyHEqJieFx2AThle-WrgI3whHH1bDtu4vnQv63B_nSu5UfCRVFSzxnu1CqzKKjNNGzErwbSPAwV9oR82eOQNgugngTOrvMe0zf98GKO5bDXzQ" alt="Four Peethams map">
+            <img class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02] rounded-xl" loading="lazy" decoding="async" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZata2AcdBx-Ro-omWbcmTj5HIUfUspx2l4XG5SBcY9cvAl0Jm60r4USHoVYg8lVCoez-dbhzAFTgobMU5Sy7h_p5GPDAypZsQ44sPw1lE-NGPpB1W9BLDm3EWFMOPPpj6mhhjKW40XXyHEqJieFx2AThle-WrgI3whHH1bDtu4vnQv63B_nSu5UfCRVFSzxnu1CqzKKjNNGzErwbSPAwV9oR82eOQNgugngTOrvMe0zf98GKO5bDXzQ" alt="Four Peethams map">
           </div>
         </div>
       </div>
@@ -1072,7 +931,7 @@
     <div class="text-center mb-6 relative">
       <div class="flex items-center justify-center gap-2 mb-2" aria-hidden="true">
         <div class="h-[1px] w-8 bg-gradient-to-r from-transparent to-[#C5B48D]"></div>
-        <span class="text-[#ffe16d] text-lg font-serif">🪷</span>
+        <span class="text-[#ffe16d] text-lg font-serif">❖</span>
         <div class="h-[1px] w-8 bg-gradient-to-l from-transparent to-[#C5B48D]"></div>
       </div>
       <h3 class="font-headline-lg text-2xl md:text-3xl text-primary font-bold tracking-wide">Support the Kshethram</h3>
@@ -1277,237 +1136,7 @@
       }
     });
 
-    // Kshethram Seva Bot Logic (Offline Rule-Based Chatbot)
-    function toggleChatbot() {
-      const win = document.getElementById('chatbot-window');
-      const icon = document.getElementById('chatbot-toggle-icon');
-      if (win.classList.contains('hidden')) {
-        win.classList.remove('hidden');
-        icon.innerText = 'close';
-        const msgs = document.getElementById('chatbot-messages');
-        msgs.scrollTop = msgs.scrollHeight;
-      } else {
-        win.classList.add('hidden');
-        icon.innerText = 'chat';
-      }
-    }
-
-    const botReplies = {
-      welcome: `<p class="font-semibold text-primary font-serif mb-1.5">Hari Om! Pranams.</p>
-                <p class="font-sans">Welcome to the Sri Adi Shankara Janmabhoomi. I can assist you with details regarding your pilgrimage, temple services, or the non-dual philosophy of Advaita Vedanta.</p>`,
-      timings: `<div class="space-y-2">
-        <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🛕 Temple Shrine & Aarti Timings</p>
-        <p class="font-sans">The Sri Adi Shankara Janmabhoomi Kshethram is open daily. General visiting hours:</p>
-        <ul class="list-none space-y-1.5 my-2 pl-1">
-          <li class="flex items-center gap-1.5"><span class="text-primary text-xs">🪷</span> <strong>Morning:</strong> 5:30 AM – 12:30 PM</li>
-          <li class="flex items-center gap-1.5"><span class="text-primary text-xs">🪷</span> <strong>Evening:</strong> 4:30 PM – 8:30 PM</li>
-        </ul>
-        <div class="border-t border-sandalwood/20 pt-2 my-2">
-          <p class="font-semibold text-secondary text-xs uppercase tracking-wider mb-1">Daily Aarti & Puja Schedule:</p>
-          <ul class="list-disc pl-4 space-y-1 text-xs text-on-surface-variant">
-            <li><strong>06:30 AM:</strong> Usha Puja & Morning Aarti</li>
-            <li><strong>12:00 PM:</strong> Maha Puja & Noon Aarti</li>
-            <li><strong>08:00 PM:</strong> Athazha Puja & Night Aarti</li>
-          </ul>
-        </div>
-        <p class="text-xs text-on-surface-variant/75 italic">*Note: Timings are extended during major festivals such as Shankara Jayanthi (April/May) and Navaratri (September/October).*</p>
-      </div>`,
-      sevas: `<div class="space-y-2">
-        <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🙏 Sacred Seva Offerings</p>
-        <p class="font-sans">Devotees are invited to participate in the preservation of Vedic culture by sponsoring the following Pujas:</p>
-        <ol class="list-decimal pl-4 space-y-2 my-2">
-          <li>
-            <strong>Adi Shankara Ashtothara Archana (₹150)</strong>
-            <p class="text-xs text-on-surface-variant">Worship of Sri Adi Shankaracharya chanting his 108 names, praying for wisdom and spiritual growth.</p>
-          </li>
-          <li>
-            <strong>Sharadamba Suhasini Puja (₹500)</strong>
-            <p class="text-xs text-on-surface-variant">Special offerings to Goddess Sharadamba (the deity of learning) for blessings of intellect and prosperity, performed on Fridays.</p>
-          </li>
-          <li>
-            <strong>Veda Pathashala Support (Custom Donation)</strong>
-            <p class="text-xs text-on-surface-variant">Sponsor the boarding, lodging, and traditional scriptural education of young Vedic students.</p>
-          </li>
-          <li>
-            <strong>Annadanam Seva (₹1008)</strong>
-            <p class="text-xs text-on-surface-variant">Sponsor a day's traditional vegetarian meals (served on plantain leaves) for all visiting pilgrims.</p>
-          </li>
-        </ol>
-        <p class="text-xs text-on-surface-variant/75 italic">To book sevas, click the <strong>Donate</strong> button at the top header or contact the Math office directly.</p>
-      </div>`,
-      lodging: `<div class="space-y-2">
-        <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🏡 Pilgrim Accommodation (Yatri Nivas)</p>
-        <p class="font-sans">The Sringeri Sharada Peetham provides boarding and lodging within the peaceful temple complex at <strong>Sri Sringeri Shankara Math Guest House (Adi Shankara Nilayam)</strong>:</p>
-        <ul class="list-none space-y-1.5 my-2 pl-1">
-          <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🪷</span> <div><strong>Room Types:</strong> Both Air-Conditioned (AC) and Non-AC guest rooms are available, as well as larger family halls for tour groups.</div></li>
-          <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🪷</span> <div><strong>Booking Procedure:</strong> Rooms are allotted on a first-come, first-served basis. For peak seasons, email/post reservations to Sringeri Math, Kalady.</div></li>
-          <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🪷</span> <div><strong>Annadanam (Free Meals):</strong> Served daily to all visitors at the dining hall: Lunch (12:15 PM – 2:00 PM) and Dinner (7:45 PM – 9:00 PM).</div></li>
-        </ul>
-        <p class="text-[11px] text-secondary font-semibold">Contact Information: kalady@sringeri.net | +91 484 2462350</p>
-      </div>`,
-      advaita: `<div class="space-y-2">
-        <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">📖 Advaita Vedanta Philosophy</p>
-        <p class="font-sans">Sri Adi Shankaracharya consolidated the philosophy of absolute non-duality (Advaita). The core thesis is encapsulated in his famous verse:</p>
-        <div class="bg-surface-container-high/40 p-2.5 border-l-2 border-primary rounded my-2 font-serif italic text-primary text-center text-xs leading-relaxed">
-          "ब्रह्म सत्यं जगन्मिथ्या जीवो ब्रह्मैव नापरः"
-        </div>
-        <p class="text-[10px] text-center font-semibold text-secondary uppercase tracking-wider -mt-1 mb-2">— Brahmajnanavalimala</p>
-        <p class="font-sans">This states three fundamental principles:</p>
-        <ul class="list-disc pl-4 space-y-1.5 text-[11px] text-on-surface-variant">
-          <li><strong>Brahman is Real:</strong> The absolute, changeless reality, pure consciousness (Sat-Chit-Ananda), which exists beyond time and space.</li>
-          <li><strong>The World is Mithya:</strong> The objective universe is not an absolute reality, but relative/apparent, appearing real only due to sensory illusion (Maya).</li>
-          <li><strong>Identity of Self:</strong> The individual soul (Jiva) is in essence identical to the absolute consciousness (Brahman). Liberation is realizing this identity.</li>
-        </ul>
-      </div>`,
-      miracles: `<div class="space-y-2">
-        <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🐊 Miracles of Kalady</p>
-        <p class="font-sans">Two monumental events occurred in Kalady during Sri Shankara's childhood that shaped his divine path:</p>
-        <ul class="list-none space-y-3.5 my-2 pl-1">
-          <li>
-            <strong class="text-secondary text-xs uppercase tracking-wider flex items-center gap-1">💧 1. Redirecting the Purna River</strong>
-            <p class="text-[11px] text-on-surface-variant leading-relaxed">Young Shankara's widowed mother Aryamba would walk daily to the Purna River for her bath. One summer day, she collapsed from extreme heat and exhaustion. Stricken with grief, Shankara composed a prayer to Lord Krishna. The next morning, the Purna River miraculously changed its course, flowing directly past their house.</p>
-          </li>
-          <li>
-            <strong class="text-secondary text-xs uppercase tracking-wider flex items-center gap-1">🐊 2. The Crocodile Miracle at the Ghat</strong>
-            <p class="text-[11px] text-on-surface-variant leading-relaxed">Shankara felt the calling of Sannyasa (monasticism), but his mother Aryamba refused permission. While bathing at the river ghat, a crocodile seized Shankara's leg. He cried out to his mother that he was dying, but if she permitted him to take "Apat Sannyasa" (renunciation in the face of death), the crocodile might release him. Desperate to save him, she agreed. Shankara took the mental vow of a monk, and the crocodile instantly let him go.</p>
-          </li>
-        </ul>
-      </div>`,
-      location: `<div class="space-y-2">
-        <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">📍 Location & Route Guide</p>
-        <p class="font-sans">The Sri Adi Shankara Janmabhoomi Kshethram is located in <strong>Thalayattumpilli, Kalady, Vadakkumbhagom, Kerala 683574</strong>, along the banks of the Purna River.</p>
-        <div class="my-2">
-          <a href="https://maps.app.goo.gl/aMm1yXMobWAqE4YD8"
-            target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center gap-1.5 bg-primary text-white text-[11px] font-semibold px-3 py-1.5 rounded-lg shadow hover:bg-[#570000] transition-colors">
-            🗺️ Open Google Maps Directions
-          </a>
-        </div>
-        <ul class="list-none space-y-2 my-2 pl-1">
-          <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">✈️</span> <div><strong>By Air:</strong> Cochin International Airport (COK) is just 10 km away. Pre-paid taxis and cabs are readily available from the airport to the temple (approx. 20-minute drive).</div></li>
-          <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🚆</span> <div><strong>By Train:</strong> Angamaly Railway Station (AFK) is 8 km away, and Aluva Railway Station (AWY) is 15 km away. Autos, buses, and taxis connect both stations to Kalady.</div></li>
-          <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🚌</span> <div><strong>By Road:</strong> Located near State Highway 1, Kalady is well-connected by local KSRTC buses from Ernakulam (35 km) and Thrissur (45 km).</div></li>
-        </ul>
-      </div>`,
-      shankara: `<div class="space-y-2">
-        <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🪷 Life of Sri Adi Shankaracharya</p>
-        <p class="font-sans">Sri Adi Shankaracharya (c. 788 – 820 CE) was a philosopher-saint born in Kalady. His life was short but extraordinary:</p>
-        <ul class="list-disc pl-4 space-y-1.5 text-[11px] text-on-surface-variant">
-          <li><strong>Parentage:</strong> Born to a pious Namboothiri Brahmana couple, Shivaguru and Aryamba, after they prayed to Lord Shiva at Vadakkunnathan Temple.</li>
-          <li><strong>Renunciation:</strong> Took monastic vows at age 8 under Guru Govinda Bhagavatpada on the banks of the Narmada River.</li>
-          <li><strong>Writings:</strong> Traveled across India, writing profound commentaries (Prasthana Traya Bhashya) on the Upanishads, Bhagavad Gita, and Brahma Sutras.</li>
-          <li><strong>Peethams:</strong> Re-established the Sanatana Dharma by establishing four cardinal monasteries (Peethams) in Sringeri (South), Dwaraka (West), Puri (East), and Jyotirmath (North) to preserve scriptural knowledge.</li>
-        </ul>
-      </div>`,
-      shrines: `<div class="space-y-2">
-        <p class="font-serif font-bold text-primary text-sm flex items-center gap-1">🏛️ Shrines and Sights in Kalady</p>
-        <p class="font-sans">The holy complex in Kalady features several key sites of deep spiritual significance:</p>
-        <ul class="list-none space-y-2 my-2 pl-1">
-          <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🛕</span> <div><strong>Adi Shankara Shrine:</strong> A beautiful temple housing a life-size murti of Shankaracharya in a seated posture.</div></li>
-          <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🛕</span> <div><strong>Goddess Sharadamba Shrine:</strong> Adjacent to the main shrine, dedicated to the Goddess of Learning and Wisdom.</div></li>
-          <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🛕</span> <div><strong>Ancestral Sri Krishna Temple:</strong> The family temple of Shankara's parents, which marks the birthplace. This is the only ancient temple surviving from his era.</div></li>
-          <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🌊</span> <div><strong>Crocodile Ghat (Muthala Kadavu):</strong> The place on the Purna River where young Shankara was caught by the crocodile.</div></li>
-          <li class="flex items-start gap-1.5"><span class="text-primary text-[10px] mt-1">🗼</span> <div><strong>Keerthi Sthambha Mandapam:</strong> A tall 8-story memorial displaying paintings of Adi Shankara's life journey.</div></li>
-        </ul>
-      </div>`,
-      greetings: `<div class="space-y-1">
-        <p class="font-serif font-semibold text-primary">Pranams! Namaste.</p>
-        <p class="font-sans text-xs">May the blessings of Goddess Sharadamba and Jagadguru Sri Adi Shankaracharya guide you. How may I assist your spiritual journey or pilgrimage details today?</p>
-      </div>`,
-      fallback: `<div class="space-y-1.5">
-        <p class="font-serif font-semibold text-primary">Pranams. I am here to help you.</p>
-        <p class="font-sans text-xs">I didn't quite capture that query. Feel free to select from the topics below or ask about them:</p>
-        <div class="flex flex-col gap-1 text-[11px] pl-1 font-sans text-on-surface-variant">
-          <div>• Type <strong>timings</strong> for temple visiting hours.</div>
-          <div>• Type <strong>sevas</strong> to learn about Pujas & supporting Vedic students.</div>
-          <div>• Type <strong>lodging</strong> for accommodation details at the guest house.</div>
-          <div>• Type <strong>directions</strong> or <strong>location</strong> to plan your travel route.</div>
-          <div>• Type <strong>philosophy</strong> or <strong>advaita</strong> to explore Shankara's teachings.</div>
-          <div>• Type <strong>miracles</strong> to hear the sacred stories of young Shankara.</div>
-          <div>• Type <strong>shrines</strong> to learn about the shrines in Kalady.</div>
-        </div>
-      </div>`
-    };
-
-    function getBotResponse(input) {
-      const query = input.toLowerCase().trim();
-      if (query.includes('hi') || query.includes('hello') || query.includes('pranam') || query.includes('namaste')) return botReplies.greetings;
-      if (query.includes('timing') || query.includes('hour') || query.includes('schedule') || query.includes('open') || query.includes('close') || query.includes('aarti')) return botReplies.timings;
-      if (query.includes('seva') || query.includes('puja') || query.includes('offering') || query.includes('archana') || query.includes('sponsor')) return botReplies.sevas;
-      if (query.includes('stay') || query.includes('lodging') || query.includes('room') || query.includes('accommodation') || query.includes('guest')) return botReplies.lodging;
-      if (query.includes('advaita') || query.includes('philosophy') || query.includes('non-dual') || query.includes('teach')) return botReplies.advaita;
-      if (query.includes('location') || query.includes('where') || query.includes('reach') || query.includes('direction') || query.includes('kerala') || query.includes('route') || query.includes('airport')) return botReplies.location;
-      if (query.includes('miracle') || query.includes('river') || query.includes('purna') || query.includes('crocodile') || query.includes('ghat') || query.includes('krishna')) return botReplies.miracles;
-      if (query.includes('life') || query.includes('biography') || query.includes('shankara') || query.includes('monk') || query.includes('peetham') || query.includes('birth')) return botReplies.shankara;
-      if (query.includes('shrine') || query.includes('sight') || query.includes('temple') || query.includes('visit') || query.includes('mandapam') || query.includes('places')) return botReplies.shrines;
-      return botReplies.fallback;
-    }
-
-    function escapeHTML(str) {
-      return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
-    }
-
-    function appendMessage(sender, text) {
-      const container = document.getElementById('chatbot-messages');
-      if (!container) return;
-      const msgDiv = document.createElement('div');
-      msgDiv.className = sender === 'user' ? 'flex items-start justify-end gap-2' : 'flex items-start gap-2.5';
-      const avatar = sender === 'user'
-        ? `<div class="w-8 h-8 rounded-full bg-secondary/15 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 order-2 shadow-sm"><span class="material-symbols-outlined text-secondary text-sm">person</span></div>`
-        : `<div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 shadow-sm"><span class="material-symbols-outlined text-primary text-sm">support_agent</span></div>`;
-      const safeText = sender === 'user' ? escapeHTML(text) : text;
-      const bubble = sender === 'user'
-        ? `<div class="bg-primary text-white p-3.5 rounded-2xl rounded-tr-none max-w-[80%] text-xs leading-relaxed text-left shadow-sm font-sans">${safeText}</div>`
-        : `<div class="bg-surface border border-sandalwood/20 p-3.5 rounded-2xl rounded-tl-none max-w-[82%] text-xs text-on-surface-variant leading-relaxed text-left shadow-sm">${safeText}</div>`;
-      msgDiv.innerHTML = avatar + bubble;
-      container.appendChild(msgDiv);
-      container.scrollTop = container.scrollHeight;
-    }
-
-    function sendQuickReply(key) {
-      appendMessage('user', key.charAt(0).toUpperCase() + key.slice(1));
-      showTypingIndicatorAndReply(botReplies[key]);
-    }
-
-    // Keep it local - no APIs
-    function handleChatSubmit(event) {
-      event.preventDefault();
-      const inputEl = document.getElementById('chatbot-input');
-      const query = inputEl.value.trim();
-      if (!query) return;
-      appendMessage('user', query);
-      inputEl.value = '';
-      const response = getBotResponse(query);
-      showTypingIndicatorAndReply(response);
-    }
-
-    function showTypingIndicatorAndReply(responseText) {
-      const container = document.getElementById('chatbot-messages');
-      if (!container) return;
-      const indicatorDiv = document.createElement('div');
-      indicatorDiv.id = 'chatbot-typing-indicator';
-      indicatorDiv.className = 'flex items-start gap-2.5';
-      indicatorDiv.innerHTML = `
-        <div class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 shadow-sm">
-          <span class="material-symbols-outlined text-primary text-sm">support_agent</span>
-        </div>
-        <div class="bg-surface border border-sandalwood/20 p-3 rounded-2xl rounded-tl-none text-xs text-on-surface-variant/60 leading-relaxed italic flex items-center gap-1.5 shadow-sm font-sans">
-          Typing
-          <span class="flex gap-0.5 items-center mt-1">
-            <span class="w-1 h-1 bg-on-surface-variant/60 rounded-full animate-bounce" style="animation-delay: 0ms"></span>
-            <span class="w-1 h-1 bg-on-surface-variant/60 rounded-full animate-bounce" style="animation-delay: 150ms"></span>
-            <span class="w-1 h-1 bg-on-surface-variant/60 rounded-full animate-bounce" style="animation-delay: 300ms"></span>
-          </span>
-        </div>
-      `;
-      container.appendChild(indicatorDiv);
-      container.scrollTop = container.scrollHeight;
-      setTimeout(() => {
-        const ind = document.getElementById('chatbot-typing-indicator');
-        if (ind) ind.remove();
-        appendMessage('bot', responseText);
-      }, 850);
-    }
+    // Kshethram Seva Bot Removed
 </script>
 
     <!-- ===== IMMERSIVE JS ===== -->
@@ -1539,11 +1168,10 @@
         if (!line || !container) return;
 
         const rect = container.getBoundingClientRect();
-        const startY = rect.top + window.scrollY;
+        const distanceFromMiddle = (window.innerHeight / 2) - rect.top;
         const totalHeight = rect.height;
-        const currentScroll = window.scrollY + window.innerHeight / 2 - startY;
 
-        let pct = currentScroll / totalHeight;
+        let pct = distanceFromMiddle / totalHeight;
         pct = Math.min(1, Math.max(0, pct)); // Clamp 0 to 1
 
         line.style.height = `${pct * 100}%`;
@@ -1563,17 +1191,7 @@
           text.style.transform = `translate3d(0, ${translateY}px, 0) ${rotation}`;
         });
 
-        // Parallax scroll effect for timeline oil paintings
-        const images = document.querySelectorAll('.oil-painting-effect');
-        images.forEach(img => {
-          const rect = img.getBoundingClientRect();
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-            const translateY = (progress - 0.5) * -35; // moves -17.5px to +17.5px
-            img.style.transition = 'transform 0.12s ease-out';
-            img.style.transform = `scale(1.08) translateY(${translateY}px)`;
-          }
-        });
+        // Removed oil-painting parallax logic
       }
 
       // Initial run & listeners
@@ -1690,165 +1308,11 @@
         }, 500);
       }
 
-      /* ---------- 5. Ambient Audio Toggle with pulse ring & localStorage sync ---------- */
-      const audioEl = document.getElementById('ambient-audio');
-      const iconOn = document.getElementById('audio-icon-on');
-      const iconOff = document.getElementById('audio-icon-off');
-      const toggleBtn = document.getElementById('ambient-toggle');
-      let audioLoaded = false;
-
-      function setAudioPlayingState(playing) {
-        if (!audioEl) return;
-        if (!audioLoaded) {
-          audioEl.load();
-          audioLoaded = true;
-        }
-        if (playing) {
-          audioEl.muted = false;
-          audioEl.play().then(() => {
-            localStorage.setItem('ambient-audio-playing', 'true');
-            if (iconOn) iconOn.style.display = 'block';
-            if (iconOff) iconOff.style.display = 'none';
-            if (toggleBtn) toggleBtn.classList.add('playing');
-          }).catch(err => {
-            console.warn('Playback blocked by browser. Retrying on user interaction.', err);
-          });
-        } else {
-          audioEl.muted = true;
-          audioEl.pause();
-          localStorage.setItem('ambient-audio-playing', 'false');
-          if (iconOn) iconOn.style.display = 'none';
-          if (iconOff) iconOff.style.display = 'block';
-          if (toggleBtn) toggleBtn.classList.remove('playing');
-        }
-      }
-
-      window.toggleAmbientAudio = function() {
-        if (!audioEl) return;
-        const shouldPlay = audioEl.paused || audioEl.muted;
-        setAudioPlayingState(shouldPlay);
-      };
-
-      // Restore play state on page load
-      const savedState = localStorage.getItem('ambient-audio-playing');
-      if (savedState === 'true') {
-        setAudioPlayingState(true);
-        const startOnGesture = () => {
-          if (audioEl && (audioEl.paused || audioEl.muted)) {
-            setAudioPlayingState(true);
-          }
-          window.removeEventListener('click', startOnGesture);
-          window.removeEventListener('touchstart', startOnGesture);
-          window.removeEventListener('keydown', startOnGesture);
-        };
-        window.addEventListener('click', startOnGesture);
-        window.addEventListener('touchstart', startOnGesture);
-        window.addEventListener('keydown', startOnGesture);
-      }
-
-
-
-    })();
+      /* Ambient Audio JS Removed */
+      });
     </script>
 
-    <!-- Ambient Audio: Om Chanting 639 Hz (archive.org, free) -->
-    <audio id="ambient-audio" loop muted preload="metadata" style="display:none">
-      <source src="https://archive.org/download/OmChanting/om2.wav.mp3" type="audio/mpeg">
-    </audio>
-
-
-
-<!-- Chatbot Floating Toggle Button -->
-<button onclick="toggleChatbot()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-primary to-primary-container text-tertiary-fixed rounded-full shadow-[0_4px_16px_rgba(87,0,0,0.25)] flex items-center justify-center hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 z-50 select-none">
-  <span class="material-symbols-outlined text-3xl" id="chatbot-toggle-icon">chat</span>
-</button>
-
-<!-- Chatbot Floating Toggle Button with Label -->
-<button onclick="toggleChatbot()" id="chatbot-toggle-btn"
-  class="fixed bottom-6 right-6 h-14 bg-gradient-to-r from-primary to-primary-container text-[#ffe16d] rounded-full shadow-[0_6px_20px_rgba(87,0,0,0.3)] flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] transition-all duration-300 z-50 select-none group px-4">
-  <span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform duration-300"
-    id="chatbot-toggle-icon">chat</span>
-  <span
-    class="font-label-md text-xs uppercase tracking-wider font-semibold max-w-0 overflow-hidden group-hover:max-w-[120px] transition-all duration-500 whitespace-nowrap">Vedic
-    Guide</span>
-  <!-- Pulse Indicator -->
-  <span class="absolute top-0 right-0 flex h-3.5 w-3.5 -mt-0.5 -mr-0.5">
-    <span
-      class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-container opacity-75"></span>
-    <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-secondary-container border border-surface"></span>
-  </span>
-</button>
-
-<!-- Chatbot Floating Window -->
-<div id="chatbot-window"
-  class="fixed bottom-24 right-6 w-[340px] sm:w-[420px] h-[520px] bg-[#fdfbf7]/95 backdrop-blur-xl border-2 border-[#C5B48D]/50 rounded-2xl shadow-[0_24px_64px_rgba(87,0,0,0.22)] flex flex-col justify-between hidden z-50 overflow-hidden modal-content-animate text-on-surface">
-  <!-- Header -->
-  <div
-    class="bg-gradient-to-r from-primary via-primary/95 to-primary-container text-[#ffe16d] p-4 border-b border-sandalwood/20 flex items-center justify-between shadow-sm relative">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-sandalwood/30 shadow-inner">
-        <span class="material-symbols-outlined text-xl text-[#ffe16d]">diversity_3</span>
-      </div>
-      <div class="text-left">
-        <span class="font-serif font-bold text-sm tracking-wide block">Kshethram Seva Bot</span>
-        <span class="text-[9px] tracking-widest uppercase opacity-85 flex items-center gap-1 font-sans">
-          <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
-          Vedic Wisdom Guide
-        </span>
-      </div>
-    </div>
-    <button onclick="toggleChatbot()"
-      class="text-white/70 hover:text-white hover:bg-white/10 p-1.5 rounded-full transition-all focus:outline-none">
-      <span class="material-symbols-outlined text-xl">close</span>
-    </button>
-  </div>
-
-  <!-- Messages List -->
-  <div id="chatbot-messages"
-    class="flex-grow p-4 overflow-y-auto space-y-4 bg-surface-container-lowest/10 custom-scrollbar scroll-smooth">
-    <!-- Welcome Message -->
-    <div class="flex items-start gap-2.5">
-      <div
-        class="w-8 h-8 rounded-full bg-primary/10 border border-sandalwood/30 flex items-center justify-center flex-shrink-0 shadow-sm">
-        <span class="material-symbols-outlined text-primary text-sm">support_agent</span>
-      </div>
-      <div
-        class="bg-white border border-sandalwood/25 p-3.5 rounded-2xl rounded-tl-none max-w-[82%] text-xs text-on-surface-variant leading-relaxed text-left shadow-sm font-serif">
-        <p class="font-semibold text-primary mb-1.5 font-sans">Hari Om! Pranams.</p>
-        <p>Welcome to the Sri Adi Shankara Janmabhoomi. I can assist you with details regarding your
-          pilgrimage, temple services, or the non-dual philosophy of Advaita Vedanta.</p>
-        <div class="mt-3.5 flex flex-wrap gap-2 justify-start font-sans">
-          <button onclick="sendQuickReply('timings')"
-            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🪷
-            Timings</button>
-          <button onclick="sendQuickReply('sevas')"
-            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🕉️
-            Sevas</button>
-          <button onclick="sendQuickReply('lodging')"
-            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🏡
-            Lodging</button>
-          <button onclick="sendQuickReply('advaita')"
-            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">📖
-            Advaita</button>
-          <button onclick="sendQuickReply('miracles')"
-            class="bg-[#fdfbf7] hover:bg-primary hover:text-white text-primary border border-primary/20 px-2.5 py-1 rounded-full text-[10px] tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">🐊
-            Miracles</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Input Area -->
-  <form onsubmit="handleChatSubmit(event)"
-    class="p-3 border-t border-sandalwood/25 bg-[#fdfbf7] flex items-center gap-2">
-    <input type="text" id="chatbot-input" placeholder="Ask about timings, sevas, directions, Advaita..."
-      class="flex-grow border border-sandalwood/35 bg-white px-4 py-2.5 rounded-xl text-xs focus:border-primary focus:ring-2 focus:ring-primary/10 focus:outline-none transition-all placeholder:text-on-surface-variant/45 font-sans">
-    <button type="submit"
-      class="bg-primary hover:bg-primary-container text-white w-9 h-9 flex items-center justify-center rounded-xl transition-all flex-shrink-0 hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] shadow-sm">
-      <span class="material-symbols-outlined text-base">send</span>
-    </button>
-  </form>
-</div>
+<!-- Chatbot components removed -->
 
 
 
