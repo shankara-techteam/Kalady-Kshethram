@@ -20,8 +20,14 @@
     rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet">
-  <!-- Lenis smooth scroll -->
+    
+  <!-- ========================================== -->
+  <!-- HEAD CONFIGURATION                         -->
+  <!-- ========================================== -->
+  <!-- 1. Lenis: Smooth scrolling implementation -->
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+  
+  <!-- 2. Tailwind CSS: Defines custom theme, colors, and typography -->
   <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
@@ -870,6 +876,10 @@
     document.body.classList.add('page-loaded');
   </script>
   <div id="page-wrapper">
+    <!-- ========================================== -->
+    <!-- GLOBAL HEADER & NAVIGATION                 -->
+    <!-- Responsive navigation bar (Desktop + Mobile toggle) -->
+    <!-- ========================================== -->
     <!-- Top Navigation Shell -->
     <header
       class="w-full top-0 sticky bg-surface/80 backdrop-blur-md border-b border-sandalwood/25 z-50 transition-all duration-300">
@@ -1018,7 +1028,7 @@
       </section>
 
       <!-- Announcements Section -->
-      <section id="announcements" class="py-6 bg-surface-container-lowest border-y border-sandalwood/20 transition-all duration-1000 opacity-100 relative overflow-hidden">
+      <section id="announcements" class="py-6 bg-surface border-y border-sandalwood/20 transition-all duration-1000 opacity-100 relative overflow-hidden">
         <div class="px-gutter max-w-container-max mx-auto">
           
           <div class="flex flex-col md:flex-row md:items-end justify-between mb-4 gap-4 reveal-item">
@@ -1044,13 +1054,13 @@
               
               <!-- Card 1 (Sri Dhakshinamurthy Homam) -->
               <div class="snap-start shrink-0 w-[85vw] md:w-[380px] lg:w-[420px] flex flex-col group relative reveal-item reveal-delay-200">
-                <div class="h-full border border-sandalwood/30 bg-surface-container-low/50 hover:bg-surface-container-lowest p-5 rounded-xl transition-all duration-300 hover:shadow-[0_8px_20px_-6px_rgba(87,0,0,0.12)] hover:border-primary/30 flex flex-col cursor-default">
+                <div class="h-full border border-sandalwood/30 bg-surface-container/50 hover:bg-surface-container p-5 rounded-xl transition-all duration-300 hover:shadow-[0_8px_20px_-6px_rgba(87,0,0,0.12)] hover:border-primary/30 flex flex-col cursor-default">
                   
                   <div class="flex items-start justify-between mb-3">
                     <span class="font-label-md text-[10px] tracking-[0.15em] text-secondary uppercase bg-secondary/10 px-2 py-1 rounded-md border border-secondary/20">
                       Upcoming Pooja
                     </span>
-                    <div class="flex flex-col items-center border border-primary/20 rounded overflow-hidden shadow-sm bg-surface-container-lowest -mt-1">
+                    <div class="flex flex-col items-center border border-primary/20 rounded overflow-hidden shadow-sm bg-surface -mt-1">
                       <div class="bg-primary text-white text-[9px] font-label-md tracking-[0.2em] px-2 py-0.5 w-full text-center uppercase">Feb</div>
                       <div class="text-primary font-headline-md font-bold text-base px-2 py-0 w-full text-center leading-none">18</div>
                     </div>
@@ -2996,6 +3006,10 @@
 
 
 
+  <!-- ========================================== -->
+  <!-- MOBILE MENU COMPONENT                      -->
+  <!-- Fullscreen overlay for mobile navigation   -->
+  <!-- ========================================== -->
   <!-- Mobile Menu Overlay -->
   <div id="mobile-menu"
     class="fixed inset-0 bg-[#443D32]/85 backdrop-blur-xl z-[90] hidden flex-col justify-center items-center space-y-6 text-center select-none transition-all duration-300 opacity-0">

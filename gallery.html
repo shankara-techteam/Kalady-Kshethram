@@ -17,7 +17,14 @@
     rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet">
+    
+  <!-- ========================================== -->
+  <!-- HEAD CONFIGURATION                         -->
+  <!-- ========================================== -->
+  <!-- 1. Lenis: Smooth scrolling implementation -->
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+  
+  <!-- 2. Tailwind CSS: Defines custom theme, colors, and typography -->
   <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
@@ -446,6 +453,10 @@
     document.body.classList.add('page-loaded');
   </script>
   <div id="page-wrapper" class="flex flex-col min-h-screen">
+    <!-- ========================================== -->
+    <!-- GLOBAL HEADER & NAVIGATION                 -->
+    <!-- Responsive navigation bar (Desktop + Mobile toggle) -->
+    <!-- ========================================== -->
     <!-- Top Navigation Shell -->
     <header
       class="w-full top-0 sticky bg-surface-container-high/80 backdrop-blur-md border-b border-sandalwood/25 z-50 transition-all duration-300">
@@ -1366,6 +1377,10 @@
 
 
 
+  <!-- ========================================== -->
+  <!-- MOBILE MENU COMPONENT                      -->
+  <!-- Fullscreen overlay for mobile navigation   -->
+  <!-- ========================================== -->
   <!-- Mobile Menu Overlay -->
   <div id="mobile-menu"
     class="fixed inset-0 bg-[#443D32]/85 backdrop-blur-xl z-[90] hidden flex-col justify-center items-center space-y-6 text-center select-none transition-all duration-300 opacity-0">
