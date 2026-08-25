@@ -915,7 +915,7 @@
           <a class="nav-link font-label-md text-xs lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap"
             href="life.html" id="nav-life">Spiritual Journey</a>
           <a class="nav-link font-label-md text-xs lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap"
-            href="poojas.html" id="nav-poojas">Pujas & Offerings</a>
+            href="events.html" id="nav-events">Events</a>
           <a class="nav-link font-label-md text-xs lg:text-label-md tracking-wide text-on-surface-variant hover:text-primary whitespace-nowrap"
             href="gallery.html" id="nav-gallery">Gallery</a>
         </div>
@@ -1017,7 +1017,133 @@
         </div>
       </section>
 
+      <!-- Announcements Section -->
+      <section id="announcements" class="py-6 bg-surface-container-lowest border-y border-sandalwood/20 transition-all duration-1000 opacity-100 relative overflow-hidden">
+        <div class="px-gutter max-w-container-max mx-auto">
+          
+          <div class="flex flex-col md:flex-row md:items-end justify-between mb-4 gap-4 reveal-item">
+            <div class="max-w-2xl">
+              <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.3em] block mb-2">Notice Board</span>
+              <h2 class="text-section-title text-primary tracking-tight">Announcements</h2>
+            </div>
+            
+            <!-- Navigation Controls -->
+            <div class="flex gap-3 pb-1">
+              <button id="announcements-prev" class="w-10 h-10 flex items-center justify-center rounded-full border border-sandalwood/50 text-primary hover:bg-sandalwood/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed bg-surface hover:shadow-sm" aria-label="Previous announcements">
+                <span class="material-symbols-outlined text-lg">arrow_back_ios_new</span>
+              </button>
+              <button id="announcements-next" class="w-10 h-10 flex items-center justify-center rounded-full border border-sandalwood/50 text-primary hover:bg-sandalwood/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed bg-surface hover:shadow-sm" aria-label="Next announcements">
+                <span class="material-symbols-outlined text-lg">arrow_forward_ios</span>
+              </button>
+            </div>
+          </div>
 
+          <!-- Carousel Container -->
+          <div class="relative -mx-gutter px-gutter md:mx-0 md:px-0">
+            <div id="announcements-container" class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-3 pt-1 hide-scrollbar scroll-smooth">
+              
+              <!-- Card 1 (Sri Dhakshinamurthy Homam) -->
+              <div class="snap-start shrink-0 w-[85vw] md:w-[380px] lg:w-[420px] flex flex-col group relative reveal-item reveal-delay-200">
+                <div class="h-full border border-sandalwood/30 bg-surface-container-low/50 hover:bg-surface-container-lowest p-5 rounded-xl transition-all duration-300 hover:shadow-[0_8px_20px_-6px_rgba(87,0,0,0.12)] hover:border-primary/30 flex flex-col cursor-default">
+                  
+                  <div class="flex items-start justify-between mb-3">
+                    <span class="font-label-md text-[10px] tracking-[0.15em] text-secondary uppercase bg-secondary/10 px-2 py-1 rounded-md border border-secondary/20">
+                      Upcoming Pooja
+                    </span>
+                    <div class="flex flex-col items-center border border-primary/20 rounded overflow-hidden shadow-sm bg-surface-container-lowest -mt-1">
+                      <div class="bg-primary text-white text-[9px] font-label-md tracking-[0.2em] px-2 py-0.5 w-full text-center uppercase">Feb</div>
+                      <div class="text-primary font-headline-md font-bold text-base px-2 py-0 w-full text-center leading-none">18</div>
+                    </div>
+                  </div>
+                  
+                  <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold group-hover:text-primary-container transition-colors tracking-tight">
+                    Sri Dhakshinamurthy Homam
+                  </h3>
+                  
+                  <div class="font-body-md text-on-surface-variant mb-4 leading-relaxed flex-grow opacity-90 text-sm">
+                    <div class="space-y-2 mt-1">
+                      <div class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">info</span>
+                        <div><strong class="font-label-md text-primary block mb-0.5">What</strong><span class="text-sm">Special Sri Dhakshinamurthy Homam for wisdom and knowledge.</span></div>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">schedule</span>
+                        <div><strong class="font-label-md text-primary block mb-0.5">When</strong><span class="text-sm">18 February 2027, 7:00 AM to 12:00 PM</span></div>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">location_on</span>
+                        <div><strong class="font-label-md text-primary block mb-0.5">Where</strong><span class="text-sm">Main Shrine, Sri Adi Shankara Janmabhoomi</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="mt-auto pt-3 border-t border-sandalwood/20 flex flex-col gap-2">
+                    <div class="flex items-center gap-2 text-on-surface-variant opacity-85 text-xs">
+                      <span class="material-symbols-outlined text-[16px] text-tertiary">calendar_today</span>
+                      <span class="font-label-md">18 February 2027 &middot; 7:00 AM Onwards</span>
+                    </div>
+                    <a href="#" class="inline-flex items-center gap-1 text-primary font-label-md text-xs uppercase tracking-[0.1em] hover:text-secondary transition-colors mt-1 w-fit group/link pb-0.5 border-b border-transparent hover:border-secondary">
+                      View Details 
+                      <span class="material-symbols-outlined text-[16px] transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <style>
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        </style>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('announcements-container');
+            const btnPrev = document.getElementById('announcements-prev');
+            const btnNext = document.getElementById('announcements-next');
+
+            if (!container || !btnPrev || !btnNext) return;
+
+            // Scroll Logic
+            const updateButtons = () => {
+              const maxScrollLeft = container.scrollWidth - container.clientWidth;
+              btnPrev.disabled = container.scrollLeft <= 5;
+              btnNext.disabled = container.scrollLeft >= maxScrollLeft - 5;
+            };
+
+            const scrollAmount = () => {
+              const card = container.querySelector('.snap-start');
+              return card ? card.offsetWidth + 24 : 300; // 24 is the gap
+            };
+
+            btnPrev.addEventListener('click', () => {
+              container.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+            });
+
+            btnNext.addEventListener('click', () => {
+              container.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+            });
+
+            container.addEventListener('scroll', () => {
+              window.requestAnimationFrame(updateButtons);
+            });
+            window.addEventListener('resize', updateButtons);
+            
+            // Initial check
+            setTimeout(updateButtons, 150);
+          });
+        </script>
+      </section>
 
       <!-- Sacred Shrines (Bento-style Grid) -->
       <section id="shrine-grid"
@@ -2888,8 +3014,8 @@
         class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Significance</a>
       <a href="life.html" onclick="toggleMobileMenu()"
         class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Spiritual Journey</a>
-      <a href="poojas.html" onclick="toggleMobileMenu()"
-        class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Pujas & Offerings</a>
+      <a href="events.html" onclick="toggleMobileMenu()"
+        class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Events</a>
       <a href="gallery.html" onclick="toggleMobileMenu()"
         class="text-white/80 hover:text-[#ffe16d] transition-colors py-2">Gallery</a>
     </div>
