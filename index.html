@@ -933,6 +933,172 @@
       border-width: 0 2px 2px 0;
       border-radius: 0 0 3px 0;
     }
+
+    /* ───────────────────────────────────────────────────────────
+       PREMIUM UI POLISH — v2
+    ─────────────────────────────────────────────────────────── */
+
+    /* Rich gradient on section headings */
+    .gradient-heading {
+      background: linear-gradient(135deg, #570000 0%, #7a1a00 40%, #705d00 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Section badge — slightly more gold */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 16px;
+      background: linear-gradient(135deg, rgba(194,178,128,0.18), rgba(194,178,128,0.08));
+      border: 1px solid rgba(194, 178, 128, 0.45);
+      border-radius: 9999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #705d00;
+      box-shadow: 0 1px 4px rgba(194,178,128,0.15);
+    }
+
+    /* Gold line — richer gradient */
+    .gold-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, #C2B280 30%, #705d00 50%, #C2B280 70%, transparent 100%);
+      width: 0;
+      opacity: 0;
+      transition: width 1.4s cubic-bezier(0.16,1,0.3,1), opacity 0.5s ease;
+      margin: 16px auto;
+    }
+    .gold-line.active { width: 100%; opacity: 1; }
+
+    /* Shrine card — premium hover */
+    .shrine-card {
+      position: relative;
+      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease, border-color 0.4s ease;
+    }
+    .shrine-card:hover {
+      transform: translateY(-12px) scale(1.01);
+      box-shadow:
+        0 24px 56px -12px rgba(87,0,0,0.18),
+        0 6px 18px -4px rgba(194,178,128,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.6);
+      border-color: rgba(87,0,0,0.25) !important;
+    }
+    /* Image inside shrine card */
+    .shrine-card .shrine-img-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .shrine-card .shrine-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(87,0,0,0.25) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .shrine-card:hover .shrine-img-wrap::after {
+      opacity: 1;
+    }
+
+    /* Announcement card — left accent on hover */
+    .announce-card {
+      position: relative;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .announce-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 12px; bottom: 12px;
+      width: 3px;
+      background: linear-gradient(to bottom, #570000, #8f4e00);
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .announce-card:hover::before { opacity: 1; }
+    .announce-card:hover {
+      border-color: rgba(87,0,0,0.22) !important;
+      box-shadow: 0 8px 24px -6px rgba(87,0,0,0.1);
+      background: rgba(255,255,255,0.7) !important;
+    }
+
+    /* Kanakadhara panel — rich layered background */
+    #kanakadhara-panel {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(87,0,0,0.05) 0%, transparent 70%),
+        linear-gradient(180deg, rgba(239,239,215,0) 0%, rgba(239,239,215,0.5) 100%),
+        var(--tw-gradient-stops, #efefd7);
+      background-color: #efefd7;
+    }
+
+    /* Advaita Sanctuary — radial mandala glow */
+    #contemplation {
+      position: relative;
+    }
+    #contemplation::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(194,178,128,0.07) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    #contemplation > * { position: relative; z-index: 1; }
+
+    /* Pilgrimage tab active — premium left accent */
+    .tab-active-premium {
+      background: #ffffff !important;
+      box-shadow: inset 4px 0 0 #570000;
+    }
+
+    /* Sanctuary card — depth glow on hover */
+    .sanctuary-card {
+      transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .sanctuary-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px -8px rgba(87,0,0,0.12), 0 0 0 1px rgba(194,178,128,0.3);
+    }
+
+    /* Sanskrit glow — already defined, enhance it */
+    .sanskrit-glow {
+      text-shadow:
+        0 0 24px rgba(87,0,0,0.14),
+        0 2px 10px rgba(194,178,128,0.25);
+      transition: text-shadow 0.5s ease;
+    }
+    .sanskrit-glow:hover {
+      text-shadow:
+        0 0 36px rgba(87,0,0,0.26),
+        0 2px 14px rgba(194,178,128,0.4);
+    }
+
+    /* Intro section — subtle warm tint alternate */
+    #intro-section {
+      background: linear-gradient(180deg, transparent 0%, rgba(239,239,215,0.35) 100%);
+    }
+
+    /* Footer ambient glow */
+    footer {
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 1px;
+      background: linear-gradient(90deg, transparent, #C2B280, #705d00, #C2B280, transparent);
+      opacity: 0.6;
+    }
   </style>
 </head>
 
@@ -1083,7 +1249,7 @@
         </div>
       </section>
       <!-- Introduction Section -->
-      <section
+      <section id="intro-section"
         class="py-section-gap-lg px-gutter max-w-container-max mx-auto text-center transition-all duration-1000 opacity-100">
         <div class="reveal-item">
           <span class="section-badge">
@@ -1091,12 +1257,12 @@
             Sri Adi Shankara Janmabhoomi Kshethram
           </span>
         </div>
-        <h2 class="text-section-title text-primary mt-5 mb-4 reveal-item reveal-delay-100">
+        <h2 class="text-section-title text-primary mt-5 mb-4 gradient-heading reveal-item reveal-delay-100">
           The Sacred Birthplace of Advaita
         </h2>
         <!-- Sanskrit verse, centred and clean -->
         <div class="max-w-2xl mx-auto reveal-item reveal-delay-200">
-          <p class="font-serif italic text-primary text-lg md:text-xl tracking-wide leading-relaxed">
+          <p class="font-serif italic text-primary text-lg md:text-xl tracking-wide leading-relaxed sanskrit-glow">
             सदाशिवसमारम्भां शङ्कराचार्यमध्यमाम्।<br>अस्मदाचार्यपर्यन्तां वन्दे गुरुपरम्पराम्॥
           </p>
           <span class="dim-label mt-2 block text-center">Guru Parampara Shloka · The lineage of masters from Sadashiva
@@ -1154,7 +1320,7 @@
               <div
                 class="snap-start shrink-0 w-[85vw] md:w-[380px] lg:w-[420px] flex flex-col group relative reveal-item reveal-delay-200">
                 <div
-                  class="h-full border border-sandalwood/30 bg-surface-container/50 hover:bg-surface-container p-5 rounded-xl transition-all duration-300 hover:shadow-[0_8px_20px_-6px_rgba(87,0,0,0.12)] hover:border-primary/30 flex flex-col cursor-default">
+                  class="announce-card h-full border border-sandalwood/30 bg-surface-container/50 p-5 rounded-xl transition-all duration-300 flex flex-col cursor-default overflow-hidden">
 
                   <div class="flex items-start justify-between mb-3">
                     <span
@@ -1276,8 +1442,8 @@
             <span class="material-symbols-outlined" style="font-size:13px">temple_hindu</span>
             I. Sacred Shrines
           </span>
-          <h2 class="text-section-title text-primary mt-4">The Holy Shrines of the Birthplace</h2>
-          <p class="font-serif italic text-primary/90 text-lg md:text-xl mt-4">"नमामि शङ्कराचार्यं सर्वलोकैकशरणम्"</p>
+          <h2 class="text-section-title text-primary mt-4 gradient-heading">The Holy Shrines of the Birthplace</h2>
+          <p class="font-serif italic text-primary/90 text-lg md:text-xl mt-4 sanskrit-glow">"नमामि शङ्कराचार्यं सर्वलोकैकशरणम्"</p>
           <span class="dim-label mt-2 block text-center">I bow to Shankaracharya, the sole refuge of all worlds</span>
           <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl mx-auto mt-4 leading-relaxed font-light">
             Explore the historic points of Kalady, where young Shankara spent his childhood and performed
@@ -1288,16 +1454,13 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
           <!-- Shrine 1 -->
           <div
-            class="group bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-surface-container-low border border-sandalwood/35 p-8 flex flex-col items-center text-center hover:border-primary/30 hover:shadow-[0_12px_28px_-8px_rgba(87,0,0,0.12)] transition-all duration-500 rounded-xl hover-card-trigger reveal-item reveal-delay-100">
-            <div class="w-full h-72 overflow-hidden mb-8 relative border border-sandalwood/20 rounded-lg shadow-sm">
+            class="shrine-card group bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-surface-container-low border border-sandalwood/35 p-8 flex flex-col items-center text-center rounded-xl reveal-item reveal-delay-100">
+            <div class="shrine-img-wrap w-full h-72 mb-8 border border-sandalwood/20 rounded-lg shadow-sm">
               <img
                 class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
                 loading="lazy" decoding="async"
                 data-alt="A serene temple courtyard of the ancient Sri Krishna Temple in Kalady with oil lamps and traditional Kerala architecture. Warm golden hour lighting highlighting the weathered stone and intricate wood carvings under a soft sky."
                 src="./image_1.jpg">
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              </div>
             </div>
             <h3 class="font-headline-md text-headline-md text-primary mb-4 tracking-tight">Ancient Sri Krishna Temple
             </h3>
@@ -1312,16 +1475,13 @@
           </div>
           <!-- Shrine 2 -->
           <div
-            class="group bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-surface-container-low border border-sandalwood/35 p-8 flex flex-col items-center text-center hover:border-primary/30 hover:shadow-[0_12px_28px_-8px_rgba(87,0,0,0.12)] transition-all duration-500 rounded-xl hover-card-trigger reveal-item reveal-delay-250">
-            <div class="w-full h-72 overflow-hidden mb-8 relative border border-sandalwood/20 rounded-lg shadow-sm">
+            class="shrine-card group bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-surface-container-low border border-sandalwood/35 p-8 flex flex-col items-center text-center rounded-xl reveal-item reveal-delay-250">
+            <div class="shrine-img-wrap w-full h-72 mb-8 border border-sandalwood/20 rounded-lg shadow-sm">
               <img
                 class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
                 loading="lazy" decoding="async"
                 data-alt="The Crocodile Ghat on the banks of the Purna River, with stone steps leading down to the water. Lush palm trees and mist rising from the river create a mystical, early morning atmosphere in a traditional Indian spiritual setting."
                 src="./image_2.jpg">
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              </div>
             </div>
             <h3 class="font-headline-md text-headline-md text-primary mb-4 tracking-tight">The Crocodile Ghat</h3>
             <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed flex-grow">
@@ -1335,16 +1495,13 @@
           </div>
           <!-- Shrine 3 -->
           <div id="pathashala"
-            class="group bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-surface-container-low border border-sandalwood/35 p-8 flex flex-col items-center text-center hover:border-primary/30 hover:shadow-[0_12px_28px_-8px_rgba(87,0,0,0.12)] transition-all duration-500 rounded-xl hover-card-trigger reveal-item reveal-delay-400">
-            <div class="w-full h-72 overflow-hidden mb-8 relative border border-sandalwood/20 rounded-lg shadow-sm">
+            class="shrine-card group bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-surface-container-low border border-sandalwood/35 p-8 flex flex-col items-center text-center rounded-xl reveal-item reveal-delay-400">
+            <div class="shrine-img-wrap w-full h-72 mb-8 border border-sandalwood/20 rounded-lg shadow-sm">
               <img
                 class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
                 loading="lazy" decoding="async"
                 data-alt="Inside a traditional Veda Pathashala with young students in saffron robes seated on the floor studying ancient palm leaf manuscripts. Soft light filters through wooden rafters, illuminating a scene of quiet academic devotion."
                 src="./image_4.jpg">
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              </div>
             </div>
             <h3 class="font-headline-md text-headline-md text-primary mb-4 tracking-tight">Kalady Veda Pathashala</h3>
             <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed flex-grow">
@@ -1359,8 +1516,8 @@
         </div>
       </section>
       <!-- The Kanakadhara Miracle (Featured Section) -->
-      <section
-        class="py-section-gap-lg bg-surface-container relative overflow-hidden my-12 rounded-xl mx-gutter max-w-container-max lg:mx-auto transition-all duration-1000 opacity-100">
+      <section id="kanakadhara-panel"
+        class="py-section-gap-lg relative overflow-hidden my-12 rounded-xl mx-gutter max-w-container-max lg:mx-auto transition-all duration-1000 opacity-100">
         <!-- Corner accents -->
         <div class="corner-accent tl" aria-hidden="true"></div>
         <div class="corner-accent tr" aria-hidden="true"></div>
@@ -1381,10 +1538,10 @@
               II. The Power of Devotion
             </span>
           </div>
-          <h2 class="text-section-title text-primary reveal-item reveal-delay-100">
+          <h2 class="text-section-title text-primary gradient-heading reveal-item reveal-delay-100">
             The Kanakadhara Stotram: A Rain of Gold
           </h2>
-          <p class="font-serif italic text-primary text-base md:text-lg reveal-item reveal-delay-200">
+          <p class="font-serif italic text-primary text-base md:text-lg reveal-item reveal-delay-200 sanskrit-glow">
             "दद्याद्दयानुपवनो द्रविणाम्बुधारामस्मिन्नकिञ्चनविहङ्गशिशौ विषण्णे"
           </p>
           <span class="dim-label block text-center reveal-item reveal-delay-200">Kanakadhara Stotram · Verse invoking
@@ -1423,7 +1580,7 @@
             <span class="material-symbols-outlined" style="font-size:13px">self_improvement</span>
             III. Vedantic Sanctuary
           </span>
-          <h2 class="text-section-title text-primary mt-4">The Sanctuary of Advaita</h2>
+          <h2 class="text-section-title text-primary mt-4 gradient-heading">The Sanctuary of Advaita</h2>
           <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl mx-auto mt-4 leading-relaxed font-light">
             Step into the spiritual presence of Adi Shankara. Reflect on self-inquiry dialogue or immerse yourself in
             the sacred vibrations of temple chants.
@@ -1434,7 +1591,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           <!-- Column 1: Prashnottara dialogue -->
           <div
-            class="bg-surface border-2 border-double border-sandalwood/50 p-8 rounded-xl flex flex-col justify-between reveal-item reveal-delay-100 shadow-sm">
+            class="sanctuary-card bg-surface border-2 border-double border-sandalwood/50 p-8 rounded-xl flex flex-col justify-between reveal-item reveal-delay-100 shadow-sm">
             <div class="space-y-6">
               <div class="flex items-center gap-3">
                 <span class="material-symbols-outlined text-primary text-3xl">question_answer</span>
@@ -1477,7 +1634,7 @@
 
           <!-- Column 2: Audio Player & Visualizer -->
           <div
-            class="bg-surface border-2 border-double border-sandalwood/50 p-8 rounded-xl flex flex-col justify-between reveal-item reveal-delay-200 shadow-sm relative overflow-hidden">
+            class="sanctuary-card bg-surface border-2 border-double border-sandalwood/50 p-8 rounded-xl flex flex-col justify-between reveal-item reveal-delay-200 shadow-sm relative overflow-hidden">
             <!-- Decorative background glow -->
             <div class="absolute -right-24 -bottom-24 w-48 h-48 bg-primary/3 rounded-full blur-3xl pointer-events-none">
             </div>
@@ -1587,8 +1744,8 @@
             <span class="material-symbols-outlined" style="font-size:13px">luggage</span>
             IV. Plan Your Pilgrimage
           </span>
-          <h2 class="text-section-title text-primary mt-4 mb-3">Your Journey to Kalady</h2>
-          <p class="font-serif italic text-primary text-base md:text-lg">
+          <h2 class="text-section-title text-primary mt-4 mb-3 gradient-heading">Your Journey to Kalady</h2>
+          <p class="font-serif italic text-primary text-base md:text-lg sanskrit-glow">
             "तीर्थयात्रा परा पुंसां सर्वपापप्रणाशिनी"
           </p>
           <span class="dim-label mt-2 block text-center">Pilgrimage is the supreme purifier of all past actions</span>
