@@ -11,22 +11,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://cdn.tailwindcss.com?plugins=forms,container-queries" as="script">
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js" as="script">
-  <link rel="preload"
-    href="./hero-kalady.jpg"
-    as="image">
+  <link rel="preload" href="./hero-kalady.jpg" as="image">
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@100..900&display=swap"
     rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet">
-    
+
   <!-- ========================================== -->
   <!-- HEAD CONFIGURATION                         -->
   <!-- ========================================== -->
   <!-- 1. Lenis: Smooth scrolling implementation -->
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
-  
+
   <!-- 2. Tailwind CSS: Defines custom theme, colors, and typography -->
   <script id="tailwind-config">
     tailwind.config = {
@@ -844,6 +842,97 @@
       box-shadow: 0 20px 40px rgba(87, 0, 0, 0.08);
       border-color: rgba(194, 178, 128, 0.5);
     }
+
+    /* ── Inspired by significance.html ── */
+
+    /* Editorial Pull Quote */
+    .editorial-quote {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px solid rgba(194, 178, 128, 0.4);
+      margin: 1.5rem 0;
+    }
+
+    /* Animated gold separator line */
+    .gold-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #C2B280, transparent);
+      width: 0;
+      opacity: 0;
+      transition: width 1.2s ease, opacity 0.4s ease;
+      margin: 16px auto;
+    }
+
+    .gold-line.active {
+      width: 100%;
+      opacity: 1;
+    }
+
+    /* Dimension / section label */
+    .dim-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #8f4e00;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Section badge pill (matches life.html & significance.html) */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      background: rgba(194, 178, 128, 0.12);
+      border: 1px solid rgba(194, 178, 128, 0.3);
+      border-radius: 9999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8f4e00;
+    }
+
+    /* Corner accent marks */
+    .corner-accent {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border-color: rgba(194, 178, 128, 0.45);
+      border-style: solid;
+    }
+
+    .corner-accent.tl {
+      top: 18px;
+      left: 18px;
+      border-width: 2px 0 0 2px;
+      border-radius: 3px 0 0 0;
+    }
+
+    .corner-accent.tr {
+      top: 18px;
+      right: 18px;
+      border-width: 2px 2px 0 0;
+      border-radius: 0 3px 0 0;
+    }
+
+    .corner-accent.bl {
+      bottom: 18px;
+      left: 18px;
+      border-width: 0 0 2px 2px;
+      border-radius: 0 0 0 3px;
+    }
+
+    .corner-accent.br {
+      bottom: 18px;
+      right: 18px;
+      border-width: 0 2px 2px 0;
+      border-radius: 0 0 3px 0;
+    }
   </style>
 </head>
 
@@ -949,8 +1038,8 @@
         class="relative h-[85vh] w-full overflow-hidden flex justify-center items-end transition-all duration-1000 opacity-100">
         <!-- Parallax Background Image -->
         <div class="absolute inset-0 z-0 overflow-hidden">
-          <img id="hero-parallax-img" alt="The Purna River at dawn in Kalady" class="animate-fade-in brightness-[0.85] w-full h-full object-cover"
-            src="./hero-kalady.jpg">
+          <img id="hero-parallax-img" alt="The Purna River at dawn in Kalady"
+            class="animate-fade-in brightness-[0.85] w-full h-full object-cover" src="./hero-kalady.jpg">
           <div
             class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/45 to-primary/50 mix-blend-multiply z-0">
           </div>
@@ -996,31 +1085,33 @@
       <!-- Introduction Section -->
       <section
         class="py-section-gap-lg px-gutter max-w-container-max mx-auto text-center transition-all duration-1000 opacity-100">
-        <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.4em] block mb-6 reveal-item">Om
-          Namo Narayanaya</span>
-        <h2 class="text-section-title text-primary mb-2">
-          Sri Adi Shankara Janmabhoomi Kshethram
-        </h2>
-        <div class="flex items-center justify-center my-6 space-x-4 opacity-80 reveal-item reveal-delay-200">
-          <div class="h-[1px] w-24 bg-gradient-to-r from-transparent via-sandalwood to-sandalwood"></div>
-          <svg class="w-8 h-8 text-tertiary fill-current" viewBox="0 0 24 24">
-            <path d="M12 3c-1.2 3.5-2.5 6.5-2.5 9s1.3 5.5 2.5 9c1.2-3.5 2.5-6.5 2.5-9s-1.3-5.5-2.5-9z" />
-            <path d="M12 8c-3 1-5 4-5 6.5s1.5 4 4 5.5c-2.5-2.5-3.5-5.5-2-8.5.5-1 1.5-2.5 3-3.5z" />
-            <path d="M12 8c3 1 5 4 5 6.5s-1.5 4-4 5.5c2.5-2.5 3.5-5.5 2-8.5-.5-1-1.5-2.5-3-3.5z" />
-            <path d="M8 20c2 .5 6 .5 8 0-1 .8-3 1.2-4 1.2s-3-.4-4-1.2z" />
-          </svg>
-          <div class="h-[1px] w-24 bg-gradient-to-l from-transparent via-sandalwood to-sandalwood"></div>
+        <div class="reveal-item">
+          <span class="section-badge">
+            <span class="material-symbols-outlined" style="font-size:13px">brightness_5</span>
+            Sri Adi Shankara Janmabhoomi Kshethram
+          </span>
         </div>
-        <p
-          class="font-serif italic text-primary text-lg md:text-xl text-center tracking-wide my-6 reveal-item reveal-delay-250">
-          "सदाशिवसमारम्भां शङ्कराचार्यमध्यमाम्। अस्मदाचार्यपर्यन्तां वन्दे गुरुपरम्पराम्॥"
-        </p>
-        <div class="max-w-3xl mx-auto space-y-8">
-          <p class="font-body-lg text-body-lg leading-relaxed text-on-surface-variant reveal-item reveal-delay-300">
+        <h2 class="text-section-title text-primary mt-5 mb-4 reveal-item reveal-delay-100">
+          The Sacred Birthplace of Advaita
+        </h2>
+        <!-- Sanskrit verse, centred and clean -->
+        <div class="max-w-2xl mx-auto reveal-item reveal-delay-200">
+          <p class="font-serif italic text-primary text-lg md:text-xl tracking-wide leading-relaxed">
+            सदाशिवसमारम्भां शङ्कराचार्यमध्यमाम्।<br>अस्मदाचार्यपर्यन्तां वन्दे गुरुपरम्पराम्॥
+          </p>
+          <span class="dim-label mt-2 block text-center">Guru Parampara Shloka · The lineage of masters from Sadashiva
+            to the present Acharya</span>
+        </div>
+        <!-- Single clean gold separator -->
+        <div class="gold-line max-w-xs mx-auto mt-6 mb-8" id="intro-gold-line"></div>
+        <div class="max-w-3xl mx-auto space-y-5">
+          <p
+            class="font-body-lg text-lg leading-relaxed text-on-surface-variant reveal-item reveal-delay-300 font-light">
             Nestled in the lush landscapes of Kerala, Kalady stands as a lighthouse of Sanatana Dharma. It was here,
             over twelve centuries ago, that a young boy named Shankara transformed the spiritual landscape of India.
           </p>
-          <p class="font-body-lg text-body-lg leading-relaxed text-on-surface-variant reveal-item reveal-delay-400">
+          <p
+            class="font-body-lg text-lg leading-relaxed text-on-surface-variant reveal-item reveal-delay-400 font-light">
             The Purna River (Periyar), witnessing his childhood miracles, still flows with the same serenity, carrying
             the essence of Non-duality (Advaita) to all who seek shelter at its banks.
           </p>
@@ -1028,21 +1119,27 @@
       </section>
 
       <!-- Announcements Section -->
-      <section id="announcements" class="py-6 bg-surface border-y border-sandalwood/20 transition-all duration-1000 opacity-100 relative overflow-hidden">
+      <section id="announcements"
+        class="py-6 bg-surface border-y border-sandalwood/20 transition-all duration-1000 opacity-100 relative overflow-hidden">
         <div class="px-gutter max-w-container-max mx-auto">
-          
+
           <div class="flex flex-col md:flex-row md:items-end justify-between mb-4 gap-4 reveal-item">
             <div class="max-w-2xl">
-              <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.3em] block mb-2">Notice Board</span>
+              <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.3em] block mb-2">Notice
+                Board</span>
               <h2 class="text-section-title text-primary tracking-tight">Announcements</h2>
             </div>
-            
+
             <!-- Navigation Controls -->
             <div class="flex gap-3 pb-1">
-              <button id="announcements-prev" class="w-10 h-10 flex items-center justify-center rounded-full border border-sandalwood/50 text-primary hover:bg-sandalwood/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed bg-surface hover:shadow-sm" aria-label="Previous announcements">
+              <button id="announcements-prev"
+                class="w-10 h-10 flex items-center justify-center rounded-full border border-sandalwood/50 text-primary hover:bg-sandalwood/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed bg-surface hover:shadow-sm"
+                aria-label="Previous announcements">
                 <span class="material-symbols-outlined text-lg">arrow_back_ios_new</span>
               </button>
-              <button id="announcements-next" class="w-10 h-10 flex items-center justify-center rounded-full border border-sandalwood/50 text-primary hover:bg-sandalwood/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed bg-surface hover:shadow-sm" aria-label="Next announcements">
+              <button id="announcements-next"
+                class="w-10 h-10 flex items-center justify-center rounded-full border border-sandalwood/50 text-primary hover:bg-sandalwood/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed bg-surface hover:shadow-sm"
+                aria-label="Next announcements">
                 <span class="material-symbols-outlined text-lg">arrow_forward_ios</span>
               </button>
             </div>
@@ -1050,51 +1147,66 @@
 
           <!-- Carousel Container -->
           <div class="relative -mx-gutter px-gutter md:mx-0 md:px-0">
-            <div id="announcements-container" class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-3 pt-1 hide-scrollbar scroll-smooth">
-              
+            <div id="announcements-container"
+              class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-3 pt-1 hide-scrollbar scroll-smooth">
+
               <!-- Card 1 (Sri Dhakshinamurthy Homam) -->
-              <div class="snap-start shrink-0 w-[85vw] md:w-[380px] lg:w-[420px] flex flex-col group relative reveal-item reveal-delay-200">
-                <div class="h-full border border-sandalwood/30 bg-surface-container/50 hover:bg-surface-container p-5 rounded-xl transition-all duration-300 hover:shadow-[0_8px_20px_-6px_rgba(87,0,0,0.12)] hover:border-primary/30 flex flex-col cursor-default">
-                  
+              <div
+                class="snap-start shrink-0 w-[85vw] md:w-[380px] lg:w-[420px] flex flex-col group relative reveal-item reveal-delay-200">
+                <div
+                  class="h-full border border-sandalwood/30 bg-surface-container/50 hover:bg-surface-container p-5 rounded-xl transition-all duration-300 hover:shadow-[0_8px_20px_-6px_rgba(87,0,0,0.12)] hover:border-primary/30 flex flex-col cursor-default">
+
                   <div class="flex items-start justify-between mb-3">
-                    <span class="font-label-md text-[10px] tracking-[0.15em] text-secondary uppercase bg-secondary/10 px-2 py-1 rounded-md border border-secondary/20">
+                    <span
+                      class="font-label-md text-[10px] tracking-[0.15em] text-secondary uppercase bg-secondary/10 px-2 py-1 rounded-md border border-secondary/20">
                       Upcoming Pooja
                     </span>
-                    <div class="flex flex-col items-center border border-primary/20 rounded overflow-hidden shadow-sm bg-surface -mt-1">
-                      <div class="bg-primary text-white text-[9px] font-label-md tracking-[0.2em] px-2 py-0.5 w-full text-center uppercase">Feb</div>
-                      <div class="text-primary font-headline-md font-bold text-base px-2 py-0 w-full text-center leading-none">18</div>
+                    <div
+                      class="flex flex-col items-center border border-primary/20 rounded overflow-hidden shadow-sm bg-surface -mt-1">
+                      <div
+                        class="bg-primary text-white text-[9px] font-label-md tracking-[0.2em] px-2 py-0.5 w-full text-center uppercase">
+                        Feb</div>
+                      <div
+                        class="text-primary font-headline-md font-bold text-base px-2 py-0 w-full text-center leading-none">
+                        18</div>
                     </div>
                   </div>
-                  
-                  <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold group-hover:text-primary-container transition-colors tracking-tight">
+
+                  <h3
+                    class="font-headline-md text-xl text-primary mb-2 font-semibold group-hover:text-primary-container transition-colors tracking-tight">
                     Sri Dhakshinamurthy Homam
                   </h3>
-                  
+
                   <div class="font-body-md text-on-surface-variant mb-4 leading-relaxed flex-grow opacity-90 text-sm">
                     <div class="space-y-2 mt-1">
                       <div class="flex items-start gap-2">
                         <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">info</span>
-                        <div><strong class="font-label-md text-primary block mb-0.5">What</strong><span class="text-sm">Special Sri Dhakshinamurthy Homam for wisdom and knowledge.</span></div>
+                        <div><strong class="font-label-md text-primary block mb-0.5">What</strong><span
+                            class="text-sm">Special Sri Dhakshinamurthy Homam for wisdom and knowledge.</span></div>
                       </div>
                       <div class="flex items-start gap-2">
                         <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">schedule</span>
-                        <div><strong class="font-label-md text-primary block mb-0.5">When</strong><span class="text-sm">18 February 2027, 7:00 AM to 12:00 PM</span></div>
+                        <div><strong class="font-label-md text-primary block mb-0.5">When</strong><span
+                            class="text-sm">18 February 2027, 7:00 AM to 12:00 PM</span></div>
                       </div>
                       <div class="flex items-start gap-2">
                         <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">location_on</span>
-                        <div><strong class="font-label-md text-primary block mb-0.5">Where</strong><span class="text-sm">Main Shrine, Sri Adi Shankara Janmabhoomi</span></div>
+                        <div><strong class="font-label-md text-primary block mb-0.5">Where</strong><span
+                            class="text-sm">Main Shrine, Sri Adi Shankara Janmabhoomi</span></div>
                       </div>
                     </div>
                   </div>
-                  
+
                   <div class="mt-auto pt-3 border-t border-sandalwood/20 flex flex-col gap-2">
                     <div class="flex items-center gap-2 text-on-surface-variant opacity-85 text-xs">
                       <span class="material-symbols-outlined text-[16px] text-tertiary">calendar_today</span>
                       <span class="font-label-md">18 February 2027 &middot; 7:00 AM Onwards</span>
                     </div>
-                    <a href="#" class="inline-flex items-center gap-1 text-primary font-label-md text-xs uppercase tracking-[0.1em] hover:text-secondary transition-colors mt-1 w-fit group/link pb-0.5 border-b border-transparent hover:border-secondary">
-                      View Details 
-                      <span class="material-symbols-outlined text-[16px] transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+                    <a href="#"
+                      class="inline-flex items-center gap-1 text-primary font-label-md text-xs uppercase tracking-[0.1em] hover:text-secondary transition-colors mt-1 w-fit group/link pb-0.5 border-b border-transparent hover:border-secondary">
+                      View Details
+                      <span
+                        class="material-symbols-outlined text-[16px] transition-transform group-hover/link:translate-x-1">arrow_forward</span>
                     </a>
                   </div>
 
@@ -1110,6 +1222,7 @@
           .hide-scrollbar::-webkit-scrollbar {
             display: none;
           }
+
           .hide-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
@@ -1148,7 +1261,7 @@
               window.requestAnimationFrame(updateButtons);
             });
             window.addEventListener('resize', updateButtons);
-            
+
             // Initial check
             setTimeout(updateButtons, 150);
           });
@@ -1159,17 +1272,18 @@
       <section id="shrine-grid"
         class="py-section-gap-md px-gutter max-w-container-max mx-auto transition-all duration-1000 opacity-100">
         <div class="text-center mb-16 reveal-item">
-          <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.3em] block mb-3">Sacred
-            Shrines</span>
-          <h2 class="text-section-title text-primary">The Holy Shrines of the Birthplace</h2>
-          <p class="font-serif italic text-primary/95 text-lg md:text-xl mt-4">
-            "नमामि शङ्कराचार्यं सर्वलोकैकशरणम्"
-          </p>
-          <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl mx-auto mt-3 leading-relaxed">
-            Explore the historic points of Kaippilly Illam, where young Shankara spent his childhood and performed
+          <span class="section-badge">
+            <span class="material-symbols-outlined" style="font-size:13px">temple_hindu</span>
+            I. Sacred Shrines
+          </span>
+          <h2 class="text-section-title text-primary mt-4">The Holy Shrines of the Birthplace</h2>
+          <p class="font-serif italic text-primary/90 text-lg md:text-xl mt-4">"नमामि शङ्कराचार्यं सर्वलोकैकशरणम्"</p>
+          <span class="dim-label mt-2 block text-center">I bow to Shankaracharya, the sole refuge of all worlds</span>
+          <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl mx-auto mt-4 leading-relaxed font-light">
+            Explore the historic points of Kalady, where young Shankara spent his childhood and performed
             miracles.
           </p>
-          <div class="mt-8 h-[1px] w-48 bg-gradient-to-r from-transparent via-sandalwood to-transparent mx-auto"></div>
+          <div class="gold-line max-w-sm mx-auto mt-6" id="shrines-gold-line"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
           <!-- Shrine 1 -->
@@ -1247,25 +1361,40 @@
       <!-- The Kanakadhara Miracle (Featured Section) -->
       <section
         class="py-section-gap-lg bg-surface-container relative overflow-hidden my-12 rounded-xl mx-gutter max-w-container-max lg:mx-auto transition-all duration-1000 opacity-100">
+        <!-- Corner accents -->
+        <div class="corner-accent tl" aria-hidden="true"></div>
+        <div class="corner-accent tr" aria-hidden="true"></div>
+        <div class="corner-accent bl" aria-hidden="true"></div>
+        <div class="corner-accent br" aria-hidden="true"></div>
+        <!-- OM watermark -->
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[14rem] leading-none text-primary opacity-[0.025] pointer-events-none select-none"
+          aria-hidden="true">ॐ</div>
         <!-- Decorative Motif -->
         <div class="absolute -top-24 -right-24 opacity-5 pointer-events-none animate-float" aria-hidden="true">
           <span class="material-symbols-outlined text-[400px] text-tertiary">spa</span>
         </div>
-        <div class="px-gutter md:px-16 max-w-3xl mx-auto text-center space-y-8 relative z-10">
-          <span
-            class="font-label-md text-label-md text-sacred-orange uppercase tracking-[0.3em] block reveal-item reveal-delay-100">The
-            Power of Devotion</span>
-          <h2 class="text-section-title text-primary">
+        <div class="px-gutter md:px-16 max-w-3xl mx-auto text-center space-y-5 relative z-10">
+          <div class="reveal-item">
+            <span class="section-badge">
+              <span class="material-symbols-outlined" style="font-size:13px">auto_stories</span>
+              II. The Power of Devotion
+            </span>
+          </div>
+          <h2 class="text-section-title text-primary reveal-item reveal-delay-100">
             The Kanakadhara Stotram: A Rain of Gold
           </h2>
-          <p class="font-serif italic text-primary text-base md:text-lg my-3 reveal-item reveal-delay-250">
+          <p class="font-serif italic text-primary text-base md:text-lg reveal-item reveal-delay-200">
             "दद्याद्दयानुपवनो द्रविणाम्बुधारामस्मिन्नकिञ्चनविहङ्गशिशौ विषण्णे"
           </p>
-          <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed reveal-item reveal-delay-300">
+          <span class="dim-label block text-center reveal-item reveal-delay-200">Kanakadhara Stotram · Verse invoking
+            Goddess Lakshmi's compassion</span>
+          <p
+            class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed font-light reveal-item reveal-delay-300">
             Moved by the poverty and selfless heart of a lady who could only offer a single withered Amla fruit, the
             young Master Shankara composed twenty-one verses in praise of Goddess Lakshmi.
           </p>
-          <div class="flex flex-col sm:flex-row justify-center items-center gap-6 py-4 reveal-item reveal-delay-400">
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-6 py-2 reveal-item reveal-delay-400">
             <div class="flex items-center gap-2 text-on-surface/80 font-body-md"><span
                 class="text-secondary font-serif">🪷</span> Compassion for all beings</div>
             <div class="flex items-center gap-2 text-on-surface/80 font-body-md"><span
@@ -1290,14 +1419,16 @@
       <section id="contemplation"
         class="py-section-gap-lg px-gutter max-w-container-max mx-auto my-12 transition-all duration-1000 opacity-100">
         <div class="text-center mb-16 reveal-item">
-          <span class="font-label-md text-label-md text-secondary uppercase tracking-[0.3em] block mb-3">Vedantic
-            Sanctuary</span>
-          <h2 class="text-section-title text-primary">The Sanctuary of Advaita</h2>
-          <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl mx-auto mt-4 leading-relaxed">
+          <span class="section-badge">
+            <span class="material-symbols-outlined" style="font-size:13px">self_improvement</span>
+            III. Vedantic Sanctuary
+          </span>
+          <h2 class="text-section-title text-primary mt-4">The Sanctuary of Advaita</h2>
+          <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl mx-auto mt-4 leading-relaxed font-light">
             Step into the spiritual presence of Adi Shankara. Reflect on self-inquiry dialogue or immerse yourself in
             the sacred vibrations of temple chants.
           </p>
-          <div class="mt-8 h-[1px] w-48 bg-gradient-to-r from-transparent via-sandalwood to-transparent mx-auto"></div>
+          <div class="gold-line max-w-xs mx-auto mt-6" id="sanctuary-gold-line"></div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
@@ -1452,20 +1583,20 @@
       <section id="pilgrimage"
         class="py-section-gap-lg px-gutter max-w-container-max mx-auto transition-all duration-1000 opacity-100">
         <div class="text-center mb-12 reveal-item">
-          <h2 class="text-section-title text-primary mb-2">Plan Your Pilgrimage</h2>
-          <p class="font-serif italic text-primary text-base md:text-lg my-3">
+          <span class="section-badge">
+            <span class="material-symbols-outlined" style="font-size:13px">luggage</span>
+            IV. Plan Your Pilgrimage
+          </span>
+          <h2 class="text-section-title text-primary mt-4 mb-3">Your Journey to Kalady</h2>
+          <p class="font-serif italic text-primary text-base md:text-lg">
             "तीर्थयात्रा परा पुंसां सर्वपापप्रणाशिनी"
           </p>
-          <!-- Elegant Lotus Ornamental Break -->
-          <div class="flex items-center justify-center my-6 space-x-4 opacity-80">
-            <div class="h-[1px] w-24 bg-gradient-to-r from-transparent via-sandalwood to-sandalwood"></div>
-            <svg class="w-8 h-8 text-tertiary fill-current" viewBox="0 0 24 24">
-              <path d="M12 3c-1.2 3.5-2.5 6.5-2.5 9s1.3 5.5 2.5 9c1.2-3.5 2.5-6.5 2.5-9s-1.3-5.5-2.5-9z" />
-              <path d="M12 8c-3 1-5 4-5 6.5s1.5 4 4 5.5c-2.5-2.5-3.5-5.5-2-8.5.5-1 1.5-2.5 3-3.5z" />
-              <path d="M12 8c3 1 5 4 5 6.5s-1.5 4-4 5.5c-2.5-2.5 3.5-5.5 2-8.5-.5-1-1.5-2.5-3-3.5z" />
-              <path d="M8 20c2 .5 6 .5 8 0-1 .8-3 1.2-4 1.2s-3-.4-4-1.2z" />
-            </svg>
-            <div class="h-[1px] w-24 bg-gradient-to-l from-transparent via-sandalwood to-sandalwood"></div>
+          <span class="dim-label mt-2 block text-center">Pilgrimage is the supreme purifier of all past actions</span>
+          <!-- Single clean separator -->
+          <div class="flex items-center justify-center mt-6 space-x-4 opacity-70">
+            <div class="h-[1px] w-16 bg-gradient-to-r from-transparent to-sandalwood/60"></div>
+            <span class="text-sandalwood/60 text-sm">✦</span>
+            <div class="h-[1px] w-16 bg-gradient-to-l from-transparent to-sandalwood/60"></div>
           </div>
         </div>
 
@@ -1660,11 +1791,25 @@
     </main>
     <!-- Footer Shell -->
     <footer
-      class="w-full py-section-gap-md bg-surface-container-low border-t border-sandalwood/20 flex flex-col items-center justify-center space-y-10">
-      <div class="font-headline-md text-headline-md text-primary tracking-tight font-semibold">
-        Sri Adi Shankara Janmabhoomi Kshethram
+      class="w-full py-section-gap-md bg-surface-container-low border-t border-sandalwood/20 flex flex-col items-center justify-center space-y-8">
+      <!-- Decorative footer divider -->
+      <div class="flex items-center gap-4 w-full max-w-xs">
+        <div class="flex-1 h-px bg-gradient-to-r from-transparent to-sandalwood/40"></div>
+        <svg class="w-6 h-6 text-sandalwood/60 fill-current flex-shrink-0" viewBox="0 0 24 24">
+          <path d="M12 3c-1.2 3.5-2.5 6.5-2.5 9s1.3 5.5 2.5 9c1.2-3.5 2.5-6.5 2.5-9s-1.3-5.5-2.5-9z" />
+          <path d="M12 8c-3 1-5 4-5 6.5s1.5 4 4 5.5c-2.5-2.5-3.5-5.5-2-8.5.5-1 1.5-2.5 3-3.5z" />
+          <path d="M12 8c3 1 5 4 5 6.5s-1.5 4-4 5.5c-2.5-2.5 3.5-5.5 2-8.5-.5-1-1.5-2.5-3-3.5z" />
+        </svg>
+        <div class="flex-1 h-px bg-gradient-to-l from-transparent to-sandalwood/40"></div>
       </div>
-      <div class="flex flex-wrap justify-center gap-10">
+      <div class="text-center space-y-2">
+        <div class="font-headline-md text-headline-md text-primary tracking-tight font-semibold">
+          Sri Adi Shankara Janmabhoomi Kshethram
+        </div>
+        <p class="font-serif italic text-on-surface-variant/70 text-sm">Kalady · Kerala · On the banks of the sacred
+          Purna</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-8">
         <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
           href="https://sringeri.net" target="_blank" rel="noopener noreferrer">Sringeri Math</a>
         <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
@@ -1883,6 +2028,17 @@
     }, { threshold: 0.35, rootMargin: '-80px 0px -50% 0px' });
 
     document.querySelectorAll('#home, #pathashala, #pilgrimage').forEach(sec => scrollObserver.observe(sec));
+
+    // Gold line IntersectionObserver
+    const goldLineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          goldLineObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.gold-line').forEach(el => goldLineObserver.observe(el));
 
     // Trigger animations and page transition on load
     document.addEventListener('DOMContentLoaded', () => {
