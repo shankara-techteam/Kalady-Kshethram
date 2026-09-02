@@ -1454,64 +1454,76 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
           <!-- Shrine 1 -->
           <div
-            class="shrine-card group bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-surface-container-low border border-sandalwood/35 p-8 flex flex-col items-center text-center rounded-xl reveal-item reveal-delay-100">
-            <div class="shrine-img-wrap w-full h-72 mb-8 border border-sandalwood/20 rounded-lg shadow-sm">
+            class="shrine-card group bg-white shadow-[0_8px_30px_rgb(87,0,0,0.04)] border border-sandalwood/40 rounded-2xl overflow-hidden hover:shadow-[0_20px_40px_rgb(87,0,0,0.08)] hover:border-sandalwood/60 transition-all duration-500 hover:-translate-y-2 flex flex-col reveal-item reveal-delay-100">
+            <div class="shrine-img-wrap w-full h-64 overflow-hidden relative border-b border-sandalwood/20">
               <img
-                class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                class="w-full h-full object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
                 loading="lazy" decoding="async"
                 data-alt="A serene temple courtyard of the ancient Sri Krishna Temple in Kalady with oil lamps and traditional Kerala architecture. Warm golden hour lighting highlighting the weathered stone and intricate wood carvings under a soft sky."
                 src="./image_1.jpg">
             </div>
-            <h3 class="font-headline-md text-headline-md text-primary mb-4 tracking-tight">Ancient Sri Krishna Temple
-            </h3>
-            <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed flex-grow">
-              The ancestral deity of the Kaippilly illam, where the young Master offered his daily prayers before his
-              journey of world-conquest.
-            </p>
-            <button onclick="openShrineModal(1)"
-              class="text-tertiary hover:text-primary border-b border-transparent hover:border-primary pb-0.5 transition-all duration-300 uppercase tracking-[0.2em] font-label-md text-label-md hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10">
-              Explore Temple
-            </button>
+            <div class="p-8 flex flex-col flex-grow items-start text-left">
+              <h3 class="font-headline-md text-headline-md text-primary mb-3 tracking-tight">Ancient Sri Krishna Temple
+              </h3>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed flex-grow">
+                The ancestral deity of the Kaippilly illam, where the young Master offered his daily prayers before his
+                journey of world-conquest.
+              </p>
+              <div class="mt-auto">
+                <button onclick="openShrineModal(1)"
+                  class="inline-flex items-center gap-2 text-tertiary hover:text-primary border-b border-tertiary/30 hover:border-primary pb-1 transition-all duration-300 uppercase tracking-[0.15em] font-label-md text-xs group-hover:translate-x-1">
+                  Explore Temple <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+              </div>
+            </div>
           </div>
           <!-- Shrine 2 -->
           <div
-            class="shrine-card group bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-surface-container-low border border-sandalwood/35 p-8 flex flex-col items-center text-center rounded-xl reveal-item reveal-delay-250">
-            <div class="shrine-img-wrap w-full h-72 mb-8 border border-sandalwood/20 rounded-lg shadow-sm">
+            class="shrine-card group bg-white shadow-[0_8px_30px_rgb(87,0,0,0.04)] border border-sandalwood/40 rounded-2xl overflow-hidden hover:shadow-[0_20px_40px_rgb(87,0,0,0.08)] hover:border-sandalwood/60 transition-all duration-500 hover:-translate-y-2 flex flex-col reveal-item reveal-delay-250">
+            <div class="shrine-img-wrap w-full h-64 overflow-hidden relative border-b border-sandalwood/20">
               <img
-                class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                class="w-full h-full object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
                 loading="lazy" decoding="async"
                 data-alt="The Crocodile Ghat on the banks of the Purna River, with stone steps leading down to the water. Lush palm trees and mist rising from the river create a mystical, early morning atmosphere in a traditional Indian spiritual setting."
                 src="./image_2.jpg">
             </div>
-            <h3 class="font-headline-md text-headline-md text-primary mb-4 tracking-tight">The Crocodile Ghat</h3>
-            <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed flex-grow">
-              The hallowed site of the 'Crocodile Miracle' where Shankara took Sanyasa, marking the beginning of his
-              mission to restore Vedic truth.
-            </p>
-            <button onclick="openShrineModal(2)"
-              class="text-tertiary hover:text-primary border-b border-transparent hover:border-primary pb-0.5 transition-all duration-300 uppercase tracking-[0.2em] font-label-md text-label-md hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10">
-              View the Ghats
-            </button>
+            <div class="p-8 flex flex-col flex-grow items-start text-left">
+              <h3 class="font-headline-md text-headline-md text-primary mb-3 tracking-tight">The Crocodile Ghat</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed flex-grow">
+                The hallowed site of the 'Crocodile Miracle' where Shankara took Sanyasa, marking the beginning of his
+                mission to restore Vedic truth.
+              </p>
+              <div class="mt-auto">
+                <button onclick="openShrineModal(2)"
+                  class="inline-flex items-center gap-2 text-tertiary hover:text-primary border-b border-tertiary/30 hover:border-primary pb-1 transition-all duration-300 uppercase tracking-[0.15em] font-label-md text-xs group-hover:translate-x-1">
+                  View the Ghats <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+              </div>
+            </div>
           </div>
           <!-- Shrine 3 -->
           <div id="pathashala"
-            class="shrine-card group bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-surface-container-low border border-sandalwood/35 p-8 flex flex-col items-center text-center rounded-xl reveal-item reveal-delay-400">
-            <div class="shrine-img-wrap w-full h-72 mb-8 border border-sandalwood/20 rounded-lg shadow-sm">
+            class="shrine-card group bg-white shadow-[0_8px_30px_rgb(87,0,0,0.04)] border border-sandalwood/40 rounded-2xl overflow-hidden hover:shadow-[0_20px_40px_rgb(87,0,0,0.08)] hover:border-sandalwood/60 transition-all duration-500 hover:-translate-y-2 flex flex-col reveal-item reveal-delay-400">
+            <div class="shrine-img-wrap w-full h-64 overflow-hidden relative border-b border-sandalwood/20">
               <img
-                class="w-full h-full object-cover transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                class="w-full h-full object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
                 loading="lazy" decoding="async"
                 data-alt="Inside a traditional Veda Pathashala with young students in saffron robes seated on the floor studying ancient palm leaf manuscripts. Soft light filters through wooden rafters, illuminating a scene of quiet academic devotion."
                 src="./image_4.jpg">
             </div>
-            <h3 class="font-headline-md text-headline-md text-primary mb-4 tracking-tight">Kalady Veda Pathashala</h3>
-            <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed flex-grow">
-              A vibrant hub of spiritual education, preserving the oral tradition of the Vedas through disciplined
-              learning and deep contemplation.
-            </p>
-            <button onclick="openShrineModal(3)"
-              class="text-tertiary hover:text-primary border-b border-transparent hover:border-primary pb-0.5 transition-all duration-300 uppercase tracking-[0.2em] font-label-md text-label-md hover:scale-[1.03] active:scale-[0.97] hover:shadow-[0_8px_16px_rgba(87,0,0,0.1)] hover:shadow-lg hover:shadow-primary/10">
-              Learn Traditions
-            </button>
+            <div class="p-8 flex flex-col flex-grow items-start text-left">
+              <h3 class="font-headline-md text-headline-md text-primary mb-3 tracking-tight">Kalady Veda Pathashala</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed flex-grow">
+                A vibrant hub of spiritual education, preserving the oral tradition of the Vedas through disciplined
+                learning and deep contemplation.
+              </p>
+              <div class="mt-auto">
+                <button onclick="openShrineModal(3)"
+                  class="inline-flex items-center gap-2 text-tertiary hover:text-primary border-b border-tertiary/30 hover:border-primary pb-1 transition-all duration-300 uppercase tracking-[0.15em] font-label-md text-xs group-hover:translate-x-1">
+                  Learn Traditions <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
