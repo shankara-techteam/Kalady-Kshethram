@@ -1,4 +1,7 @@
-import { auth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from './firebase-config.js';
+import { app } from './firebase-config.js';
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+const auth = getAuth(app);
 
 document.addEventListener('DOMContentLoaded', () => {
   const currentPage = window.location.pathname;
