@@ -315,124 +315,15 @@ document.addEventListener('DOMContentLoaded', () => {
         bellFreq: 698.46   // F5
       }
     };
-
     let currentTrackId = 0;
     let isAudioPlaying = false;
-    let visualizerInterval;
-
-    // Web Audio API Synthesizer variables
+    
+    // Web Audio API Analyzer variables for accurate visualization
     let audioCtx;
-    let synthOscillators = [];
-    let synthGainNode;
-    let synthBellInterval;
-
-    function startSynthesizedChant(trackId) {
-      stopSynthesizedChant();
-
-      try {
-        if (!audioCtx) {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-
-        const track = tracks[trackId];
-        const rootFreq = track.droneFreq;
-        const harmonics = [1, 2, 3, 1.5]; // Fundamental, octaves, and fifths
-
-        synthGainNode = audioCtx.createGain();
-        synthGainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
-        synthGainNode.connect(audioCtx.destination);
-
-        harmonics.forEach((h, index) => {
-          const osc = audioCtx.createOscillator();
-          osc.type = index % 2 === 0 ? 'triangle' : 'sine';
-          osc.frequency.setValueAtTime(rootFreq * h, audioCtx.currentTime);
-
-          const oscGain = audioCtx.createGain();
-          oscGain.gain.setValueAtTime(0.025, audioCtx.currentTime);
-
-          const lfo = audioCtx.createOscillator();
-          lfo.frequency.setValueAtTime(0.25 + (index * 0.05), audioCtx.currentTime);
-          const lfoGain = audioCtx.createGain();
-          lfoGain.gain.setValueAtTime(0.015, audioCtx.currentTime);
-
-          lfo.connect(lfoGain);
-          lfoGain.connect(oscGain.gain);
-
-          osc.connect(oscGain);
-          oscGain.connect(synthGainNode);
-
-          osc.start();
-          lfo.start();
-
-          synthOscillators.push(osc, lfo);
-        });
-
-        // Play immediate bell chime, then periodically
-        playBellChime(track.bellFreq);
-        synthBellInterval = setInterval(() => {
-          playBellChime(track.bellFreq);
-        }, 5000);
-      } catch (e) {
-        console.error("Synthesizer initialization failed:", e);
-      }
-    }
-
-    function playBellChime(freq) {
-      if (!audioCtx || audioCtx.state === 'suspended') return;
-
-      try {
-        const now = audioCtx.currentTime;
-        const osc1 = audioCtx.createOscillator();
-        const gain1 = audioCtx.createGain();
-
-        osc1.type = 'sine';
-        osc1.frequency.setValueAtTime(freq, now);
-
-        const osc2 = audioCtx.createOscillator();
-        const gain2 = audioCtx.createGain();
-        osc2.type = 'sine';
-        osc2.frequency.setValueAtTime(freq * 2, now); // octave harmonic
-
-        gain1.gain.setValueAtTime(0.06, now);
-        gain1.gain.exponentialRampToValueAtTime(0.0001, now + 3.5);
-
-        gain2.gain.setValueAtTime(0.02, now);
-        gain2.gain.exponentialRampToValueAtTime(0.0001, now + 2.0);
-
-        osc1.connect(gain1);
-        gain1.connect(audioCtx.destination);
-
-        osc2.connect(gain2);
-        gain2.connect(audioCtx.destination);
-
-        osc1.start();
-        osc2.start();
-        osc1.stop(now + 4.0);
-        osc2.stop(now + 2.5);
-      } catch (e) {
-        console.log("Bell chime error:", e);
-      }
-    }
-
-    function stopSynthesizedChant() {
-      synthOscillators.forEach(osc => {
-        try {
-          osc.stop();
-        } catch (e) { }
-      });
-      synthOscillators = [];
-      if (synthGainNode) {
-        try {
-          synthGainNode.disconnect();
-        } catch (e) { }
-      }
-      if (synthBellInterval) {
-        clearInterval(synthBellInterval);
-      }
-    }
+    let audioSource;
+    let analyser;
+    let dataArray;
+    let visualizerAnimationId;
 
     function selectTrack(trackId) {
       const audio = document.getElementById('sanctuary-audio');
@@ -463,25 +354,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function playAudio() {
-      // Play the warm, synthesized Tanpura & Bell drone instantly
-      startSynthesizedChant(currentTrackId);
-
       const audio = document.getElementById('sanctuary-audio');
-      // Also try to stream the voice/mp3 chanting from archive.org as an overlay
+      
+      // Initialize Web Audio Context if not created yet
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioCtx.createAnalyser();
+          analyser.fftSize = 64; // Small FFT for 12 bars
+          const bufferLength = analyser.frequencyBinCount;
+          dataArray = new Uint8Array(bufferLength);
+          
+          audioSource = audioCtx.createMediaElementSource(audio);
+          audioSource.connect(analyser);
+          analyser.connect(audioCtx.destination);
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+      } catch (e) {
+        console.warn("Web Audio API not supported or blocked by CORS, falling back to basic playback", e);
+      }
+
+      // Play the authentic mp3 recording
       audio.play().then(() => {
         isAudioPlaying = true;
         document.getElementById('play-btn-icon').innerText = 'pause';
         startVisualizer();
       }).catch(err => {
-        console.log("Autoplay / local file CORS block handled. Running synthesized meditative drone.");
-        isAudioPlaying = true;
-        document.getElementById('play-btn-icon').innerText = 'pause';
-        startVisualizer();
+        console.error("Autoplay blocked or file failed to load:", err);
+        alert("Audio playback failed. Please ensure your browser allows audio playback on this site.");
       });
     }
 
     function pauseAudio() {
-      stopSynthesizedChant();
       const audio = document.getElementById('sanctuary-audio');
       try {
         audio.pause();
@@ -521,19 +427,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startVisualizer() {
-      if (visualizerInterval) clearInterval(visualizerInterval);
+      if (visualizerAnimationId) cancelAnimationFrame(visualizerAnimationId);
       const bars = document.querySelectorAll('.visualizer-bar');
 
-      visualizerInterval = setInterval(() => {
-        bars.forEach(bar => {
-          const height = Math.floor(Math.random() * 85) + 15; // Random height between 15% and 100%
-          bar.style.height = `${height}%`;
-        });
-      }, 120);
+      function draw() {
+        if (!isAudioPlaying) return;
+        visualizerAnimationId = requestAnimationFrame(draw);
+        
+        if (analyser && dataArray) {
+          analyser.getByteFrequencyData(dataArray);
+          // Scale values to the 12 bars
+          bars.forEach((bar, i) => {
+            // Frequencies are in lower bins, map accurately
+            const value = dataArray[i + 1] || 10;
+            // Map 0-255 to 15%-100%
+            const height = Math.max(15, (value / 255) * 100);
+            bar.style.height = `${height}%`;
+          });
+        } else {
+          // Fallback if Web Audio API failed
+          bars.forEach(bar => {
+            const height = Math.floor(Math.random() * 85) + 15;
+            bar.style.height = `${height}%`;
+          });
+        }
+      }
+      
+      draw();
     }
 
     function stopVisualizer() {
-      if (visualizerInterval) clearInterval(visualizerInterval);
+      if (visualizerAnimationId) cancelAnimationFrame(visualizerAnimationId);
       const bars = document.querySelectorAll('.visualizer-bar');
       bars.forEach(bar => {
         bar.style.height = '4px';
