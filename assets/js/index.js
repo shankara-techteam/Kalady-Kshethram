@@ -297,23 +297,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sound of Kalady Audio Player Logic & Web Audio API Synthesis
     const tracks = {
       1: {
-        url: "https://drive.google.com/uc?export=download&id=1Fne0bCQ9RxxKJCh2Cq_ZRHkx3Tsle-h3",
+        url: "assets/audio/purusha-suktam.mp3",
         btnId: "track-btn-1",
       },
       2: {
-        url: "https://drive.google.com/uc?export=download&id=1xWqc-9jNfCXMcLQmKr-_K5yUEmrwNghq",
+        url: "assets/audio/bhaagya-suktam.mp3",
         btnId: "track-btn-2",
       },
       3: {
-        url: "https://drive.google.com/uc?export=download&id=1VeDQugAWThD46eXVsIrQSS11QSjgh1aK",
+        url: "assets/audio/nirvana-shathakam.mp3",
         btnId: "track-btn-3",
       },
       4: {
-        url: "https://drive.google.com/uc?export=download&id=16BynW7jzbXuireDPDkCZ97GOB1ryMImg",
+        url: "assets/audio/sri-suktham.mp3",
         btnId: "track-btn-4",
       },
       5: {
-        url: "https://drive.google.com/uc?export=download&id=1Fb_M2A6LUMELVQoYMXnWHFLXdT8ai-Ui",
+        url: "assets/audio/sri-subrahmanya.mp3",
         btnId: "track-btn-5",
       }
     };
