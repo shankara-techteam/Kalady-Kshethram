@@ -297,22 +297,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sound of Kalady Audio Player Logic & Web Audio API Synthesis
     const tracks = {
       1: {
-        url: "https://archive.org/download/nirvana-shatakam-swami/Nirvana%20shatakam%20-%20Swami.mp3",
+        url: "https://drive.google.com/uc?export=download&id=1Fne0bCQ9RxxKJCh2Cq_ZRHkx3Tsle-h3",
         btnId: "track-btn-1",
-        droneFreq: 138.61, // C#3
-        bellFreq: 523.25   // C5
       },
       2: {
-        url: "https://archive.org/download/SriSuktam/SriSuktam.mp3",
+        url: "https://drive.google.com/uc?export=download&id=1xWqc-9jNfCXMcLQmKr-_K5yUEmrwNghq",
         btnId: "track-btn-2",
-        droneFreq: 155.56, // D#3
-        bellFreq: 587.33   // D5
       },
       3: {
-        url: "https://archive.org/download/002PurushaSuktam/002-Purusha_Suktam.mp3",
+        url: "https://drive.google.com/uc?export=download&id=1VeDQugAWThD46eXVsIrQSS11QSjgh1aK",
         btnId: "track-btn-3",
-        droneFreq: 174.61, // F3
-        bellFreq: 698.46   // F5
+      },
+      4: {
+        url: "https://drive.google.com/uc?export=download&id=16BynW7jzbXuireDPDkCZ97GOB1ryMImg",
+        btnId: "track-btn-4",
+      },
+      5: {
+        url: "https://drive.google.com/uc?export=download&id=1Fb_M2A6LUMELVQoYMXnWHFLXdT8ai-Ui",
+        btnId: "track-btn-5",
       }
     };
     let currentTrackId = 0;
@@ -416,13 +418,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function nextTrack() {
       let next = currentTrackId + 1;
-      if (next > 3) next = 1;
+      if (next > 5) next = 1;
       selectTrack(next);
     }
 
     function prevTrack() {
       let prev = currentTrackId - 1;
-      if (prev < 1) prev = 3;
+      if (prev < 1) prev = 5;
       selectTrack(prev);
     }
 
