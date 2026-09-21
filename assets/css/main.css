@@ -997,3 +997,53 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
           }
+
+    /* ===== NEW AESTHETIC POLISH ANIMATIONS ===== */
+    
+    /* Ken Burns Effect */
+    @keyframes ken-burns {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+    .animate-ken-burns {
+      animation: ken-burns 30s ease-in-out infinite alternate;
+    }
+
+    /* Divine Pulse */
+    @keyframes divine-pulse {
+      0%, 100% { box-shadow: 0 0 15px rgba(255, 225, 109, 0.4), 0 0 30px rgba(255, 225, 109, 0.2); }
+      50% { box-shadow: 0 0 25px rgba(255, 225, 109, 0.6), 0 0 50px rgba(255, 225, 109, 0.3); }
+    }
+    .animate-divine-pulse {
+      animation: divine-pulse 4s ease-in-out infinite;
+    }
+    
+    /* Om Rotate & Pulse */
+    @keyframes om-rotate-pulse {
+      0%, 100% { transform: translate(-50%, -50%) rotate(-5deg) scale(0.95); opacity: 0.02; }
+      50% { transform: translate(-50%, -50%) rotate(5deg) scale(1.05); opacity: 0.04; }
+    }
+    .animate-om-rotate-pulse {
+      animation: om-rotate-pulse 15s ease-in-out infinite;
+    }
+
+    /* Audio Wave Visualizer */
+    @keyframes audio-wave {
+      0%, 100% { height: 4px; }
+      50% { height: 24px; }
+    }
+    .playing .visualizer-bar {
+      animation: audio-wave 1s ease-in-out infinite;
+    }
+    .visualizer-bar:nth-child(1) { animation-delay: 0.0s; }
+    .visualizer-bar:nth-child(2) { animation-delay: 0.2s; }
+    .visualizer-bar:nth-child(3) { animation-delay: 0.4s; }
+    .visualizer-bar:nth-child(4) { animation-delay: 0.1s; }
+    .visualizer-bar:nth-child(5) { animation-delay: 0.3s; }
+    .visualizer-bar:nth-child(6) { animation-delay: 0.5s; }
+    .visualizer-bar:nth-child(7) { animation-delay: 0.2s; }
+    .visualizer-bar:nth-child(8) { animation-delay: 0.4s; }
+    .visualizer-bar:nth-child(9) { animation-delay: 0.1s; }
+    .visualizer-bar:nth-child(10) { animation-delay: 0.3s; }
+    .visualizer-bar:nth-child(11) { animation-delay: 0.5s; }
+    .visualizer-bar:nth-child(12) { animation-delay: 0.2s; }
