@@ -297,31 +297,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sound of Kalady Audio Player Logic & Web Audio API Synthesis
     const tracks = {
       1: {
-        url: "assets/audio/purusha-suktam.mp3",
+        url: "https://drive.google.com/uc?export=download&id=1Fne0bCQ9RxxKJCh2Cq_ZRHkx3Tsle-h3",
         btnId: "track-btn-1",
         title: "Purusha Suktam",
         subtitle: "Traditional Rigvedic Chants"
       },
       2: {
-        url: "assets/audio/bhaagya-suktam.mp3",
+        url: "https://drive.google.com/uc?export=download&id=1xWqc-9jNfCXMcLQmKr-_K5yUEmrwNghq",
         btnId: "track-btn-2",
         title: "Bhaagya Suktam",
         subtitle: "Vedic Hymn for Prosperity"
       },
       3: {
-        url: "assets/audio/nirvana-shathakam.mp3",
+        url: "https://drive.google.com/uc?export=download&id=1VeDQugAWThD46eXVsIrQSS11QSjgh1aK",
         btnId: "track-btn-3",
         title: "Nirvana Shathakam",
         subtitle: "Song of Self-Realization"
       },
       4: {
-        url: "assets/audio/sri-suktham.mp3",
+        url: "https://drive.google.com/uc?export=download&id=16BynW7jzbXuireDPDkCZ97GOB1ryMImg",
         btnId: "track-btn-4",
         title: "Sri Suktham",
         subtitle: "Vedic Hymn to Goddess Lakshmi"
       },
       5: {
-        url: "assets/audio/sri-subrahmanya.mp3",
+        url: "https://drive.google.com/uc?export=download&id=1Fb_M2A6LUMELVQoYMXnWHFLXdT8ai-Ui",
         btnId: "track-btn-5",
         title: "Sri Subrahmanya Bhujanga",
         subtitle: "Hymn to Lord Subrahmanya"
