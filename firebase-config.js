@@ -3,12 +3,14 @@ import { getFirestore, collection, onSnapshot, addDoc, serverTimestamp, query, o
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAxlnfrzPSal_w7ivrpPkZfacytB3d78V4",
+  authDomain: "shankara-janmabhoomi.firebaseapp.com",
+  databaseURL: "https://shankara-janmabhoomi-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "shankara-janmabhoomi",
+  storageBucket: "shankara-janmabhoomi.firebasestorage.app",
+  messagingSenderId: "985282762191",
+  appId: "1:985282762191:web:21cdf729edd6637e16eeba",
+  measurementId: "G-P31PYXCQ5N"
 };
 
 // Initialize Firebase
