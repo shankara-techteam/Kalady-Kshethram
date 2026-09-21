@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (user) {
       // User is signed in
       if (isLoginPage) {
-        // window.location.href = 'admin.html'; // Temporarily disabled for UI testing
+        window.location.href = 'admin.html';
       } else {
         const userEmailEl = document.getElementById('admin-user-email');
         if (userEmailEl) userEmailEl.textContent = user.email;
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       // User is signed out
       if (!isLoginPage) {
-        // window.location.href = 'login.html'; // Temporarily disabled for UI testing
+        window.location.href = 'login.html';
       }
     }
   });
