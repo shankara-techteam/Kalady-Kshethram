@@ -3,306 +3,348 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CMS Dashboard - Kalady Kshethram</title>
+  <title>Admin Dashboard - Adi Shankara</title>
   
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
   
-  <!-- We intentionally use Inter for the dashboard to give it a clean SaaS feel, separating admin tools from public aesthetic -->
+  <script src="../assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #fafafa; }
-    
-    .sidebar-link {
-      color: #52525b; /* zinc-600 */
-      transition: all 0.2s ease;
-    }
-    .sidebar-link:hover {
-      color: #09090b; /* zinc-950 */
-      background-color: #f4f4f5; /* zinc-100 */
-    }
-    .sidebar-link.active {
-      color: #09090b;
-      background-color: #f4f4f5;
-      font-weight: 500;
+    /* Premium subtle background texture */
+    .premium-bg {
+      background-color: #fcfbf9;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c5b48d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
     
-    .premium-input {
-      border: 1px solid #e4e4e7; /* zinc-200 */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(197, 180, 141, 0.4);
+      box-shadow: 0 8px 32px rgba(87, 0, 0, 0.04);
+    }
+
+    .input-premium {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(197, 180, 141, 0.4);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: all 0.3s ease;
+    }
+    
+    .input-premium:focus {
       background: #ffffff;
-      transition: all 0.2s ease;
-    }
-    .premium-input:focus {
-      border-color: #09090b;
-      box-shadow: 0 0 0 1px #09090b;
+      border-color: #791c12;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.01), 0 0 0 3px rgba(121, 28, 18, 0.1);
       outline: none;
     }
-    
-    .premium-btn {
-      background-color: #09090b;
-      color: #ffffff;
-      transition: all 0.2s ease;
-    }
-    .premium-btn:hover {
-      background-color: #27272a;
-    }
-    .premium-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
-    .premium-card {
-      background: #ffffff;
-      border: 1px solid #e4e4e7;
-      border-radius: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(87, 0, 0, 0.08);
+      border-color: rgba(197, 180, 141, 0.8);
     }
-    
-    .admin-view { display: none; }
-    .admin-view.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Global Toast Container */
-    #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 1000; display: flex; flex-direction: column; gap: 8px; }
   </style>
 
-  <!-- Route Protection -->
-  <script type="module" src="../assets/js/admin-auth.js"></script>
-</head>
-<body class="text-zinc-900 h-screen flex overflow-hidden antialiased">
-  
-  <!-- LEFT SIDEBAR -->
-  <aside class="w-64 bg-white border-r border-zinc-200 flex flex-col shrink-0 hidden md:flex z-30">
-    <!-- Logo -->
-    <div class="h-16 flex items-center px-6 border-b border-zinc-200">
-      <span class="material-symbols-outlined text-zinc-900 mr-2">temple_hindu</span>
-      <h1 class="font-semibold tracking-tight text-lg">Kshethram CMS</h1>
-    </div>
+  <script type="module">
+    import { db, collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc } from '../assets/js/firebase-config.js';
 
-    <!-- Nav -->
-    <nav class="flex-1 py-4 px-3 flex flex-col gap-1 overflow-y-auto">
-      <a href="#" data-target="view-dashboard" class="sidebar-link active nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm">
-        <span class="material-symbols-outlined text-[18px]">space_dashboard</span> Overview
-      </a>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('add-announcement-form');
+      const statusMessage = document.getElementById('status-message');
+      const feedContainer = document.getElementById('feed-container');
+      const formTitle = document.getElementById('form-title');
+      const submitBtn = document.getElementById('submit-btn');
+      const cancelEditBtn = document.getElementById('cancel-edit-btn');
       
-      <div class="mt-6 mb-2 px-3">
-        <p class="text-xs font-medium text-zinc-400 uppercase tracking-wider">Content</p>
-      </div>
+      let currentEditId = null;
 
-      <a href="#" data-target="view-announcements" class="sidebar-link nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm">
-        <span class="material-symbols-outlined text-[18px]">campaign</span> Announcements
-      </a>
-      <a href="#" data-target="view-events" class="sidebar-link nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm">
-        <span class="material-symbols-outlined text-[18px]">event</span> Events
-      </a>
-      <a href="#" data-target="view-gallery" class="sidebar-link nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm">
-        <span class="material-symbols-outlined text-[18px]">photo_library</span> Gallery
-      </a>
-    </nav>
+      // Realtime Feed
+      const q = query(collection(db, 'announcements'), orderBy('createdAt', 'desc'));
+      
+      onSnapshot(q, (snapshot) => {
+        feedContainer.innerHTML = '';
+        if (snapshot.empty) {
+          feedContainer.innerHTML = `
+            <div class="flex flex-col items-center justify-center p-12 text-center opacity-70">
+              <span class="material-symbols-outlined text-4xl text-sandalwood mb-3">inbox</span>
+              <p class="font-headline-md text-lg text-primary">No announcements found</p>
+              <p class="font-body-md text-sm text-on-surface-variant mt-1">Publish your first update using the form on the left.</p>
+            </div>`;
+          return;
+        }
 
-    <!-- Footer -->
-    <div class="p-4 border-t border-zinc-200">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2 overflow-hidden">
-          <div class="w-8 h-8 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-[16px] text-zinc-500">person</span>
-          </div>
-          <div class="truncate">
-            <p class="text-xs font-medium truncate" id="admin-user-email">Admin</p>
-          </div>
-        </div>
-        <button id="logout-btn" class="text-zinc-400 hover:text-red-600 transition-colors" title="Sign Out">
-          <span class="material-symbols-outlined text-[18px]">logout</span>
-        </button>
-      </div>
-    </div>
-  </aside>
-
-  <!-- MAIN WRAPPER -->
-  <div class="flex-1 flex flex-col overflow-hidden relative bg-[#fafafa]">
-    
-    <!-- TOP HEADER -->
-    <header class="h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0 z-20">
-      <button class="md:hidden text-zinc-500" id="mobile-menu-btn">
-        <span class="material-symbols-outlined">menu</span>
-      </button>
-
-      <div class="hidden md:flex items-center text-sm text-zinc-500">
-        <span class="material-symbols-outlined text-[16px] mr-1">folder</span> Admin / <span id="breadcrumb-current" class="text-zinc-900 font-medium ml-1">Overview</span>
-      </div>
-
-      <div class="flex items-center gap-4">
-        <!-- Live Status -->
-        <div class="flex items-center gap-2 text-xs font-medium text-green-600 bg-green-50 px-2.5 py-1 rounded-md border border-green-200">
-          <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Connected
-        </div>
-        <a href="../index.html" target="_blank" class="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors flex items-center gap-1">
-          View Site <span class="material-symbols-outlined text-[14px]">open_in_new</span>
-        </a>
-      </div>
-    </header>
-
-    <!-- CONTENT AREA -->
-    <main class="flex-1 overflow-y-auto p-6 md:p-8 relative" id="main-content">
-      <div id="toast-container"></div>
-
-      <!-- ========================================== -->
-      <!-- VIEW: OVERVIEW                             -->
-      <!-- ========================================== -->
-      <section id="view-dashboard" class="admin-view active max-w-6xl mx-auto">
-        <h2 class="text-2xl font-semibold mb-6">Overview</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div class="premium-card p-6">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-sm font-medium text-zinc-500">Total Announcements</h3>
-              <span class="material-symbols-outlined text-zinc-400">campaign</span>
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          const id = docSnap.id;
+          
+          const card = document.createElement('div');
+          card.className = "card-hover glass-panel p-5 rounded-2xl flex flex-col gap-3 relative overflow-hidden group cursor-default";
+          
+          card.innerHTML = `
+            <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-primary to-secondary opacity-80"></div>
+            <div class="flex justify-between items-start pl-3">
+              <div>
+                <span class="font-label-md text-[10px] tracking-[0.15em] text-secondary uppercase bg-secondary/10 px-2.5 py-1 rounded-md border border-secondary/20 inline-block mb-2 font-bold">${data.badge || 'Update'}</span>
+                <h3 class="font-headline-md text-xl text-primary leading-tight font-semibold group-hover:text-primary-container transition-colors">${data.title}</h3>
+                <p class="font-body-md text-on-surface-variant text-sm mt-2 line-clamp-2 leading-relaxed opacity-90">${data.description}</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <p class="font-label-md text-xs text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> ${data.fullDate || 'No date set'}</p>
+                  ${data.where ? `<p class="font-label-md text-xs text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">location_on</span> ${data.where}</p>` : ''}
+                </div>
+              </div>
             </div>
-            <p class="text-3xl font-semibold" id="stat-announcements">0</p>
+            <div class="flex gap-2 mt-3 pt-4 border-t border-sandalwood/20 pl-3">
+              <button class="edit-btn font-label-md text-xs uppercase tracking-widest text-primary hover:text-secondary transition-colors flex items-center gap-1.5 bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-lg border border-transparent hover:border-primary/20" data-id="${id}">
+                <span class="material-symbols-outlined text-[14px]">edit</span> Edit
+              </button>
+              <button class="delete-btn font-label-md text-xs uppercase tracking-widest text-red-600 hover:text-red-800 transition-colors flex items-center gap-1.5 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg border border-transparent hover:border-red-200 ml-2" data-id="${id}">
+                <span class="material-symbols-outlined text-[14px]">delete</span> Delete
+              </button>
+            </div>
+          `;
+          
+          feedContainer.appendChild(card);
+          
+          // Attach listeners
+          card.querySelector('.edit-btn').addEventListener('click', () => {
+            currentEditId = id;
+            document.getElementById('title').value = data.title || '';
+            document.getElementById('badge').value = data.badge || '';
+            document.getElementById('dateMonth').value = data.dateMonth || '';
+            document.getElementById('dateDay').value = data.dateDay || '';
+            document.getElementById('description').value = data.description || '';
+            document.getElementById('fullDate').value = data.fullDate || '';
+            document.getElementById('when').value = data.when || '';
+            document.getElementById('where').value = data.where || '';
+            document.getElementById('link').value = data.link || '';
+            
+            formTitle.textContent = "Edit Announcement";
+            submitBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">update</span> Update Announcement`;
+            
+            // Highlight the submit button to indicate edit mode
+            submitBtn.classList.remove('from-primary', 'to-primary-container');
+            submitBtn.classList.add('from-secondary', 'to-secondary-container');
+
+            cancelEditBtn.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+          
+          card.querySelector('.delete-btn').addEventListener('click', async () => {
+            if (confirm("Are you sure you want to delete this announcement? This action cannot be undone.")) {
+              try {
+                await deleteDoc(doc(db, "announcements", id));
+                if (currentEditId === id) resetForm();
+              } catch (error) {
+                alert("Error deleting: " + error.message);
+              }
+            }
+          });
+        });
+      });
+
+      function resetForm() {
+        currentEditId = null;
+        form.reset();
+        formTitle.textContent = "Add New Announcement";
+        submitBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">publish</span> Publish Announcement`;
+        
+        // Reset button colors
+        submitBtn.classList.add('from-primary', 'to-primary-container');
+        submitBtn.classList.remove('from-secondary', 'to-secondary-container');
+        
+        cancelEditBtn.classList.add('hidden');
+      }
+
+      cancelEditBtn.addEventListener('click', resetForm);
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const announcementData = {
+          title: document.getElementById('title').value,
+          badge: document.getElementById('badge').value || 'Update',
+          dateMonth: document.getElementById('dateMonth').value || 'N/A',
+          dateDay: document.getElementById('dateDay').value || 'N/A',
+          description: document.getElementById('description').value,
+          fullDate: document.getElementById('fullDate').value || '',
+          when: document.getElementById('when').value || '',
+          where: document.getElementById('where').value || '',
+          link: document.getElementById('link').value || '',
+        };
+
+        // Disable button during submit
+        const originalBtnContent = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">sync</span> Processing...`;
+
+        try {
+          if (currentEditId) {
+            // Update
+            await updateDoc(doc(db, "announcements", currentEditId), announcementData);
+            showStatus('success', 'Announcement updated successfully!');
+          } else {
+            // Create
+            announcementData.createdAt = serverTimestamp();
+            await addDoc(collection(db, "announcements"), announcementData);
+            showStatus('success', 'Announcement published successfully!');
+          }
+          resetForm();
+        } catch (error) {
+          showStatus('error', `Error: ${error.message}`);
+        } finally {
+          submitBtn.disabled = false;
+          if(!currentEditId) {
+            submitBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">publish</span> Publish Announcement`;
+          }
+        }
+      });
+
+      function showStatus(type, message) {
+        if (type === 'success') {
+          statusMessage.innerHTML = `<div class="bg-green-50 border border-green-200 text-green-800 p-4 rounded-xl font-body-md mb-6 flex items-center gap-3 shadow-sm transform transition-all animate-fade-in"><span class="material-symbols-outlined text-[20px] text-green-500">check_circle</span> ${message}</div>`;
+        } else {
+          statusMessage.innerHTML = `<div class="bg-red-50 border border-red-200 text-red-800 p-4 rounded-xl font-body-md mb-6 flex items-center gap-3 shadow-sm transform transition-all animate-fade-in"><span class="material-symbols-outlined text-[20px] text-red-500">error</span> ${message}</div>`;
+        }
+        setTimeout(() => { statusMessage.innerHTML = ''; }, 5000);
+      }
+    });
+  </script>
+</head>
+<body class="premium-bg text-on-surface min-h-screen relative selection:bg-secondary/20 selection:text-primary">
+  
+  <header class="border-b border-sandalwood/30 bg-surface-bright/80 backdrop-blur-md sticky top-0 z-20 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3 group cursor-pointer">
+        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:scale-105 transition-transform">
+          <span class="material-symbols-outlined text-primary">admin_panel_settings</span>
+        </div>
+        <div>
+          <h1 class="text-xl md:text-2xl font-headline-md text-primary font-bold leading-none tracking-tight">Kshethram Admin</h1>
+          <p class="font-label-md text-[10px] uppercase tracking-[0.2em] text-secondary mt-1">Management Portal</p>
+        </div>
+      </div>
+      <a href="../index.html" class="font-label-md text-xs uppercase tracking-wider text-secondary hover:text-primary transition-all duration-300 flex items-center gap-1.5 bg-white px-4 py-2.5 rounded-full border border-sandalwood/40 shadow-sm hover:shadow-md hover:-translate-y-0.5">
+        <span class="material-symbols-outlined text-[16px]">home</span> <span class="hidden sm:inline">Back to Site</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12 relative z-10">
+    <div id="status-message"></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      
+      <!-- LEFT COLUMN: FORM -->
+      <div class="lg:col-span-6 xl:col-span-5 sticky top-28">
+        <div class="glass-panel p-6 md:p-8 rounded-3xl relative overflow-hidden">
+          <!-- Decorative Top Bar -->
+          <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary via-secondary to-primary-container"></div>
+
+          <div class="flex justify-between items-center border-b border-sandalwood/30 pb-5 mb-6">
+            <h2 id="form-title" class="text-2xl font-headline-md text-primary font-bold tracking-tight">Add Announcement</h2>
+            <button type="button" id="cancel-edit-btn" class="hidden font-label-md text-[10px] uppercase tracking-widest text-red-600 hover:text-red-800 flex items-center gap-1 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-full border border-red-200 transition-colors">
+              <span class="material-symbols-outlined text-[14px]">close</span> Cancel
+            </button>
           </div>
           
-          <div class="premium-card p-6 opacity-60">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-sm font-medium text-zinc-500">Active Events</h3>
-              <span class="material-symbols-outlined text-zinc-400">event</span>
+          <form id="add-announcement-form" class="space-y-5">
+            <div>
+              <label class="block font-label-md text-xs uppercase tracking-wider text-primary mb-1.5 font-bold">Title *</label>
+              <input type="text" id="title" required class="w-full input-premium p-3 rounded-xl text-sm font-body-md" placeholder="e.g. Sri Dhakshinamurthy Homam">
             </div>
-            <p class="text-3xl font-semibold">0</p>
-          </div>
 
-          <div class="premium-card p-6 opacity-60">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-sm font-medium text-zinc-500">Gallery Items</h3>
-              <span class="material-symbols-outlined text-zinc-400">photo_library</span>
+            <div>
+              <label class="block font-label-md text-xs uppercase tracking-wider text-primary mb-1.5 font-bold">Description *</label>
+              <textarea id="description" required class="w-full input-premium p-3 rounded-xl text-sm font-body-md resize-none" rows="3" placeholder="Brief description of the event..."></textarea>
             </div>
-            <p class="text-3xl font-semibold">0</p>
-          </div>
-        </div>
 
-        <div class="premium-card p-8 text-center text-zinc-500">
-          <span class="material-symbols-outlined text-4xl mb-2">rocket_launch</span>
-          <h3 class="text-lg font-medium text-zinc-900 mb-1">System Operational</h3>
-          <p class="text-sm">Select a module from the sidebar to manage content.</p>
-        </div>
-      </section>
-
-      <!-- ========================================== -->
-      <!-- VIEW: ANNOUNCEMENTS                        -->
-      <!-- ========================================== -->
-      <section id="view-announcements" class="admin-view max-w-6xl mx-auto">
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="text-2xl font-semibold">Announcements</h2>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <!-- FORM -->
-          <div class="lg:col-span-5 relative">
-            <div class="premium-card p-6 sticky top-0">
-              <div class="flex justify-between items-center mb-4 pb-4 border-b border-zinc-100">
-                <h3 id="form-title" class="font-semibold text-lg">New Announcement</h3>
-                <button type="button" id="cancel-edit-btn" class="hidden text-xs font-medium text-red-600 hover:text-red-700">Cancel Edit</button>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Badge</label>
+                <input type="text" id="badge" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. Upcoming">
               </div>
-              
-              <form id="add-announcement-form" class="space-y-4">
-                <div>
-                  <label class="block text-xs font-medium text-zinc-700 mb-1">Title *</label>
-                  <input type="text" id="title" required class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. Special Pooja">
-                </div>
-                <div>
-                  <label class="block text-xs font-medium text-zinc-700 mb-1">Description *</label>
-                  <textarea id="description" required rows="3" class="w-full premium-input px-3 py-2 text-sm rounded-md resize-none" placeholder="Details..."></textarea>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-xs font-medium text-zinc-700 mb-1">Badge</label>
-                    <input type="text" id="badge" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. Update">
-                  </div>
-                  <div>
-                    <label class="block text-xs font-medium text-zinc-700 mb-1">Full Date</label>
-                    <input type="text" id="fullDate" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. 18 Feb 2027">
-                  </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-xs font-medium text-zinc-700 mb-1">Cal Month</label>
-                    <input type="text" id="dateMonth" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. Feb">
-                  </div>
-                  <div>
-                    <label class="block text-xs font-medium text-zinc-700 mb-1">Cal Day</label>
-                    <input type="number" id="dateDay" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. 18">
-                  </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-xs font-medium text-zinc-700 mb-1">Time</label>
-                    <input type="text" id="when" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. 7:00 AM">
-                  </div>
-                  <div>
-                    <label class="block text-xs font-medium text-zinc-700 mb-1">Location</label>
-                    <input type="text" id="where" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. Main Shrine">
-                  </div>
-                </div>
-                <div>
-                  <label class="block text-xs font-medium text-zinc-700 mb-1">Action Link URL</label>
-                  <input type="url" id="link" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="https://...">
-                </div>
-                <div class="pt-2">
-                  <button type="submit" id="submit-btn" class="w-full premium-btn py-2.5 rounded-md text-sm font-medium flex items-center justify-center gap-2">
-                    Publish
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <!-- FEED -->
-          <div class="lg:col-span-7">
-            <div class="premium-card p-0 overflow-hidden">
-              <div class="bg-zinc-50 border-b border-zinc-200 px-6 py-3 flex justify-between items-center">
-                <h3 class="font-medium text-sm text-zinc-700">Live Database Feed</h3>
-                <span class="text-xs text-zinc-500">Realtime Sync</span>
+              <div>
+                <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Full Date</label>
+                <input type="text" id="fullDate" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. 18 February 2027">
               </div>
-              <div id="feed-container" class="divide-y divide-zinc-100 flex flex-col">
-                <!-- Skeleton -->
-                <div class="p-6 animate-pulse">
-                  <div class="h-4 bg-zinc-200 rounded w-1/4 mb-3"></div>
-                  <div class="h-3 bg-zinc-100 rounded w-full mb-2"></div>
-                  <div class="h-3 bg-zinc-100 rounded w-2/3"></div>
-                </div>
+              <div>
+                <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Cal Month</label>
+                <input type="text" id="dateMonth" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. Feb">
+              </div>
+              <div>
+                <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Cal Day</label>
+                <input type="number" id="dateDay" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. 18">
               </div>
             </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Time</label>
+                <input type="text" id="when" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. 7:00 AM">
+              </div>
+              <div>
+                <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Location</label>
+                <input type="text" id="where" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. Main Shrine">
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Action Link (Optional)</label>
+              <input type="url" id="link" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="https://...">
+            </div>
+
+            <div class="pt-6">
+              <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-primary to-primary-container hover:from-primary-container hover:to-primary text-white font-label-md text-sm uppercase tracking-widest py-4 px-6 rounded-xl transition-all duration-300 shadow-[0_8px_20px_rgba(87,0,0,0.25)] hover:shadow-[0_12px_25px_rgba(87,0,0,0.35)] hover:-translate-y-0.5 flex items-center justify-center gap-2 font-bold disabled:opacity-70 disabled:cursor-not-allowed">
+                <span class="material-symbols-outlined text-[18px]">publish</span> Publish Announcement
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: LIVE FEED -->
+      <div class="lg:col-span-6 xl:col-span-7 mt-8 lg:mt-0">
+        <div class="flex items-center justify-between border-b border-sandalwood/30 pb-4 mb-6 sticky top-28 bg-[#fcfbf9]/90 backdrop-blur-sm z-10 py-2">
+          <div>
+            <h2 class="text-2xl font-headline-md text-primary font-bold tracking-tight">Live Feed</h2>
+            <p class="font-body-md text-sm text-on-surface-variant mt-0.5">Real-time database sync</p>
+          </div>
+          <span class="font-label-md text-[10px] uppercase tracking-[0.2em] bg-green-100/80 border border-green-200 text-green-800 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Active
+          </span>
+        </div>
+        
+        <div id="feed-container" class="flex flex-col gap-5 pb-12">
+          <!-- Loading Skeleton -->
+          <div class="animate-pulse glass-panel p-6 rounded-2xl flex flex-col gap-4">
+            <div class="h-4 bg-sandalwood/30 rounded w-20"></div>
+            <div class="h-8 bg-sandalwood/20 rounded w-3/4"></div>
+            <div class="h-16 bg-sandalwood/10 rounded w-full"></div>
+            <div class="flex gap-4 mt-2">
+              <div class="h-8 bg-sandalwood/20 rounded w-20"></div>
+              <div class="h-8 bg-sandalwood/20 rounded w-20"></div>
+            </div>
+          </div>
+          <div class="animate-pulse glass-panel p-6 rounded-2xl flex flex-col gap-4">
+            <div class="h-4 bg-sandalwood/30 rounded w-20"></div>
+            <div class="h-8 bg-sandalwood/20 rounded w-1/2"></div>
+            <div class="h-16 bg-sandalwood/10 rounded w-full"></div>
+            <div class="flex gap-4 mt-2">
+              <div class="h-8 bg-sandalwood/20 rounded w-20"></div>
+              <div class="h-8 bg-sandalwood/20 rounded w-20"></div>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- ========================================== -->
-      <!-- PENDING VIEWS                              -->
-      <!-- ========================================== -->
-      <section id="view-events" class="admin-view max-w-6xl mx-auto">
-        <h2 class="text-2xl font-semibold mb-6">Events Management</h2>
-        <div class="premium-card p-12 text-center text-zinc-500">
-          <span class="material-symbols-outlined text-4xl mb-2">construction</span>
-          <h3 class="text-lg font-medium text-zinc-900 mb-1">Under Construction</h3>
-          <p class="text-sm">This module is scheduled for development.</p>
-        </div>
-      </section>
-
-      <section id="view-gallery" class="admin-view max-w-6xl mx-auto">
-        <h2 class="text-2xl font-semibold mb-6">Media Gallery</h2>
-        <div class="premium-card p-12 text-center text-zinc-500">
-          <span class="material-symbols-outlined text-4xl mb-2">construction</span>
-          <h3 class="text-lg font-medium text-zinc-900 mb-1">Under Construction</h3>
-          <p class="text-sm">This module is scheduled for development.</p>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <script src="../assets/js/admin-ui.js"></script>
-  <script type="module" src="../assets/js/admin-announcements.js"></script>
+    </div>
+  </main>
 </body>
 </html>
