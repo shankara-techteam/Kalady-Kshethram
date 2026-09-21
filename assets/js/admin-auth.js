@@ -9,20 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (user) {
       // User is signed in
       if (isLoginPage) {
-        // Already logged in, redirect to admin dashboard
-        window.location.href = 'admin.html';
+        // window.location.href = 'admin.html'; // Temporarily disabled for UI testing
       } else {
-        // We are on admin.html (or another secured page). Show user info.
         const userEmailEl = document.getElementById('admin-user-email');
-        if (userEmailEl) {
-          userEmailEl.textContent = user.email;
-        }
+        if (userEmailEl) userEmailEl.textContent = user.email;
       }
     } else {
       // User is signed out
       if (!isLoginPage) {
-        // Not on login page, so redirect them there
-        window.location.href = 'login.html';
+        // window.location.href = 'login.html'; // Temporarily disabled for UI testing
       }
     }
   });
