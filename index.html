@@ -1099,6 +1099,24 @@
       background: linear-gradient(90deg, transparent, #C2B280, #705d00, #C2B280, transparent);
       opacity: 0.6;
     }
+  
+    /* Lenis Recommended CSS */
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none;
+    }
+    
   </style>
 </head>
 
@@ -1315,70 +1333,7 @@
           <div class="relative -mx-gutter px-gutter md:mx-0 md:px-0">
             <div id="announcements-container"
               class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-3 pt-1 hide-scrollbar scroll-smooth">
-
-              <!-- Card 1 (Sri Dhakshinamurthy Homam) -->
-              <div
-                class="snap-start shrink-0 w-[85vw] md:w-[380px] lg:w-[420px] flex flex-col group relative reveal-item reveal-delay-200">
-                <div
-                  class="announce-card h-full border border-sandalwood/30 bg-surface-container/50 p-5 rounded-xl transition-all duration-300 flex flex-col cursor-default overflow-hidden">
-
-                  <div class="flex items-start justify-between mb-3">
-                    <span
-                      class="font-label-md text-[10px] tracking-[0.15em] text-secondary uppercase bg-secondary/10 px-2 py-1 rounded-md border border-secondary/20">
-                      Upcoming Pooja
-                    </span>
-                    <div
-                      class="flex flex-col items-center border border-primary/20 rounded overflow-hidden shadow-sm bg-surface -mt-1">
-                      <div
-                        class="bg-primary text-white text-[9px] font-label-md tracking-[0.2em] px-2 py-0.5 w-full text-center uppercase">
-                        Feb</div>
-                      <div
-                        class="text-primary font-headline-md font-bold text-base px-2 py-0 w-full text-center leading-none">
-                        18</div>
-                    </div>
-                  </div>
-
-                  <h3
-                    class="font-headline-md text-xl text-primary mb-2 font-semibold group-hover:text-primary-container transition-colors tracking-tight">
-                    Sri Dhakshinamurthy Homam
-                  </h3>
-
-                  <div class="font-body-md text-on-surface-variant mb-4 leading-relaxed flex-grow opacity-90 text-sm">
-                    <div class="space-y-2 mt-1">
-                      <div class="flex items-start gap-2">
-                        <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">info</span>
-                        <div><strong class="font-label-md text-primary block mb-0.5">What</strong><span
-                            class="text-sm">Special Sri Dhakshinamurthy Homam for wisdom and knowledge.</span></div>
-                      </div>
-                      <div class="flex items-start gap-2">
-                        <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">schedule</span>
-                        <div><strong class="font-label-md text-primary block mb-0.5">When</strong><span
-                            class="text-sm">18 February 2027, 7:00 AM to 12:00 PM</span></div>
-                      </div>
-                      <div class="flex items-start gap-2">
-                        <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">location_on</span>
-                        <div><strong class="font-label-md text-primary block mb-0.5">Where</strong><span
-                            class="text-sm">Main Shrine, Sri Adi Shankara Janmabhoomi</span></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="mt-auto pt-3 border-t border-sandalwood/20 flex flex-col gap-2">
-                    <div class="flex items-center gap-2 text-on-surface-variant opacity-85 text-xs">
-                      <span class="material-symbols-outlined text-[16px] text-tertiary">calendar_today</span>
-                      <span class="font-label-md">18 February 2027 &middot; 7:00 AM Onwards</span>
-                    </div>
-                    <a href="#"
-                      class="inline-flex items-center gap-1 text-primary font-label-md text-xs uppercase tracking-[0.1em] hover:text-secondary transition-colors mt-1 w-fit group/link pb-0.5 border-b border-transparent hover:border-secondary">
-                      View Details
-                      <span
-                        class="material-symbols-outlined text-[16px] transition-transform group-hover/link:translate-x-1">arrow_forward</span>
-                    </a>
-                  </div>
-
-                </div>
-              </div>
-
+              <!-- Announcements will be injected here by Firebase -->
             </div>
           </div>
 
@@ -1393,7 +1348,25 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
           }
-        </style>
+        
+    /* Lenis Recommended CSS */
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none;
+    }
+    
+  </style>
 
         <script>
           document.addEventListener('DOMContentLoaded', () => {
@@ -3365,6 +3338,98 @@
       Donate
     </a>
   </div>
+
+  <!-- Firebase Realtime Announcements -->
+  <script type="module">
+    import { db, collection, query, orderBy, onSnapshot } from './firebase-config.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('announcements-container');
+      if (!container) return;
+
+      const q = query(collection(db, 'announcements'), orderBy('createdAt', 'desc'));
+
+      onSnapshot(q, (snapshot) => {
+        container.innerHTML = ''; // Clear existing
+        if (snapshot.empty) {
+          container.innerHTML = '<p class="text-on-surface-variant p-4 font-body-md">No announcements at this time.</p>';
+          return;
+        }
+
+        let delay = 200;
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          const cardHtml = `
+            <div class="snap-start shrink-0 w-[85vw] md:w-[380px] lg:w-[420px] flex flex-col group relative reveal-item active" style="transition-delay: ${delay}ms">
+              <div class="announce-card h-full border border-sandalwood/30 bg-surface-container/50 p-5 rounded-xl transition-all duration-300 flex flex-col cursor-default overflow-hidden">
+                
+                <div class="flex items-start justify-between mb-3">
+                  <span class="font-label-md text-[10px] tracking-[0.15em] text-secondary uppercase bg-secondary/10 px-2 py-1 rounded-md border border-secondary/20">
+                    ${data.badge || 'Update'}
+                  </span>
+                  <div class="flex flex-col items-center border border-primary/20 rounded overflow-hidden shadow-sm bg-surface -mt-1">
+                    <div class="bg-primary text-white text-[9px] font-label-md tracking-[0.2em] px-2 py-0.5 w-full text-center uppercase">
+                      ${data.dateMonth || 'N/A'}
+                    </div>
+                    <div class="text-primary font-headline-md font-bold text-base px-2 py-0 w-full text-center leading-none">
+                      ${data.dateDay || 'N/A'}
+                    </div>
+                  </div>
+                </div>
+
+                <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold group-hover:text-primary-container transition-colors tracking-tight">
+                  ${data.title}
+                </h3>
+
+                <div class="font-body-md text-on-surface-variant mb-4 leading-relaxed flex-grow opacity-90 text-sm">
+                  <div class="space-y-2 mt-1">
+                    <div class="flex items-start gap-2">
+                      <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">info</span>
+                      <div><strong class="font-label-md text-primary block mb-0.5">What</strong><span class="text-sm">${data.description}</span></div>
+                    </div>
+                    ${data.when ? `
+                    <div class="flex items-start gap-2">
+                      <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">schedule</span>
+                      <div><strong class="font-label-md text-primary block mb-0.5">When</strong><span class="text-sm">${data.when}</span></div>
+                    </div>` : ''}
+                    ${data.where ? `
+                    <div class="flex items-start gap-2">
+                      <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">location_on</span>
+                      <div><strong class="font-label-md text-primary block mb-0.5">Where</strong><span class="text-sm">${data.where}</span></div>
+                    </div>` : ''}
+                  </div>
+                </div>
+
+                <div class="mt-auto pt-3 border-t border-sandalwood/20 flex flex-col gap-2">
+                  <div class="flex items-center gap-2 text-on-surface-variant opacity-85 text-xs">
+                    <span class="material-symbols-outlined text-[16px] text-tertiary">calendar_today</span>
+                    <span class="font-label-md">${data.fullDate || 'TBA'}</span>
+                  </div>
+                  ${data.link ? `
+                  <a href="${data.link}" class="inline-flex items-center gap-1 text-primary font-label-md text-xs uppercase tracking-[0.1em] hover:text-secondary transition-colors mt-1 w-fit group/link pb-0.5 border-b border-transparent hover:border-secondary">
+                    View Details
+                    <span class="material-symbols-outlined text-[16px] transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+                  </a>` : ''}
+                </div>
+              </div>
+            </div>
+          `;
+          container.insertAdjacentHTML('beforeend', cardHtml);
+          delay += 100;
+        });
+
+        // Update navigation buttons
+        const btnPrev = document.getElementById('announcements-prev');
+        const btnNext = document.getElementById('announcements-next');
+        if (btnPrev && btnNext) {
+          const maxScrollLeft = container.scrollWidth - container.clientWidth;
+          btnPrev.disabled = container.scrollLeft <= 5;
+          btnNext.disabled = container.scrollLeft >= maxScrollLeft - 5;
+        }
+      });
+    });
+  </script>
+
 </body>
 
 </html>

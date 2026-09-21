@@ -140,7 +140,25 @@
       background: linear-gradient(to bottom, transparent, rgba(194, 178, 128, 0.4) 10%, rgba(194, 178, 128, 0.4) 90%, transparent);
   }
 
-</style>
+
+    /* Lenis Recommended CSS */
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none;
+    }
+    
+  </style>
 </head>
 <body class="parchment-texture text-on-surface">
 <div id="scroll-progress"></div>

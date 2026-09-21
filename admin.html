@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Adi Shankara</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    import { db, collection, addDoc, serverTimestamp } from './firebase-config.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('add-announcement-form');
+      const statusMessage = document.getElementById('status-message');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const title = document.getElementById('title').value;
+        const badge = document.getElementById('badge').value;
+        const dateMonth = document.getElementById('dateMonth').value;
+        const dateDay = document.getElementById('dateDay').value;
+        const description = document.getElementById('description').value;
+        const fullDate = document.getElementById('fullDate').value;
+        const when = document.getElementById('when').value;
+        const where = document.getElementById('where').value;
+        const link = document.getElementById('link').value;
+
+        try {
+          const docRef = await addDoc(collection(db, "announcements"), {
+            title,
+            badge: badge || 'Update',
+            dateMonth: dateMonth || 'N/A',
+            dateDay: dateDay || 'N/A',
+            description,
+            fullDate: fullDate || '',
+            when: when || '',
+            where: where || '',
+            link: link || '',
+            createdAt: serverTimestamp()
+          });
+          statusMessage.textContent = 'Announcement added successfully! ID: ' + docRef.id;
+          statusMessage.className = 'text-green-600 font-bold mb-4';
+          form.reset();
+        } catch (error) {
+          statusMessage.textContent = 'Error adding announcement: ' + error.message;
+          statusMessage.className = 'text-red-600 font-bold mb-4';
+        }
+      });
+    });
+  </script>
+</head>
+<body class="bg-gray-100 p-8 text-gray-800">
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-6 text-red-900 border-b pb-2">Temple Admin Dashboard</h1>
+    
+    <div id="status-message"></div>
+
+    <form id="add-announcement-form" class="space-y-4">
+      <h2 class="text-xl font-semibold mb-4">Add New Announcement</h2>
+      
+      <div>
+        <label class="block font-medium mb-1">Title *</label>
+        <input type="text" id="title" required class="w-full border p-2 rounded" placeholder="e.g. Sri Dhakshinamurthy Homam">
+      </div>
+
+      <div>
+        <label class="block font-medium mb-1">Description (What) *</label>
+        <textarea id="description" required class="w-full border p-2 rounded" rows="3" placeholder="Brief description of the event..."></textarea>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block font-medium mb-1">Badge</label>
+          <input type="text" id="badge" class="w-full border p-2 rounded" placeholder="e.g. Upcoming Pooja">
+        </div>
+        <div>
+          <label class="block font-medium mb-1">Full Date (Bottom bar)</label>
+          <input type="text" id="fullDate" class="w-full border p-2 rounded" placeholder="e.g. 18 February 2027">
+        </div>
+        <div>
+          <label class="block font-medium mb-1">Calendar Month (Abbreviated)</label>
+          <input type="text" id="dateMonth" class="w-full border p-2 rounded" placeholder="e.g. Feb">
+        </div>
+        <div>
+          <label class="block font-medium mb-1">Calendar Day</label>
+          <input type="number" id="dateDay" class="w-full border p-2 rounded" placeholder="e.g. 18">
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-medium mb-1">Time (When)</label>
+        <input type="text" id="when" class="w-full border p-2 rounded" placeholder="e.g. 7:00 AM to 12:00 PM">
+      </div>
+
+      <div>
+        <label class="block font-medium mb-1">Location (Where)</label>
+        <input type="text" id="where" class="w-full border p-2 rounded" placeholder="e.g. Main Shrine">
+      </div>
+
+      <div>
+        <label class="block font-medium mb-1">Action Link (Optional)</label>
+        <input type="url" id="link" class="w-full border p-2 rounded" placeholder="https://...">
+      </div>
+
+      <button type="submit" class="bg-red-900 text-white font-bold py-2 px-6 rounded hover:bg-red-800 transition">Publish Announcement</button>
+    </form>
+    
+    <div class="mt-8 pt-4 border-t text-sm text-gray-500">
+      Note: Make sure you have configured your Firebase API keys in <code>firebase-config.js</code> before using this form.
+    </div>
+  </div>
+</body>
+</html>

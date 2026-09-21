@@ -86,7 +86,25 @@
   @keyframes pulse-ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.6);opacity:0}}
   @keyframes chatSlideIn{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
   .chatbot-animate{animation:chatSlideIn .4s cubic-bezier(.16,1,.3,1) forwards}
-</style>
+
+    /* Lenis Recommended CSS */
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none;
+    }
+    
+  </style>
 </head>
 <body class="parchment-texture text-on-surface">
 <div id="scroll-progress"></div>
