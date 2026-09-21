@@ -431,23 +431,34 @@ document.addEventListener('DOMContentLoaded', () => {
     function startVisualizer() {
       if (visualizerAnimationId) cancelAnimationFrame(visualizerAnimationId);
       const bars = document.querySelectorAll('.visualizer-bar');
+      
+      let lastDrawTime = 0;
 
-      function draw() {
+      function draw(time) {
         if (!isAudioPlaying) return;
         visualizerAnimationId = requestAnimationFrame(draw);
         
+        // Throttle fallback animation slightly so it's not too chaotic
+        if (time - lastDrawTime < 100) return;
+        lastDrawTime = time;
+
+        let sum = 0;
         if (analyser && dataArray) {
           analyser.getByteFrequencyData(dataArray);
-          // Scale values to the 12 bars
+          for(let i=0; i<dataArray.length; i++) {
+             sum += dataArray[i];
+          }
+        }
+        
+        if (sum > 0) {
+          // Accurate Web Audio API Visualization
           bars.forEach((bar, i) => {
-            // Frequencies are in lower bins, map accurately
             const value = dataArray[i + 1] || 10;
-            // Map 0-255 to 15%-100%
             const height = Math.max(15, (value / 255) * 100);
             bar.style.height = `${height}%`;
           });
         } else {
-          // Fallback if Web Audio API failed
+          // Fallback if Web Audio API data is 0 (due to CORS opaque media)
           bars.forEach(bar => {
             const height = Math.floor(Math.random() * 85) + 15;
             bar.style.height = `${height}%`;
@@ -455,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
       
-      draw();
+      requestAnimationFrame(draw);
     }
 
     function stopVisualizer() {
