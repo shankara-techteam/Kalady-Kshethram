@@ -23,11 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
     feedContainer.innerHTML = '';
     
     if (snapshot.empty) {
-      feedContainer.innerHTML = `
-        <div class="flex flex-col items-center justify-center p-12 text-center opacity-70">
-          <span class="material-symbols-outlined text-4xl text-sandalwood mb-3">inbox</span>
-          <p class="font-headline-md text-lg text-primary">No announcements found</p>
-          <p class="font-body-md text-sm text-on-surface-variant mt-1">Publish your first update using the form on the left.</p>
+        <div class="p-10 text-center">
+          <span class="material-symbols-outlined text-4xl text-zinc-300 mb-2">inbox</span>
+          <p class="font-medium text-zinc-900">No announcements found</p>
+          <p class="text-sm text-zinc-500 mt-1">Publish your first update using the form.</p>
         </div>`;
       return;
     }
@@ -37,28 +36,27 @@ document.addEventListener('DOMContentLoaded', () => {
       const id = docSnap.id;
       
       const card = document.createElement('div');
-      card.className = "card-hover glass-panel p-5 rounded-2xl flex flex-col gap-3 relative overflow-hidden group cursor-default";
+      card.className = "p-5 hover:bg-zinc-50 transition-colors group";
       
       card.innerHTML = `
-        <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-primary to-secondary opacity-80"></div>
-        <div class="flex justify-between items-start pl-3">
-          <div>
-            <span class="font-label-md text-[10px] tracking-[0.15em] text-secondary uppercase bg-secondary/10 px-2.5 py-1 rounded-md border border-secondary/20 inline-block mb-2 font-bold">${data.badge || 'Update'}</span>
-            <h3 class="font-headline-md text-xl text-primary leading-tight font-semibold group-hover:text-primary-container transition-colors">${data.title}</h3>
-            <p class="font-body-md text-on-surface-variant text-sm mt-2 line-clamp-2 leading-relaxed opacity-90">${data.description}</p>
-            <div class="flex items-center gap-4 mt-3">
-              <p class="font-label-md text-xs text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> ${data.fullDate || 'No date set'}</p>
-              ${data.where ? `<p class="font-label-md text-xs text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">location_on</span> ${data.where}</p>` : ''}
+        <div class="flex justify-between items-start">
+          <div class="flex-1 pr-4">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-[10px] font-semibold tracking-wider text-zinc-500 uppercase bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200">${data.badge || 'Update'}</span>
+              <span class="text-xs text-zinc-400 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">calendar_today</span> ${data.fullDate || 'No date set'}</span>
             </div>
+            <h3 class="text-base font-semibold text-zinc-900 leading-tight mb-1">${data.title}</h3>
+            <p class="text-sm text-zinc-600 line-clamp-2 leading-relaxed">${data.description}</p>
+            ${data.where ? `<p class="text-xs text-zinc-500 mt-2 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">location_on</span> ${data.where}</p>` : ''}
           </div>
-        </div>
-        <div class="flex gap-2 mt-3 pt-4 border-t border-sandalwood/20 pl-3">
-          <button class="edit-btn font-label-md text-xs uppercase tracking-widest text-primary hover:text-secondary transition-colors flex items-center gap-1.5 bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-lg border border-transparent hover:border-primary/20" data-id="${id}">
-            <span class="material-symbols-outlined text-[14px]">edit</span> Edit
-          </button>
-          <button class="delete-btn font-label-md text-xs uppercase tracking-widest text-red-600 hover:text-red-800 transition-colors flex items-center gap-1.5 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg border border-transparent hover:border-red-200 ml-2" data-id="${id}">
-            <span class="material-symbols-outlined text-[14px]">delete</span> Delete
-          </button>
+          <div class="flex flex-col gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button class="edit-btn text-xs font-medium text-zinc-600 hover:text-zinc-900 bg-white border border-zinc-200 hover:border-zinc-300 px-3 py-1.5 rounded-md transition-colors flex items-center justify-center gap-1.5 shadow-sm" data-id="${id}">
+              <span class="material-symbols-outlined text-[14px]">edit</span> Edit
+            </button>
+            <button class="delete-btn text-xs font-medium text-red-600 hover:text-red-700 bg-white border border-red-100 hover:border-red-200 hover:bg-red-50 px-3 py-1.5 rounded-md transition-colors flex items-center justify-center gap-1.5 shadow-sm" data-id="${id}">
+              <span class="material-symbols-outlined text-[14px]">delete</span> Delete
+            </button>
+          </div>
         </div>
       `;
       
@@ -78,9 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('link').value = data.link || '';
         
         formTitle.textContent = "Edit Announcement";
-        submitBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">update</span> Update Announcement`;
-        submitBtn.classList.replace('from-primary', 'from-secondary');
-        submitBtn.classList.replace('to-primary-container', 'to-secondary-container');
+        submitBtn.innerHTML = `Update`;
+        submitBtn.classList.remove('premium-btn');
+        submitBtn.classList.add('bg-zinc-100', 'text-zinc-900', 'border', 'border-zinc-300', 'hover:bg-zinc-200');
         cancelEditBtn.classList.remove('hidden');
         
         // Ensure Announcements view is active
@@ -121,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const originalBtnContent = submitBtn.innerHTML;
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">sync</span> Processing...`;
+      submitBtn.innerHTML = `Processing...`;
 
       try {
         if (currentEditId) {
@@ -138,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } finally {
         submitBtn.disabled = false;
         if(!currentEditId) {
-          submitBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">publish</span> Publish Announcement`;
+          submitBtn.innerHTML = `Publish`;
         }
       }
     });
@@ -148,9 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
     currentEditId = null;
     form.reset();
     formTitle.textContent = "Add Announcement";
-    submitBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">publish</span> Publish Announcement`;
-    submitBtn.classList.replace('from-secondary', 'from-primary');
-    submitBtn.classList.replace('to-secondary-container', 'to-primary-container');
+    submitBtn.innerHTML = `Publish`;
+    submitBtn.classList.remove('bg-zinc-100', 'text-zinc-900', 'border-zinc-300');
+    submitBtn.classList.add('premium-btn');
     cancelEditBtn.classList.add('hidden');
   }
 

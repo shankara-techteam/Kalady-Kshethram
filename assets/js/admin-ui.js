@@ -54,7 +54,7 @@ window.showToast = function(type, message) {
   if (!container) return;
 
   const toast = document.createElement('div');
-  toast.className = `p-4 rounded-xl font-body-md flex items-center gap-3 shadow-lg transform transition-all translate-x-full opacity-0 duration-300 ease-out border min-w-[300px] z-50`;
+  toast.className = `p-4 rounded-xl text-sm flex items-center gap-3 shadow-lg transform transition-all translate-x-full opacity-0 duration-300 ease-out border min-w-[300px] z-50`;
   
   if (type === 'success') {
     toast.classList.add('bg-green-50', 'text-green-800', 'border-green-200');

@@ -3,369 +3,305 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CMS Dashboard - Adi Shankara</title>
+  <title>CMS Dashboard - Kalady Kshethram</title>
   
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
   
-  <script src="../assets/js/tailwind-config.js"></script>
-  <link rel="stylesheet" href="../assets/css/main.css">
-  
+  <!-- We intentionally use Inter for the dashboard to give it a clean SaaS feel, separating admin tools from public aesthetic -->
   <style>
-    .premium-bg {
-      background-color: #fcfbf9;
-      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c5b48d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    body { font-family: 'Inter', sans-serif; background-color: #fafafa; }
+    
+    .sidebar-link {
+      color: #52525b; /* zinc-600 */
+      transition: all 0.2s ease;
+    }
+    .sidebar-link:hover {
+      color: #09090b; /* zinc-950 */
+      background-color: #f4f4f5; /* zinc-100 */
+    }
+    .sidebar-link.active {
+      color: #09090b;
+      background-color: #f4f4f5;
+      font-weight: 500;
     }
     
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(197, 180, 141, 0.4);
-      box-shadow: 0 8px 32px rgba(87, 0, 0, 0.04);
-    }
-
-    .input-premium {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(197, 180, 141, 0.4);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
-      transition: all 0.3s ease;
-    }
-    
-    .input-premium:focus {
+    .premium-input {
+      border: 1px solid #e4e4e7; /* zinc-200 */
       background: #ffffff;
-      border-color: #791c12;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.01), 0 0 0 3px rgba(121, 28, 18, 0.1);
+      transition: all 0.2s ease;
+    }
+    .premium-input:focus {
+      border-color: #09090b;
+      box-shadow: 0 0 0 1px #09090b;
       outline: none;
     }
-
-    .card-hover {
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    .premium-btn {
+      background-color: #09090b;
+      color: #ffffff;
+      transition: all 0.2s ease;
+    }
+    .premium-btn:hover {
+      background-color: #27272a;
+    }
+    .premium-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
     
-    .card-hover:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(87, 0, 0, 0.08);
-      border-color: rgba(197, 180, 141, 0.8);
-    }
-
-    /* Sidebar Active State */
-    .nav-item.active {
-      background-color: rgba(121, 28, 18, 0.05);
-      color: #791c12;
-      border-right: 3px solid #791c12;
-      font-weight: 600;
+    .premium-card {
+      background: #ffffff;
+      border: 1px solid #e4e4e7;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     
-    .nav-item.active .material-symbols-outlined {
-      color: #791c12;
-      font-variation-settings: 'FILL' 1;
-    }
-
-    /* View transitions */
-    .admin-view {
-      display: none;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-    .admin-view.active {
-      display: block;
-    }
-
+    .admin-view { display: none; }
+    .admin-view.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+    
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    
+    /* Global Toast Container */
+    #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 1000; display: flex; flex-direction: column; gap: 8px; }
   </style>
 
-  <!-- Auth Script (Loads first to protect route) -->
+  <!-- Route Protection -->
   <script type="module" src="../assets/js/admin-auth.js"></script>
 </head>
-<body class="premium-bg text-on-surface h-screen flex overflow-hidden selection:bg-secondary/20 selection:text-primary">
+<body class="text-zinc-900 h-screen flex overflow-hidden antialiased">
   
   <!-- LEFT SIDEBAR -->
-  <aside class="w-64 bg-surface-bright/95 backdrop-blur-md border-r border-sandalwood/30 flex flex-col shadow-sm z-30 shrink-0 hidden md:flex">
-    <!-- Logo Area -->
-    <div class="h-20 flex items-center gap-3 px-6 border-b border-sandalwood/20">
-      <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
-        <span class="material-symbols-outlined text-primary text-[18px]">temple_hindu</span>
-      </div>
-      <div>
-        <h1 class="text-lg font-headline-md text-primary font-bold leading-none tracking-tight">Kshethram</h1>
-        <p class="font-label-md text-[9px] uppercase tracking-[0.2em] text-secondary mt-1">Admin Portal</p>
-      </div>
+  <aside class="w-64 bg-white border-r border-zinc-200 flex flex-col shrink-0 hidden md:flex z-30">
+    <!-- Logo -->
+    <div class="h-16 flex items-center px-6 border-b border-zinc-200">
+      <span class="material-symbols-outlined text-zinc-900 mr-2">temple_hindu</span>
+      <h1 class="font-semibold tracking-tight text-lg">Kshethram CMS</h1>
     </div>
 
-    <!-- Navigation -->
-    <nav class="flex-1 overflow-y-auto py-6 flex flex-col gap-1 hide-scrollbar">
-      <a href="#" data-target="view-dashboard" class="nav-item active flex items-center gap-3 px-6 py-3 text-sm font-body-md text-on-surface-variant hover:bg-sandalwood/5 hover:text-primary transition-colors">
-        <span class="material-symbols-outlined text-[20px]">dashboard</span> Dashboard Overview
+    <!-- Nav -->
+    <nav class="flex-1 py-4 px-3 flex flex-col gap-1 overflow-y-auto">
+      <a href="#" data-target="view-dashboard" class="sidebar-link active nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm">
+        <span class="material-symbols-outlined text-[18px]">space_dashboard</span> Overview
       </a>
       
-      <div class="px-6 py-3 mt-2">
-        <p class="font-label-md text-[10px] uppercase tracking-widest text-sandalwood font-bold">Content Modules</p>
+      <div class="mt-6 mb-2 px-3">
+        <p class="text-xs font-medium text-zinc-400 uppercase tracking-wider">Content</p>
       </div>
 
-      <a href="#" data-target="view-announcements" class="nav-item flex items-center gap-3 px-6 py-3 text-sm font-body-md text-on-surface-variant hover:bg-sandalwood/5 hover:text-primary transition-colors">
-        <span class="material-symbols-outlined text-[20px]">campaign</span> Announcements
+      <a href="#" data-target="view-announcements" class="sidebar-link nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm">
+        <span class="material-symbols-outlined text-[18px]">campaign</span> Announcements
       </a>
-      <a href="#" data-target="view-events" class="nav-item flex items-center gap-3 px-6 py-3 text-sm font-body-md text-on-surface-variant hover:bg-sandalwood/5 hover:text-primary transition-colors">
-        <span class="material-symbols-outlined text-[20px]">event</span> Events & Festivals
+      <a href="#" data-target="view-events" class="sidebar-link nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm">
+        <span class="material-symbols-outlined text-[18px]">event</span> Events
       </a>
-      <a href="#" data-target="view-timings" class="nav-item flex items-center gap-3 px-6 py-3 text-sm font-body-md text-on-surface-variant hover:bg-sandalwood/5 hover:text-primary transition-colors">
-        <span class="material-symbols-outlined text-[20px]">schedule</span> Temple Timings
-      </a>
-      <a href="#" data-target="view-gallery" class="nav-item flex items-center gap-3 px-6 py-3 text-sm font-body-md text-on-surface-variant hover:bg-sandalwood/5 hover:text-primary transition-colors">
-        <span class="material-symbols-outlined text-[20px]">photo_library</span> Media Gallery
+      <a href="#" data-target="view-gallery" class="sidebar-link nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm">
+        <span class="material-symbols-outlined text-[18px]">photo_library</span> Gallery
       </a>
     </nav>
 
-    <!-- Bottom Profile -->
-    <div class="border-t border-sandalwood/20 p-4">
-      <div class="bg-surface rounded-xl border border-sandalwood/30 p-3 flex flex-col gap-3 shadow-sm">
+    <!-- Footer -->
+    <div class="p-4 border-t border-zinc-200">
+      <div class="flex items-center justify-between">
         <div class="flex items-center gap-2 overflow-hidden">
-          <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-[16px]">person</span>
+          <div class="w-8 h-8 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-[16px] text-zinc-500">person</span>
           </div>
           <div class="truncate">
-            <p class="font-label-md text-xs font-bold text-primary truncate" id="admin-user-email">Loading...</p>
-            <p class="text-[10px] text-secondary uppercase tracking-widest mt-0.5">Superadmin</p>
+            <p class="text-xs font-medium truncate" id="admin-user-email">Admin</p>
           </div>
         </div>
-        <button id="logout-btn" class="w-full text-center font-label-md text-xs uppercase tracking-wider text-red-600 hover:text-red-800 transition-colors py-1.5 bg-red-50 hover:bg-red-100 rounded border border-red-100">
-          Sign Out
+        <button id="logout-btn" class="text-zinc-400 hover:text-red-600 transition-colors" title="Sign Out">
+          <span class="material-symbols-outlined text-[18px]">logout</span>
         </button>
       </div>
     </div>
   </aside>
 
   <!-- MAIN WRAPPER -->
-  <div class="flex-1 flex flex-col overflow-hidden relative">
+  <div class="flex-1 flex flex-col overflow-hidden relative bg-[#fafafa]">
     
     <!-- TOP HEADER -->
-    <header class="h-20 bg-surface-bright/80 backdrop-blur-md border-b border-sandalwood/30 flex items-center justify-between px-6 md:px-10 shrink-0 shadow-sm z-20">
-      
-      <!-- Mobile Menu Toggle -->
-      <button class="md:hidden text-primary hover:text-secondary transition-colors" id="mobile-menu-btn">
+    <header class="h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0 z-20">
+      <button class="md:hidden text-zinc-500" id="mobile-menu-btn">
         <span class="material-symbols-outlined">menu</span>
       </button>
 
-      <!-- Breadcrumbs -->
-      <div class="hidden md:flex items-center gap-2 font-label-md text-xs uppercase tracking-widest text-secondary">
-        <span>Admin</span> 
-        <span class="material-symbols-outlined text-[14px]">chevron_right</span>
-        <span id="breadcrumb-current" class="text-primary font-bold">Dashboard Overview</span>
+      <div class="hidden md:flex items-center text-sm text-zinc-500">
+        <span class="material-symbols-outlined text-[16px] mr-1">folder</span> Admin / <span id="breadcrumb-current" class="text-zinc-900 font-medium ml-1">Overview</span>
       </div>
 
-      <!-- Right Actions -->
-      <div class="flex items-center gap-6">
-        <!-- Firebase Status Indicator -->
-        <div class="flex items-center gap-2 bg-green-50 border border-green-200 text-green-800 px-3 py-1.5 rounded-full shadow-sm">
-          <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-          <span class="font-label-md text-[10px] uppercase tracking-widest font-bold">Live Sync</span>
+      <div class="flex items-center gap-4">
+        <!-- Live Status -->
+        <div class="flex items-center gap-2 text-xs font-medium text-green-600 bg-green-50 px-2.5 py-1 rounded-md border border-green-200">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Connected
         </div>
-        
-        <a href="../index.html" target="_blank" class="font-label-md text-[10px] uppercase tracking-wider text-secondary hover:text-primary transition-all duration-300 flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full border border-sandalwood/40 shadow-sm hover:shadow-md hover:-translate-y-0.5">
-          <span class="material-symbols-outlined text-[14px]">open_in_new</span> View Site
+        <a href="../index.html" target="_blank" class="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors flex items-center gap-1">
+          View Site <span class="material-symbols-outlined text-[14px]">open_in_new</span>
         </a>
       </div>
     </header>
 
-    <!-- MAIN CONTENT SCROLL AREA -->
-    <main class="flex-1 overflow-y-auto p-6 md:p-10 relative z-10" id="main-content">
-      
-      <!-- Global Toast Container -->
-      <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
+    <!-- CONTENT AREA -->
+    <main class="flex-1 overflow-y-auto p-6 md:p-8 relative" id="main-content">
+      <div id="toast-container"></div>
 
-      <!-- ============================================== -->
-      <!-- VIEW: DASHBOARD OVERVIEW                       -->
-      <!-- ============================================== -->
-      <section id="view-dashboard" class="admin-view active">
-        <div class="flex items-center gap-3 mb-8">
-          <div class="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shadow-md">
-            <span class="material-symbols-outlined">dashboard</span>
-          </div>
-          <h2 class="text-3xl font-headline-md text-primary font-bold tracking-tight">System Overview</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          <!-- Stat Card 1 -->
-          <div class="glass-panel p-6 rounded-2xl flex flex-col relative overflow-hidden group cursor-default hover:shadow-md transition-shadow">
-            <div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
-            <div class="flex justify-between items-start mb-2">
-              <span class="font-label-md text-[10px] uppercase tracking-widest text-secondary font-bold">Total Announcements</span>
-              <span class="material-symbols-outlined text-sandalwood group-hover:text-primary transition-colors">campaign</span>
+      <!-- ========================================== -->
+      <!-- VIEW: OVERVIEW                             -->
+      <!-- ========================================== -->
+      <section id="view-dashboard" class="admin-view active max-w-6xl mx-auto">
+        <h2 class="text-2xl font-semibold mb-6">Overview</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="premium-card p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-medium text-zinc-500">Total Announcements</h3>
+              <span class="material-symbols-outlined text-zinc-400">campaign</span>
             </div>
-            <p class="text-4xl font-headline-md text-primary font-bold my-1" id="stat-announcements">...</p>
-            <p class="text-xs text-on-surface-variant font-body-md mt-auto">Live on public website</p>
+            <p class="text-3xl font-semibold" id="stat-announcements">0</p>
           </div>
           
-          <!-- Stat Card Placements for future phases -->
-          <div class="glass-panel p-6 rounded-2xl flex flex-col relative overflow-hidden group cursor-default hover:shadow-md transition-shadow opacity-50">
-            <div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
-            <div class="flex justify-between items-start mb-2">
-              <span class="font-label-md text-[10px] uppercase tracking-widest text-secondary font-bold">Upcoming Events</span>
-              <span class="material-symbols-outlined text-sandalwood">event</span>
+          <div class="premium-card p-6 opacity-60">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-medium text-zinc-500">Active Events</h3>
+              <span class="material-symbols-outlined text-zinc-400">event</span>
             </div>
-            <p class="text-4xl font-headline-md text-primary font-bold my-1">—</p>
-            <p class="text-xs text-on-surface-variant font-body-md mt-auto">Module pending Phase 3</p>
+            <p class="text-3xl font-semibold">0</p>
           </div>
 
-          <div class="glass-panel p-6 rounded-2xl flex flex-col relative overflow-hidden group cursor-default hover:shadow-md transition-shadow opacity-50">
-            <div class="absolute top-0 left-0 w-1 h-full bg-tertiary"></div>
-            <div class="flex justify-between items-start mb-2">
-              <span class="font-label-md text-[10px] uppercase tracking-widest text-secondary font-bold">Gallery Assets</span>
-              <span class="material-symbols-outlined text-sandalwood">photo_library</span>
+          <div class="premium-card p-6 opacity-60">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-medium text-zinc-500">Gallery Items</h3>
+              <span class="material-symbols-outlined text-zinc-400">photo_library</span>
             </div>
-            <p class="text-4xl font-headline-md text-primary font-bold my-1">—</p>
-            <p class="text-xs text-on-surface-variant font-body-md mt-auto">Module pending Phase 4</p>
+            <p class="text-3xl font-semibold">0</p>
           </div>
         </div>
 
-        <div class="glass-panel p-8 rounded-3xl border border-sandalwood/30 text-center py-16">
-          <span class="material-symbols-outlined text-5xl text-sandalwood mb-4">account_tree</span>
-          <h3 class="text-2xl font-headline-md text-primary font-bold mb-2">Welcome to Phase 1</h3>
-          <p class="text-on-surface-variant font-body-md max-w-lg mx-auto">The new industry-grade CMS architecture has been deployed. Authentication is active, and the Announcements module is fully operational. Select a module from the sidebar to begin managing content.</p>
+        <div class="premium-card p-8 text-center text-zinc-500">
+          <span class="material-symbols-outlined text-4xl mb-2">rocket_launch</span>
+          <h3 class="text-lg font-medium text-zinc-900 mb-1">System Operational</h3>
+          <p class="text-sm">Select a module from the sidebar to manage content.</p>
         </div>
       </section>
 
-      <!-- ============================================== -->
-      <!-- VIEW: ANNOUNCEMENTS                            -->
-      <!-- ============================================== -->
-      <section id="view-announcements" class="admin-view">
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shadow-md">
-              <span class="material-symbols-outlined">campaign</span>
-            </div>
-            <div>
-              <h2 class="text-3xl font-headline-md text-primary font-bold tracking-tight">Announcements</h2>
-              <p class="font-body-md text-sm text-on-surface-variant mt-1">Manage public notices and updates on the homepage</p>
-            </div>
-          </div>
+      <!-- ========================================== -->
+      <!-- VIEW: ANNOUNCEMENTS                        -->
+      <!-- ========================================== -->
+      <section id="view-announcements" class="admin-view max-w-6xl mx-auto">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-semibold">Announcements</h2>
         </div>
 
-        <!-- The exact same dual-column layout from previous work, but now inside a view -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          
-          <!-- LEFT COLUMN: FORM -->
-          <div class="lg:col-span-6 xl:col-span-5 sticky top-0">
-            <div class="glass-panel p-6 md:p-8 rounded-3xl relative overflow-hidden">
-              <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary via-secondary to-primary-container"></div>
-              <div class="flex justify-between items-center border-b border-sandalwood/30 pb-5 mb-6">
-                <h3 id="form-title" class="text-2xl font-headline-md text-primary font-bold tracking-tight">Add Announcement</h3>
-                <button type="button" id="cancel-edit-btn" class="hidden font-label-md text-[10px] uppercase tracking-widest text-red-600 hover:text-red-800 flex items-center gap-1 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-full border border-red-200 transition-colors">
-                  <span class="material-symbols-outlined text-[14px]">close</span> Cancel
-                </button>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- FORM -->
+          <div class="lg:col-span-5 relative">
+            <div class="premium-card p-6 sticky top-0">
+              <div class="flex justify-between items-center mb-4 pb-4 border-b border-zinc-100">
+                <h3 id="form-title" class="font-semibold text-lg">New Announcement</h3>
+                <button type="button" id="cancel-edit-btn" class="hidden text-xs font-medium text-red-600 hover:text-red-700">Cancel Edit</button>
               </div>
               
-              <form id="add-announcement-form" class="space-y-5">
+              <form id="add-announcement-form" class="space-y-4">
                 <div>
-                  <label class="block font-label-md text-xs uppercase tracking-wider text-primary mb-1.5 font-bold">Title *</label>
-                  <input type="text" id="title" required class="w-full input-premium p-3 rounded-xl text-sm font-body-md" placeholder="e.g. Sri Dhakshinamurthy Homam">
+                  <label class="block text-xs font-medium text-zinc-700 mb-1">Title *</label>
+                  <input type="text" id="title" required class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. Special Pooja">
                 </div>
-
                 <div>
-                  <label class="block font-label-md text-xs uppercase tracking-wider text-primary mb-1.5 font-bold">Description *</label>
-                  <textarea id="description" required class="w-full input-premium p-3 rounded-xl text-sm font-body-md resize-none" rows="3" placeholder="Brief description of the event..."></textarea>
+                  <label class="block text-xs font-medium text-zinc-700 mb-1">Description *</label>
+                  <textarea id="description" required rows="3" class="w-full premium-input px-3 py-2 text-sm rounded-md resize-none" placeholder="Details..."></textarea>
                 </div>
-
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                   <div>
-                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Badge</label>
-                    <input type="text" id="badge" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. Upcoming">
+                    <label class="block text-xs font-medium text-zinc-700 mb-1">Badge</label>
+                    <input type="text" id="badge" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. Update">
                   </div>
                   <div>
-                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Full Date</label>
-                    <input type="text" id="fullDate" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. 18 February 2027">
-                  </div>
-                  <div>
-                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Cal Month</label>
-                    <input type="text" id="dateMonth" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. Feb">
-                  </div>
-                  <div>
-                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Cal Day</label>
-                    <input type="number" id="dateDay" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. 18">
+                    <label class="block text-xs font-medium text-zinc-700 mb-1">Full Date</label>
+                    <input type="text" id="fullDate" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. 18 Feb 2027">
                   </div>
                 </div>
-
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                   <div>
-                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Time</label>
-                    <input type="text" id="when" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. 7:00 AM">
+                    <label class="block text-xs font-medium text-zinc-700 mb-1">Cal Month</label>
+                    <input type="text" id="dateMonth" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. Feb">
                   </div>
                   <div>
-                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Location</label>
-                    <input type="text" id="where" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="e.g. Main Shrine">
+                    <label class="block text-xs font-medium text-zinc-700 mb-1">Cal Day</label>
+                    <input type="number" id="dateDay" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. 18">
                   </div>
                 </div>
-
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs font-medium text-zinc-700 mb-1">Time</label>
+                    <input type="text" id="when" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. 7:00 AM">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-zinc-700 mb-1">Location</label>
+                    <input type="text" id="where" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="e.g. Main Shrine">
+                  </div>
+                </div>
                 <div>
-                  <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1.5 font-bold">Action Link (Optional)</label>
-                  <input type="url" id="link" class="w-full input-premium p-2.5 rounded-lg text-sm font-body-md" placeholder="https://...">
+                  <label class="block text-xs font-medium text-zinc-700 mb-1">Action Link URL</label>
+                  <input type="url" id="link" class="w-full premium-input px-3 py-2 text-sm rounded-md" placeholder="https://...">
                 </div>
-
-                <div class="pt-6">
-                  <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-primary to-primary-container hover:from-primary-container hover:to-primary text-white font-label-md text-sm uppercase tracking-widest py-4 px-6 rounded-xl transition-all duration-300 shadow-[0_8px_20px_rgba(87,0,0,0.25)] hover:shadow-[0_12px_25px_rgba(87,0,0,0.35)] hover:-translate-y-0.5 flex items-center justify-center gap-2 font-bold disabled:opacity-70 disabled:cursor-not-allowed">
-                    <span class="material-symbols-outlined text-[18px]">publish</span> Publish Announcement
+                <div class="pt-2">
+                  <button type="submit" id="submit-btn" class="w-full premium-btn py-2.5 rounded-md text-sm font-medium flex items-center justify-center gap-2">
+                    Publish
                   </button>
                 </div>
               </form>
             </div>
           </div>
 
-          <!-- RIGHT COLUMN: LIVE FEED -->
-          <div class="lg:col-span-6 xl:col-span-7 mt-8 lg:mt-0">
-            <div class="flex items-center justify-between border-b border-sandalwood/30 pb-4 mb-6 sticky top-0 bg-[#fcfbf9]/90 backdrop-blur-sm z-10 py-2">
-              <div>
-                <h3 class="text-2xl font-headline-md text-primary font-bold tracking-tight">Live Database Feed</h3>
+          <!-- FEED -->
+          <div class="lg:col-span-7">
+            <div class="premium-card p-0 overflow-hidden">
+              <div class="bg-zinc-50 border-b border-zinc-200 px-6 py-3 flex justify-between items-center">
+                <h3 class="font-medium text-sm text-zinc-700">Live Database Feed</h3>
+                <span class="text-xs text-zinc-500">Realtime Sync</span>
               </div>
-            </div>
-            
-            <div id="feed-container" class="flex flex-col gap-5 pb-12">
-              <!-- Loading Skeleton -->
-              <div class="animate-pulse glass-panel p-6 rounded-2xl flex flex-col gap-4">
-                <div class="h-4 bg-sandalwood/30 rounded w-20"></div>
-                <div class="h-8 bg-sandalwood/20 rounded w-3/4"></div>
-                <div class="h-16 bg-sandalwood/10 rounded w-full"></div>
+              <div id="feed-container" class="divide-y divide-zinc-100 flex flex-col">
+                <!-- Skeleton -->
+                <div class="p-6 animate-pulse">
+                  <div class="h-4 bg-zinc-200 rounded w-1/4 mb-3"></div>
+                  <div class="h-3 bg-zinc-100 rounded w-full mb-2"></div>
+                  <div class="h-3 bg-zinc-100 rounded w-2/3"></div>
+                </div>
               </div>
             </div>
           </div>
-
-        </div>
-      </section>
-      
-      <!-- ============================================== -->
-      <!-- PENDING VIEWS (Events, Timings, Gallery)       -->
-      <!-- ============================================== -->
-      <section id="view-events" class="admin-view">
-        <div class="flex flex-col items-center justify-center py-20 opacity-70">
-          <span class="material-symbols-outlined text-6xl text-sandalwood mb-4">event</span>
-          <h2 class="text-2xl font-headline-md text-primary font-bold">Events Module</h2>
-          <p class="font-body-md text-on-surface-variant mt-2">This module will be unlocked in Phase 3.</p>
         </div>
       </section>
 
-      <section id="view-timings" class="admin-view">
-        <div class="flex flex-col items-center justify-center py-20 opacity-70">
-          <span class="material-symbols-outlined text-6xl text-sandalwood mb-4">schedule</span>
-          <h2 class="text-2xl font-headline-md text-primary font-bold">Timings Module</h2>
-          <p class="font-body-md text-on-surface-variant mt-2">This module will be unlocked in Phase 3.</p>
+      <!-- ========================================== -->
+      <!-- PENDING VIEWS                              -->
+      <!-- ========================================== -->
+      <section id="view-events" class="admin-view max-w-6xl mx-auto">
+        <h2 class="text-2xl font-semibold mb-6">Events Management</h2>
+        <div class="premium-card p-12 text-center text-zinc-500">
+          <span class="material-symbols-outlined text-4xl mb-2">construction</span>
+          <h3 class="text-lg font-medium text-zinc-900 mb-1">Under Construction</h3>
+          <p class="text-sm">This module is scheduled for development.</p>
         </div>
       </section>
 
-      <section id="view-gallery" class="admin-view">
-        <div class="flex flex-col items-center justify-center py-20 opacity-70">
-          <span class="material-symbols-outlined text-6xl text-sandalwood mb-4">photo_library</span>
-          <h2 class="text-2xl font-headline-md text-primary font-bold">Gallery & Storage</h2>
-          <p class="font-body-md text-on-surface-variant mt-2">This module will be unlocked in Phase 4.</p>
+      <section id="view-gallery" class="admin-view max-w-6xl mx-auto">
+        <h2 class="text-2xl font-semibold mb-6">Media Gallery</h2>
+        <div class="premium-card p-12 text-center text-zinc-500">
+          <span class="material-symbols-outlined text-4xl mb-2">construction</span>
+          <h3 class="text-lg font-medium text-zinc-900 mb-1">Under Construction</h3>
+          <p class="text-sm">This module is scheduled for development.</p>
         </div>
       </section>
 
     </main>
   </div>
 
-  <!-- UI & Modules Logic -->
   <script src="../assets/js/admin-ui.js"></script>
   <script type="module" src="../assets/js/admin-announcements.js"></script>
 </body>
