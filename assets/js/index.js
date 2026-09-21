@@ -299,22 +299,32 @@ document.addEventListener('DOMContentLoaded', () => {
       1: {
         url: "assets/audio/purusha-suktam.mp3",
         btnId: "track-btn-1",
+        title: "Purusha Suktam",
+        subtitle: "Traditional Rigvedic Chants"
       },
       2: {
         url: "assets/audio/bhaagya-suktam.mp3",
         btnId: "track-btn-2",
+        title: "Bhaagya Suktam",
+        subtitle: "Vedic Hymn for Prosperity"
       },
       3: {
         url: "assets/audio/nirvana-shathakam.mp3",
         btnId: "track-btn-3",
+        title: "Nirvana Shathakam",
+        subtitle: "Song of Self-Realization"
       },
       4: {
         url: "assets/audio/sri-suktham.mp3",
         btnId: "track-btn-4",
+        title: "Sri Suktham",
+        subtitle: "Vedic Hymn to Goddess Lakshmi"
       },
       5: {
         url: "assets/audio/sri-subrahmanya.mp3",
         btnId: "track-btn-5",
+        title: "Sri Subrahmanya Bhujanga",
+        subtitle: "Hymn to Lord Subrahmanya"
       }
     };
     let currentTrackId = 0;
@@ -344,6 +354,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
+      // Update Now Playing UI
+      const titleEl = document.getElementById('now-playing-title');
+      const subtitleEl = document.getElementById('now-playing-subtitle');
+      if (titleEl) titleEl.innerText = track.title;
+      if (subtitleEl) subtitleEl.innerText = track.subtitle;
+
       if (currentTrackId === trackId) {
         togglePlayState();
         return;
@@ -354,6 +370,55 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.load();
       playAudio();
     }
+
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return "00:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function initAudioEvents() {
+      const audio = document.getElementById('sanctuary-audio');
+      const progressBar = document.getElementById('audio-progress');
+      const currentTimeEl = document.getElementById('audio-time-current');
+      const totalTimeEl = document.getElementById('audio-time-total');
+      let isDragging = false;
+
+      if (!audio || !progressBar) return;
+
+      audio.addEventListener('loadedmetadata', () => {
+        progressBar.max = audio.duration;
+        totalTimeEl.innerText = formatTime(audio.duration);
+      });
+
+      audio.addEventListener('timeupdate', () => {
+        if (!isDragging) {
+          progressBar.value = audio.currentTime;
+          currentTimeEl.innerText = formatTime(audio.currentTime);
+        }
+      });
+
+      audio.addEventListener('ended', () => {
+        nextTrack();
+      });
+
+      progressBar.addEventListener('input', () => {
+        isDragging = true;
+        currentTimeEl.innerText = formatTime(progressBar.value);
+      });
+
+      progressBar.addEventListener('change', () => {
+        audio.currentTime = progressBar.value;
+        isDragging = false;
+        if (!isAudioPlaying && currentTrackId !== 0) {
+           playAudio();
+        }
+      });
+    }
+
+    // Call init immediately since we are inside DOMContentLoaded
+    initAudioEvents();
 
     function playAudio() {
       const audio = document.getElementById('sanctuary-audio');
@@ -382,6 +447,8 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.play().then(() => {
         isAudioPlaying = true;
         document.getElementById('play-btn-icon').innerText = 'pause';
+        const indicator = document.getElementById('live-indicator');
+        if (indicator) indicator.classList.remove('hidden');
         startVisualizer();
       }).catch(err => {
         console.error("Autoplay blocked or file failed to load:", err);
@@ -396,11 +463,14 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (e) { }
       isAudioPlaying = false;
       document.getElementById('play-btn-icon').innerText = 'play_arrow';
+      const indicator = document.getElementById('live-indicator');
+      if (indicator) indicator.classList.add('hidden');
       stopVisualizer();
       // Reset icons on playlist
       document.querySelectorAll('.track-item').forEach((item, index) => {
         const icon = document.getElementById('track-play-icon-' + (index + 1));
-        if (icon) icon.innerText = 'play_circle';
+        if (icon && index + 1 !== currentTrackId) icon.innerText = 'play_circle';
+        if (icon && index + 1 === currentTrackId) icon.innerText = 'play_circle';
       });
     }
 
