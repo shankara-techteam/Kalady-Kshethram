@@ -89,6 +89,27 @@
   </div>
 </section>
 
+<!-- UPCOMING EVENTS (DYNAMIC) -->
+<section id="upcoming-events" class="relative py-28 px-gutter border-b border-sandalwood/15 overflow-hidden">
+  <!-- Decorative background elements -->
+  <div class="absolute inset-0 bg-surface-container-low/30 -z-10"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+  <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-secondary/5 blur-[100px] rounded-full pointer-events-none -z-10"></div>
+  
+  <div class="max-w-6xl mx-auto relative z-10">
+    <div class="text-center mb-20 reveal-item">
+      <span class="inline-flex items-center gap-2 font-label-md text-xs text-sandalwood uppercase tracking-[0.25em] mb-4 bg-sandalwood/5 border border-sandalwood/20 px-3 py-1 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-sandalwood animate-ping"></span> Live Updates</span>
+      <h2 class="font-display-lg text-primary tracking-tight font-light leading-none mb-6" style="font-size:clamp(2.5rem,5vw,3.5rem)">Upcoming Events & Poojas</h2>
+      <p class="font-body-md text-lg text-on-surface-variant max-w-2xl mx-auto font-light leading-relaxed">Stay updated with the latest special events, celebrations, and poojas at the Kshethram.</p>
+    </div>
+    
+    <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-10 w-full">
+    <!-- Events will be injected here by Firebase -->
+    <div class="flex justify-center py-12 col-span-full"><div class="w-8 h-8 border-4 border-sandalwood/30 border-t-primary rounded-full animate-spin"></div></div>
+  </div>
+  </div>
+</section>
+
 <!-- I. SRI DHAKSHINAMURTHY HOMAM -->
 <section id="homam" class="py-32 px-gutter max-w-5xl mx-auto">
   <div class="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-24 items-start">
@@ -644,5 +665,8 @@
     setTimeout(() => { const i = document.getElementById('chatbot-typing-indicator'); if (i) i.remove(); appendMessage('bot', resp); }, 850);
   }
 </script>
+
+  <!-- External Scripts -->
+  <script type="module" src="../assets/js/index-firebase.js"></script>
 
 </body></html>
