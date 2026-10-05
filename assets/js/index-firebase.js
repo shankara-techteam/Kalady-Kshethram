@@ -53,17 +53,17 @@ import { db, collection, query, orderBy, onSnapshot } from './firebase-config.js
                   <div class="space-y-2 mt-1">
                     <div class="flex items-start gap-2">
                       <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">info</span>
-                      <div><strong class="font-label-md text-primary block mb-0.5">What</strong><span class="text-sm">${data.description}</span></div>
+                      <div><strong class="font-label-md text-primary block mb-0.5">Details</strong><span class="text-sm">${data.description}</span></div>
                     </div>
                     ${data.when ? `
                     <div class="flex items-start gap-2">
                       <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">schedule</span>
-                      <div><strong class="font-label-md text-primary block mb-0.5">When</strong><span class="text-sm">${data.when}</span></div>
+                      <div><strong class="font-label-md text-primary block mb-0.5">Date & Time</strong><span class="text-sm">${data.when}</span></div>
                     </div>` : ''}
                     ${data.where ? `
                     <div class="flex items-start gap-2">
                       <span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">location_on</span>
-                      <div><strong class="font-label-md text-primary block mb-0.5">Where</strong><span class="text-sm">${data.where}</span></div>
+                      <div><strong class="font-label-md text-primary block mb-0.5">Location</strong><span class="text-sm">${data.where}</span></div>
                     </div>` : ''}
                   </div>
                 </div>
