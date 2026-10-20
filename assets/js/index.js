@@ -163,19 +163,19 @@ document.addEventListener('DOMContentLoaded', () => {
         title: "Ancient Sri Krishna Temple",
         subtitle: "The Family Deity (Kuladevatha) of Kaippilly Illam",
         desc: "<p>The ancient Sri Krishna Temple is located directly adjacent to the main Janmabhoomi complex on the banks of the Periyar (Purna) River. This temple holds a highly sacred historical value, as it was the family temple (Kuladevatha) of Kaippilly Illam, the house in which Sri Adi Shankaracharya was born.</p><p>As a young boy, Shankara Offered daily prayers here. The temple is famous for the legendary miracle of redirecting the Periyar River. Shankara's mother, Aryamba, used to walk a long distance daily to take a bath in the Periyar River. One summer day, unable to bear the heat and physical fatigue, she fainted on her way back.</p><p>Devastated, the young child Shankara prayed intensely to Lord Krishna to change the course of the river so that his mother would not have to walk. Lord Krishna granted the child's prayer, and the Periyar River changed its path, flowing directly past the Sri Krishna temple. To this day, the river continues to flow along this redirected course.</p>",
-        img: "./image_1.jpg"
+        img: "./assets/images/image_1.webp"
       },
       2: {
         title: "The Crocodile Ghat (Muthala Kadavu)",
         subtitle: "The Hallowed Location of the Crocodile Miracle",
         desc: "<p>The Crocodile Ghat, or Muthala Kadavu in Malayalam, is the specific spot on the banks of the Periyar River where the legendary incident that initiated Adi Shankaracharya into Sanyasa (renunciation) occurred.</p><p>Shankara was filled with a deep desire to lead a monk's life, but his mother Aryamba vehemently refused to give her permission. One day, while bathing in the Periyar River at this ghat, a crocodile grabbed Shankara's leg. Shankara cried out to his mother, who had rushed to the bank: 'O mother, a crocodile has caught me! I will die unless you permit me to take Sanyasa on the spot!'</p><p>In agony and wanting her son's life to be saved, Aryamba relented and granted her permission. The moment the permission was granted, the crocodile released its hold and vanished. Shankara was then free to enter the path of Sanyasa, leading him to travel across India restoring Sanatana Dharma.</p><p>Today, the Crocodile Ghat features beautiful stone steps leading down to the water, and pilgrims take a holy dip here to honor Shankara's vow of renunciation.</p>",
-        img: "./image_2.jpg"
+        img: "./assets/images/image_2.webp"
       },
       3: {
         title: "Kalady Veda Pathashala",
         subtitle: "Preserving the Oral Tradition of the Vedas",
         desc: "<p>Under the patronage and direction of the Sringeri Sharada Peetham, the Veda Pathashala at Kalady serves as a vital monastic seminary. Here, young students (Vidyarthis) learn to recite and study the Vedas under the guidance of traditional Pandits.</p><p>The curriculum covers:<ul><li class='lotus-bullet'><strong>Veda Adhyayana:</strong> Rig Veda and Yajur Veda recitation.</li><li class='lotus-bullet'><strong>Sanskrit Grammar & Literature:</strong> Master the language of the scriptures.</li><li class='lotus-bullet'><strong>Advaita Vedanta:</strong> Fundamental philosophy of non-duality as taught by Adi Shankaracharya.</li></ul></p><p>The school follows the traditional Gurukula style of living, where boarding, lodging, and education are provided entirely free of cost to the students, supported by donations from devotees around the world.</p>",
-        img: "./image_4.jpg"
+        img: "./assets/images/image_4.jpg"
       }
     };
 

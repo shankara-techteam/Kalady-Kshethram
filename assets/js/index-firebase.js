@@ -128,7 +128,7 @@ import { db, collection, query, orderBy, onSnapshot } from './firebase-config.js
             
             // Build the Image or Placeholder
             const imgHtml = data.image_url 
-              ? `<img src="${data.image_url}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='../assets/images/om.jpg'">`
+              ? `<img src="${data.image_url}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src=window.location.pathname.includes('/pages/') ? '../assets/images/om.webp' : './assets/images/om.webp'">`
               : `<div class="w-full h-full bg-gradient-to-br from-surface-container to-sandalwood/20 flex flex-col items-center justify-center text-primary/50"><span class="material-symbols-outlined text-5xl mb-2">temple_hindu</span><span class="font-label-md text-xs uppercase tracking-[0.2em]">Spiritual Event</span></div>`;
             
             const cardHtml = `
