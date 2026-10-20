@@ -4,13 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard | Kshethram</title>
+  <meta property="og:title" content="Kalady Kshethram | Sri Adi Shankara Janmabhoomi">
+  <meta property="og:description" content="Welcome to the Kalady Janmabhoomi Temple complex, the sacred birthplace of Sri Adi Shankaracharya. Explore its history, shrines, Veda Pathashala, and pilgrim amenities.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/user/repo/main/assets/images/hero-kalady.jpg">
+  <meta property="og:url" content="https://shankara-janmabhoomi.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
   
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
   
-  <script src="../assets/js/tailwind-config.js"></script>
-  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/compiled.css">
   
   <style>
     /* Premium Admin Styles */
@@ -111,7 +115,10 @@
           <input type="email" id="login-email" required class="w-full input-premium p-3.5 rounded-xl text-sm font-body-md" placeholder="admin@kshethram.com">
         </div>
         <div>
-          <label class="block font-label-md text-xs uppercase tracking-wider text-primary mb-1.5 font-bold">Password</label>
+          <div class="flex justify-between items-center mb-1.5">
+            <label class="block font-label-md text-xs uppercase tracking-wider text-primary font-bold">Password</label>
+            <button type="button" id="forgot-password-btn" class="text-xs text-primary hover:text-secondary font-medium transition-colors focus:outline-none">Forgot Password?</button>
+          </div>
           <input type="password" id="login-password" required class="w-full input-premium p-3.5 rounded-xl text-sm font-body-md" placeholder="••••••••">
         </div>
         <button type="submit" id="login-btn" class="w-full bg-gradient-to-r from-primary to-primary-container hover:from-primary-container hover:to-primary text-white font-label-md text-sm uppercase tracking-widest py-4 rounded-xl transition-all duration-300 shadow-[0_8px_20px_rgba(87,0,0,0.25)] hover:shadow-[0_12px_25px_rgba(87,0,0,0.35)] hover:-translate-y-0.5 flex items-center justify-center gap-2 font-bold mt-4">
@@ -146,9 +153,9 @@
       </div>
       
       <nav class="flex-1 py-4 flex flex-col gap-1 overflow-y-auto">
-        <button class="sidebar-item active flex items-center gap-3 px-6 py-3.5 text-left w-full text-white/70" data-tab="announcements">
-          <span class="material-symbols-outlined text-[20px]">campaign</span>
-          <span class="font-label-md text-sm tracking-wide">Announcements</span>
+        <button class="sidebar-item active flex items-center gap-3 px-6 py-3.5 text-left w-full text-white/70" data-tab="content">
+          <span class="material-symbols-outlined text-[20px]">article</span>
+          <span class="font-label-md text-sm tracking-wide">Content Manager</span>
         </button>
         <button class="sidebar-item flex items-center gap-3 px-6 py-3.5 text-left w-full text-white/70" data-tab="events">
           <span class="material-symbols-outlined text-[20px]">event_available</span>
@@ -178,7 +185,7 @@
     <main class="flex-1 flex flex-col h-screen overflow-hidden relative">
       <!-- Top header for current section -->
       <header class="h-20 bg-surface-bright/80 backdrop-blur-md border-b border-sandalwood/30 flex items-center justify-between px-8 shrink-0 z-20">
-        <h2 id="current-tab-title" class="text-2xl font-headline-md text-primary font-bold tracking-tight">Announcements</h2>
+        <h2 id="current-tab-title" class="text-2xl font-headline-md text-primary font-bold tracking-tight">Content Manager</h2>
         <a href="../index.html" target="_blank" class="font-label-md text-xs uppercase tracking-wider text-secondary hover:text-primary transition-all duration-300 flex items-center gap-1.5 bg-white px-4 py-2 rounded-full border border-sandalwood/40 shadow-sm hover:shadow-md">
           <span class="material-symbols-outlined text-[16px]">open_in_new</span> View Site
         </a>
@@ -189,49 +196,77 @@
         <div id="status-toast" class="fixed top-24 right-8 z-50 transition-all duration-300 transform translate-y-[-20px] opacity-0 pointer-events-none"></div>
 
         <!-- ============================== -->
-        <!-- TAB: ANNOUNCEMENTS             -->
+        <!-- TAB: CONTENT MANAGER           -->
         <!-- ============================== -->
-        <div id="tab-announcements" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
+        <div id="tab-content" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
           <!-- Form -->
           <div class="lg:col-span-5">
             <div class="glass-panel p-6 rounded-3xl relative">
               <div class="flex justify-between items-center mb-5">
-                <h3 id="form-title-ann" class="text-xl font-headline-md text-primary font-bold">Add Announcement</h3>
-                <button type="button" id="cancel-edit-ann" class="hidden font-label-md text-[10px] uppercase text-red-600 hover:bg-red-50 px-2 py-1 rounded border border-red-200 transition-colors">Cancel</button>
+                <h3 id="form-title-pos" class="text-xl font-headline-md text-primary font-bold">Add Post</h3>
+                <button type="button" id="cancel-edit-pos" class="hidden font-label-md text-[10px] uppercase text-red-600 hover:bg-red-50 px-2 py-1 rounded border border-red-200 transition-colors">Cancel</button>
               </div>
-              <form id="form-announcements" class="space-y-4">
-                <input type="hidden" id="ann-id">
+              <form id="form-content" class="space-y-4">
+                <input type="hidden" id="pos-id">
                 <div>
                   <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Title *</label>
-                  <input type="text" id="ann-title" required class="w-full input-premium p-2.5 rounded-lg text-sm">
+                  <input type="text" id="pos-title" required class="w-full input-premium p-2.5 rounded-lg text-sm">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Post Type</label>
+                    <select id="pos-type" class="w-full input-premium p-2 rounded-lg text-sm">
+                      <option value="Announcement">Announcement</option>
+                      <option value="News">News</option>
+                      <option value="Article">Article</option>
+                      <option value="Notice">Notice</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Status</label>
+                    <select id="pos-status" class="w-full input-premium p-2 rounded-lg text-sm">
+                      <option value="Published">Published</option>
+                      <option value="Draft">Draft</option>
+                    </select>
+                  </div>
                 </div>
                 <div>
-                  <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Description *</label>
-                  <textarea id="ann-desc" required class="w-full input-premium p-2.5 rounded-lg text-sm resize-none" rows="3"></textarea>
+                  <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Content / Description *</label>
+                  <textarea id="pos-desc" required class="w-full input-premium p-2.5 rounded-lg text-sm resize-none" rows="5" placeholder="Write your post content here..."></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Author</label>
+                    <input type="text" id="pos-author" placeholder="e.g. Admin" class="w-full input-premium p-2 rounded-lg text-sm">
+                  </div>
+                  <div>
+                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Image URL</label>
+                    <input type="url" id="pos-image" placeholder="https://..." class="w-full input-premium p-2 rounded-lg text-sm">
+                  </div>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                   <div>
                     <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Badge</label>
-                    <input type="text" id="ann-badge" placeholder="e.g. Notice" class="w-full input-premium p-2 rounded-lg text-sm">
+                    <input type="text" id="pos-badge" placeholder="e.g. Update" class="w-full input-premium p-2 rounded-lg text-sm">
                   </div>
                   <div>
-                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Full Date</label>
-                    <input type="text" id="ann-fulldate" placeholder="18 Feb 2027" class="w-full input-premium p-2 rounded-lg text-sm">
+                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Display Date</label>
+                    <input type="text" id="pos-fulldate" placeholder="18 Feb 2027" class="w-full input-premium p-2 rounded-lg text-sm">
                   </div>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                   <div>
-                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Date & Time</label>
-                    <input type="text" id="ann-when" placeholder="7:00 AM" class="w-full input-premium p-2 rounded-lg text-sm">
+                    <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Time</label>
+                    <input type="text" id="pos-when" placeholder="7:00 AM" class="w-full input-premium p-2 rounded-lg text-sm">
                   </div>
                   <div>
                     <label class="block font-label-md text-[10px] uppercase tracking-wider text-secondary mb-1">Location</label>
-                    <input type="text" id="ann-where" placeholder="Main Shrine" class="w-full input-premium p-2 rounded-lg text-sm">
+                    <input type="text" id="pos-where" placeholder="Main Shrine" class="w-full input-premium p-2 rounded-lg text-sm">
                   </div>
                 </div>
                 <div class="pt-2">
-                  <button type="submit" id="btn-submit-ann" class="w-full bg-primary hover:bg-primary-container text-white font-label-md text-xs uppercase tracking-widest py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
-                    <span class="material-symbols-outlined text-[16px]">save</span> Save Announcement
+                  <button type="submit" id="btn-submit-pos" class="w-full bg-primary hover:bg-primary-container text-white font-label-md text-xs uppercase tracking-widest py-3 rounded-xl transition-all shadow-[0_8px_20px_rgba(87,0,0,0.15)] hover:shadow-[0_12px_25px_rgba(87,0,0,0.25)] hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-[16px]">publish</span> Save Post
                   </button>
                 </div>
               </form>
@@ -239,8 +274,8 @@
           </div>
           <!-- Feed -->
           <div class="lg:col-span-7 flex flex-col h-[calc(100vh-180px)]">
-            <h3 class="text-lg font-headline-md text-primary font-bold mb-4">Live Feed</h3>
-            <div id="feed-announcements" class="flex-1 overflow-y-auto feed-scroll pr-2 space-y-4 pb-12">
+            <h3 class="text-lg font-headline-md text-primary font-bold mb-4">Live Posts</h3>
+            <div id="feed-content" class="flex-1 overflow-y-auto feed-scroll pr-2 space-y-4 pb-12">
               <!-- Rendered via JS -->
               <div class="animate-pulse bg-white p-5 rounded-2xl border border-sandalwood/20 h-32"></div>
             </div>
@@ -358,13 +393,14 @@
 
   <!-- JS LOGIC -->
   <script type="module">
-    import { db, auth, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy, doc, updateDoc, deleteDoc, signInWithEmailAndPassword, signOut, onAuthStateChanged } from '../assets/js/firebase-config.js';
+    import { db, auth, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy, doc, updateDoc, deleteDoc, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail } from '../assets/js/firebase-config.js';
 
     // --- UI Elements ---
     const loginOverlay = document.getElementById('login-overlay');
     const dashboardLayout = document.getElementById('dashboard-layout');
     const loginForm = document.getElementById('login-form');
     const loginError = document.getElementById('login-error');
+    const forgotPasswordBtn = document.getElementById('forgot-password-btn');
     const logoutBtn = document.getElementById('logout-btn');
     const adminEmailDisplay = document.getElementById('admin-email-display');
     const statusToast = document.getElementById('status-toast');
@@ -428,7 +464,7 @@
         adminEmailDisplay.textContent = user.email;
         
         // Initialize Data Listeners
-        initAnnouncements();
+        initContent();
         initEvents();
         initGallery();
       } else {
@@ -442,13 +478,47 @@
       }
     });
 
+    forgotPasswordBtn.addEventListener('click', async () => {
+      const email = document.getElementById('login-email').value;
+      
+      // Reset error styles to default red
+      loginError.className = 'bg-red-50 text-red-600 p-3 rounded-lg text-sm font-medium text-center border border-red-200';
+      
+      if (!email) {
+        loginError.textContent = "Please enter your email address above to reset the password.";
+        loginError.classList.remove('hidden');
+        return;
+      }
+      
+      forgotPasswordBtn.disabled = true;
+      const originalText = forgotPasswordBtn.textContent;
+      forgotPasswordBtn.textContent = "Sending...";
+      
+      try {
+        await sendPasswordResetEmail(auth, email);
+        loginError.textContent = "Password reset email sent! Please check your inbox.";
+        loginError.className = 'bg-green-50 text-green-700 p-3 rounded-lg text-sm font-medium text-center border border-green-200';
+        loginError.classList.remove('hidden');
+      } catch (error) {
+        let msg = error.message;
+        if(error.code === 'auth/user-not-found') msg = "No user found with this email.";
+        if(error.code === 'auth/invalid-email') msg = "Invalid email address.";
+        loginError.textContent = msg;
+        loginError.className = 'bg-red-50 text-red-600 p-3 rounded-lg text-sm font-medium text-center border border-red-200';
+        loginError.classList.remove('hidden');
+      } finally {
+        forgotPasswordBtn.disabled = false;
+        forgotPasswordBtn.textContent = originalText;
+      }
+    });
+
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
       const btn = document.getElementById('login-btn');
       
-      loginError.classList.add('hidden');
+      loginError.className = 'bg-red-50 text-red-600 p-3 rounded-lg text-sm font-medium text-center border border-red-200 hidden';
       btn.disabled = true;
       btn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">sync</span> Loading...`;
 
@@ -590,29 +660,43 @@
       });
     }
 
-    // --- 1. Announcements ---
-    function initAnnouncements() {
-      setupCRUD('announcements', 'form-announcements', 'feed-announcements', [
-        { id: 'ann-title', key: 'title' },
-        { id: 'ann-desc', key: 'description' },
-        { id: 'ann-badge', key: 'badge' },
-        { id: 'ann-fulldate', key: 'fullDate' },
-        { id: 'ann-when', key: 'when' },
-        { id: 'ann-where', key: 'where' }
+    // --- 1. Content Manager (Posts) ---
+    function initContent() {
+      setupCRUD('posts', 'form-content', 'feed-content', [
+        { id: 'pos-title', key: 'title' },
+        { id: 'pos-type', key: 'type' },
+        { id: 'pos-status', key: 'status' },
+        { id: 'pos-author', key: 'author' },
+        { id: 'pos-desc', key: 'description' },
+        { id: 'pos-image', key: 'image_url' },
+        { id: 'pos-badge', key: 'badge' },
+        { id: 'pos-fulldate', key: 'fullDate' },
+        { id: 'pos-when', key: 'when' },
+        { id: 'pos-where', key: 'where' }
       ], (id, data) => {
         const div = document.createElement('div');
-        div.className = "card-hover glass-panel p-5 rounded-2xl flex flex-col gap-3 border-l-4 border-l-primary relative overflow-hidden group";
+        const isDraft = data.status === 'Draft';
+        const statusColor = isDraft ? 'bg-amber-100 text-amber-800 border-amber-200' : 'bg-green-100 text-green-800 border-green-200';
+        div.className = `card-hover glass-panel p-5 rounded-2xl flex gap-4 border-l-4 ${isDraft ? 'border-l-amber-500' : 'border-l-primary'} relative overflow-hidden group`;
+        const imgHtml = data.image_url ? `<img src="${data.image_url}" class="w-20 h-20 object-cover rounded-lg shrink-0 border border-sandalwood/30">` : '';
         div.innerHTML = `
-          <div class="flex justify-between items-start">
-            <div>
-              <span class="font-label-md text-[10px] tracking-[0.1em] text-secondary uppercase bg-secondary/10 px-2 py-0.5 rounded border border-secondary/20 mb-2 inline-block">${data.badge || 'Update'}</span>
-              <h4 class="font-headline-md text-lg text-primary font-semibold">${data.title}</h4>
-              <p class="font-body-md text-sm text-on-surface-variant mt-1 line-clamp-2">${data.description}</p>
+          ${imgHtml}
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="font-label-md text-[9px] tracking-[0.1em] text-secondary uppercase bg-secondary/10 px-1.5 py-0.5 rounded border border-secondary/20">${data.type || 'Post'}</span>
+              ${data.badge ? `<span class="font-label-md text-[9px] tracking-[0.1em] text-primary uppercase bg-primary/10 px-1.5 py-0.5 rounded border border-primary/20">${data.badge}</span>` : ''}
+              <span class="font-label-md text-[9px] tracking-[0.1em] uppercase px-1.5 py-0.5 rounded border ${statusColor} ml-auto">${data.status || 'Published'}</span>
             </div>
-          </div>
-          <div class="flex gap-2 mt-3 pt-3 border-t border-sandalwood/20">
-            <button class="btn-edit font-label-md text-[10px] uppercase tracking-widest text-primary hover:bg-primary/10 px-3 py-1.5 rounded flex items-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">edit</span> Edit</button>
-            <button class="btn-delete font-label-md text-[10px] uppercase tracking-widest text-red-600 hover:bg-red-50 px-3 py-1.5 rounded flex items-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">delete</span> Delete</button>
+            <h4 class="font-headline-md text-lg text-primary font-semibold truncate">${data.title}</h4>
+            <p class="font-body-md text-sm text-on-surface-variant mt-1 line-clamp-2 whitespace-pre-line">${data.description}</p>
+            <div class="flex items-center gap-4 mt-3">
+              ${data.author ? `<span class="font-label-md text-[10px] text-tertiary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">person</span> ${data.author}</span>` : ''}
+              ${data.fullDate ? `<span class="font-label-md text-[10px] text-tertiary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> ${data.fullDate}</span>` : ''}
+            </div>
+            <div class="flex gap-2 mt-3 pt-3 border-t border-sandalwood/20">
+              <button class="btn-edit font-label-md text-[10px] uppercase tracking-widest text-primary hover:bg-primary/10 px-3 py-1.5 rounded flex items-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">edit</span> Edit</button>
+              <button class="btn-delete font-label-md text-[10px] uppercase tracking-widest text-red-600 hover:bg-red-50 px-3 py-1.5 rounded flex items-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">delete</span> Delete</button>
+            </div>
           </div>
         `;
         return div;

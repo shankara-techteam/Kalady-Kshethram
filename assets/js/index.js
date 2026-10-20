@@ -973,10 +973,11 @@ document.addEventListener('DOMContentLoaded', () => {
         lenis = new Lenis({
           duration: 1.4,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo out
-          direction: 'vertical',
-          gestureDirection: 'vertical',
-          smooth: true,
+          orientation: 'vertical',
+          gestureOrientation: 'vertical',
+          smoothWheel: true,
           smoothTouch: true,
+          wheelMultiplier: 1,
           touchMultiplier: 1.5,
           infinite: false,
         });

@@ -4,18 +4,19 @@ import { db, collection, query, orderBy, onSnapshot } from './firebase-config.js
       const container = document.getElementById('announcements-container');
       if (!container) return;
 
-      const q = query(collection(db, 'announcements'), orderBy('createdAt', 'desc'));
+      const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
 
       onSnapshot(q, (snapshot) => {
         container.innerHTML = ''; // Clear existing
-        if (snapshot.empty) {
-          container.innerHTML = '<p class="text-on-surface-variant p-4 font-body-md">No announcements at this time.</p>';
-          return;
-        }
-
+        
+        let hasPublished = false;
         let delay = 200;
+        
         snapshot.forEach((doc) => {
           const data = doc.data();
+          
+          if (data.status === 'Draft') return; // Skip drafts
+          hasPublished = true;
           
           let dMonth = data.dateMonth || 'N/A';
           let dDay = data.dateDay || 'N/A';
@@ -27,25 +28,33 @@ import { db, collection, query, orderBy, onSnapshot } from './firebase-config.js
             } catch(e){}
           }
 
+          let imgHtml = '';
+          if (data.image_url) {
+            imgHtml = `<img src="${data.image_url}" class="w-full h-32 object-cover rounded-t-xl mb-3 border-b border-sandalwood/20">`;
+          }
+
           const cardHtml = `
             <div class="snap-start shrink-0 w-[85vw] md:w-[380px] lg:w-[420px] flex flex-col group relative reveal-item active" style="transition-delay: ${delay}ms">
-              <div class="announce-card h-full border border-sandalwood/30 bg-surface-container/50 p-5 rounded-xl transition-all duration-300 flex flex-col cursor-default overflow-hidden">
+              <div class="announce-card h-full border border-sandalwood/30 bg-surface-container/50 ${data.image_url ? 'p-0 pb-5' : 'p-5'} rounded-xl transition-all duration-300 flex flex-col cursor-default overflow-hidden">
                 
-                <div class="flex items-start justify-between mb-3">
-                  <span class="font-label-md text-[10px] tracking-[0.15em] text-secondary uppercase bg-secondary/10 px-2 py-1 rounded-md border border-secondary/20">
-                    ${data.badge || 'Update'}
-                  </span>
-                  <div class="flex flex-col items-center border border-primary/20 rounded overflow-hidden shadow-sm bg-surface -mt-1">
-                    <div class="bg-primary text-white text-[9px] font-label-md tracking-[0.2em] px-2 py-0.5 w-full text-center uppercase">
-                      ${dMonth}
-                    </div>
-                    <div class="text-primary font-headline-md font-bold text-base px-2 py-0 w-full text-center leading-none">
-                      ${dDay}
+                ${imgHtml}
+                
+                <div class="${data.image_url ? 'px-5' : ''} flex-1 flex flex-col">
+                  <div class="flex items-start justify-between mb-3">
+                    <span class="font-label-md text-[10px] tracking-[0.15em] text-secondary uppercase bg-secondary/10 px-2 py-1 rounded-md border border-secondary/20">
+                      ${data.badge || data.type || 'Update'}
+                    </span>
+                    <div class="flex flex-col items-center border border-primary/20 rounded overflow-hidden shadow-sm bg-surface -mt-1">
+                      <div class="bg-primary text-white text-[9px] font-label-md tracking-[0.2em] px-2 py-0.5 w-full text-center uppercase">
+                        ${dMonth}
+                      </div>
+                      <div class="text-primary font-headline-md font-bold text-base px-2 py-0 w-full text-center leading-none">
+                        ${dDay}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold group-hover:text-primary-container transition-colors tracking-tight">
+                  <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold group-hover:text-primary-container transition-colors tracking-tight">
                   ${data.title}
                 </h3>
 
@@ -79,12 +88,18 @@ import { db, collection, query, orderBy, onSnapshot } from './firebase-config.js
                     <span class="material-symbols-outlined text-[16px] transition-transform group-hover/link:translate-x-1">arrow_forward</span>
                   </a>` : ''}
                 </div>
+                <!-- End inner wrapper -->
+                </div>
               </div>
             </div>
           `;
           container.insertAdjacentHTML('beforeend', cardHtml);
           delay += 100;
         });
+
+        if (!hasPublished) {
+          container.innerHTML = '<p class="text-on-surface-variant p-4 font-body-md w-full border border-dashed border-sandalwood/50 rounded-2xl text-center col-span-full">No updates at this time.</p>';
+        }
 
         // Update navigation buttons
         const btnPrev = document.getElementById('announcements-prev');

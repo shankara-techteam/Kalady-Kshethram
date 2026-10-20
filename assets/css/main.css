@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Base typography rules to ensure inputs and other non-inheriting elements match */
     html,
     body {

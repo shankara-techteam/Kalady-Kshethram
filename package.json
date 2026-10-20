@@ -1,0 +1,10 @@
+{
+  "name": "adi-shankara-project",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./assets/css/main.css -o ./assets/css/compiled.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
